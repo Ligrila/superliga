@@ -35,12 +35,9 @@ export default class LoginScreen extends React.Component {
       );
     }
   
-    _onSubmit = async () => {
-      setTimeout( async ()=>{
-        console.log("submit");
+    async _onSubmit (){
         await AsyncStorage.setItem('userToken', 'abc');
         this.props.navigation.navigate('Main');
-      },3000);
     };
   }
 

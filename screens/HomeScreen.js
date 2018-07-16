@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   AsyncStorage,
+  ActivityIndicator,
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
@@ -25,19 +26,22 @@ export default class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
-    this._userToken();
+    this._userToken().then((s)=>{
+      this.setState({token:s});
+    });
+
+    this.setState({isLoading:false});
 
   }
 
   async _userToken () {
     var ret = await AsyncStorage.getItem('userToken');
-    console.log(ret);
     return ret;
   };
 
   render() {
     if (this.state.isLoading) {
-      return <View></View>;
+      return <View><ActivityIndicator></ActivityIndicator></View>;
     }
     var userToken = this.state.token;
     return (

@@ -7,7 +7,22 @@ import MainTabNavigator from './MainTabNavigator';
 import LoginScreen from '../screens/LoginScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
-import SidebarDrawerContentComponent from '../components/SidebarDrawerContentComponent';
+import {SidebarDrawerContentComponent} from '../components/SidebarDrawerContentComponent';
+
+
+import {
+  StyleSheet,
+  Image,
+  Container,
+  Content,
+  Header,
+  Text,
+  ScrollView,
+  Body
+} from 'react-native';
+import { DrawerItems,SafeAreaView } from 'react-navigation'
+
+
 
 
 const AuthStack = createStackNavigator({ Login: LoginScreen });
@@ -21,7 +36,7 @@ var Main = createDrawerNavigator({
   }
 },{
     drawerPosition: 'right',
-    //contentComponent: SidebarDrawerContentComponent,
+    contentComponent: SidebarDrawerContentComponent,
     drawerOpenRoute: 'DrawerOpen',
     drawerCloseRoute: 'DrawerClose',
     drawerToggleRoute: 'DrawerToggle'

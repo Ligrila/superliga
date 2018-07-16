@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  AsyncStorage,
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
@@ -16,10 +17,29 @@ import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "Home",
+    title: "Home"
+  };
+  state = {
+    isLoading: true,
+    token: ""
+  };
+
+  componentDidMount() {
+    this._userToken();
+
+  }
+
+  async _userToken () {
+    var ret = await AsyncStorage.getItem('userToken');
+    console.log(ret);
+    return ret;
   };
 
   render() {
+    if (this.state.isLoading) {
+      return <View></View>;
+    }
+    var userToken = this.state.token;
     return (
           <View style={styles.container}>
             <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -38,6 +58,7 @@ export default class HomeScreen extends React.Component {
                 {this._maybeRenderDevelopmentModeWarning()}
 
                 <Text style={styles.getStartedText}>Get started by opening</Text>
+                <Text style={styles.getStartedText}>User Token: {userToken}</Text>
 
                 <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
                   <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>

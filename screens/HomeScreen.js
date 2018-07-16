@@ -16,21 +16,8 @@ import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "Home Studio",
-
-  //  header:null,
+    title: "Home",
   };
-  /*static navigationOptions = ({ navigation }) => ({
-    title: "Start",
-    headerLeft: <Icon name="ios-menu" style={{ paddingLeft: 10 }} onPress={() => navigation.navigate('DrawerOpen')} />,
-    drawerLabel: 'Home',
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        source={require('../assets/images/robot-dev.png')}
-        style={styles.icon}
-      />
-    ),
-  })*/
 
   render() {
     return (

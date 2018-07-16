@@ -5,6 +5,8 @@ import { createSwitchNavigator,createDrawerNavigator, createStackNavigator } fro
 import MainTabNavigator from './MainTabNavigator';
 
 import LoginScreen from '../screens/LoginScreen';
+import LogoutScreen from '../screens/LogoutScreen';
+
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
 import {SidebarDrawerContentComponent} from '../components/SidebarDrawerContentComponent';
@@ -21,8 +23,8 @@ var Main = createDrawerNavigator({
   Home: {
     screen: MainTabNavigator
   },
-  Login: {
-    screen: LoginScreen
+  Logout: {
+    screen: LogoutScreen
   }
 },{
     drawerPosition: 'right',

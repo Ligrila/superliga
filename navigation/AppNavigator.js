@@ -1,5 +1,5 @@
 import React from 'react';
-import { createSwitchNavigator,createDrawerNavigator  , createStackNavigator } from 'react-navigation';
+import { createSwitchNavigator,createDrawerNavigator, createStackNavigator } from 'react-navigation';
 
 
 import MainTabNavigator from './MainTabNavigator';
@@ -12,20 +12,31 @@ import SidebarDrawerContentComponent from '../components/SidebarDrawerContentCom
 
 const AuthStack = createStackNavigator({ Login: LoginScreen });
 
-export default createDrawerNavigator({
+var Main = createDrawerNavigator({
+  Home: {
+    screen: MainTabNavigator
+  },
+  Login: {
+    screen: LoginScreen
+  }
+},{
+    drawerPosition: 'right',
+    //contentComponent: SidebarDrawerContentComponent,
+    drawerOpenRoute: 'DrawerOpen',
+    drawerCloseRoute: 'DrawerClose',
+    drawerToggleRoute: 'DrawerToggle'
+  }
+);
+
+export default createSwitchNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   AuthLoading: AuthLoadingScreen,
-  Main: MainTabNavigator,
+  Main: Main,
   Auth: AuthStack
 
 },
 {
-  initialRouteName: 'Main',
-  drawerPosition: 'right',
-  contentComponent: SidebarDrawerContentComponent
-  /*
-  drawerOpenRoute: 'DrawerOpen',
-  drawerCloseRoute: 'DrawerClose',
-  drawerToggleRoute: 'DrawerToggle'*/
+  initialRouteName: 'AuthLoading',
+
 });

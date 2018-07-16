@@ -7,9 +7,15 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
+
+import navigationOptions from '../constants/NavigationOptions';
+
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
+},{
+  ...navigationOptions
 });
+
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
@@ -27,6 +33,8 @@ HomeStack.navigationOptions = {
 
 const LinksStack = createStackNavigator({
   Links: LinksScreen,
+},{
+  ...navigationOptions
 });
 
 LinksStack.navigationOptions = {
@@ -41,6 +49,8 @@ LinksStack.navigationOptions = {
 
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen,
+},{
+  ...navigationOptions
 });
 
 SettingsStack.navigationOptions = {

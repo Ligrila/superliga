@@ -10,22 +10,12 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import {SidebarDrawerContentComponent} from '../components/SidebarDrawerContentComponent';
 
 
-import {
-  StyleSheet,
-  Image,
-  Container,
-  Content,
-  Header,
-  Text,
-  ScrollView,
-  Body
-} from 'react-native';
-import { DrawerItems,SafeAreaView } from 'react-navigation'
 
-
-
-
-const AuthStack = createStackNavigator({ Login: LoginScreen });
+const AuthStack = createStackNavigator(
+  { 
+    Login: LoginScreen 
+  },
+);
 
 var Main = createDrawerNavigator({
   Home: {
@@ -52,6 +42,5 @@ export default createSwitchNavigator({
 
 },
 {
-  initialRouteName: 'AuthLoading',
-
+  initialRouteName: 'AuthLoading'
 });

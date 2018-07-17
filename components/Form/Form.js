@@ -70,10 +70,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    position: 'relative'
   },
   btnEye: {
     position: 'absolute',
-    top: 70,
+    top: 60,
     right: 28,
   },
   iconEye: {

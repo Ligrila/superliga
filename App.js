@@ -2,44 +2,27 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import WebSockHop from 'websockhop';
+
+
+import SocketClient from './modules/SocketClient';
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
     isConnected: false
   };
+  socket = null;
   async initNetwork(){
-    var wsh = new WebSockHop('ws://echo.websocket.org');
-
-console.log('connecting...');
-
-wsh.on('opened', function () {
-  console.log('connected');
-
-  // we're connected, send a message
-  wsh.send('test message');
-});
-
-wsh.on('message', function (message) {
-  console.log(message);
-
-  // we've received a reply, now disconnect
-  wsh.close(2,3);
-});
-
-wsh.on('closed', function() {
-  console.log('finished');
-  wsh = null;
-});
-    
-
+        this.socket = new SocketClient;
+        this.socket.connect("userDataUpdated",this.onNewUser);
   }
   componentDidMount() {
     this.initNetwork();
-
   }
-
+  onNewUser(payload){
+    console.log("new user");
+    console.log(payload);
+  }
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (

@@ -35,7 +35,7 @@ export default class HomeScreen extends React.Component {
   }
 
   async _userToken () {
-    var ret = await AsyncStorage.getItem('userToken');
+    var ret = await AsyncStorage.getItem('token');
     return ret;
   };
 

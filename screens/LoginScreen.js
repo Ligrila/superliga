@@ -15,11 +15,14 @@ import Wallpaper from '../components/Form/Wallpaper';
 import ButtonSubmit from '../components/Form/ButtonSubmit';
 import SignupSection from '../components/Form/SignupSection';
 
+import Api from '../api/Api';
+
 export default class LoginScreen extends React.Component {
     static navigationOptions = {
       title: 'Please sign in',
       header: null
     };
+    api = new Api;
     constructor(props) {
       super(props);
       this._onSubmit = this._onSubmit.bind(this);
@@ -51,12 +54,16 @@ export default class LoginScreen extends React.Component {
         });
       if (type === 'success') {
         // Get the user's name using Facebook's Graph API
+        /*console.log(`https://graph.facebook.com/me?access_token=${token}&fields=name,email,first_name,last_name`);
         const response = await fetch(
           `https://graph.facebook.com/me?access_token=${token}&fields=name,email,first_name,last_name`);
         var user = await response.json();
-        console.log(user);
-        await AsyncStorage.setItem('userToken', user.email);
-        this.props.navigation.navigate('Main');
+        console.log(user);*/
+        var user = await this.api.facebookLogin(token);
+        if(user.success){
+          await AsyncStorage.setItem('token', user.data.token);
+          this.props.navigation.navigate('Main');
+        }
       }
     }
   

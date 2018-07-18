@@ -3,12 +3,16 @@ import RestClient from './RestClient';
 export default class Api extends RestClient {
   constructor () {
     // Initialize with your base URL
-    super('https://api.myawesomeservice.com');
+    super('http://192.168.0.138/superliga');
   }
   // Now you can write your own methods easily
   login (username, password) {
     // Returns a Promise with the response.
-    return this.POST('/login', { username, password });
+    return this.POST('/users/token', { username, password });
+  }
+  facebookLogin (access_token) {
+    // Returns a Promise with the response.
+    return this.POST('/users/facebook-login', { access_token });
   }
   getCurrentUser () {
     // If the request is successful, you can return the expected object

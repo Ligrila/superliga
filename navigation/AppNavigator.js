@@ -5,6 +5,10 @@ import { createSwitchNavigator,createDrawerNavigator, createStackNavigator } fro
 import MainTabNavigator from './MainTabNavigator';
 
 import LoginScreen from '../screens/LoginScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import CalendarScreen from '../screens/CalendarScreen';
+import AwardScreen from '../screens/AwardScreen';
+import BuyScreen from '../screens/BuyScreen';
 import LogoutScreen from '../screens/LogoutScreen';
 
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
@@ -22,6 +26,18 @@ const AuthStack = createStackNavigator(
 var Main = createDrawerNavigator({
   Home: {
     screen: MainTabNavigator
+  },
+  Profile: {
+    screen: ProfileScreen
+  },
+  Calendar: {
+    screen: CalendarScreen
+  },
+  Award:{
+    screen: AwardScreen
+  },
+  Buy:{
+    screen: BuyScreen
   },
   Logout: {
     screen: LogoutScreen

@@ -1,3 +1,11 @@
+/*
+  Si hay problemas en IOS de user agent undefined cambiar
+  vendor websockhop el archivo browserDetection.js al principio con
+  esto:
+    if(typeof(ua)=='undefined'){
+        ua = 'react-native';
+    }
+*/
 import WebSockHop from 'websockhop';
 
 export default class SocketClient{

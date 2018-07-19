@@ -3,7 +3,6 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 
-
 import SocketClient from './modules/SocketClient';
 
 export default class App extends React.Component {
@@ -13,10 +12,11 @@ export default class App extends React.Component {
   };
   socket = null;
   async initNetwork(){
-        this.socket = new SocketClient;
+      this.socket = new SocketClient;
         //this.socket.connect("userDataUpdated",this.onNewUser);
   }
   componentDidMount() {
+
     this.initNetwork();
   }
   onNewUser(payload){

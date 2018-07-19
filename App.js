@@ -14,7 +14,7 @@ export default class App extends React.Component {
   socket = null;
   async initNetwork(){
         this.socket = new SocketClient;
-        this.socket.connect("userDataUpdated",this.onNewUser);
+        //this.socket.connect("userDataUpdated",this.onNewUser);
   }
   componentDidMount() {
     this.initNetwork();

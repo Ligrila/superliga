@@ -14,22 +14,32 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
+import Api from '../api/Api';
+
 
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Home"
   };
+  api = new Api;
+
   state = {
     isLoading: true,
     token: ""
   };
-
+  async getTrivias(){
+    var trivias = await this.api.getTrivias();
+    console.log(trivias);
+  }
   componentDidMount() {
     this._userToken().then((s)=>{
       this.setState({token:s});
     });
-
+    
+    
+    this.getTrivias();
+    
     this.setState({isLoading:false});
 
   }

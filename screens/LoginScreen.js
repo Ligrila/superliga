@@ -61,7 +61,12 @@ export default class LoginScreen extends React.Component {
         console.log(user);*/
         var user = await this.api.facebookLogin(token);
         if(user.success){
-          await AsyncStorage.setItem('token', user.data.token);
+          try{
+            await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
+            await AsyncStorage.setItem('token', user.data.token);
+          } catch(e){
+            console.log(e);
+          }
           this.props.navigation.navigate('Main');
         }
       }

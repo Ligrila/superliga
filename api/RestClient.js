@@ -1,3 +1,7 @@
+import {
+  AsyncStorage
+} from 'react-native';
+
 export default class RestClient {
     constructor (baseUrl = '', { headers = {}, devMode = false, simulatedDelay = 0 } = {}) {
       if (!baseUrl) throw new Error('missing baseUrl');
@@ -23,7 +27,7 @@ export default class RestClient {
       return `${this.baseUrl}${url}`;
     }
   
-    _fetch (route, method, body, isQuery = false) {
+    async _fetch (route, method, body, isQuery = false) {
       if (!route) throw new Error('Route is undefined');
       var fullRoute = this._fullRoute(route);
       if (isQuery && body) {
@@ -32,6 +36,12 @@ export default class RestClient {
         fullRoute = `${fullRoute}?${query}`;
         body = undefined;
       }
+      //add user token if it exists
+      const userToken = await AsyncStorage.getItem('token');
+      if(userToken){
+        this.headers = {...this.headers,'Authorization': 'Bearer ' + userToken};
+      }
+
       let opts = {
         method,
         headers: this.headers

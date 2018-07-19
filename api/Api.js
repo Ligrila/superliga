@@ -20,4 +20,8 @@ export default class Api extends RestClient {
     return this.GET('/auth')
       .then(response => response.user);
   }
+  getTrivias(){
+    return this.GET('/trivias/index');
+
+  }
 };

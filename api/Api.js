@@ -8,7 +8,11 @@ export default class Api extends RestClient {
   // Now you can write your own methods easily
   login (username, password) {
     // Returns a Promise with the response.
-    return this.POST('/users/token', { username, password });
+    return this.POST('/users/login', { username, password });
+  }
+  token (token) {
+    // Returns a Promise with the response.
+    return this.POST('/users/token', { token });
   }
   facebookLogin (access_token) {
     // Returns a Promise with the response.

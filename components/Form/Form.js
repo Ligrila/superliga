@@ -19,13 +19,21 @@ import passwordImg from '../../assets/images/form/password.png';
 import eyeImg from '../../assets/images/form/eye_black.png';
 
 export default class Form extends Component {
+  static defaultProps = {
+    password:'asdasd',
+    email:'leandro@mocla.us',
+  }
   constructor(props) {
     super(props);
     this.state = {
       showPass: true,
       press: false,
+      email: null,
+      password: null
     };
     this.showPass = this.showPass.bind(this);
+    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
   }
 
   showPass() {
@@ -33,6 +41,19 @@ export default class Form extends Component {
       ? this.setState({showPass: false, press: true})
       : this.setState({showPass: true, press: false});
   }
+  async onEmailChange(email){
+    await  this.setState({email});
+    if(this.props.onChange){
+      this.props.onChange(this.state);
+    }
+  }
+  async onPasswordChange(password){
+    await this.setState({password});
+    if(this.props.onChange){
+      this.props.onChange(this.state);
+    }
+  }
+
 
   render() {
     return (
@@ -43,6 +64,8 @@ export default class Form extends Component {
           autoCapitalize={'none'}
           returnKeyType={'done'}
           autoCorrect={false}
+          value={this.props.email}
+          onChangeText={this.onEmailChange}
         />
         <UserInput
           source={passwordImg}
@@ -51,6 +74,7 @@ export default class Form extends Component {
           returnKeyType={'done'}
           autoCapitalize={'none'}
           autoCorrect={false}
+          value={this.props.password}
         />
         <TouchableOpacity
           activeOpacity={0.7}

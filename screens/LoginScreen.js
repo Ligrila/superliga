@@ -23,18 +23,27 @@ export default class LoginScreen extends React.Component {
       header: null
     };
     api = new Api;
+    static defaultState = {
+      email: null,
+      password: null
+    }
     constructor(props) {
       super(props);
       this._onSubmit = this._onSubmit.bind(this);
       this.facebookLogin = this.facebookLogin.bind(this);
+      this.onFormChange = this.onFormChange.bind(this);
     }
     
+    onFormChange(state){
+      this.setState(state);
+
+    }
 
     render() {
       return (
         <Wallpaper>
           <Logo />
-          <Form />
+          <Form onChange={this.onFormChange}/>
           <ButtonSubmit onPress={this._onSubmit} />
           <Button text="" onPress={this._onSubmit} icon={{name:"facebook-official",type:"FontAwesome"}} />
           <View style={styles.socialLogin}>
@@ -63,7 +72,7 @@ export default class LoginScreen extends React.Component {
         if(user.success){
           try{
             await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
-            await AsyncStorage.setItem('token', user.data.token);
+            await AsyncStorage.setItem('token', user.data.access_token);
           } catch(e){
             console.log(e);
           }
@@ -75,6 +84,19 @@ export default class LoginScreen extends React.Component {
     async _onSubmit (){
         //await AsyncStorage.setItem('userToken', 'abc');
   //      this.props.navigation.navigate('Main');
+        let {email,password} = this.state;
+        var user = await this.api.login(email,password);
+        if(user.success){
+          try{
+            await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
+            await AsyncStorage.setItem('token', user.data.access_token);
+          } catch(e){
+            console.log(e);
+          }
+          this.props.navigation.navigate('Main');
+        }
+        
+
     };
   }
 

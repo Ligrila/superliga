@@ -4,6 +4,17 @@ import Dimensions from 'Dimensions';
 import {StyleSheet, View, TextInput, Image} from 'react-native';
 
 export default class UserInput extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {text: this.props.value};
+    this.onChangeText = this.onChangeText.bind(this);
+  }
+  onChangeText(text){
+    this.setState({text});
+    if(this.props.onChangeText){
+      this.props.onChangeText(text);
+    }
+  }
   render() {
     return (
       <View style={styles.inputWrapper}>
@@ -15,8 +26,11 @@ export default class UserInput extends Component {
           autoCorrect={this.props.autoCorrect}
           autoCapitalize={this.props.autoCapitalize}
           returnKeyType={this.props.returnKeyType}
+          value={this.props.value}
           placeholderTextColor="white"
           underlineColorAndroid="transparent"
+          onChangeText={this.onChangeText}
+
         />
       </View>
     );

@@ -73,6 +73,7 @@ export default class LoginScreen extends React.Component {
           try{
             await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
             await AsyncStorage.setItem('token', user.data.access_token);
+            await AsyncStorage.setItem('refreshToken', user.data.refresh_token);
           } catch(e){
             console.log(e);
           }
@@ -86,10 +87,12 @@ export default class LoginScreen extends React.Component {
   //      this.props.navigation.navigate('Main');
         let {email,password} = this.state;
         var user = await this.api.login(email,password);
+        console.log(user);
         if(user.success){
           try{
             await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
             await AsyncStorage.setItem('token', user.data.access_token);
+            await AsyncStorage.setItem('refreshToken', user.data.refresh_token);
           } catch(e){
             console.log(e);
           }

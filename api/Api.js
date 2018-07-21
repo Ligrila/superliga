@@ -1,18 +1,39 @@
 import RestClient from './RestClient';
 
+import {
+  AsyncStorage
+} from 'react-native';
+
 export default class Api extends RestClient {
   constructor () {
     // Initialize with your base URL
     super('http://192.168.0.138/superliga');
   }
-  // Now you can write your own methods easily
-  login (username, password) {
-    // Returns a Promise with the response.
-    return this.POST('/users/login', { username, password });
+  async accessTokenExpired(){
+    const refreshToken = await AsyncStorage.getItem('refreshToken');
+    
+    var user = await this.token(refreshToken)
+    if(user.success){
+      console.log(user);
+      console.log("saving new data");
+      console.log("That expire at " + user.data.expire);
+      await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
+      await AsyncStorage.setItem('token', user.data.access_token);
+      await AsyncStorage.setItem('refreshToken', user.data.refresh_token);
+    } else{
+      await AsyncStorage.removeItem('tokenExpire');
+      await AsyncStorage.removeItem('token');
+      await AsyncStorage.removeItem('refreshToken');
+    }
   }
-  token (token) {
+  // Now you can write your own methods easily
+  login (email, password) {
     // Returns a Promise with the response.
-    return this.POST('/users/token', { token });
+    return this.POST('/users/login', { email, password },{authorizationHeader:false});
+  }
+  token (refresh_token) {
+    // Returns a Promise with the response.
+    return this.POST('/users/token', { refresh_token },{authorizationHeader:false});
   }
   facebookLogin (access_token) {
     // Returns a Promise with the response.

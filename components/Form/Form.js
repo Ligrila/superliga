@@ -21,7 +21,7 @@ import eyeImg from '../../assets/images/form/eye_black.png';
 export default class Form extends Component {
   static defaultProps = {
     password:'asdasd',
-    email:'leandro@mocla.us',
+    email:'test@mocla.us',
   }
   constructor(props) {
     super(props);
@@ -74,6 +74,7 @@ export default class Form extends Component {
           returnKeyType={'done'}
           autoCapitalize={'none'}
           autoCorrect={false}
+          onChangeText={this.onPasswordChange}
           value={this.props.password}
         />
         <TouchableOpacity

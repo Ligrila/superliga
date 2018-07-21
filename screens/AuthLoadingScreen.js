@@ -8,7 +8,10 @@ import {
   View,
 } from 'react-native';
 
+import Api from '../api/Api';
+
 export default  class AuthLoadingScreen extends React.Component {
+  api = new Api();
   constructor(props) {
     super(props);
     this._bootstrapAsync();
@@ -22,6 +25,9 @@ export default  class AuthLoadingScreen extends React.Component {
       const tokenExpire = await AsyncStorage.getItem('tokenExpire');
       let timestamp = new Date().getTime();
       let notExpired = tokenExpire > timestamp;
+      console.log("Not expired: " + notExpired);
+      let response = await this.api.getTrivias()
+      console.log(response);
       isLogin = userToken && (tokenExpire !== null && notExpired);
     } catch(e){
       console.log(e);

@@ -1,3 +1,6 @@
+import
+  React
+ from 'react';
 import {
   AsyncStorage
 } from 'react-native';
@@ -14,7 +17,12 @@ export default class RestClient {
       this.simulatedDelay = simulatedDelay;
       this.devMode = devMode;
     }
-  
+    async replayLastFetch(){
+
+    }
+    async accessTokenExpired(){
+      console.log("TODO");
+    }
     _simulateDelay () {
       return new Promise(resolve => {
         setTimeout(() => {
@@ -27,7 +35,12 @@ export default class RestClient {
       return `${this.baseUrl}${url}`;
     }
   
-    async _fetch (route, method, body, isQuery = false) {
+    async _fetch (route, method, body, isQuery = false,options={}) {
+      console.log("API REQUEST: " + route + " body: " + JSON.stringify(body));
+      const defaultOptions = {
+        authorizationHeader : true
+      };
+      options = {...defaultOptions,...options};
       if (!route) throw new Error('Route is undefined');
       var fullRoute = this._fullRoute(route);
       if (isQuery && body) {
@@ -36,10 +49,13 @@ export default class RestClient {
         fullRoute = `${fullRoute}?${query}`;
         body = undefined;
       }
-      //add user token if it exists
-      const userToken = await AsyncStorage.getItem('token');
-      if(userToken){
-        this.headers = {...this.headers,'Authorization': 'Bearer ' + userToken};
+
+      if(options.authorizationHeader){
+        //add user token if it exists
+        const userToken = await AsyncStorage.getItem('token');
+        if(userToken){
+          this.headers = {...this.headers,'Authorization': 'Bearer ' + userToken};
+        }
       }
 
       let opts = {
@@ -50,22 +66,45 @@ export default class RestClient {
         Object.assign(opts, { body: JSON.stringify(body) });
       }
       const fetchPromise = () => fetch(fullRoute, opts);
-      const extractResponse = response =>
-        response.text().then(text => text? JSON.parse(text) : undefined);
+
+      
+      const extractResponse = response => {
+        if (response.status >= 200 && response.status < 300) {
+            return response.text().then(text => text? JSON.parse(text) : undefined)
+          }else {
+            return Promise.reject(response)
+          }
+
+        };
+
+      const manageError = async response => {
+        try{
+          responseData = await response.text().then(text => text? JSON.parse(text) : undefined)
+          if(typeof(responseData.access_token_expired!='undefined') && responseData.access_token_expired){
+            // call renew access token method
+            this.accessTokenExpired();
+          }
+
+        } catch(e){
+          console.log(e);
+        }
+      }
   
       if (this.devMode && this.simulatedDelay > 0) {
         // Simulate an n-second delay in every request
         return this._simulateDelay()
           .then(() => fetchPromise())
-          .then(extractResponse);
+          .then(extractResponse)
+          .catch(manageError);
       } else {
         return fetchPromise()
-          .then(extractResponse);
+          .then(extractResponse)
+          .catch(manageError);
       }
     }
   
-    GET (route, query) { return this._fetch(route, 'GET', query, true); }
-    POST (route, body) { return this._fetch(route, 'POST', body); }
-    PUT (route, body) { return this._fetch(route, 'PUT', body); }
-    DELETE (route, query) { return this._fetch(route, 'DELETE', query, true); }
+    GET (route, query,options={}) { return this._fetch(route, 'GET', query, true, options); }
+    POST (route, body, options={}) { return this._fetch(route, 'POST', body, false, options); }
+    PUT (route, body,options={}) { return this._fetch(route, 'PUT', body,false,options); }
+    DELETE (route, query,options={}) { return this._fetch(route, 'DELETE', query, true,options); }
   }

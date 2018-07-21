@@ -26,6 +26,7 @@ export default class SocketClient{
         });
   
         wsh.on('message', (message) => {
+          console.log(message);
           //console.log(this._connectedEvents);
         });
   

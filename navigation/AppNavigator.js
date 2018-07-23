@@ -3,6 +3,7 @@ import { createSwitchNavigator,createDrawerNavigator, createStackNavigator } fro
 
 
 import HomeScreen from '../screens/HomeScreen';
+import GameScreen from '../screens/GameScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import CalendarScreen from '../screens/CalendarScreen';
@@ -11,6 +12,7 @@ import BuyScreen from '../screens/BuyScreen';
 import LogoutScreen from '../screens/LogoutScreen';
 
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
+import GameLoadingScreen from '../screens/GameLoadingScreen';
 
 import {SidebarDrawerContentComponent} from '../components/SidebarDrawerContentComponent';
 
@@ -24,9 +26,25 @@ const AuthStack = createStackNavigator(
   },
 );
 
+var GameSwitcher = createSwitchNavigator({
+  // You could add another route here for authentication.
+  // Read more at https://reactnavigation.org/docs/en/auth-flow.html
+  GameLoading: GameLoadingScreen,
+  Home: HomeScreen,
+  GamePlay: GameScreen
+
+},
+{
+  initialRouteName: 'GameLoading'
+});
+
+
 var Main = createDrawerNavigator({
-  Home: {
-    screen: HomeScreen
+  HomeSwitcher: {
+    screen: GameSwitcher,
+    navigationOptions: {
+      title: "Inicio"
+    }
   },
   Profile: {
     screen: ProfileScreen
@@ -64,3 +82,4 @@ export default createSwitchNavigator({
 {
   initialRouteName: 'AuthLoading'
 });
+

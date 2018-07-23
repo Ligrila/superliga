@@ -13,7 +13,12 @@ export class TriviaStore extends Reflux.Store
     {
         super();
         this.listenables = TriviaActions;
+        this.state = this.getInititalState();
 
+    }
+
+    getInititalState(){
+        return {nextTrivia:{success:false,data:[]}};
     }
 
     async onNextTrivia(){

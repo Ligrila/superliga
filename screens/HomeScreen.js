@@ -15,7 +15,6 @@ import {
 import { WebBrowser } from 'expo';
 
 import { Container, Content } from 'native-base'
-import slugify from 'slugify';
 
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
@@ -40,7 +39,6 @@ export default class HomeScreen extends Reflux.Component {
   state = {
     isLoading: true,
     token: "",
-    nextTrivia:{success:false,data:{}}
   };
 	constructor(props) {
     super(props);

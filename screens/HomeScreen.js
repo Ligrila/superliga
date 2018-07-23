@@ -1,4 +1,5 @@
 import React from 'react';
+import Reflux from 'reflux';
 import {
   Image,
   Platform,
@@ -10,38 +11,47 @@ import {
   ActivityIndicator,
   View,
 } from 'react-native';
+
 import { WebBrowser } from 'expo';
 
-import { MonoText } from '../components/StyledText';
+import { Container, Content } from 'native-base'
+import slugify from 'slugify';
 
-import Wallpaper from '../components/Form/Wallpaper';
+import Wallpaper from '../components/Wallpaper';
+import AppHeader from '../components/AppHeader/AppHeader';
+import CountDown from '../components/CountDown';
 
 import Api from '../api/Api';
 
+import {TriviaStore,TriviaActions} from '../store/TriviaStore';
 
 
-export default class HomeScreen extends React.Component {
+
+import bgSrc from '../assets/images/bg.png';
+
+
+export default class HomeScreen extends Reflux.Component {
   static navigationOptions = {
     title: "Home"
   };
   api = new Api;
+  trivia = null;
 
   state = {
     isLoading: true,
-    token: ""
+    token: "",
+    nextTrivia:{success:false,data:{}}
   };
-  async getTrivias(){
-    var trivias = await this.api.getTrivias();
-    console.log(trivias);
-  }
-  componentDidMount() {
-    this._userToken().then((s)=>{
+	constructor(props) {
+    super(props);
+		this.store = TriviaStore;
+	}
+  async componentDidMount() {
+       this._userToken().then((s)=>{
       this.setState({token:s});
     });
-    
-    
-    this.getTrivias();
-    
+
+    await TriviaActions.nextTrivia();
     this.setState({isLoading:false});
 
   }
@@ -50,17 +60,37 @@ export default class HomeScreen extends React.Component {
     var ret = await AsyncStorage.getItem('token');
     return ret;
   };
+  renderNextTrivia(){
+    if(!this.state.nextTrivia||!this.state.nextTrivia.success) return null;
 
+    const localImageStr = '../assets/images/teams/patronato.png';
+    const visitImageStr = '../assets/images/teams/colon.png';
+    const localImage = require(localImageStr);
+    const visitImage = require(visitImageStr);
+    const date = new Date(this.state.nextTrivia.data.start_datetime);
+    var until = ( date.getTime() - new Date().getTime()) / 1000;
+    return(
+      <View>
+        <CountDown until={until} />
+        <Text><Image source={localImage} /> VS <Image source={visitImage} /></Text>
+        <Text>{this.state.nextTrivia.data.local_club.name} VS {this.state.nextTrivia.data.visit_club.name}</Text>
+      </View>
+      
+    );
+  }
   render() {
     if (this.state.isLoading) {
       return <View><ActivityIndicator></ActivityIndicator></View>;
     }
-    var userToken = this.state.token;
     return (
-          <Wallpaper>
-                 <Text style={styles.getStartedText}>Get started by opening</Text>
-                <Text style={styles.getStartedText}>User Token: {userToken}</Text>
-          </Wallpaper>
+          <Container>
+            <Wallpaper source={bgSrc}>
+            <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
+            <Content>
+                 {this.renderNextTrivia()}
+            </Content>
+            </Wallpaper>
+          </Container>
     );
   }
 

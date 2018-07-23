@@ -47,6 +47,9 @@ export default class Api extends RestClient {
   }
   getTrivias(){
     return this.GET('/trivias/index');
+  }
+  getNextTrivia(){
+    return this.GET('/trivias/next');
 
   }
 };

@@ -5,8 +5,7 @@ import {Icon, Header} from 'native-base';
 
 
 
-import superligaAppImg from '../assets/images/app_logo.png';
-import superligaImg from '../assets/images/logo.png';
+
 
 
 class HeaderLeft extends Component {
@@ -23,7 +22,7 @@ class HeaderLeft extends Component {
 
 export default {
     navigationOptions: ({ navigation }) => ({
-      headerLeft: <Image source={superligaImg} style={styles.superligaImg} />,
+      /*headerLeft: <Image source={superligaImg} style={styles.superligaImg} />,
       headerTitle: <Image source={superligaAppImg} style={styles.superligaAppImg} />,
       headerRight: <TouchableOpacity  onPress={() => {navigation.openDrawer();}}><Icon name="ios-menu" style={{ paddingRight: 10 }} /></TouchableOpacity>,
       headerStyle: {
@@ -35,7 +34,7 @@ export default {
       headerTintColor: '#fff',
       headerTitleStyle: {
         fontWeight: 'bold',
-      },
+      },*/
     })
   };
 
@@ -44,14 +43,6 @@ export default {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    superligaAppImg: {
-      width: 181,
-      height: 133,
-    },
-    superligaImg: {
-      width: 68,
-      height: 69,
     },
     text: {
       color: 'white',

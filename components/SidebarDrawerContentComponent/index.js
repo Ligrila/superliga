@@ -18,48 +18,31 @@ import { DrawerItems,SafeAreaView } from 'react-navigation'
 
 
 export const SidebarDrawerContentComponent = (props) => (
-    <ScrollView>
-      <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-      <Header style={styles.drawerHeader}>
-        <Body>
-          <Image
-            style={styles.drawerImage}
-            source={require('../../assets/images/robot-dev.png')} />
-        </Body>
-        </Header>
-        <Content>
-          <DrawerItems {...props} />
-        </Content>
-      </SafeAreaView>
-    </ScrollView>
+    <Container style={styles.container}>
+    <Header style={styles.drawerHeader}>
+      <Body>
+        <Image
+          style={styles.drawerImage}
+          source={require('../../assets/images/robot-dev.png')} />
+      </Body>
+      </Header>
+      <Content>
+        <ScrollView>
+          <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
+            <Content>
+              <DrawerItems {...props} />
+            </Content>
+          </SafeAreaView>
+        </ScrollView>
+      </Content>
+    </Container>
 
 );
-
-const SidebarDrawerContentComponentOld = (props) => (
-      <Container>
-        <Header style={styles.drawerHeader}>
-
-          <Body>
-            <Image
-              style={styles.drawerImage}
-              source={require('../../assets/images/robot-dev.png')} />
-          </Body>
-        </Header>
-        <Content>
-        <Text>SuperLiga</Text>
-        <DrawerItems {...props} />
-        </Content>
-    
-    </Container>
-  
-  );
 
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
     },
     drawerHeader: {
       height: 200,

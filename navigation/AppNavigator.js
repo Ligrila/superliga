@@ -2,8 +2,7 @@ import React from 'react';
 import { createSwitchNavigator,createDrawerNavigator, createStackNavigator } from 'react-navigation';
 
 
-import MainTabNavigator from './MainTabNavigator';
-
+import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import CalendarScreen from '../screens/CalendarScreen';
@@ -15,6 +14,8 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
 import {SidebarDrawerContentComponent} from '../components/SidebarDrawerContentComponent';
 
+import Layout from '../constants/Layout';
+
 
 
 const AuthStack = createStackNavigator(
@@ -25,7 +26,7 @@ const AuthStack = createStackNavigator(
 
 var Main = createDrawerNavigator({
   Home: {
-    screen: MainTabNavigator
+    screen: HomeScreen
   },
   Profile: {
     screen: ProfileScreen
@@ -43,9 +44,10 @@ var Main = createDrawerNavigator({
     screen: LogoutScreen
   }
 },{
-    drawerPosition: 'right',
+    drawerPosition: 'left',
     contentComponent: SidebarDrawerContentComponent,
     drawerOpenRoute: 'DrawerOpen',
+    drawerWidth: Layout.window.width - 70,
     drawerCloseRoute: 'DrawerClose',
     drawerToggleRoute: 'DrawerToggle'
   }

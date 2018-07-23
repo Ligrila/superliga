@@ -11,7 +11,8 @@ import WebSockHop from 'websockhop';
 export default class SocketClient{
     _connectedEvents = [];
     constructor(){
-        WebSockHop.logger = this.logger;
+        //WebSockHop.logger = this.logger;
+        WebSockHop.log = () => {};
         var wsh = new WebSockHop('ws://192.168.0.138:8889/', {
           createSocket: function (url) {
             console.log(url);

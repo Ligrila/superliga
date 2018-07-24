@@ -91,6 +91,7 @@ export default class RestClient {
                 success: false,
                 error: response
               };
+              console.log(text);
               try{
                 ret = text? JSON.parse(text) : undefined;
               } catch(e){

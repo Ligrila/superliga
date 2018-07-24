@@ -7,7 +7,8 @@ import {
 export default class Api extends RestClient {
   constructor () {
     // Initialize with your base URL
-    super('http://192.168.0.138/superliga');
+    //super('http://192.168.0.138/superliga');
+    super('http://172.16.10.22/superliga');
   }
   async accessTokenExpired(){
     const refreshToken = await AsyncStorage.getItem('refreshToken');

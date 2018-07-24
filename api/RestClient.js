@@ -79,14 +79,44 @@ export default class RestClient {
 
       const manageError = async response => {
         try{
-          responseData = await response.text().then(text => text? JSON.parse(text) : undefined)
+          if(typeof(response.text)!=='function'){
+            return {
+              success: false,
+              error: response
+            };
+          }
+          responseData = await response.text().then(
+            (text) => {
+              var ret = {
+                success: false,
+                error: response
+              };
+              try{
+                ret = text? JSON.parse(text) : undefined;
+              } catch(e){
+                return {
+                  success: false,
+                  error: e
+                };
+              }
+              return ret;
+            }
+          ).catch(e=>{
+            return {
+              success: false,
+              error: e
+            };
+          });
           if(typeof(responseData.access_token_expired!='undefined') && responseData.access_token_expired){
             // call renew access token method
             this.accessTokenExpired();
           }
 
         } catch(e){
-          console.log(e);
+          return {
+            success: false,
+            error: e
+          };
         }
       }
   

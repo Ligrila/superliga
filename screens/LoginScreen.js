@@ -6,7 +6,7 @@ import {
   } from 'react-native';
 
 
-import {Button,Text,Icon} from 'native-base';
+import {Button,Text,Icon,Toast} from 'native-base';
 import Expo from 'expo';
 
 import Logo from '../components/Form/Logo';
@@ -23,7 +23,7 @@ export default class LoginScreen extends React.Component {
       header: null
     };
     api = new Api;
-    static defaultState = {
+    defaultState = {
       email: 'test@mocla.us',
       password: 'asdasd'
     }
@@ -32,6 +32,7 @@ export default class LoginScreen extends React.Component {
       this._onSubmit = this._onSubmit.bind(this);
       this.facebookLogin = this.facebookLogin.bind(this);
       this.onFormChange = this.onFormChange.bind(this);
+      this.state = this.defaultState;
     }
     
     onFormChange(state){
@@ -85,10 +86,13 @@ export default class LoginScreen extends React.Component {
     async _onSubmit (){
         //await AsyncStorage.setItem('userToken', 'abc');
   //      this.props.navigation.navigate('Main');
+        console.log(this.state);
         let {email,password} = this.state;
-        var user = await this.api.login(email,password);
+        var user = await this.api.login(email,password).catch(e=>{
+          console.log(e);
+        });
         console.log(user);
-        if(user.success){
+        if(user && user.success){
           try{
             await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
             await AsyncStorage.setItem('token', user.data.access_token);
@@ -97,6 +101,12 @@ export default class LoginScreen extends React.Component {
             console.log(e);
           }
           this.props.navigation.navigate('Main');
+        } else{
+          console.log("Toast");
+          Toast.show({
+            text: 'Email o contraseña inválidos',
+            buttonText: 'Aceptar'
+          });
         }
         
 

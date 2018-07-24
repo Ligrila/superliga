@@ -24,8 +24,8 @@ export default class LoginScreen extends React.Component {
     };
     api = new Api;
     static defaultState = {
-      email: null,
-      password: null
+      email: 'test@mocla.us',
+      password: 'asdasd'
     }
     constructor(props) {
       super(props);

@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 // UserAgent detection, borrowed from jQuery migrate
 // https://github.com/jquery/jquery-migrate
 function uaMatch(ua) {
+    if(typeof(ua)=='undefined'){
+        ua = 'react-native';
+    }
     ua = ua.toLowerCase();
 
     var match = /(chrome)[ \/]([\w.]+)/.exec(ua) || /(webkit)[ \/]([\w.]+)/.exec(ua) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) || [];

@@ -12,6 +12,9 @@ export default class App extends React.Component {
   };
   socket = null;
   async initNetwork(){
+      console.ignoredYellowBox = [
+        'Setting a timer'
+      ];
       this.socket = new SocketClient;
         //this.socket.connect("userDataUpdated",this.onNewUser);
   }

@@ -6,7 +6,7 @@
         ua = 'react-native';
     }
 */
-import WebSockHop from 'websockhop';
+import WebSockHop from './websockhop/src/index.js';
 
 export default class SocketClient{
     _connectedEvents = [];

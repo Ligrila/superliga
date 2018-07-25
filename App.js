@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, Image } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { Root } from "native-base";
@@ -13,11 +13,14 @@ import material from './native-base-theme/variables/commonColor';
 
 import SocketClient from './modules/SocketClient';
 
+import Api from './api/Api';
+
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
     isConnected: false
   };
+  api = new Api;
   socket = null;
   async initNetwork(){
       console.ignoredYellowBox = [
@@ -65,11 +68,18 @@ export default class App extends React.Component {
   }
 
   _loadResourcesAsync = async () => {
+    const teams  =await this.api.getTeams();
+    const teamImages = [];
+    teams.data.map(team=>{
+      teamImages.push(team.avatar);
+    });
+    const serverAssets = this.cacheImages(teamImages);
     return Promise.all([
       Asset.loadAsync([
         require('./assets/images/robot-dev.png'),
         require('./assets/images/robot-prod.png'),
       ]),
+      ...serverAssets,
       Font.loadAsync({
         // This is the font that we are using for our tab bar
         ...Icon.Ionicons.font,

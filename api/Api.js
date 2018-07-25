@@ -36,6 +36,10 @@ export default class Api extends RestClient {
     // Returns a Promise with the response.
     return this.POST('/users/token', { refresh_token },{authorizationHeader:false});
   }
+  getTeams(){
+    return this.GET('/teams/index',{authorizationHeader:false});
+  }
+
   facebookLogin (access_token) {
     // Returns a Promise with the response.
     return this.POST('/users/facebook-login', { access_token });
@@ -46,11 +50,14 @@ export default class Api extends RestClient {
     return this.GET('/auth')
       .then(response => response.user);
   }
+
   getTrivias(){
     return this.GET('/trivias/index');
   }
   getNextTrivia(){
     return this.GET('/trivias/next');
-
+  }
+  getCurrentTrivia(){
+    return this.GET('/trivias/current');
   }
 };

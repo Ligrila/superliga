@@ -8,6 +8,14 @@
 */
 import WebSockHop from 'websockhop';
 
+import {ConnectedUsersStore,ConnectedUsersActions} from '../../store/ConnectedUsersStore';
+
+import Reflux from 'reflux';
+
+
+Reflux.initStore(ConnectedUsersStore); // la necesitamos iniciada
+
+
 export default class SocketClient{
     _connectedEvents = [];
     constructor(){
@@ -15,7 +23,6 @@ export default class SocketClient{
         WebSockHop.log = () => {};
         var wsh = new WebSockHop('ws://192.168.0.138:8889/', {
           createSocket: function (url) {
-            console.log(url);
             return new WebSocket(url);
           }
         });
@@ -28,6 +35,7 @@ export default class SocketClient{
   
         wsh.on('message', (message) => {
           console.log(message);
+          console.log(ConnectedUsersActions.updateConnectedUsers(message.payload));
           //console.log(this._connectedEvents);
         });
   

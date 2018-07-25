@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { Container, Content, Text, Button,Spinner } from 'native-base'
+import { connectStyle,Container, Content, Text, Button,Spinner } from 'native-base'
 
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
@@ -10,7 +10,7 @@ import Api from '../api/Api';
 
 import Game from '../components/Game';
 
-export default class GameScreen extends React.Component {
+class GameScreen extends React.Component {
   api = new Api;
   constructor(props){
     super(props);
@@ -28,9 +28,10 @@ export default class GameScreen extends React.Component {
     }
   }
   renderGame(){
+    const styles = this.props.style;
     if(this.state.isLoadingComplete){
       return (
-        <Game currentTrivia={this.state.currentTrivia}>
+        <Game currentTrivia={this.state.currentTrivia} style={styles.game} >
         </Game>
       );
     } else{
@@ -52,9 +53,10 @@ export default class GameScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-  },
+  game:{
+    flex:1,
+  }
 });
+
+
+export default connectStyle('SuperLiga.Screen')(GameScreen);

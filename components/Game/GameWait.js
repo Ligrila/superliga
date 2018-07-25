@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import {
-    View,
-    StyleSheet,
+    View
 } from "react-native";
 
 import { Text } from 'native-base'
+import { connectStyle } from 'native-base';
+
 
 
 import Layout from '../../constants/Layout';
@@ -14,19 +15,18 @@ import Layout from '../../constants/Layout';
  * 
  */
 
-export default class GameWait extends Component {
+class GameWait extends Component {
     render(){
         const ratio = Layout.window.ratio;
+        const styles = this.props.style;
         return(
                 <View style={styles.container}>
+                    <Text style={styles.text}>ESPERANDO JUGADA</Text>
                 </View>
         )
     }
 }
 
 
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-    }
-})
+
+export default connectStyle('SuperLiga.GameWait')(GameWait);

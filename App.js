@@ -5,15 +5,12 @@ import AppNavigator from './navigation/AppNavigator';
 import { Root } from "native-base";
 
 import { StyleProvider } from 'native-base';
-import getTheme from './native-base-theme/components';
-import material from './native-base-theme/variables/commonColor';
-
-
-
 
 import SocketClient from './modules/SocketClient';
 
 import Api from './api/Api';
+
+import AppTheme from './Theme';
 
 export default class App extends React.Component {
   state = {
@@ -30,7 +27,6 @@ export default class App extends React.Component {
         //this.socket.connect("userDataUpdated",this.onNewUser);
   }
   componentDidMount() {
-
     this.initNetwork();
   }
   onNewUser(payload){
@@ -49,7 +45,7 @@ export default class App extends React.Component {
     } else {
       return (
         <Root>
-          <StyleProvider style={getTheme(material)}>
+          <StyleProvider style={AppTheme}>
               <AppNavigator />
           </StyleProvider>
         </Root>
@@ -88,6 +84,8 @@ export default class App extends React.Component {
         'edosz': require('./assets/fonts/edosz.ttf'),
         'OpenSans': require('./assets/fonts/OpenSans-Regular.ttf'),
         'OpenSans_bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+        'OpenSansCondensed_light': require('./assets/fonts/OpenSansCondensed-Light.ttf'),
+        'OpenSansCondensed_bold': require('./assets/fonts/OpenSansCondensed-Bold.ttf'),
       }),
     ]);
   };

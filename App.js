@@ -4,6 +4,12 @@ import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { Root } from "native-base";
 
+import { StyleProvider } from 'native-base';
+import getTheme from './native-base-theme/components';
+import material from './native-base-theme/variables/commonColor';
+
+
+
 
 import SocketClient from './modules/SocketClient';
 
@@ -40,10 +46,9 @@ export default class App extends React.Component {
     } else {
       return (
         <Root>
-          <View style={styles.container}>
-            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <AppNavigator />
-          </View>
+          <StyleProvider style={getTheme(material)}>
+              <AppNavigator />
+          </StyleProvider>
         </Root>
       );
     }

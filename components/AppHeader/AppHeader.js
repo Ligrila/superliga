@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import {
     View,
-    Text,
     Image,
     TouchableOpacity,
     StyleSheet
 } from "react-native";
 
-import { Header, Body, Title, Content, Left, Icon, Right } from 'native-base'
+import { Header, Body, Title, Content, Left, Icon, Right, Text } from 'native-base'
+
+
+import UserInfo from '../UserInfo';
 
 import Layout from '../../constants/Layout';
 
@@ -17,12 +19,19 @@ import superligaImg from '../../assets/images/logo.png';
 import menuImg from '../../assets/images/menu.png';
 
 
+
 class AppHeader extends Component {
+    renderLeft(){
+        if(this.props.game){
+            return (<UserInfo />);    
+        }
+        return (<Image source={superligaImg} style={styles.superligaImg} resizeMode="contain" />);
+    }
     render() {
         return (
             <Header transparent style={styles.header}>
                 <Left style={styles.left}>
-                    <Image source={superligaImg} style={styles.superligaImg} resizeMode="contain" />
+                    {this.renderLeft()}
                 </Left>
                 <Body style={styles.body}>
                     <Title  style={styles.title}>
@@ -46,6 +55,7 @@ const widthRatio = Layout.window.ratio;
 
 const styles = StyleSheet.create({
     header: {
+        //paddingTop:0,
         height: 'auto',
     
     },

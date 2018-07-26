@@ -79,11 +79,15 @@ export default class App extends React.Component {
         teamImages.push(team.avatar);
       });
     }
+
     const serverAssets = this.cacheImages(teamImages);
     return Promise.all([
       Asset.loadAsync([
         require('./assets/images/robot-dev.png'),
         require('./assets/images/robot-prod.png'),
+        require('./assets/images/app_logo.png'),
+        require('./assets/images/logo.png'),
+        require('./assets/images/menu.png'),
       ]),
       ...serverAssets,
       Font.loadAsync({

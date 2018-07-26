@@ -28,10 +28,9 @@ class GameScreen extends React.Component {
     }
   }
   renderGame(){
-    const styles = this.props.style;
     if(this.state.isLoadingComplete){
       return (
-        <Game currentTrivia={this.state.currentTrivia} style={styles.game} >
+        <Game currentTrivia={this.state.currentTrivia}>
         </Game>
       );
     } else{
@@ -39,11 +38,12 @@ class GameScreen extends React.Component {
     }
   }
   render() {
+    const styles = this.props.style;
     return (
       <Container>
         <Wallpaper source={bgSrc}>
         <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
-        <Content padder>
+        <Content padder contentContainerStyle={styles.game}>
           {this.renderGame()}
         </Content>
         </Wallpaper>

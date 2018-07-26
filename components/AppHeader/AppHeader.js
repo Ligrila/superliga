@@ -6,7 +6,7 @@ import {
     StyleSheet
 } from "react-native";
 
-import { Header, Body, Title, Content, Left, Icon, Right, Text } from 'native-base'
+import { Header, Body, Container, Title, Content, Left, Icon, Right, Text, Button } from 'native-base'
 
 
 import UserInfo from '../UserInfo';
@@ -34,14 +34,12 @@ class AppHeader extends Component {
                     {this.renderLeft()}
                 </Left>
                 <Body style={styles.body}>
-                    <Title  style={styles.title}>
                         <Image style={styles.superligaAppImg} source={superligaAppImg} resizeMode="contain"  />
-                    </Title>
                 </Body>
                 <Right style={styles.right}>
-                    <TouchableOpacity onPress={() => {this.props.drawerOpen()}}>
+                    <Button transparent onPress={() => {this.props.drawerOpen()}}>
                         <Image source={menuImg} style={styles.menuImg}   resizeMode="contain"/>
-                    </TouchableOpacity>
+                    </Button>
                 </Right>
 
             </Header>
@@ -57,15 +55,22 @@ const styles = StyleSheet.create({
     header: {
         //paddingTop:0,
         height: 'auto',
+        justifyContent: 'space-between',
     
     },
     left:{
+      flex:1,
     },
     body:{
+        flex:1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     right:{
+        flex:1,
     },
     title:{
+        
     },
     superligaAppImg: {
         width: 181 * widthRatio,

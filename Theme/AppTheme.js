@@ -9,21 +9,25 @@ export default {
     'SuperLiga.Screen':{
         game:{
             flex:1,
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'space-beetween',
-            backgroundColor:'red',
         }
     },
     'SuperLiga.Game':{
         container:{
             flex:1,
         },
+        avatarContainer:{
+            flex: .4,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+        },
         mainContainer:{
             flex:1,
             alignItems: 'center',
-            flexDirection: 'column'
+            justifyContent: 'flex-start',
+            flexDirection: 'column',
         },
+
         vsText:{
             marginLeft: 8,
             marginRight: 8
@@ -36,12 +40,6 @@ export default {
             height: 140 * Layout.window.ratio,
     
         },
-        avatarContainer:{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-        }
     },
     'SuperLiga.GameWait': {
         text: {

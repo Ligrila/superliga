@@ -39,7 +39,7 @@ class Game extends Component {
 
     render(){
         const ratio = Layout.window.ratio;
-        const styles = this.props.style[0];
+        const styles = this.props.style;
         return(
                 <View style={styles.container}>
                     <View style={styles.avatarContainer}>

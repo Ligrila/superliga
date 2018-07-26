@@ -70,7 +70,12 @@ export default class RestClient {
       
       const extractResponse = response => {
         if (response.status >= 200 && response.status < 300) {
-            return response.text().then(text => text? JSON.parse(text) : undefined)
+            return response.text().then(
+              text => {
+                console.log(text);
+                return text? JSON.parse(text) : undefined
+              }
+            )
           }else {
             return Promise.reject(response)
           }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, Image } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import { Root } from "native-base";
+import { Root,  Text, Button, Container, Content } from "native-base";
 
 import { StyleProvider } from 'native-base';
 
@@ -15,26 +15,33 @@ import AppTheme from './Theme';
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
-    isConnected: false
+    isConnected: false,
+    isLoadingError: false
   };
   api = new Api;
   socket = null;
   async initNetwork(){
-      console.ignoredYellowBox = [
+      /*console.ignoredYellowBox = [
         'Setting a timer'
-      ];
+      ];*/
       this.socket = new SocketClient;
-        //this.socket.connect("userDataUpdated",this.onNewUser);
   }
   componentDidMount() {
     this.initNetwork();
   }
-  onNewUser(payload){
-    console.log("new user");
-    console.log(payload);
-  }
+
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+      if(this.state.isLoadingError){
+        /*return (
+          <Container>
+            <Content>
+            <Text>Se produjo un error iniciando la red. Por favor, salga de la aplicación e intente nuevamente cuando estes conectado a internet</Text>
+            <Button><Text>Cerrar aplicacion</Text></Button>
+            </Content>
+          </Container>
+        );*/
+      }
       return (
         <AppLoading
           startAsync={this._loadResourcesAsync}
@@ -64,11 +71,14 @@ export default class App extends React.Component {
   }
 
   _loadResourcesAsync = async () => {
+
     const teams  =await this.api.getTeams();
     const teamImages = [];
-    teams.data.map(team=>{
-      teamImages.push(team.avatar);
-    });
+    if(teams.data){
+      teams.data.map(team=>{
+        teamImages.push(team.avatar);
+      });
+    }
     const serverAssets = this.cacheImages(teamImages);
     return Promise.all([
       Asset.loadAsync([
@@ -88,16 +98,20 @@ export default class App extends React.Component {
         'OpenSansCondensed_bold': require('./assets/fonts/OpenSansCondensed-Bold.ttf'),
       }),
     ]);
+
   };
 
   _handleLoadingError = error => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
     console.warn(error);
+    async () => await this.setState({ isLoadingError: true });
   };
 
   _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
+    if(this.state.isLoadingError){
+      this.setState({ isLoadingComplete: true });
+    }
   };
 }
 

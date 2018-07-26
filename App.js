@@ -105,13 +105,14 @@ export default class App extends React.Component {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
     console.warn(error);
-    async () => await this.setState({ isLoadingError: true });
+//    async () => await this.setState({ isLoadingError: true });
+    this.setState({ isLoadingError: true });
   };
 
   _handleFinishLoading = () => {
-    if(this.state.isLoadingError){
+//    if(this.state.isLoadingError){
       this.setState({ isLoadingComplete: true });
-    }
+//    }
   };
 }
 

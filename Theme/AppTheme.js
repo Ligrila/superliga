@@ -32,8 +32,8 @@ export default {
             alignItems: 'center'
         },
         ballImg:{
-            width:150 * Layout.window.ratio,
-            height: 150 * Layout.window.ratio,
+            width:140 * Layout.window.ratio,
+            height: 140 * Layout.window.ratio,
     
         },
         avatarContainer:{

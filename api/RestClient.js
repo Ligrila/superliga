@@ -72,7 +72,6 @@ export default class RestClient {
         if (response.status >= 200 && response.status < 300) {
             return response.text().then(
               text => {
-                console.log(text);
                 return text? JSON.parse(text) : undefined
               }
             )

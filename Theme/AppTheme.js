@@ -16,7 +16,6 @@ export default {
             flex:1,
         },
         avatarContainer:{
-            flex: .4,
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'flex-start',
@@ -24,23 +23,50 @@ export default {
         mainContainer:{
             flex:1,
             alignItems: 'center',
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
             flexDirection: 'column',
+            width: "100%",
         },
-
         vsText:{
             marginLeft: 8,
             marginRight: 8
         },
+    },
+    'SuperLiga.GameBall':{
         ballContainer:{
             alignItems: 'center'
         },
         ballImg:{
-            width:140 * Layout.window.ratio,
-            height: 140 * Layout.window.ratio,
+            width:150 * Layout.window.ratio,
+            height: 150 * Layout.window.ratio,
     
         },
     },
+    'SuperLiga.GamePlay':{
+        container: {
+            width: "100%",
+        },
+        ballContainer:{
+            alignItems: 'center'
+        },
+    },
+    'SuperLiga.GameQuestion': {
+        text: {
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(60),
+            textAlign:'center'
+          },
+        button:{
+            marginTop: s(36),
+            height: s(115),
+            backgroundColor: '#ededed',
+        },
+        buttonText: {
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(35),
+            textAlign:'center'
+          }
+      },
     'SuperLiga.GameWait': {
         text: {
             fontFamily: 'OpenSansCondensed_bold',
@@ -48,6 +74,7 @@ export default {
             textAlign:'center'
           }
       },
+      
     'SuperLiga.GameConnectedUsers': {
         text: {
             fontFamily: 'OpenSansCondensed_light',

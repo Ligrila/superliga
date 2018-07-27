@@ -33,11 +33,16 @@ export default class GameBallCircularProgress extends React.PureComponent {
     const duration = dur || this.props.duration;
     const easing = ease || this.props.easing;
 
-    return Animated.timing(this.state.fillAnimation, {
+    const animation = Animated.timing(this.state.fillAnimation, {
       toValue,
       easing,
       duration,
+      //useNativeDriver: true,  TODO: check this
     }).start(this.props.onAnimationComplete);
+    // usamos el timer de la pelota para avisar
+    this.state.fillAnimation.addListener(this.props.animationListener);
+
+    return animation;
   }
 
   render() {

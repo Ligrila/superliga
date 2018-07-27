@@ -3,5 +3,3 @@ import GameBallCircularProgress from './src/GameBallCircularProgress';
 
 //exports.CircularProgress = CircularProgress;
 exports.GameBallCircularProgress = GameBallCircularProgress;
-
-console.log(GameBallCircularProgress);

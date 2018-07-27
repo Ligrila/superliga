@@ -33,7 +33,7 @@ class GameBall extends Reflux.Component {
         tintColor: "#6adc95"
     }
     constructor(props){
-        super();
+        super(props);
         this.store = TriviaQuestion;
         this.onBallFill = this.onBallFill.bind(this);
         this.onQuestionTimeout = this.onQuestionTimeout.bind(this);

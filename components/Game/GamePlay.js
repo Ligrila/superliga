@@ -5,7 +5,6 @@ import {
 
 import Reflux from 'reflux';
 
-import { Text } from 'native-base'
 import { connectStyle } from 'native-base';
 
 
@@ -27,7 +26,7 @@ import {TriviaQuestion} from '../../store/TriviaQuestion';
 
 class GamePlay extends Reflux.Component {
     state={
-        hasResult:true
+        hasResult:false
     }
     constructor(props){
         super(props);
@@ -36,18 +35,19 @@ class GamePlay extends Reflux.Component {
     onQuestionTimeout(){
         console.log("Question timedout");
     }
-    renderBall(){
+    _renderBall(){
+        const styles = this.props.style;
         if(this.state.hasResult){
             return;
         }
         return
         (
         <View style={styles.ballContainer}>
-            <GameBall onTimeout={this.onQuestionTimeout} />
+                <GameBall onTimeout={this.onQuestionTimeout} />
         </View>
         );
     }
-    renderCurrentQuestion(){
+    _renderCurrentQuestion(){
         if(this.state.hasQuestion){
             return (<GameQuestion question={this.state.currentQuestion} />);
         } else{
@@ -62,8 +62,8 @@ class GamePlay extends Reflux.Component {
         const styles = this.props.style;
         return(
                 <View style={styles.container}>
-                        {this.renderBall()}
-                        {this.renderCurrentQuestion()}
+                        {this._renderBall()}
+                        {this._renderCurrentQuestion()}
                 </View>
         )
     }

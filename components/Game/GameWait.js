@@ -21,7 +21,7 @@ class GameWait extends Component {
         const styles = this.props.style;
         return(
                 <View style={styles.container}>
-                    <Text style={styles.text}>ESPERANDO JUGADA</Text>
+                    <Text style={styles.text}>ESPERANDO {"\n"}JUGADA</Text>
                 </View>
         )
     }

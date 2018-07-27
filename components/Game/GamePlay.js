@@ -15,6 +15,7 @@ import Layout from '../../constants/Layout';
 import GameWait from './GameWait';
 import GameBall from './GameBall';
 import GameQuestion from './GameQuestion';
+import GameAnswerResult from './GameAnswerResult';
 
 
 // store
@@ -25,6 +26,9 @@ import {TriviaQuestion} from '../../store/TriviaQuestion';
  */
 
 class GamePlay extends Reflux.Component {
+    state={
+        hasResult:true
+    }
     constructor(props){
         super(props);
         this.store = TriviaQuestion;
@@ -32,10 +36,24 @@ class GamePlay extends Reflux.Component {
     onQuestionTimeout(){
         console.log("Question timedout");
     }
+    renderBall(){
+        if(this.state.hasResult){
+            return;
+        }
+        return
+        (
+        <View style={styles.ballContainer}>
+            <GameBall onTimeout={this.onQuestionTimeout} />
+        </View>
+        );
+    }
     renderCurrentQuestion(){
         if(this.state.hasQuestion){
             return (<GameQuestion question={this.state.currentQuestion} />);
         } else{
+            if(this.state.hasResult){
+                return (<GameAnswerResult />);    
+            }
             return (<GameWait />);
         }
     }
@@ -44,9 +62,7 @@ class GamePlay extends Reflux.Component {
         const styles = this.props.style;
         return(
                 <View style={styles.container}>
-                        <View style={styles.ballContainer}>
-                            <GameBall onTimeout={this.onQuestionTimeout} />
-                        </View>
+                        {this.renderBall()}
                         {this.renderCurrentQuestion()}
                 </View>
         )

@@ -100,7 +100,11 @@ export default (variables = variable) => {
       "NativeBase.IconNB": {
         color: variables.brandLight
       },
-      backgroundColor: variables.btnDisabledBg
+      backgroundColor: variables.btnDisabledBg,
+      // mods super liga
+      ".primary": {
+        backgroundColor: variables.btnPrimaryBg,
+      }
     },
     ".bordered": {
       ".dark": {

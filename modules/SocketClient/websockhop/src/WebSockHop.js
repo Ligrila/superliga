@@ -117,7 +117,9 @@ class WebSockHop {
             this.socket.onopen = async () => {
                 WebSockHop.log("info", "WebSocket::onopen");
                 clearConnectionTimeout();
-                this.protocol = this.socket.protocol;
+                if(this.socket){
+                    this.protocol = this.socket.protocol;
+                }
                 this._tries = 0;
                 await this._raiseEvent("opened");
                 this._resetPingTimer();

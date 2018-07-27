@@ -60,4 +60,11 @@ export default class Api extends RestClient {
   getCurrentTrivia(){
     return this.GET('/trivias/current');
   }
+
+  sendAnswer(question_id,option){
+    return this.POST('/answers/add',{
+      question_id: question_id,
+      selected_option: "option_" + option
+    });
+  }
 };

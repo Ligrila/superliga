@@ -6,7 +6,7 @@
         ua = 'react-native';
     }
 */
-import WebSockHop from 'websockhop';
+import WebSockHop from 'websockhop/src/';
 
 
 
@@ -19,41 +19,37 @@ export default class SocketClient{
     _connectedEvents = [];
     constructor(){
         //WebSockHop.logger = this.logger;
-        WebSockHop.log = () => {};
-        this.actionDispatcher = new ActionDispatcher;
-        var wsh = new WebSockHop('ws://192.168.0.138:8889/', {
-          createSocket: function (url) {
-            return new WebSocket(url);
-          }
-        });
-  
-        wsh.formatter = new WebSockHop.JsonFormatter();
+        try{
+            WebSockHop.log = () => {};
+            this.actionDispatcher = new ActionDispatcher;
+            var wsh = new WebSockHop('ws://192.168.0.138:8889/', {
+              createSocket: function (url) {
+                return new WebSocket(url);
+              }
+            });
+      
+            wsh.formatter = new WebSockHop.JsonFormatter();
 
-        wsh.on('opened', function () {
-          console.log('connected');
-        });
-  
-        wsh.on('message', (message) => {
-          if(typeof(message.eventName)=='string'){
-            this.actionDispatcher.dispatch(message);
-          }
-
-          //console.log(this._connectedEvents);
-        });
-  
-        wsh.on('error', function (v,c) {
-  
-        });
-  
-        wsh.on('closed', function() {
-          console.log('finished');
-          wsh = null;
-        });
-    }
-
-    connect(eventName,handler){
-      this._connectedEvents[eventName].push(handler);
-      console.log(this._connectedEvents);
+            wsh.on('opened', function () {
+              console.log('connected');
+            });
+            wsh.on('message', (message) => {
+              if(typeof(message.eventName)=='string'){
+                this.actionDispatcher.dispatch(message);
+              }
+            });
+      
+            wsh.on('error', function (v,c) {
+      
+            });
+      
+            wsh.on('closed', function() {
+              console.log('finished');
+              wsh = null;
+            });
+        } catch(e){
+          console.log(e);
+        }
     }
 
 

@@ -59,7 +59,6 @@ export default {
         button:{
             marginTop: s(36),
             height: s(115),
-            backgroundColor: '#ededed',
         },
         buttonText: {
             fontFamily: 'OpenSansCondensed_bold',
@@ -67,12 +66,31 @@ export default {
             textAlign:'center'
           }
       },
+      'SuperLiga.GameAnswerResult': {
+        bigText: {
+            fontFamily: 'edosz',
+            fontSize: s(184),
+            transform: [{ rotate: '-10deg'}],
+            textAlign:'center'
+          },
+          text: {
+            fontFamily: 'edosz',
+            fontSize: s(130),
+            transform: [{ rotate: '-10deg'}],
+            textAlign:'center'
+          },
+        subtext:{
+            fontSize: s(40),
+            fontFamily: 'OpenSansCondensed_bold',
+            textAlign:'center'
+        }
+      },
     'SuperLiga.GameWait': {
         text: {
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: s(60),
             textAlign:'center'
-          }
+          },
       },
       
     'SuperLiga.GameConnectedUsers': {

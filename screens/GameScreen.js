@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { connectStyle,Container, Content, Text, Button,Spinner } from 'native-base'
+import { connectStyle,Container, Content, Footer,Spinner } from 'native-base'
 
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
@@ -9,6 +9,8 @@ import bgSrc from '../assets/images/bg.png';
 import Api from '../api/Api';
 
 import Game from '../components/Game';
+import GameConnectedUsers from '../components/Game/GameConnectedUsers';
+
 
 class GameScreen extends React.Component {
   api = new Api;
@@ -46,6 +48,9 @@ class GameScreen extends React.Component {
         <Content padder contentContainerStyle={styles.game}>
           {this.renderGame()}
         </Content>
+        <Footer>
+          <GameConnectedUsers />
+        </Footer>
         </Wallpaper>
       </Container>
     );

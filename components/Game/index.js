@@ -12,9 +12,6 @@ import TeamAvatar from '../TeamAvatar'
 
 
 import GamePlay from './GamePlay';
-import GameConnectedUsers from './GameConnectedUsers';
-
-
 
 
 /**
@@ -46,7 +43,6 @@ class Game extends Component {
                         </View>
                     <View style={styles.mainContainer}>
                         {this.renderGamePlay()}
-                        <GameConnectedUsers />
                     </View>
                 </View>
         )

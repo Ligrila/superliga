@@ -34,14 +34,23 @@ class GameAnswerResult extends Component {
                     </View>
             )
         }
+        if(this.props.serverSuccess){
+            return(
+                <View style={styles.container}>
+                    <Text style={styles.text}>Estas {"\n"}<Text style={styles.bigText}>fuera!</Text></Text>
+                    <Text style={styles.subtext}>RESPUESTA {"\n"}INCORRECTA</Text>
+                    <Button block info rounded onPress={this.backToGamePlay} style={styles.button}><Text style={styles.buttonText}>Seguir jugando</Text></Button>
+                </View>
+            )
+        }
 
         return(
             <View style={styles.container}>
-                <Text style={styles.text}>Estas {"\n"}<Text style={styles.bigText}>fuera!</Text></Text>
-                <Text style={styles.subtext}>RESPUESTA {"\n"}INCORRECTA</Text>
+                <Text style={styles.text}><Text style={styles.bigText}>UPS!</Text></Text>
+                <Text style={styles.subtext}>TU RESPUESTA {"\n"}NO LLEGO A TIEMPO</Text>
                 <Button block info rounded onPress={this.backToGamePlay} style={styles.button}><Text style={styles.buttonText}>Seguir jugando</Text></Button>
             </View>
-    )
+        )
     }
 }
 

@@ -17,11 +17,13 @@ export class TriviaQuestion extends Reflux.Store
             hasQuestion: false,
             answered: false,
             answeredOption: null,
+            answeredServerResponse: null,
             hasResult: false,
             correctOption: null,
             currentQuestion: {},
             currentTimeout: 0,
             timedOut: false,
+            serverSuccess:true,
             win:false,
         };
     }
@@ -51,13 +53,14 @@ export class TriviaQuestion extends Reflux.Store
         if(!this.state.hasQuestion){
             return;
         }
-        console.log("Question",question);
-        console.log("Option",this.state.answeredOption);
         if(this.state.currentQuestion.id == question.id){
-            this.setState({
-                correctOption: question.correct_option,
-                hasResult: true,
-                win: question.correct_option == this.state.answeredOption
+            this.state.answeredServerResponse.then((data)=>{
+                this.setState({
+                    correctOption: question.correct_option,
+                    hasResult: true,
+                    serverSuccess: data.success,
+                    win: data.success && (question.correct_option == this.state.answeredOption)
+                });
             });
         } else{
             console.warn("Intentando finalizar a una pregunta que no es la actual");
@@ -70,7 +73,9 @@ export class TriviaQuestion extends Reflux.Store
             this.setState({
                 answered: true,
                 answeredOption: 'option_'+option,
+                answeredServerResponse: response
             });
+
         } else{
             console.warn("Intentando responder a una pregunta que no es la actual");
         }

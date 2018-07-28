@@ -49,7 +49,7 @@ class GamePlay extends Reflux.Component {
             return (<GameQuestion question={this.state.currentQuestion} />);
         } else{
             if(this.state.hasResult){
-                return (<GameAnswerResult win={this.state.win}/>);    
+                return (<GameAnswerResult win={this.state.win} serverSuccess={this.state.serverSuccess} />);    
             }
             return (<GameWait text={'ESPERANDO \n JUGADA'} />);
         }

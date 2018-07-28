@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 
-export const TriviaQuestionActions = Reflux.createActions(['add','timeout','answerQuestion','finishedQuestion']);
+export const TriviaQuestionActions = Reflux.createActions(['add','timeout','answerQuestion','finishedQuestion','reset']);
 
 export class TriviaQuestion extends Reflux.Store
 {
@@ -25,6 +25,9 @@ export class TriviaQuestion extends Reflux.Store
             win:false,
         };
     }
+    onReset(){
+        this.setState(this.getInititalState());
+    }
     async onAdd(q){
         if(this.timer){
             clearTimeout(this.timer);
@@ -45,17 +48,24 @@ export class TriviaQuestion extends Reflux.Store
 
     }
     onFinishedQuestion(question){
+        if(!this.state.hasQuestion){
+            return;
+        }
+        console.log("Question",question);
+        console.log("Option",this.state.answeredOption);
         if(this.state.currentQuestion.id == question.id){
             this.setState({
-                correctOption: question.correctOption,
+                correctOption: question.correct_option,
                 hasResult: true,
-                win: question.correctOption == this.state.answeredOption
+                win: question.correct_option == this.state.answeredOption
             });
         } else{
             console.warn("Intentando finalizar a una pregunta que no es la actual");
         }
     }
-    onAnswerQuestion(question_id,option){
+    onAnswerQuestion(question_id,option,response){
+        //necesitamos saber si response llego a destino antes de dar veredicto.
+
         if(this.state.currentQuestion.id == question_id){
             this.setState({
                 answered: true,

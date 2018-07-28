@@ -40,12 +40,11 @@ class GameQuestion extends Reflux.Component {
         this.store = TriviaQuestion;
     }
     async _sendAnswer(option){
-        let response = await this.api.sendAnswer(this.props.question.id,option);
-        console.log(response);
-        if(response.success){
+        let response = this.api.sendAnswer(this.props.question.id,option);
+        //if(response.success){
             this.setState({waitingQuestionOption:true});
-            TriviaQuestionActions.answerQuestion(this.props.question.id,option);
-        }
+            TriviaQuestionActions.answerQuestion(this.props.question.id,option,response);
+        //1}
         
     }
     onButton1Press(){

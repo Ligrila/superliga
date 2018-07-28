@@ -73,6 +73,15 @@ export default {
             transform: [{ rotate: '-10deg'}],
             textAlign:'center'
           },
+          button:{
+            marginTop: s(36),
+            height: s(115),
+            },
+        buttonText: {
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(35),
+            textAlign:'center'
+            },
           text: {
             fontFamily: 'edosz',
             fontSize: s(130),

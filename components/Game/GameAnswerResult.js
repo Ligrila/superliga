@@ -3,12 +3,13 @@ import {
     View
 } from "react-native";
 
-import { Text } from 'native-base'
+import { Button, Text } from 'native-base'
 import { connectStyle } from 'native-base';
 
 
 
 import Layout from '../../constants/Layout';
+import { TriviaQuestionActions } from "../../store/TriviaQuestion";
 
 
 /**
@@ -16,16 +17,20 @@ import Layout from '../../constants/Layout';
  */
 
 class GameAnswerResult extends Component {
-    state={
-        win: false
+    backToGamePlay = () => {
+        if(!this.props.win){
+            // mostrar pantalla de vidas si no las tiene
+        }
+        TriviaQuestionActions.reset();
     }
     render(){
         const styles = this.props.style;
-        if(this.state.win){
+        if(this.props.win){
             return(
                     <View style={styles.container}>
                         <Text style={styles.text}>Muy {"\n"}<Text style={styles.bigText}>Bien!</Text></Text>
                         <Text style={styles.subtext}>RESPUESTA {"\n"}CORRECTA</Text>
+                        <Button block info rounded onPress={this.backToGamePlay} style={styles.button}><Text style={styles.buttonText}>Quiero seguir jugando</Text></Button>
                     </View>
             )
         }
@@ -34,6 +39,7 @@ class GameAnswerResult extends Component {
             <View style={styles.container}>
                 <Text style={styles.text}>Estas {"\n"}<Text style={styles.bigText}>fuera!</Text></Text>
                 <Text style={styles.subtext}>RESPUESTA {"\n"}INCORRECTA</Text>
+                <Button block info rounded onPress={this.backToGamePlay} style={styles.button}><Text style={styles.buttonText}>Seguir jugando</Text></Button>
             </View>
     )
     }

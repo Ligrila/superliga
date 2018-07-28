@@ -17,11 +17,11 @@ import Layout from '../../constants/Layout';
 
 class GameAnswerResult extends Component {
     state={
-        ok: false
+        win: false
     }
     render(){
         const styles = this.props.style;
-        if(this.state.ok){
+        if(this.state.win){
             return(
                     <View style={styles.container}>
                         <Text style={styles.text}>Muy {"\n"}<Text style={styles.bigText}>Bien!</Text></Text>

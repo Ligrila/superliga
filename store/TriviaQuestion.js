@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 
-export const TriviaQuestionActions = Reflux.createActions(['add','timeout']);
+export const TriviaQuestionActions = Reflux.createActions(['add','timeout','answerQuestion','finishedQuestion']);
 
 export class TriviaQuestion extends Reflux.Store
 {
@@ -15,9 +15,14 @@ export class TriviaQuestion extends Reflux.Store
     getInititalState(){
         return {
             hasQuestion: false,
+            answered: false,
+            answeredOption: null,
+            hasResult: false,
+            correctOption: null,
             currentQuestion: {},
             currentTimeout: 0,
             timedOut: false,
+            win:false,
         };
     }
     async onAdd(q){
@@ -39,12 +44,31 @@ export class TriviaQuestion extends Reflux.Store
         
 
     }
+    onFinishedQuestion(question){
+        if(this.state.currentQuestion.id == question.id){
+            this.setState({
+                correctOption: question.correctOption,
+                hasResult: true,
+                win: question.correctOption == this.state.answeredOption
+            });
+        } else{
+            console.warn("Intentando finalizar a una pregunta que no es la actual");
+        }
+    }
+    onAnswerQuestion(question_id,option){
+        if(this.state.currentQuestion.id == question_id){
+            this.setState({
+                answered: true,
+                answeredOption: 'option_'+option,
+            });
+        } else{
+            console.warn("Intentando responder a una pregunta que no es la actual");
+        }
+    }
     onTimeout(){
         console.log("Question timed out" + new Date());
-        /*this.setState({
-            timedOut: true,
-            hasQuestion: false,
-        });*/
+        
+        /*this.setState(this.getInititalState());*/
     }
 
 }

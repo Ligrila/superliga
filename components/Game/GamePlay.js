@@ -25,9 +25,6 @@ import {TriviaQuestion} from '../../store/TriviaQuestion';
  */
 
 class GamePlay extends Reflux.Component {
-    state={
-        hasResult:false
-    }
     constructor(props){
         super(props);
         this.store = TriviaQuestion;
@@ -48,13 +45,13 @@ class GamePlay extends Reflux.Component {
 
     }
     _renderCurrentQuestion(){
-        if(this.state.hasQuestion){
+        if(this.state.hasQuestion && !this.state.hasResult ){
             return (<GameQuestion question={this.state.currentQuestion} />);
         } else{
             if(this.state.hasResult){
-                return (<GameAnswerResult />);    
+                return (<GameAnswerResult win={this.state.win}/>);    
             }
-            return (<GameWait />);
+            return (<GameWait text={'ESPERANDO \n JUGADA'} />);
         }
     }
     render(){

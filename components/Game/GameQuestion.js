@@ -11,18 +11,23 @@ import Api from '../../api/Api';
 
 import Layout from '../../constants/Layout';
 
+// store
+import Reflux from 'reflux';
+import { TriviaQuestion, TriviaQuestionActions } from "../../store/TriviaQuestion";
+
 
 /**
  * 
  */
 
-class GameQuestion extends Component {
+class GameQuestion extends Reflux.Component {
     api = new Api;
     state = {
         button1Pressed: false,
         button2Pressed: false,
         button3Pressed: false,
-        disabled: false
+        disabled: false,
+        waitingQuestionOption:false,
     }
     constructor(props){
         super(props);
@@ -31,10 +36,17 @@ class GameQuestion extends Component {
         this.onButton1Press = this.onButton1Press.bind(this);
         this.onButton2Press = this.onButton2Press.bind(this);
         this.onButton3Press = this.onButton3Press.bind(this);
+
+        this.store = TriviaQuestion;
     }
     async _sendAnswer(option){
         let response = await this.api.sendAnswer(this.props.question.id,option);
         console.log(response);
+        if(response.success){
+            this.setState({waitingQuestionOption:true});
+            TriviaQuestionActions.answerQuestion(this.props.question.id,option);
+        }
+        
     }
     onButton1Press(){
         this.setState({button1Pressed:true,disabled:true});
@@ -55,7 +67,7 @@ class GameQuestion extends Component {
         const styles = this.props.style;
         return(
                 <View style={styles.container}>
-                    <Text style={styles.text}>{this.props.question.question}</Text>
+                    <Text style={styles.text}>{this.props.question.question.toUpperCase()}</Text>
                     <Button 
                         onPress={this.onButton1Press}
                         light={!this.state.button1Pressed}

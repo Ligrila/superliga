@@ -18,6 +18,9 @@ export default class ActionDispatcher{
             case 'newQuestion':
                 TriviaQuestionActions.add(message.payload);
                 break;
+            case 'finishedQuestion':
+                TriviaQuestionActions.finishedQuestion(message.payload);
+                break;
             default:
                 console.warn("Unknow action name : " + message.eventName);
                 break;

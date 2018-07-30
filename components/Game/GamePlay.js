@@ -18,7 +18,7 @@ import GameAnswerResult from './GameAnswerResult';
 
 
 // store
-import {TriviaQuestion} from '../../store/TriviaQuestion';
+import {TriviaQuestion,TriviaQuestionActions} from '../../store/TriviaQuestion';
 
 /**
  * 
@@ -30,13 +30,15 @@ class GamePlay extends Reflux.Component {
         this.store = TriviaQuestion;
     }
     onQuestionTimeout(){
-        console.log("Question timedout");
+        console.log("Question ball timedout " + new Date());
     }
     _renderBall(){
         const styles = this.props.style;
+        const prefill = 0;
+        const duration = this.state.timeout;
         return (  
             <View style={styles.ballContainer}>  
-            <GameBall onTimeout={this.onQuestionTimeout} />
+            <GameBall onTimeout={this.onQuestionTimeout} duration={duration} prefill={prefill}/>
             </View>
         );
 
@@ -44,9 +46,12 @@ class GamePlay extends Reflux.Component {
     componentDidUpdate(){
         console.log("did update");
         if(this.state.hasResult){
+            const win = this.state.win;
+            const serverSuccess = this.state.serverSuccess;
+            TriviaQuestionActions.reset();
             this.props.navigation.navigate('GameResult', {
-                win: this.state.win,
-                serverSuccess: this.state.serverSuccess,
+                win: win,
+                serverSuccess: serverSuccess,
               });
         }
     }

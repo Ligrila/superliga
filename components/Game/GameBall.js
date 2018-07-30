@@ -29,7 +29,6 @@ import {TriviaQuestion} from '../../store/TriviaQuestion';
 class GameBall extends Reflux.Component {
     state = {
         hasQuestion: false,
-        duration: 6000,
         tintColor: "#6adc95"
     }
     constructor(props){
@@ -65,8 +64,9 @@ class GameBall extends Reflux.Component {
                             ref={(ref) => this.circularProgress = ref}
                             size={175 * Layout.window.ratio}
                             width={6}
-                            duration={this.state.duration}
+                            duration={this.props.duration}
                             fill={fill}
+                            prefill={this.props.prefill}
                             backgroundColor="rgba(255,255,255,0.42)"
                             tintColor={this.state.tintColor}
                             animationListener={this.onBallFill}

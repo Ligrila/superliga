@@ -21,7 +21,6 @@ class GameAnswerResult extends Component {
         if(!this.props.win){
             // mostrar pantalla de vidas si no las tiene
         }
-        TriviaQuestionActions.reset();
         this.props.navigation.goBack();
     }
     render(){

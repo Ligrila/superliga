@@ -26,14 +26,13 @@ import {TriviaQuestion} from '../../store/TriviaQuestion';
  * 
  */
 
-class GameBall extends Reflux.Component {
+class GameBall extends React.Component {
     state = {
         hasQuestion: false,
         tintColor: "#6adc95"
     }
     constructor(props){
         super(props);
-        this.store = TriviaQuestion;
         this.onBallFill = this.onBallFill.bind(this);
         this.onQuestionTimeout = this.onQuestionTimeout.bind(this);
     }
@@ -53,9 +52,20 @@ class GameBall extends Reflux.Component {
         const ratio = Layout.window.ratio;
         const styles = this.props.style;
         let fill = 0;
-        if(this.state.hasQuestion){
+        const timestamp = new Date().getTime();
+        const timestampDif = (timestamp - this.props.currentTimestap);
+        let duration = this.props.currentTimeout - timestampDif;
+        console.log("timestapm",timestamp);
+        console.log("current timestapm",this.props.currentTimestap);
+        console.log("duration",duration);
+        console.log("hasQuestion",this.props.hasQuestion);
+        if(timestampDif<0){
+            timeout = 0;
+        }
+
+        if(this.props.hasQuestion){
             fill = 100;
-            this.duration = this.state.currentTimeout;
+            this.duration = duration;
         } else{
         }
         return(
@@ -66,7 +76,6 @@ class GameBall extends Reflux.Component {
                             width={6}
                             duration={this.props.duration}
                             fill={fill}
-                            prefill={this.props.prefill}
                             backgroundColor="rgba(255,255,255,0.42)"
                             tintColor={this.state.tintColor}
                             animationListener={this.onBallFill}

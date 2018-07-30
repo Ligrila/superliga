@@ -34,11 +34,10 @@ class GamePlay extends Reflux.Component {
     }
     _renderBall(){
         const styles = this.props.style;
-        const prefill = 0;
-        const duration = this.state.timeout;
+        const duration = this.state.currentTimeout;
         return (  
             <View style={styles.ballContainer}>  
-            <GameBall onTimeout={this.onQuestionTimeout} duration={duration} prefill={prefill}/>
+            <GameBall hasQuestion={this.state.hasQuestion} onTimeout={this.onQuestionTimeout} currentTimeout={duration} currentTimestap={this.state.currentTimestap}/>
             </View>
         );
 

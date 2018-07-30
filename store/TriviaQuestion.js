@@ -22,6 +22,7 @@ export class TriviaQuestion extends Reflux.Store
             correctOption: null,
             currentQuestion: {},
             currentTimeout: 0,
+            currentTimestamp: 0, 
             timedOut: false,
             serverSuccess:true,
             win:false,
@@ -39,9 +40,10 @@ export class TriviaQuestion extends Reflux.Store
             TriviaQuestionActions.timeout();
         },timeout);
         //console.log(this.timer);
-        this.setState({
+        await this.setState({
             hasQuestion: true,
             currentQuestion: q,
+            currentTimestap: new Date().getTime(),
             currentTimeout: timeout,
             timedOut: false
         });

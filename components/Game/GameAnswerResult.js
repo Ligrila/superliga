@@ -22,6 +22,7 @@ class GameAnswerResult extends Component {
             // mostrar pantalla de vidas si no las tiene
         }
         TriviaQuestionActions.reset();
+        this.props.navigation.goBack();
     }
     render(){
         const styles = this.props.style;
@@ -47,7 +48,7 @@ class GameAnswerResult extends Component {
         return(
             <View style={styles.container}>
                 <Text style={styles.text}><Text style={styles.bigText}>UPS!</Text></Text>
-                <Text style={styles.subtext}>TU RESPUESTA {"\n"}NO LLEGO A TIEMPO</Text>
+                <Text style={styles.subtext}>NO RESPONDISTE {"\n"} A TIEMPO</Text>
                 <Button block info rounded onPress={this.backToGamePlay} style={styles.button}><Text style={styles.buttonText}>Seguir jugando</Text></Button>
             </View>
         )

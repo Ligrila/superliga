@@ -4,6 +4,7 @@ import { createSwitchNavigator,createDrawerNavigator, createStackNavigator } fro
 
 import HomeScreen from '../screens/HomeScreen';
 import GameScreen from '../screens/GameScreen';
+import GameResultScreen from '../screens/GameResultScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import CalendarScreen from '../screens/CalendarScreen';
@@ -31,7 +32,7 @@ var GameSwitcher = createSwitchNavigator({
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   GameLoading: GameLoadingScreen,
   Home: HomeScreen,
-  GamePlay: GameScreen
+  GamePlay: GameScreen,
 
 },
 {
@@ -44,6 +45,12 @@ var Main = createDrawerNavigator({
     screen: GameSwitcher,
     navigationOptions: {
       title: "Inicio"
+    }
+  },
+  GameResult:{
+    screen: GameResultScreen,
+    navigationOptions: {
+      drawerLabel: () => null
     }
   },
   Profile: {

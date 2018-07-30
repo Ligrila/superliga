@@ -54,14 +54,23 @@ export class TriviaQuestion extends Reflux.Store
             return;
         }
         if(this.state.currentQuestion.id == question.id){
-            this.state.answeredServerResponse.then((data)=>{
+            if(this.state.answeredServerResponse){
+                this.state.answeredServerResponse.then((data)=>{
+                    this.setState({
+                        correctOption: question.correct_option,
+                        hasResult: true,
+                        serverSuccess: data.success,
+                        win: data.success && (question.correct_option == this.state.answeredOption)
+                    });
+                });
+            } else{
                 this.setState({
                     correctOption: question.correct_option,
                     hasResult: true,
-                    serverSuccess: data.success,
-                    win: data.success && (question.correct_option == this.state.answeredOption)
+                    serverSuccess: false,
+                    win: false
                 });
-            });
+            }
         } else{
             console.warn("Intentando finalizar a una pregunta que no es la actual");
         }

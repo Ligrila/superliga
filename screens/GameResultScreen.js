@@ -1,44 +1,32 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { connectStyle,Container, Content, Footer,Spinner } from 'native-base'
 
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 
 import bgSrc from '../assets/images/bg.png';
-import Api from '../api/Api';
 
-import Game from '../components/Game';
 import GameConnectedUsers from '../components/Game/GameConnectedUsers';
+import GameAnswerResult from '../components/Game/GameAnswerResult';
 
 
-class GameScreen extends React.Component {
-  api = new Api;
+
+class GameResultScreen extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      isLoadingComplete: false
-    }
   }
   async componentDidMount() {
-    const currentTrivia = await this.api.getCurrentTrivia();
-    console.log(currentTrivia);
-    if(currentTrivia.success){
-      this.setState({isLoadingComplete:true,currentTrivia: currentTrivia});
-    } else{
-      // que hacemos ? // vamos a home ? mostramos no hay trivia todavia ? mostramos la siguiente ?
-    }
+
   }
-  renderGame(){
-    if(this.state.isLoadingComplete){
-      return (
-        <Game currentTrivia={this.state.currentTrivia} navigation={this.props.navigation}>
-        </Game>
-      );
-    } else{
-      return(<Spinner />);
-    }
+  renderResult(){
+    const { navigation } = this.props;
+    const win = navigation.getParam('win', false);
+    const serverSuccess = navigation.getParam('serverSuccess', false);
+    return (<GameAnswerResult win={win} serverSuccess={serverSuccess} navigation={this.props.navigation} />);    
+  
   }
+
   render() {
     const styles = this.props.style;
     return (
@@ -46,7 +34,7 @@ class GameScreen extends React.Component {
         <Wallpaper source={bgSrc}>
         <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
         <Content padder contentContainerStyle={styles.game}>
-          {this.renderGame()}
+          {this.renderResult()}
         </Content>
         <Footer>
           <GameConnectedUsers />
@@ -64,4 +52,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default connectStyle('SuperLiga.Screen')(GameScreen);
+export default connectStyle('SuperLiga.Screen')(GameResultScreen);

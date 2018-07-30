@@ -33,9 +33,6 @@ class GamePlay extends Reflux.Component {
         console.log("Question timedout");
     }
     _renderBall(){
-        if(this.state.hasResult){
-            return;
-        }
         const styles = this.props.style;
         return (  
             <View style={styles.ballContainer}>  
@@ -44,13 +41,19 @@ class GamePlay extends Reflux.Component {
         );
 
     }
+    componentDidUpdate(){
+        console.log("did update");
+        if(this.state.hasResult){
+            this.props.navigation.navigate('GameResult', {
+                win: this.state.win,
+                serverSuccess: this.state.serverSuccess,
+              });
+        }
+    }
     _renderCurrentQuestion(){
         if(this.state.hasQuestion && !this.state.hasResult ){
             return (<GameQuestion question={this.state.currentQuestion} />);
         } else{
-            if(this.state.hasResult){
-                return (<GameAnswerResult win={this.state.win} serverSuccess={this.state.serverSuccess} />);    
-            }
             return (<GameWait text={'ESPERANDO \n JUGADA'} />);
         }
     }

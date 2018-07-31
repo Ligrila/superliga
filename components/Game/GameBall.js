@@ -26,15 +26,15 @@ import {TriviaQuestion} from '../../store/TriviaQuestion';
  * 
  */
 
-class GameBall extends React.Component {
+class GameBall extends Reflux.Component {
     state = {
-        hasQuestion: false,
         tintColor: "#6adc95"
     }
     constructor(props){
         super(props);
         this.onBallFill = this.onBallFill.bind(this);
         this.onQuestionTimeout = this.onQuestionTimeout.bind(this);
+        this.store = TriviaQuestion;
     }
     onBallFill(i){
         if(i.value>50){
@@ -53,20 +53,18 @@ class GameBall extends React.Component {
         const styles = this.props.style;
         let fill = 0;
         const timestamp = new Date().getTime();
-        const timestampDif = (timestamp - this.props.currentTimestap);
-        let duration = this.props.currentTimeout - timestampDif;
-        console.log("timestapm",timestamp);
-        console.log("current timestapm",this.props.currentTimestap);
-        console.log("duration",duration);
-        console.log("hasQuestion",this.props.hasQuestion);
+        const timestampDif = (timestamp - this.state.currentTimestap);
+        let duration = this.state.currentTimeout - timestampDif;
         if(timestampDif<0){
             timeout = 0;
         }
-
-        if(this.props.hasQuestion){
+        console.log("hasQuestion",this.state.hasQuestion);
+        //duration = 6000;
+        if(this.state.hasQuestion){
             fill = 100;
-            this.duration = duration;
         } else{
+            duration = 0;
+            fill=0;
         }
         return(
                 <View style={styles.container}>
@@ -74,7 +72,7 @@ class GameBall extends React.Component {
                             ref={(ref) => this.circularProgress = ref}
                             size={175 * Layout.window.ratio}
                             width={6}
-                            duration={this.props.duration}
+                            duration={duration}
                             fill={fill}
                             backgroundColor="rgba(255,255,255,0.42)"
                             tintColor={this.state.tintColor}

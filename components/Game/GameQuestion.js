@@ -27,7 +27,6 @@ class GameQuestion extends Reflux.Component {
         button2Pressed: false,
         button3Pressed: false,
         disabled: false,
-        waitingQuestionOption:false,
     }
     constructor(props){
         super(props);
@@ -42,7 +41,6 @@ class GameQuestion extends Reflux.Component {
     async _sendAnswer(option){
         let response = this.api.sendAnswer(this.props.question.id,option);
         //if(response.success){
-            this.setState({waitingQuestionOption:true});
             TriviaQuestionActions.answerQuestion(this.props.question.id,option,response);
         //1}
         
@@ -64,6 +62,7 @@ class GameQuestion extends Reflux.Component {
     }
     render(){
         const styles = this.props.style;
+        const renderDisabled = this.state.timedOut || this.state.disabled;
         return(
                 <View style={styles.container}>
                     <Text style={styles.text}>{this.props.question.question.toUpperCase()}</Text>
@@ -71,7 +70,7 @@ class GameQuestion extends Reflux.Component {
                         onPress={this.onButton1Press}
                         light={!this.state.button1Pressed}
                         primary={this.state.button1Pressed}
-                        disabled={this.state.disabled}
+                        disabled={renderDisabled}
                         block
                         large
                         rounded style={styles.button}>
@@ -81,7 +80,7 @@ class GameQuestion extends Reflux.Component {
                         onPress={this.onButton2Press}
                         light={!this.state.button2Pressed}
                         primary={this.state.button2Pressed}
-                        disabled={this.state.disabled}
+                        disabled={renderDisabled}
                         block
                         large
                         rounded style={styles.button}>
@@ -91,7 +90,7 @@ class GameQuestion extends Reflux.Component {
                         onPress={this.onButton3Press}
                         light={!this.state.button3Pressed}
                         primary={this.state.button3Pressed}
-                        disabled={this.state.disabled}
+                        disabled={renderDisabled}
                         block
                         large
                         rounded style={styles.button}>

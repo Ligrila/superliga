@@ -58,7 +58,7 @@ class GameBall extends Reflux.Component {
         if(timestampDif<0){
             timeout = 0;
         }
-        console.log("hasQuestion",this.state.hasQuestion);
+        //console.log("hasQuestion",this.state.hasQuestion);
         //duration = 6000;
         if(this.state.hasQuestion){
             fill = 100;

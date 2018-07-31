@@ -28,6 +28,7 @@ class GamePlay extends Reflux.Component {
     constructor(props){
         super(props);
         this.store = TriviaQuestion;
+        console.log(this.state);
     }
     onQuestionTimeout(){
         console.log("Question ball timedout " + new Date());
@@ -42,6 +43,7 @@ class GamePlay extends Reflux.Component {
         );
 
     }
+
     componentDidUpdate(){
         console.log("did update");
         if(this.state.hasResult){

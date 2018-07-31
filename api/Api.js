@@ -50,6 +50,10 @@ export default class Api extends RestClient {
     return this.GET('/auth')
       .then(response => response.user);
   }
+  
+  getUserInformation(){
+    return this.GET('/users/me');
+  }
 
   getTrivias(){
     return this.GET('/trivias/index');

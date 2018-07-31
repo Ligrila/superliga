@@ -11,6 +11,7 @@ import SocketClient from './modules/SocketClient';
 import Api from './api/Api';
 
 import AppTheme from './Theme';
+import { UsersActions } from './store/UserStore';
 
 export default class App extends React.Component {
   state = {
@@ -25,6 +26,7 @@ export default class App extends React.Component {
         'Setting a timer'
       ];*/
       this.socket = new SocketClient;
+      UsersActions.update();
   }
   componentDidMount() {
     this.initNetwork();

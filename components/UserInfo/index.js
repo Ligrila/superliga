@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Reflux from "reflux";
 import {
     View,
     Image,
@@ -11,15 +12,26 @@ import { Text } from 'native-base'
 import Layout from '../../constants/Layout';
 import ballImg from '../../assets/images/ball.png';
 
+import { UsersStore } from "../../store/UserStore";
 
-export default class UserInfo extends Component {
 
+export default class UserInfo extends Reflux.Component {
+    constructor(props){
+        super(props);
+        this.store = UsersStore;
+    }
     render(){
+        let points = 0;
+        let lives = 0;
+        if(this.state.hasInformation){
+            lives = this.state.user.life[0].lives;
+            points = this.state.user.points[0].points;
+        }
         return(
             <View>
-                <Text><Image source={ballImg} style={styles.ballImg} /> 18</Text>
+                <Text><Image source={ballImg} style={styles.ballImg} /> {lives}</Text>
                 <Text>PUNTOS</Text>
-                <Text>7550</Text>
+                <Text>{points}</Text>
 
             </View>
         )

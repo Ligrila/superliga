@@ -3,11 +3,14 @@ import Reflux from 'reflux';
 import {ConnectedUsersStore,ConnectedUsersActions} from './ConnectedUsersStore';
 
 import {TriviaQuestionActions} from './TriviaQuestion';
+import { UsersStore, UsersActions } from './UserStore';
+
 
 
 export default class ActionDispatcher{
     constructor(){
         Reflux.initStore(ConnectedUsersStore); // la necesitamos iniciada
+        Reflux.initStore(UsersStore);
     }
     
     dispatch(message){
@@ -20,6 +23,7 @@ export default class ActionDispatcher{
                 break;
             case 'finishedQuestion':
                 TriviaQuestionActions.finishedQuestion(message.payload);
+                UsersActions.update();
                 break;
             default:
                 console.warn("Unknow action name : " + message.eventName);

@@ -4,8 +4,52 @@ import Layout from '../constants/Layout';
 const s = (size) => {
     return size * Layout.window.ratio;
 }
+const h = (size) => {
+    console.log('h',size * Layout.window.heightRatio);
+    return size * Layout.window.heightRatio;
+}
 
 export default {
+    'SuperLiga.Sidebar': {
+        container: {
+            flex: 1,
+          },
+          scrollContainer: {
+          },
+          text:{
+            color: "#fff",
+          },
+          header: {
+            height: null,
+            alignItems: "center",
+            justifyContent: "center",
+          },
+          content:{
+          },
+          headerBody:{
+            alignItems:'center',
+            justifyContent: 'center'
+          },
+          itemsContainer:{
+            alignItems:'center',
+            justifyContent: 'center'
+          },
+          avatar: {
+            borderWidth:0,
+            height: 150,
+            width: 117.75,
+            borderRadius: 0
+          },
+          sidebarItem:{
+              borderBottomColor:'#fff',
+              borderBottomWidth:1,
+              padding: h(35),
+              width: '90%',
+          },
+          sidebarItemLabel:{
+              textAlign: 'center'
+          }
+    },
     'SuperLiga.Screen':{
         game:{
             flex:1,

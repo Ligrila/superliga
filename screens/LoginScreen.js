@@ -9,8 +9,8 @@ import {
 import {connectStyle,Header,Container,Content,Button,Form, Item, Input,Text,Icon,Toast} from 'native-base';
 import Expo from 'expo';
 
-import Logo from '../components/Form/Logo';
-import Wallpaper from '../components/Form/Wallpaper';
+import Wallpaper from '../components/Wallpaper';
+const bgSrc = require('../assets/images/login/bg.png');
 
 import Api from '../api/Api';
 
@@ -45,7 +45,7 @@ class LoginScreen extends React.Component {
       console.log(styles);
       return (
         <Container>
-        <Wallpaper>
+        <Wallpaper source={bgSrc}>
           <Content padder contentContainerStyle={styles.login}>
             <View style={styles.container}>
                 <Text style={styles.title}>Logueate con tu usuario {"\n"}

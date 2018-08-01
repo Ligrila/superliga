@@ -93,6 +93,8 @@ export default class App extends React.Component {
         require('./assets/images/game/bg.png'),
         require('./assets/images/login/bg.png'),
         require('./assets/images/result/wrong_bg.png'),
+        require('./assets/images/sidebar_bg.png'),
+        
          
          
       ]),

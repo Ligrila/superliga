@@ -23,10 +23,10 @@ class GameScreen extends Reflux.Component {
     this.state = {
       isLoadingComplete: false
     }
-    this.store = TriviaQuestion
+    this.store = TriviaQuestion; // TODO: use Trivia Store
   }
   async componentDidMount() {
-    const currentTrivia = await this.api.getCurrentTrivia();
+    const currentTrivia = await this.api.getCurrentTrivia(); // TODO: move this to reflux
     if(currentTrivia.success){
       this.setState({isLoadingComplete:true,currentTrivia: currentTrivia});
     } else{

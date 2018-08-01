@@ -19,7 +19,7 @@ import {SidebarDrawerContentComponent} from '../components/SidebarDrawerContentC
 
 import Layout from '../constants/Layout';
 
-
+import {Icon,Text} from 'native-base'
 
 const AuthStack = createStackNavigator(
   { 
@@ -44,7 +44,12 @@ var Main = createDrawerNavigator({
   HomeSwitcher: {
     screen: GameSwitcher,
     navigationOptions: {
-      title: "Inicio"
+      title: "Inicio",
+      drawerLabel: () =>{
+        return (
+          <Text><Icon name='home' type='FontAwesome' /> Inicio</Text>
+        )
+      }
     }
   },
   GameResult:{

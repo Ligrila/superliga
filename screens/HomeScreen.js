@@ -31,7 +31,9 @@ import bgSrc from '../assets/images/bg.png';
 
 export default class HomeScreen extends Reflux.Component {
   static navigationOptions = {
-    title: "Home"
+    title: "Home",
+    icon: 'home',
+    iconFamily: 'font-awesome'
   };
   api = new Api;
   trivia = null;

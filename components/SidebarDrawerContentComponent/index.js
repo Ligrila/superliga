@@ -12,7 +12,6 @@ import {
   Container,
   Content,
   Header,
-  Icon,
   Text,
   Body
 } from 'native-base'
@@ -22,6 +21,14 @@ import { DrawerItems,SafeAreaView } from 'react-navigation'
 import bgSrc from '../../assets/images/sidebar_bg.png';
 import Wallpaper from '../Wallpaper';
 
+
+class SidebarItem{
+  render(){
+    <Text style={styles.sidebarItemLabel}>
+      {this.props.label}
+    </Text>
+  }
+}
 
 class Sidebar extends React.Component{
   constructor(props){
@@ -35,9 +42,7 @@ class Sidebar extends React.Component{
     }
     return  (
       <View style={styles.sidebarItem}>
-        <Text style={styles.sidebarItemLabel}>
-          <Icon name='home' type='FontAwesome' style={styles.text} /> {label}
-        </Text>
+          <View>{label}</View>
       </View>
     );
   }
@@ -69,6 +74,7 @@ class Sidebar extends React.Component{
 }
 
 Sidebar = connectStyle('SuperLiga.Sidebar')(Sidebar);
+//SidebarItem = connectStyle('SuperLiga.Sidebar')(SidebarItem); // TODO:
 
 export const SidebarDrawerContentComponent = (props) => (
   <Sidebar items={props} />
@@ -76,7 +82,3 @@ export const SidebarDrawerContentComponent = (props) => (
 );
 
 
-
-
-  
-  

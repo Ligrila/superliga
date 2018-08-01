@@ -6,6 +6,7 @@ import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 
 import bgSrc from '../assets/images/bg.png';
+import wrongBgSrc from '../assets/images/result/wrong_bg.png';
 
 import GameConnectedUsers from '../components/Game/GameConnectedUsers';
 import GameAnswerResult from '../components/Game/GameAnswerResult';
@@ -29,9 +30,11 @@ class GameResultScreen extends React.Component {
 
   render() {
     const styles = this.props.style;
+    const { navigation } = this.props;
+    const win = navigation.getParam('win', false);
     return (
       <Container>
-        <Wallpaper source={bgSrc}>
+        <Wallpaper source={win ? bgSrc : wrongBgSrc}>
         <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
         <Content padder contentContainerStyle={styles.game}>
           {this.renderResult()}

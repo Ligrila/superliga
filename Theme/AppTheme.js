@@ -9,7 +9,81 @@ export default {
     'SuperLiga.Screen':{
         game:{
             flex:1,
-        }
+        },
+        
+    },
+    'SuperLiga.LoginScreen':{
+        login:{
+            flex:1,
+            alignItems:'center',
+            justifyContent: 'center'
+        },
+        container:{
+            flex:1,
+            width: '80%',
+            alignItems:'center',
+            justifyContent: 'center'
+
+        },
+        title:{
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40)
+        },
+        item:{
+            width: '100%',
+        },
+        input:{
+            fontSize: s(40),
+            width: '100%',
+            fontFamily: 'OpenSansCondensed_light',
+        },
+        submitButton:{
+            backgroundColor: '#7b4294',
+            marginTop: s(40),
+        },
+        submitButtonText:{
+            color: '#fff',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(35)
+        },
+        registerTitle:{
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(40),
+            marginTop: s(50),
+        },
+        registerButton:{
+            marginTop:s(30),
+        },
+        registerButtonText:{
+            color: '#282828',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(35)
+        },
+        socialButton:{
+            width: s(80),
+            height: s(80),
+            paddingHorizontal: 0,
+            borderWidth:0,
+            borderRadius: s(80),
+            justifyContent: 'center',
+        },
+        socialButtonIcon:{
+            fontSize: s(40),
+            marginHorizontal:0,
+        },
+        socialLoginContainer:{
+            marginTop: s(50),
+            width: "100%",
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        socialLoginTitle:{
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(40),
+        },
+        socialLoginIcons:{
+            marginTop: s(30),
+        },
     },
     'SuperLiga.Game':{
         container:{

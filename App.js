@@ -90,6 +90,11 @@ export default class App extends React.Component {
         require('./assets/images/app_logo.png'),
         require('./assets/images/logo.png'),
         require('./assets/images/menu.png'),
+        require('./assets/images/game/bg.png'),
+        require('./assets/images/login/bg.png'),
+        require('./assets/images/result/wrong_bg.png'),
+         
+         
       ]),
       ...serverAssets,
       Font.loadAsync({

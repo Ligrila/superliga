@@ -6,23 +6,27 @@ import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 
 import bgSrc from '../assets/images/bg.png';
+import gameBgSrc from '../assets/images/game/bg.png';
 import Api from '../api/Api';
 
 import Game from '../components/Game';
 import GameConnectedUsers from '../components/Game/GameConnectedUsers';
 
+import Reflux from 'reflux';
+import { TriviaQuestion } from '../store/TriviaQuestion';
 
-class GameScreen extends React.Component {
+
+class GameScreen extends Reflux.Component {
   api = new Api;
   constructor(props){
     super(props);
     this.state = {
       isLoadingComplete: false
     }
+    this.store = TriviaQuestion
   }
   async componentDidMount() {
     const currentTrivia = await this.api.getCurrentTrivia();
-    console.log(currentTrivia);
     if(currentTrivia.success){
       this.setState({isLoadingComplete:true,currentTrivia: currentTrivia});
     } else{
@@ -43,7 +47,7 @@ class GameScreen extends React.Component {
     const styles = this.props.style;
     return (
       <Container>
-        <Wallpaper source={bgSrc}>
+        <Wallpaper source={this.state.hasQuestion ? gameBgSrc : bgSrc}>
         <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
         <Content padder contentContainerStyle={styles.game}>
           {this.renderGame()}

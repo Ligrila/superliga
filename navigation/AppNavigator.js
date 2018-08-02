@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen';
 import GameScreen from '../screens/GameScreen';
 import GameResultScreen from '../screens/GameResultScreen';
 import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen.';
 import ProfileScreen from '../screens/ProfileScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import AwardScreen from '../screens/AwardScreen';
@@ -15,15 +16,17 @@ import LogoutScreen from '../screens/LogoutScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import GameLoadingScreen from '../screens/GameLoadingScreen';
 
-import {SidebarDrawerContentComponent} from '../components/SidebarDrawerContentComponent';
+import {SidebarDrawerContentComponent, SidebarItem} from '../components/SidebarDrawerContentComponent';
 
 import Layout from '../constants/Layout';
 
 import {Icon,Text} from 'native-base'
 
+
 const AuthStack = createStackNavigator(
   { 
-    Login: LoginScreen 
+    Login: LoginScreen,
+    Register: RegisterScreen
   },
 );
 
@@ -47,7 +50,7 @@ var Main = createDrawerNavigator({
       title: "Inicio",
       drawerLabel: () =>{
         return (
-          <Text><Icon name='home' type='FontAwesome' /> Inicio</Text>
+          <SidebarItem label={"Jugar"} source={require('../assets/images/menu/awards.png')}/>
         )
       }
     }
@@ -59,20 +62,65 @@ var Main = createDrawerNavigator({
     }
   },
   Profile: {
-    screen: ProfileScreen
+    screen: ProfileScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Mi perfil"} source={require('../assets/images/menu/profile.png')}/>
+        )
+      }
+    }
   },
   Calendar: {
-    screen: CalendarScreen
+    screen: CalendarScreen,
+    navigationOptions: {
+        drawerLabel: () =>{
+          return (
+            <SidebarItem label={"Fixture"} source={require('../assets/images/menu/fixture.png')}/>
+          )
+        }
+      }
   },
   Award:{
-    screen: AwardScreen
+    screen: AwardScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Premios"} source={require('../assets/images/menu/awards.png')}/>
+        )
+      }
+    }
   },
   Buy:{
-    screen: BuyScreen
+    screen: BuyScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Comprar"} source={require('../assets/images/menu/buy.png')}/>
+        )
+      }
+    }
   },
-  Logout: {
-    screen: LogoutScreen
-  }
+  Statistics:{
+    screen: BuyScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Estadisticas"} source={require('../assets/images/menu/statistics.png')}/>
+        )
+      }
+    }
+  },
+  /*Logout: {
+    screen: LogoutScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Cerrar sesion"} source={require('../assets/images/menu/awards.png')}/>
+        )
+      }
+    }
+  }*/
 },{
     drawerPosition: 'left',
     contentComponent: SidebarDrawerContentComponent,

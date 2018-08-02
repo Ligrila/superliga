@@ -32,6 +32,10 @@ export default class Api extends RestClient {
     // Returns a Promise with the response.
     return this.POST('/users/login', { email, password },{authorizationHeader:false});
   }
+  register (first_name,last_name,email, password) {
+    // Returns a Promise with the response.
+    return this.POST('/users/add', { first_name,last_name,email, password },{authorizationHeader:false});
+  }
   token (refresh_token) {
     // Returns a Promise with the response.
     return this.POST('/users/token', { refresh_token },{authorizationHeader:false});

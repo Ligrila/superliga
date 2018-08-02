@@ -34,21 +34,43 @@ export default {
             alignItems:'center',
             justifyContent: 'center'
           },
+          avatarContainer:{
+            borderColor: '#b3a0c6',
+            borderWidth: 4,
+            borderRadius: s(231),
+            overflow: 'hidden'
+          },
           avatar: {
-            borderWidth:0,
-            height: 150,
-            width: 117.75,
-            borderRadius: 0
+            height: s(231),
+            width: s(231),
+            resizeMode: 'cover'
+          },
+          drawerItems:{
           },
           sidebarItem:{
-              borderBottomColor:'#fff',
-              borderBottomWidth:1,
-              padding: h(35),
-              width: '90%',
+              width: "100%",
+              alignItems:'center',
+              justifyContent: 'center'
           },
+          sidebarItemStyle:{
+            borderBottomColor:'#d4ccde',
+            borderBottomWidth:1,
+            width: "85%",
+            alignItems:'center',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            padding: h(35),
+        },
           sidebarItemLabel:{
-              textAlign: 'center'
-          }
+              textAlign: 'center',
+              fontSize: s(35),
+              fontFamily: 'OpenSansCondensed_light',
+          },
+          sidebarItemImage:{
+            width: s(35),
+            height: s(35),
+            marginRight: s(40)
+        }
     },
     'SuperLiga.Screen':{
         game:{

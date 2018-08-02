@@ -47,7 +47,7 @@ class GameScreen extends Reflux.Component {
     const styles = this.props.style;
     return (
       <Container>
-        <Wallpaper source={this.state.hasQuestion ? gameBgSrc : bgSrc}>
+        <Wallpaper source={gameBgSrc}>
         <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
         <Content padder contentContainerStyle={styles.game}>
           {this.renderGame()}

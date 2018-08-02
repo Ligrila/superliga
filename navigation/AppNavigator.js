@@ -111,7 +111,7 @@ var Main = createDrawerNavigator({
       }
     }
   },
-  /*Logout: {
+  Logout: {
     screen: LogoutScreen,
     navigationOptions: {
       drawerLabel: () =>{
@@ -120,7 +120,7 @@ var Main = createDrawerNavigator({
         )
       }
     }
-  }*/
+  }
 },{
     drawerPosition: 'left',
     contentComponent: SidebarDrawerContentComponent,

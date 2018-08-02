@@ -111,8 +111,8 @@ class LoginScreen extends React.Component {
         }
       }
     }
-    _onRegister(){
-      
+    _onRegister = ()=>{
+     this.props.navigation.navigate('Register');
     }
     async _onSubmit (){
         //await AsyncStorage.setItem('userToken', 'abc');

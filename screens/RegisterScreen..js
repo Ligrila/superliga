@@ -13,7 +13,7 @@ import Wallpaper from '../components/Wallpaper';
 const bgSrc = require('../assets/images/login/bg.png');
 
 import Api from '../api/Api';
-import Recaptcha from 'react-google-invisible-recaptcha';
+import Recaptcha from '../components/InvisibleCaptcha';
 
 
 class RegisterScreen extends React.Component {
@@ -31,7 +31,6 @@ class RegisterScreen extends React.Component {
     constructor(props) {
       super(props);
       this._onSubmit = this._onSubmit.bind(this);
-      this.facebookRegister = this.facebookRegister.bind(this);
     }
 
     onFirstNameChange = async (email)=>{
@@ -58,11 +57,11 @@ class RegisterScreen extends React.Component {
       return (
         <Container>
         <Wallpaper source={bgSrc}>
-          <Content padder contentContainerStyle={styles.Register}>
+          <Content padder contentContainerStyle={styles.login}>
             <View style={styles.container}>
                 <Text style={styles.title}>Crear cuenta nueva</Text>
                 <Form>
-                  <Recaptcha
+                <Recaptcha
                   ref={ ref => this.recaptcha = ref }
                   sitekey={ '6LfCzGcUAAAAAHamT-dHFCeYWzaCGP_UTjggFzJV' }
                   onResolved={ () => console.log( 'Human detected.', this.recaptcha.getResponse() ) } />
@@ -93,8 +92,8 @@ class RegisterScreen extends React.Component {
 
                 <Text style={styles.registerTitle}>O ingresa si ya tienes cuenta :</Text>
                 
-                <Button rounded block large info onPress={this._onRegister} style={styles.registerButton}>
-                      <Text style={styles.registerButtonText}>Ingreasr</Text>
+                <Button rounded block large info onPress={this._onLoginButton} style={styles.registerButton}>
+                      <Text style={styles.registerButtonText}>Ingresar</Text>
                 </Button>
               </View>
           </Content>
@@ -103,7 +102,9 @@ class RegisterScreen extends React.Component {
       );
     }
 
-   
+   _onLoginButton = ()=>{
+    this.props.navigation.navigate('Login');
+   }
     async _onSubmit (){
         let {first_name, last_name, email,password} = this.state;
         var user = await this.api.Register(first_name,last_name,email,password).catch(e=>{
@@ -131,4 +132,4 @@ class RegisterScreen extends React.Component {
   }
 
 
-  export default connectStyle('SuperLiga.RegisterScreen')(RegisterScreen);
+  export default connectStyle('SuperLiga.LoginScreen')(RegisterScreen);

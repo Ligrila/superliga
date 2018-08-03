@@ -17,9 +17,6 @@ export default class Api extends RestClient {
     
     var user = await this.token(refreshToken)
     if(user.success){
-      console.log(user);
-      console.log("saving new data");
-      console.log("That expire at " + user.data.expire);
       await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
       await AsyncStorage.setItem('token', user.data.access_token);
       await AsyncStorage.setItem('refreshToken', user.data.refresh_token);

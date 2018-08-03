@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, Image } from 'react-native';
+import {  StyleSheet, Image,AsyncStorage } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { Root,  Text, Button, Container, Content } from "native-base";
@@ -26,8 +26,12 @@ export default class App extends React.Component {
         'Setting a timer'
       ];*/
       this.socket = new SocketClient;
-      UsersActions.update();
+      const token = await AsyncStorage.getItem('token');
+      if(token){
+        UsersActions.update();
+      }
   }
+
   componentDidMount() {
     this.initNetwork();
   }

@@ -15,6 +15,8 @@ const bgSrc = require('../assets/images/login/bg.png');
 import Api from '../api/Api';
 import Enviroment from '../constants/Enviroment';
 
+import { UsersActions } from '../store/UserStore';
+
 class LoginScreen extends React.Component {
     static navigationOptions = {
       title: 'Please sign in',
@@ -111,6 +113,7 @@ class LoginScreen extends React.Component {
           } catch(e){
             console.log(e);
           }
+          UsersActions.update();
           this.props.navigation.navigate('Main');
         }
       }
@@ -135,9 +138,9 @@ class LoginScreen extends React.Component {
           } catch(e){
             console.log(e);
           }
+          UsersActions.update();
           this.props.navigation.navigate('Main');
         } else{
-          console.log("Toast");
           Toast.show({
             text: 'Email o contraseña inválidos',
             buttonText: 'Aceptar'

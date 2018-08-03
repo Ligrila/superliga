@@ -8,9 +8,10 @@ import { Constants } from 'expo'
 
 
 const ENV = {
+  // TODO: crear archivo separado para configurar el enviroment local
   dev: {
-    socketUrl: 'http://localhost:8889/api',
-    apiUrl: 'http://php/superliga',
+    socketUrl: 'http://192.168.0.138:8889/api',
+    apiUrl: 'http://192.168.0.138/superliga',
   },
   staging: {
     socketUrl: 'http://superliga.mocla.us/wss',

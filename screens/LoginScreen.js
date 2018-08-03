@@ -6,13 +6,14 @@ import {
   } from 'react-native';
 
 
-import {connectStyle,Header,Container,Content,Button,Form, Item, Input,Text,Icon,Toast} from 'native-base';
+import {connectStyle,Header,Container,Content,Button,Form, Item, Input,Text,Icon,Toast, Footer} from 'native-base';
 import Expo from 'expo';
 
 import Wallpaper from '../components/Wallpaper';
 const bgSrc = require('../assets/images/login/bg.png');
 
 import Api from '../api/Api';
+import Enviroment from '../constants/Enviroment';
 
 class LoginScreen extends React.Component {
     static navigationOptions = {
@@ -82,6 +83,9 @@ class LoginScreen extends React.Component {
                   </View>
               </View>
           </Content>
+          <Footer>
+            <Text>{Enviroment.channel}</Text>
+          </Footer>
          </Wallpaper>
         </Container>
       );

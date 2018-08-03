@@ -1,5 +1,8 @@
 import RestClient from './RestClient';
 
+import Enviroment from '../constants/Enviroment';
+console.log(Enviroment);
+
 import {
   AsyncStorage
 } from 'react-native';
@@ -7,7 +10,7 @@ import {
 export default class Api extends RestClient {
   constructor () {
     // Initialize with your base URL
-    super('http://192.168.0.138/superliga');
+    super(Enviroment.apiUrl);
     //super('http://172.16.10.22/superliga');
   }
   async accessTokenExpired(){

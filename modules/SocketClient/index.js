@@ -11,6 +11,7 @@ import WebSockHop from 'websockhop/src/';
 
 
 import ActionDispatcher from '../../store/ActionDispatcher';
+import Enviroment from '../../constants/Enviroment';
 
 
 
@@ -22,7 +23,7 @@ export default class SocketClient{
         try{
             WebSockHop.log = () => {};
             this.actionDispatcher = new ActionDispatcher;
-            var wsh = new WebSockHop('ws://192.168.0.138:8889/', {
+            var wsh = new WebSockHop(Enviroment.socketUrl, {
               createSocket: function (url) {
                 return new WebSocket(url);
               }

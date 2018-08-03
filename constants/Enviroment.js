@@ -23,7 +23,7 @@ const ENV = {
 }
 
 function getEnvVars(env = '') {
-  if (env === null || env === undefined || env === '') return {...ENV.dev,channel:'local-development'}
+  if (env === null || env === undefined || env === '') return {...ENV.dev,channel:'local-development 0.1'}
   if (env.indexOf('dev') !== -1) return {...ENV.dev,channel:env}
   if (env.indexOf('staging') !== -1) return {...ENV.staging,channel:env}
   if (env.indexOf('prod') !== -1) return {...ENV.prod,channel:env}

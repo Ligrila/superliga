@@ -1,7 +1,6 @@
 import RestClient from './RestClient';
 
 import Enviroment from '../constants/Enviroment';
-console.log(Enviroment);
 
 import {
   AsyncStorage

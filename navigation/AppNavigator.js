@@ -21,6 +21,7 @@ import {SidebarDrawerContentComponent, SidebarItem} from '../components/SidebarD
 import Layout from '../constants/Layout';
 
 import {Icon,Text} from 'native-base'
+import StatisticsScreen from '../screens/StatisticsScreen';
 
 
 const AuthStack = createStackNavigator(
@@ -102,7 +103,7 @@ var Main = createDrawerNavigator({
     }
   },
   Statistics:{
-    screen: BuyScreen,
+    screen: StatisticsScreen,
     navigationOptions: {
       drawerLabel: () =>{
         return (

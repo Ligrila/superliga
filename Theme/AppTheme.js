@@ -34,6 +34,54 @@ export default {
             marginTop: s(80),
         },
     },
+    'SuperLiga.StatisticsScreen':{
+        statistics:{
+          flex: 1,
+        },
+        container:{
+            flex:1,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        rowContainer:{
+            flex:3,
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+        },
+        statisticsItem:{
+        },
+    },
+    'SuperLiga.StatisticItem':{
+        container:{
+            justifyContent: 'center',
+            alignItems: 'center',
+            flex:1,
+        },
+        fill:{
+            flex:1,
+            backgroundColor: '#fff',
+            width:150 * Layout.window.ratio,
+            height: 150 * Layout.window.ratio,
+            borderRadius: 150 * Layout.window.ratio,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderColor: 'black',
+        },
+        fillText:{
+            color: '#000',
+            fontFamily: 'OpenSans_bold',
+            fontSize: s(40),
+            textAlign:'center',
+        },
+        text:{
+            fontFamily: 'OpenSans',
+            fontSize: s(20),
+            marginTop: 10,
+            textAlign:'center',
+        }
+    },
     'SuperLiga.UserAvatar':{
         avatarContainer:{
             borderColor: '#b3a0c6',

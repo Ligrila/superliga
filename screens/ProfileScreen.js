@@ -6,13 +6,14 @@ import {connectStyle,Header,Container,Content,Text, Icon, Toast} from 'native-ba
 
 import { ImagePicker } from 'expo';
 
-
 import Wallpaper from '../components/Wallpaper';
 import { UsersStore } from '../store/UserStore';
 
-import bgSrc from '../assets/images/sidebar_bg.png';
+import sidebarBgSrc from '../assets/images/sidebar_bg.png';
+import bgSrc from '../assets/images/bg.png';
 import UserAvatar from '../components/UserAvatar';
 import Api from '../api/Api';
+import AppHeader from '../components/AppHeader/AppHeader';
 
 class ProfileScreen extends Reflux.Component {
   api = new Api;
@@ -29,19 +30,24 @@ class ProfileScreen extends Reflux.Component {
     if(!this.state.hasInformation){
       return <View />;
     }
-    let lives = points = 0;
-    if(this.state.user.life[0]){
-      lives = this.state.user.life[0].lives;
+
+    let lives = points = playedGames = 0;
+    if(this.state.user.life){
+      lives = this.state.user.life.lives;
     }
-    if(this.state.user.points[0]){
-        points = this.state.user.points[0].points;
+    if(this.state.user.point){
+        points = this.state.user.point.points;
+    }
+    if(this.state.user.played_game){
+      playedGames = this.state.user.played_game.count;
     }
     const styles = this.props.style;
     return (
       <Container>
-      <Header transparent />
       <Wallpaper source={bgSrc}>
-        <Content padder contentContainerStyle={styles.profile}>
+      <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} style={styles.header} />
+        <Content contentContainerStyle={styles.profile}>
+          <Wallpaper source={sidebarBgSrc} style={styles.profileWallpaper}>
           <View style={styles.profileContainer}>
               <Text>MI PERFIL</Text>
               <UserAvatar avatar={this.state.user.avatar} />
@@ -49,19 +55,21 @@ class ProfileScreen extends Reflux.Component {
               <Text>
                 <Text style={styles.bold}>Puntos:</Text> {points} {"\n"}
                 <Text style={styles.bold}>Vidas:</Text> {lives} {"\n"}
-                <Text style={styles.bold}>Partidos jugados:</Text> x {"\n"}
+                <Text style={styles.bold}>Partidos jugados:</Text> {playedGames} {"\n"}
               </Text>
 
               <TouchableOpacity 
                   onPress={this._pickImage}
-              >
-                  <Text> editar imagen de perfil{"\n"}
-                  <Icon type="Entypo" name="chevron-right"></Icon>
+                  style={styles.changeAvatarButton}
+                >
+                  <Text> editar imagen de perfil
                   </Text>
+                  <Icon style={styles.icon} type="Entypo" name="chevron-right"></Icon>
               </TouchableOpacity>
           </View>
+          </Wallpaper>
         </Content>
-       </Wallpaper>
+        </Wallpaper>
       </Container>
     );
   }

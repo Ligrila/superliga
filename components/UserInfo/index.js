@@ -23,13 +23,12 @@ export default class UserInfo extends Reflux.Component {
     render(){
         let points = 0;
         let lives = 0;
-        console.log(this.state);
         if(this.state.hasInformation){
-            if(this.state.user.life[0]){
-                lives = this.state.user.life[0].lives;
+            if(this.state.user.life){
+                lives = this.state.user.life.lives;
             }
-            if(this.state.user.points[0]){
-                points = this.state.user.points[0].points;
+            if(this.state.user.point){
+                points = this.state.user.point.points;
             }
         }
         return(

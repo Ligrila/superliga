@@ -16,6 +16,23 @@ export default {
             alignItems:'center',
             justifyContent: 'center'
         },
+        profileWallpaper: {
+            marginBottom: s(50),
+        },
+        icon:{
+            color: '#fff',
+            alignItems:'center',
+            justifyContent: 'center'
+
+        },
+        changeAvatarButton:{
+            alignItems:'center',
+            justifyContent: 'center'
+        },
+        profile:{
+            flex:1,
+            marginTop: s(80),
+        },
     },
     'SuperLiga.UserAvatar':{
         avatarContainer:{

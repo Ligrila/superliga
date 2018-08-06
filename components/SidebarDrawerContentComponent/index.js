@@ -71,6 +71,10 @@ class Sidebar extends Reflux.Component {
     if(!this.state.hasInformation){
       return <View />;
     }
+    let points = 0;
+    if(this.state.user.point){
+      points = this.state.user.point.points;
+    }
     return (
       <Container style={styles.container}>
       <Wallpaper source={bgSrc}>
@@ -78,7 +82,7 @@ class Sidebar extends Reflux.Component {
       <Header transparent style={styles.header}>
         <Body style={styles.headerBody}>
           <Text>{this.state.user.first_name} {this.state.user.last_name}</Text>
-          <Text>{this.state.user.points[0].points} Puntos</Text>
+          <Text>{points} Puntos</Text>
           <UserAvatar avatar={this.state.user.avatar} />
         </Body>
         </Header>

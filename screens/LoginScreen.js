@@ -45,7 +45,6 @@ class LoginScreen extends React.Component {
 
     render() {
       const styles = this.props.style;
-      console.log(styles);
       return (
         <Container>
         <Wallpaper source={bgSrc}>
@@ -57,6 +56,8 @@ class LoginScreen extends React.Component {
                   <Item style={styles.item}>
                     <Input style={styles.input} placeholder="Email"
                       onChangeText={this.onEmailChange}
+                      keyboardType='email-address' 
+
                     />
                   </Item>
                   <Item style={styles.item}>
@@ -122,14 +123,11 @@ class LoginScreen extends React.Component {
      this.props.navigation.navigate('Register');
     }
     async _onSubmit (){
-        //await AsyncStorage.setItem('userToken', 'abc');
-  //      this.props.navigation.navigate('Main');
-        console.log(this.state);
         let {email,password} = this.state;
         var user = await this.api.login(email,password).catch(e=>{
-          console.log(e);
+          console.log('Exeption',e);
         });
-        console.log(user);
+        console.log('User',user);
         if(user && user.success){
           try{
             await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);

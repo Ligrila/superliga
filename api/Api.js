@@ -32,8 +32,10 @@ export default class Api extends RestClient {
     return this.POST('/users/login', { email, password },{authorizationHeader:false});
   }
   register (first_name,last_name,email, password) {
+    const sha1 = require('js-sha1');
     // Returns a Promise with the response.
-    return this.POST('/users/add', { first_name,last_name,email, password },{authorizationHeader:false});
+    const hash = sha1( 'wt1U5MACWJFTXGenFoZoiLwQGrLgdbHA' + email.toUpperCase() + 'wt1U5MACWJFTXGenFoZoiLwQGrLgdbHA');
+    return this.POST('/users/add', { first_name,last_name,email, password, hash },{authorizationHeader:false});
   }
   token (refresh_token) {
     // Returns a Promise with the response.

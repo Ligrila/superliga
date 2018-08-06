@@ -13,7 +13,6 @@ import Wallpaper from '../components/Wallpaper';
 const bgSrc = require('../assets/images/login/bg.png');
 
 import Api from '../api/Api';
-import Recaptcha from '../components/InvisibleCaptcha';
 
 
 class RegisterScreen extends React.Component {
@@ -33,12 +32,12 @@ class RegisterScreen extends React.Component {
       this._onSubmit = this._onSubmit.bind(this);
     }
 
-    onFirstNameChange = async (email)=>{
-      await  this.setState({email});
+    onFirstNameChange = async (first_name)=>{
+      await  this.setState({first_name});
 
     }
-    onLastNameChange = async (email)=>{
-      await  this.setState({email});
+    onLastNameChange = async (last_name)=>{
+      await  this.setState({last_name});
 
     }
     onEmailChange = async (email)=>{
@@ -53,7 +52,6 @@ class RegisterScreen extends React.Component {
 
     render() {
       const styles = this.props.style;
-      console.log(styles);
       return (
         <Container>
         <Wallpaper source={bgSrc}>
@@ -61,10 +59,6 @@ class RegisterScreen extends React.Component {
             <View style={styles.container}>
                 <Text style={styles.title}>Crear cuenta nueva</Text>
                 <Form>
-                <Recaptcha
-                  ref={ ref => this.recaptcha = ref }
-                  sitekey={ '6LfCzGcUAAAAAHamT-dHFCeYWzaCGP_UTjggFzJV' }
-                  onResolved={ () => console.log( 'Human detected.', this.recaptcha.getResponse() ) } />
                 <Item style={styles.item}>
                     <Input style={styles.input} placeholder="Nombre"
                       onChangeText={this.onFirstNameChange}
@@ -78,6 +72,7 @@ class RegisterScreen extends React.Component {
                   <Item style={styles.item}>
                     <Input style={styles.input} placeholder="Email"
                       onChangeText={this.onEmailChange}
+                      keyboardType='email-address' 
                     />
                   </Item>
                   <Item style={styles.item}>
@@ -107,7 +102,7 @@ class RegisterScreen extends React.Component {
    }
     async _onSubmit (){
         let {first_name, last_name, email,password} = this.state;
-        var user = await this.api.Register(first_name,last_name,email,password).catch(e=>{
+        var user = await this.api.register(first_name,last_name,email,password).catch(e=>{
           console.log(e);
         });
         console.log(user);
@@ -119,6 +114,10 @@ class RegisterScreen extends React.Component {
           } catch(e){
             //console.log(e);
           }
+          Toast.show({
+            text: 'Ya puedes ingresar. Usa tus datos proporcionados anteriormente',
+            buttonText: 'Aceptar'
+          });
           this.props.navigation.navigate('Login');
         } else{
           Toast.show({

@@ -21,6 +21,7 @@ import { DrawerItems,SafeAreaView } from 'react-navigation'
 import bgSrc from '../../assets/images/sidebar_bg.png';
 import Wallpaper from '../Wallpaper';
 import { UsersStore } from '../../store/UserStore';
+import UserAvatar from '../UserAvatar';
 
 
 class _SidebarItem extends React.Component{
@@ -78,11 +79,7 @@ class Sidebar extends Reflux.Component {
         <Body style={styles.headerBody}>
           <Text>{this.state.user.first_name} {this.state.user.last_name}</Text>
           <Text>{this.state.user.points[0].points} Puntos</Text>
-          <View style={styles.avatarContainer}>
-            <Image
-              style={styles.avatar}
-              source={{uri:this.state.user.avatar}} />
-            </View>
+          <UserAvatar avatar={this.state.user.avatar} />
         </Body>
         </Header>
         <Content padder style={styles.content}>

@@ -63,7 +63,14 @@ export default class RestClient {
         headers: this.headers
       };
       if (body) {
-        Object.assign(opts, { body: JSON.stringify(body) });
+        if(body.constructor.name!='FormData'){
+          Object.assign(opts, { body: JSON.stringify(body) });
+        } else{
+          Object.assign(opts, { body: body });
+          opts.headers['Content-Type'] = 'multipart/form-data';
+          console.log('opts',opts);
+
+        }
       }
       const fetchPromise = () => fetch(fullRoute, opts);
 

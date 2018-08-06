@@ -74,4 +74,19 @@ export default class Api extends RestClient {
       selected_option: "option_" + option
     });
   }
+
+  changeAvatar(uri){
+    
+    let formData = new FormData();
+    let uriParts = uri.split('.');
+    let fileType = uriParts[uriParts.length - 1];
+
+    formData.append('picture', {
+      uri,
+      name: `photo.${fileType}`,
+      type: `image/${fileType}`,
+    });
+
+    return this.POST('/users/edit',formData);
+  }
 };

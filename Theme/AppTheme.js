@@ -10,6 +10,26 @@ const h = (size) => {
 }
 
 export default {
+    'SuperLiga.ProfileScreen':{
+        profileContainer:{
+            flex:1,
+            alignItems:'center',
+            justifyContent: 'center'
+        },
+    },
+    'SuperLiga.UserAvatar':{
+        avatarContainer:{
+            borderColor: '#b3a0c6',
+            borderWidth: 4,
+            borderRadius: s(231),
+            overflow: 'hidden'
+          },
+          avatar: {
+            height: s(231),
+            width: s(231),
+            resizeMode: 'cover'
+          },
+    },
     'SuperLiga.Sidebar': {
         container: {
             flex: 1,
@@ -33,17 +53,6 @@ export default {
           itemsContainer:{
             alignItems:'center',
             justifyContent: 'center'
-          },
-          avatarContainer:{
-            borderColor: '#b3a0c6',
-            borderWidth: 4,
-            borderRadius: s(231),
-            overflow: 'hidden'
-          },
-          avatar: {
-            height: s(231),
-            width: s(231),
-            resizeMode: 'cover'
           },
           drawerItems:{
           },

@@ -6,12 +6,14 @@ import { Constants } from 'expo'
 // para pruebas con testers ej:
 // exp publish --release-channel staging-0.1.0
 
+import localEnviroment from './Enviroment.local';
+
+
 
 const ENV = {
   // TODO: crear archivo separado para configurar el enviroment local
   dev: {
-    socketUrl: 'http://192.168.0.138:8889/api',
-    apiUrl: 'http://192.168.0.138/superliga',
+    ...localEnviroment
   },
   staging: {
     socketUrl: 'http://superliga.mocla.us/wss',

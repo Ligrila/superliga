@@ -18,12 +18,20 @@ class GameResultScreen extends React.Component {
     super(props);
   }
   async componentDidMount() {
-
+    const { navigation } = this.props;
+    const hasLife = navigation.getParam('hasLives', true); // TODO:
+    const changeNavigationTimeout = 6000;
+    if(hasLife){
+      setTimeout(()=>{
+        navigation.navigate('HomeSwitcher');
+      },changeNavigationTimeout)
+    }
   }
   renderResult(){
     const { navigation } = this.props;
     const win = navigation.getParam('win', false);
     const serverSuccess = navigation.getParam('serverSuccess', false);
+    
     return (<GameAnswerResult win={win} serverSuccess={serverSuccess} navigation={this.props.navigation} />);    
   
   }

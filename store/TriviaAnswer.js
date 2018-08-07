@@ -33,7 +33,7 @@ export class TriviaResult extends Reflux.Store
      * @param option integer, the number of option
     */
     onAdd(question_id,option){
-        let response = this.api.sendAnswer(question.id,option);
+        let response = this.api.sendAnswer(question_id,option);
         this.setState({
             Answer:{
                 answered: true,
@@ -41,7 +41,6 @@ export class TriviaResult extends Reflux.Store
                 answeredServerResponse: response
             }
         });
-
     }
 }
 

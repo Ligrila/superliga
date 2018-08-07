@@ -26,6 +26,13 @@ export default  class AuthLoadingScreen extends React.Component {
       let timestamp = new Date().getTime();
       let notExpired = tokenExpire > timestamp;
       isLogin = userToken && (tokenExpire !== null && notExpired);
+      if(isLogin){
+        // TODO: reveer esto, buscar una forma de detectar logouts en los request
+        const user  = await this.api.getUserInformation();
+        if(!user){
+          isLogin = false;
+        }
+      }
     } catch(e){
       console.log(e);
     }

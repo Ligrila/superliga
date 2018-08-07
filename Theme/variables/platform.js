@@ -5,7 +5,8 @@ import { Platform, Dimensions, PixelRatio } from "react-native";
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 const platform = Platform.OS;
-const platformStyle = undefined;
+const platformStyle = "material";
+//const platformStyle = undefined;
 const isIphoneX =
   platform === "ios" && (deviceHeight === 812 || deviceWidth === 812);
 

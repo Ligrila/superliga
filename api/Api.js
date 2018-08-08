@@ -82,10 +82,11 @@ export default class Api extends RestClient {
     let formData = new FormData();
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
+    const photorand = Math.floor(Math.random()* 1000000);
 
     formData.append('picture', {
       uri,
-      name: `photo.${fileType}`,
+      name: `photo_${photorand}.${fileType}`,
       type: `image/${fileType}`,
     });
 

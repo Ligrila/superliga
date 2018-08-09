@@ -3,19 +3,17 @@ import Reflux from "reflux";
 import {
     View,
     Image,
-    StyleSheet
 } from "react-native";
 
-import { Text } from 'native-base'
+import {connectStyle, Text } from 'native-base'
 
 
-import Layout from '../../constants/Layout';
 import ballImg from '../../assets/images/ball.png';
 
 import { UsersStore } from "../../store/UserStore";
 
 
-export default class UserInfo extends Reflux.Component {
+class UserInfo extends Reflux.Component {
     constructor(props){
         super(props);
         this.store = UsersStore;
@@ -23,6 +21,7 @@ export default class UserInfo extends Reflux.Component {
     render(){
         let points = 0;
         let lives = 0;
+        const styles = this.props.style;
         if(this.state.hasInformation){
             if(this.state.user.life){
                 lives = this.state.user.life.lives;
@@ -32,10 +31,13 @@ export default class UserInfo extends Reflux.Component {
             }
         }
         return(
-            <View>
-                <Text><Image source={ballImg} style={styles.ballImg} /> {lives}</Text>
-                <Text>PUNTOS</Text>
-                <Text>{points}</Text>
+            <View style={styles.container}>
+                <View style={styles.liveContainer}>
+                    <Image source={ballImg} style={styles.ballImg} /> 
+                    <Text style={styles.livesText}>{lives}</Text>
+                </View>
+                <Text style={styles.pointsText}>PUNTOS</Text>
+                <Text style={styles.pointsValueText}>{points}</Text>
 
             </View>
         )
@@ -44,12 +46,5 @@ export default class UserInfo extends Reflux.Component {
 
 
 
-const ratio = Layout.window.ratio;
 
-const styles = StyleSheet.create({
-    ballImg: {
-        width: 31 * ratio,
-        height: 31 * ratio,
-     },
-
-  });
+export default connectStyle('SuperLiga.UserInfo')(UserInfo);

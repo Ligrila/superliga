@@ -10,6 +10,34 @@ const h = (size) => {
 }
 
 export default {
+    'SuperLiga.UserInfo':{
+        container:{
+            alignItems: 'center',
+        },
+         liveContainer:{
+            borderBottomColor: '#fff',
+            borderBottomWidth: 1,
+            alignItems: 'center',
+            flexDirection: 'row',
+         },
+         ballImg: {
+            marginRight: s(10),
+            width: s(31),
+            height: s(31),
+         },
+         livesText:{
+             fontSize: s(28),
+             fontFamily: 'OpenSansCondensed_bold',
+         },
+         pointsText:{
+             fontSize: s(40),
+            fontFamily: 'OpenSansCondensed_light',
+         },
+         pointsValueText:{
+            fontSize: s(48),
+            fontFamily: 'OpenSansCondensed_bold',
+         },
+    },
     'SuperLiga.ProfileScreen':{
         profileContainer:{
             flex:1,

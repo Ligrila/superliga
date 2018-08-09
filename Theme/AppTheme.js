@@ -223,7 +223,16 @@ export default {
         },
         socialLoginIcons:{
             marginTop: s(30),
+            alignItems:'center',
+            justifyContent:'center',
+            flexDirection: 'row'
         },
+        socialIconSeparator:{
+            width: 1,
+            height: s(20),
+            backgroundColor: '#fff',
+            marginHorizontal: 10,
+        }
     },
     'SuperLiga.Game':{
         container:{

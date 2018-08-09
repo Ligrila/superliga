@@ -44,7 +44,10 @@ export default class Api extends RestClient {
   getTeams(){
     return this.GET('/teams/index',{authorizationHeader:false});
   }
-
+  googleLogin (access_token) {
+    // Returns a Promise with the response.
+    return this.POST('/users/google-login', { access_token });
+  }
   facebookLogin (access_token) {
     // Returns a Promise with the response.
     return this.POST('/users/facebook-login', { access_token });

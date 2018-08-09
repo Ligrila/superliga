@@ -31,5 +31,8 @@
     },
     "facebookAppId": "882017118635234",
     "facebookDisplayName": "Trivia SuperLiga"
-  }
+  },
+  "android":{
+    "package": "ar.com.saf.trivia"
+  }  
 }

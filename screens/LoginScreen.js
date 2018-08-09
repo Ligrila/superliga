@@ -31,6 +31,7 @@ class LoginScreen extends React.Component {
       super(props);
       this._onSubmit = this._onSubmit.bind(this);
       this.facebookLogin = this.facebookLogin.bind(this);
+      this.googleLogin = this.googleLogin.bind(this);
     }
     
     onEmailChange = async (email)=>{
@@ -82,6 +83,10 @@ class LoginScreen extends React.Component {
                       <Button iconCenter rounded light onPress={this.facebookLogin} style={styles.socialButton}>
                         <Icon name='facebook-official' type='FontAwesome' style={styles.socialButtonIcon} />
                       </Button>
+                      <View style={styles.socialIconSeparator}></View>
+                      <Button iconCenter rounded light onPress={this.googleLogin} style={styles.socialButton}>
+                        <Icon name='google-' type='Entypo' style={styles.socialButtonIcon} />
+                      </Button>
                     </View>
                   </View>
               </View>
@@ -92,6 +97,40 @@ class LoginScreen extends React.Component {
          </Wallpaper>
         </Container>
       );
+    }
+
+
+    async googleLogin() {
+      try {
+        const result = await Expo.Google.logInAsync({
+          androidClientId: Enviroment.androidClientId,
+          iosClientId: Enviroment.iosClientId,
+          scopes: ['profile', 'email'],
+        });
+
+        if (result.type === 'success') {
+          const accessToken =  result.accessToken;
+          var user = await this.api.googleLogin(accessToken);
+          if(user.success){
+            try{
+              await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
+              await AsyncStorage.setItem('token', user.data.access_token);
+              await AsyncStorage.setItem('refreshToken', user.data.refresh_token);
+            } catch(e){
+              console.log(e);
+            }
+            UsersActions.update();
+            this.props.navigation.navigate('Main');
+          } else{
+            console.warn("Error google login", user);
+          }
+        } else {
+          //return {cancelled: true};
+        }
+      } catch(e) {
+        //return {error: true};
+        console.log("Error google login logInAsync",e);
+      }
     }
 
     async facebookLogin() {
@@ -116,6 +155,8 @@ class LoginScreen extends React.Component {
           }
           UsersActions.update();
           this.props.navigation.navigate('Main');
+        } else{
+          console.warn("Error facebook login", user);
         }
       }
     }
@@ -127,7 +168,6 @@ class LoginScreen extends React.Component {
         var user = await this.api.login(email,password).catch(e=>{
           console.log('Exeption',e);
         });
-        console.log('User',user);
         if(user && user.success){
           try{
             await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);

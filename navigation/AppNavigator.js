@@ -92,7 +92,7 @@ var Main = createDrawerNavigator({
       }
     }
   },
-  Buy:{
+  /*Buy:{
     screen: BuyScreen,
     navigationOptions: {
       drawerLabel: () =>{
@@ -101,7 +101,7 @@ var Main = createDrawerNavigator({
         )
       }
     }
-  },
+  },*/
   Statistics:{
     screen: StatisticsScreen,
     navigationOptions: {

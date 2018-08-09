@@ -10,6 +10,9 @@ import wrongBgSrc from '../assets/images/result/wrong_bg.png';
 
 import GameConnectedUsers from '../components/Game/GameConnectedUsers';
 import GameAnswerResult from '../components/Game/GameAnswerResult';
+import MakeItRain from '../components/MakeItRain';
+
+
 
 
 
@@ -40,9 +43,11 @@ class GameResultScreen extends React.Component {
     const styles = this.props.style;
     const { navigation } = this.props;
     const win = navigation.getParam('win', false);
+    const rain = win ? <MakeItRain /> : null;
     return (
       <Container>
         <Wallpaper source={win ? bgSrc : wrongBgSrc}>
+        {rain}
         <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
         <Content padder contentContainerStyle={styles.game}>
           {this.renderResult()}

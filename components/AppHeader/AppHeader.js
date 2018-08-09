@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     header: {
         //paddingTop:0,
         height: 'auto',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
     
     },
     left:{
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     },
     body:{
         flex:1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
     },
     right:{

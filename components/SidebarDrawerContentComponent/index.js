@@ -31,8 +31,8 @@ class _SidebarItem extends React.Component{
     if(source){
       return(
           <View style={styles.sidebarItemStyle}>
-            <Image source={source} style={styles.sidebarItemImage}></Image>
-            <Text style={styles.sidebarItemLabel}>{this.props.label.toUpperCase()}</Text>
+              <Image source={source} style={styles.sidebarItemImage}></Image>
+              <Text style={styles.sidebarItemLabel}>{this.props.label.toUpperCase()}</Text>
           </View>
         ); 
     }
@@ -81,16 +81,19 @@ class Sidebar extends Reflux.Component {
       <ScrollView style={styles.scrollContainer}>
       <Header transparent style={styles.header}>
         <Body style={styles.headerBody}>
-          <Text>{this.state.user.first_name} {this.state.user.last_name}</Text>
-          <Text>{points} Puntos</Text>
-          <UserAvatar avatar={this.state.user.avatar} />
+          <Text style={styles.userText}>{this.state.user.first_name} {this.state.user.last_name}</Text>
+          <Text style={styles.userPoints}>{points} Puntos</Text>
+          <View  style={styles.userAvatar}>
+            <UserAvatar avatar={this.state.user.avatar}/>
+          </View>
         </Body>
         </Header>
         <Content padder style={styles.content}>
-            <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }} style={styles.itemsContainer}>
+            <SafeAreaView forceInset={{ top: 'never', horizontal: 'never' }} style={styles.itemsContainer}>
                 <DrawerItems {...this.props.items} 
                 getLabel={this.getLabel}
                 style={styles.drawerItems}
+                activeBackgroundColor='transparent'
                 />
             </SafeAreaView>
         </Content>

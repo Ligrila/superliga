@@ -15,7 +15,7 @@ export default {
             alignItems: 'center',
         },
          liveContainer:{
-            borderBottomColor: '#fff',
+            borderBottomColor: '#b0b0af',
             borderBottomWidth: 1,
             alignItems: 'center',
             flexDirection: 'row',
@@ -126,6 +126,8 @@ export default {
     'SuperLiga.Sidebar': {
         container: {
             flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
           },
           scrollContainer: {
           },
@@ -141,13 +143,30 @@ export default {
           },
           headerBody:{
             alignItems:'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
           },
+          userText:{
+              fontSize: s(40),
+              fontFamily: 'OpenSansCondensed_light',
+          },
+          userPoints:{
+            fontSize: s(40),
+            fontFamily: 'OpenSansCondensed_bold',
+        },
+        userAvatar:{
+            marginTop: h(20),
+        },
           itemsContainer:{
-            alignItems:'center',
-            justifyContent: 'center'
+            flex:1,
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
+            paddingTop: 0,
+            marginTop:0,
           },
           drawerItems:{
+              marginTop:0,
+
           },
           sidebarItem:{
               width: "100%",
@@ -160,7 +179,7 @@ export default {
             width: "85%",
             alignItems:'center',
             flexDirection: 'row',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             padding: h(35),
         },
           sidebarItemLabel:{
@@ -169,6 +188,7 @@ export default {
               fontFamily: 'OpenSansCondensed_light',
           },
           sidebarItemImage:{
+            marginLeft: s(80),
             width: s(35),
             height: s(35),
             marginRight: s(40)

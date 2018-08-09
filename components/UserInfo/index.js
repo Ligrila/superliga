@@ -18,6 +18,7 @@ class UserInfo extends Reflux.Component {
         super(props);
         this.store = UsersStore;
     }
+
     render(){
         let points = 0;
         let lives = 0;

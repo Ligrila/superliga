@@ -17,9 +17,7 @@ export class DatesStore extends Reflux.Store
     }
     getInititalState(){
         return {
-            Dates:{
-
-            }
+            Dates:[]
         };
     }
     onReset(){
@@ -33,9 +31,9 @@ export class DatesStore extends Reflux.Store
     async calendar(){
         let response = await this.api.calendar();
         this.setState({
-            Dates:{
+            Dates:[
                 ...response.data
-            }
+            ]
         });
     }
 }

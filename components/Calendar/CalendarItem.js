@@ -12,7 +12,12 @@ class CalendarItem extends Component {
   render() {
     return (
       <View>
-        <Text> textInComponent </Text>
+        <Text> {this.props.item.name} </Text>
+        <View>
+            <View>
+              <Text></Text>
+            </View>
+        </View>
       </View>
     );
   }

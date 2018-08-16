@@ -36,6 +36,10 @@ export default class App extends React.Component {
     this.initNetwork();
   }
 
+  componentWillUmount(){
+    this.socket.close();    
+  }
+
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       if(this.state.isLoadingError){
@@ -94,6 +98,8 @@ export default class App extends React.Component {
         require('./assets/images/app_logo.png'),
         require('./assets/images/logo.png'),
         require('./assets/images/menu.png'),
+        require('./assets/images/awards/bg.png'),
+        require('./assets/images/awards/bg2.png'),
         require('./assets/images/game/bg.png'),
         require('./assets/images/login/bg.png'),
         require('./assets/images/result/wrong_bg.png'),

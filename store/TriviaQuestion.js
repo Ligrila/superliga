@@ -35,7 +35,7 @@ export class TriviaQuestion extends Reflux.Store
         if(this.timer){
             clearTimeout(this.timer);
         }
-        let timeout = q.timeout ? q.timeout : 6000;
+        let timeout = q.timeout ? q.timeout : 10000;
         this.timer = setTimeout(()=>{
             TriviaQuestionActions.timeout();
         },timeout);

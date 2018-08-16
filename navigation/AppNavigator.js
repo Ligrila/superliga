@@ -9,7 +9,7 @@ import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen.';
 import ProfileScreen from '../screens/ProfileScreen';
 import CalendarScreen from '../screens/CalendarScreen';
-import AwardScreen from '../screens/AwardScreen';
+import AwardsScreen from '../screens/AwardsScreen';
 import BuyScreen from '../screens/BuyScreen';
 import LogoutScreen from '../screens/LogoutScreen';
 
@@ -82,8 +82,8 @@ var Main = createDrawerNavigator({
         }
       }
   },
-  Award:{
-    screen: AwardScreen,
+  Awards:{
+    screen: AwardsScreen,
     navigationOptions: {
       drawerLabel: () =>{
         return (

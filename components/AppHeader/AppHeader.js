@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent: 'flex-start',
         alignItems: 'center',
+        height: '100%',
     },
     right:{
         flex:1,

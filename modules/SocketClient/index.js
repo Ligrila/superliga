@@ -23,36 +23,40 @@ export default class SocketClient{
         try{
             WebSockHop.log = () => {};
             this.actionDispatcher = new ActionDispatcher;
-            var wsh = new WebSockHop(Enviroment.socketUrl, {
+            this.socket = new WebSockHop(Enviroment.socketUrl, {
               createSocket: function (url) {
                 return new WebSocket(url);
               }
             });
       
-            wsh.formatter = new WebSockHop.JsonFormatter();
+            this.socket.formatter = new WebSockHop.JsonFormatter();
 
-            wsh.on('opened', function () {
+            this.socket.on('opened', function () {
               console.log('connected');
             });
-            wsh.on('message', (message) => {
+            this.socket.on('message', (message) => {
               if(typeof(message.eventName)=='string'){
                 this.actionDispatcher.dispatch(message);
               }
             });
       
-            wsh.on('error', function (v,c) {
+            this.socket.on('error', function (v,c) {
       
             });
       
-            wsh.on('closed', function() {
+            this.socket.on('closed', function() {
               console.log('finished');
-              wsh = null;
+              this.socket = null;
             });
         } catch(e){
           console.log(e);
         }
+
     }
 
+    close(){
+      this.socket.close();
+    }
 
     logger(type, message){
         if(__DEV__)

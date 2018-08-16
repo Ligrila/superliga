@@ -10,6 +10,96 @@ const h = (size) => {
 }
 
 export default {
+    'SuperLiga.Awards':{
+        slide:{
+            flex:1,
+
+        },
+        carousel:{
+            
+        },
+        absoluteBg:{
+            top: 50,
+            bottom: 50,
+            left:0,
+            right:0,
+            position:'absolute',
+            backgroundColor: 'white',
+
+        },
+        avatar:{
+            width: s(485),
+            height: s(455)
+        }
+    },
+    'SuperLiga.Title':{ // general component
+        container:{
+            alignItems: 'center',
+            marginBottom: h(27),
+        },
+        title: {
+            textAlign: 'center',
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(50),
+        },
+        separator: {
+            backgroundColor: 'white',
+            height: h(68),
+            width: 1,
+            marginTop: h(27),
+            marginBottom: h(27),
+
+        },
+    },
+    'SuperLiga.Calendar':{
+        title: {
+            textAlign: 'center',
+        },
+    },
+    'SuperLiga.CalendarItem':{
+        title:{
+            color: '#99e0ff',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+            textAlign: 'center',
+        },
+        allTrivias:{
+            marginTop: h(40),
+        },
+        triviaContainer:{
+            flex:1,
+            flexDirection: 'row',
+            borderTopColor: '#b0b0af',
+            borderBottomColor: '#b0b0af',
+            borderBottomWidth: 1,
+            borderTopWidth:1,
+            paddingVertical: h(35),
+        },
+        avatarContainer:{
+            flex:1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        vsText:{
+            marginLeft: 8,
+            marginRight: 8
+        },
+        textContainer:{
+            flex:1,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+        },
+        teamsText:{
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+        },
+        dateText:{
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(40),
+        }
+    },
     'SuperLiga.UserInfo':{
         container:{
             alignItems: 'center',

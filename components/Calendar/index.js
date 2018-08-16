@@ -5,6 +5,7 @@ import {connectStyle,Text} from 'native-base'
 
 import { DatesStore, DatesActions } from '../../store/DatesStore';
 import CalendarItem from './CalendarItem';
+import Title from '../Title';
 
 class Calendar extends Reflux.Component {
   constructor(props) {
@@ -26,9 +27,10 @@ class Calendar extends Reflux.Component {
         )
       );
     }
+    const styles = this.props.style;
     return (
-      <View>
-        <Text> Calendar </Text>
+      <View style={styles.container}>
+        <Title text={'FIXTURE \n SUPERLIGA'}></Title>
         {datesItems}
       </View>
     );

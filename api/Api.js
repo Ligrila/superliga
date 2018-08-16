@@ -95,4 +95,27 @@ export default class Api extends RestClient {
 
     return this.POST('/users/edit',formData);
   }
+
+  // premios
+
+  getAwards(){
+    return this.GET('/awards/index');
+  }
+
+  changePoints(award_id){
+    return this.POST('/awards/index',{award_id});
+  }
+
+  //calendario
+  // Dates -> Trivia
+
+  calendar(){
+    return this.GET('/dates/calendar');
+  }
+
+  viewCalendar(id){
+    return this.GET(`/dates/view/${id}`);
+  }
+
+
 };

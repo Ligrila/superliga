@@ -13,14 +13,15 @@ export default {
     'SuperLiga.Awards':{
         slide:{
             flex:1,
-
+            alignItems: 'center',
+            justifyContent: 'center'
         },
         carousel:{
             
         },
         absoluteBg:{
             top: 50,
-            bottom: 50,
+            bottom: 30,
             left:0,
             right:0,
             position:'absolute',
@@ -28,9 +29,48 @@ export default {
 
         },
         avatar:{
-            width: s(485),
-            height: s(455)
-        }
+            width: Layout.window.height / 5,
+            height: Layout.window.height / 5
+        },
+        title:{
+            color: '#282828',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+            width: s(540),
+            textAlign: 'center',
+        },
+        description:{
+            color: '#282828',
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(35),
+            width: s(540),
+            textAlign: 'center',
+        },
+        points:{
+            marginTop: h(32),
+            marginBottom: h(32),
+            color: '#7b4295',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(35),
+            textAlign: 'center',
+        },
+        buttonContainer:{
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+
+        button:{
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: s(540),
+        },
+
+
+        buttonText:{
+            color: '#fff',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(35)
+        },
     },
     'SuperLiga.Title':{ // general component
         container:{

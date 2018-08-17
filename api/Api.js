@@ -103,7 +103,7 @@ export default class Api extends RestClient {
   }
 
   changePoints(award_id){
-    return this.POST('/awards/index',{award_id});
+    return this.POST('/awards/change-points',{award_id});
   }
 
   //calendario

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Reflux from 'reflux';
-import { View,Image } from 'react-native';
-import {connectStyle,Text} from 'native-base'
+import { View,Image, Alert } from 'react-native';
+import {connectStyle,Text, Button, Toast} from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import { AwardsStore, AwardsActions } from '../../store/AwardsStore';
 import Title from '../Title';
 import Layout from '../../constants/Layout';
+import Api from '../../api/Api';
+import { UsersStore, UsersActions } from '../../store/UserStore';
 
 
 function wp (percentage) {
@@ -27,7 +29,8 @@ class Awards extends Reflux.Component {
   constructor(props) {
     super(props);
     this.state = { activeSlide: 0 };
-    this.store = AwardsStore;
+    this.stores = [AwardsStore,UsersStore];
+    this.api  = new Api;
   }
 
   componentDidMount(){
@@ -57,8 +60,49 @@ class Awards extends Reflux.Component {
     );
 }
 
+  _awardRequest = async (item) => {
+    const response = await this.api.changePoints(item.id);
+    if(response.success){
+      Toast.show({
+        text: 'Tu premio fue solicitado correctamente',
+        buttonText: 'Aceptar',
+        type: "success"
+
+      });
+      UsersActions.update();
+    } else{
+      Toast.show({
+        text: 'No hemos podido canjear tu premio',
+        buttonText: 'Aceptar',
+        type: "danger"
+
+      });
+    }
+    console.log(response);
+  }
+  onChangeAward = (item) => {
+    Alert
+    Alert.alert(
+      '¿Estas seguro de usar tu puntos?',
+      `Usarás ${item.points} para obtener ${item.name}`,
+      [
+        {text: 'Cancelar', onPress: () => {return;}, style: 'cancel'},
+        {text: 'OK', onPress: () => this._awardRequest(item)},
+      ],
+      { cancelable: false }
+    )
+  }
+
   _renderItem = ({item, index}) => {
     const styles = this.props.style;
+    if(!this.state.hasInformation){
+      return;
+    }
+    let points = 0;
+    if(this.state.user.point){
+         points = this.state.user.point.points;
+    }
+
     return (
         <View style={styles.slide}>
             <View style={styles.absoluteBg}>
@@ -66,6 +110,17 @@ class Awards extends Reflux.Component {
             <Image source={{uri:item.avatar}} style={styles.avatar} />
             <Text style={styles.title}>{ item.name }</Text>
             <Text style={styles.description}>{ item.description }</Text>
+            <Text style={styles.points}>{ item.points } puntos</Text>
+            <View style={styles.buttonContainer}>
+              <Button 
+                          onPress={()=>{this.onChangeAward(item)}}
+                          dark={points>=item.points}
+                          disabled={points<item.points}
+                          large
+                          rounded style={styles.button}>
+                          <Text style={styles.buttonText}>CANJEAR AHORA</Text>
+              </Button>
+            </View>
         </View>
     );
 }

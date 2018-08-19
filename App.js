@@ -13,6 +13,9 @@ import Api from './api/Api';
 import AppTheme from './Theme';
 import { UsersActions } from './store/UserStore';
 
+import { DangerZone } from 'expo';
+const { Localization } = DangerZone;
+
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
@@ -91,6 +94,8 @@ export default class App extends React.Component {
     }
 
     const serverAssets = this.cacheImages(teamImages);
+    const deviceTimezone = await Localization.getCurrentTimeZoneAsync();
+    await AsyncStorage.setItem('deviceTimezone', `${deviceTimezone}`);
     return Promise.all([
       Asset.loadAsync([
         require('./assets/images/robot-dev.png'),

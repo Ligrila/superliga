@@ -11,9 +11,9 @@ import {
 import _ from 'lodash';
 import {sprintf} from 'sprintf-js';
 
-const DEFAULT_BG_COLOR = '#FAB913';
-const DEFAULT_TIME_TXT_COLOR = '#000';
-const DEFAULT_DIGIT_TXT_COLOR = '#000';
+const DEFAULT_BG_COLOR = 'transparent';
+const DEFAULT_TIME_TXT_COLOR = '#fff';
+const DEFAULT_DIGIT_TXT_COLOR = '#fff';
 const DEFAULT_TIME_TO_SHOW = ['D', 'H', 'M', 'S'];
 
 class CountDown extends React.Component {
@@ -92,8 +92,8 @@ class CountDown extends React.Component {
     return (
       <View style={[
         styles.digitCont,
-        {backgroundColor: digitBgColor},
-        {width: size * 2.3, height: size * 2.6},
+        //{backgroundColor: digitBgColor},
+        //{width: size * 2.3, height: size * 2.6},
       ]}>
         <Text style={[
           styles.digitTxt,
@@ -119,7 +119,6 @@ class CountDown extends React.Component {
           {fontSize: size / 1.8},
           {color: timeTxtColor},
         ]}>
-          {label}
         </Text>
       </View>
     );
@@ -129,7 +128,7 @@ class CountDown extends React.Component {
     const {timeToShow} = this.props;
     const {until} = this.state;
     const {days, hours, minutes, seconds} = this.getTimeLeft();
-    const newTime = sprintf('%02d:%02d:%02d:%02d', days, hours, minutes, seconds).split(':');
+    const newTime = sprintf('%02d :|%02d :|%02d :|%02d', days, hours, minutes, seconds).split('|');
     const Component = this.props.onPress ? TouchableOpacity : View;
 
     return (
@@ -159,10 +158,10 @@ CountDown.defaultProps = {
   digitTxtColor: DEFAULT_DIGIT_TXT_COLOR,
   timeTxtColor: DEFAULT_TIME_TXT_COLOR,
   timeToShow: DEFAULT_TIME_TO_SHOW,
-  labelD: "Days",
-  labelH: "Hours",
-  labelM: "Minutes",
-  labelS: "Seconds",
+  labelD: "Días",
+  labelH: "Horas",
+  labelM: "Minutos",
+  labelS: "Segundos",
   until: 0,
   size: 15,
 };

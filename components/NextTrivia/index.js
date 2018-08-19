@@ -4,23 +4,22 @@ import {connectStyle,Text} from 'native-base'
 
 import CountDown from '../CountDown';
 import TeamAvatar from '../TeamAvatar';
-import DateUtil from '../../DateUtil';
+import moment from 'moment';
+
 
 
 class NextTrivia extends Component {
-  constructor(props){
+   constructor(props){
       super(props);
       this.trivia = this.props.trivia;
+   
   }
+
   render() {
     const styles = this.props.style;
 
-    const date = new Date(this.trivia.start_datetime);
-    var until = ( date.getTime() - new Date().getTime()) / 1000;
-    let dateUtil = new DateUtil;
-    console.log("serverDate",this.trivia.start_datetime);
-    console.log("offset",dateUtil.timeZoneOffset);
-    console.log('until',until);
+    let sdate = this.trivia.start_datetime_local.toDate();
+    let until = ( sdate.getTime() - new Date().getTime()) / 1000;
     return(
       <View>
         <CountDown until={until} />
@@ -30,6 +29,7 @@ class NextTrivia extends Component {
             <TeamAvatar source={this.trivia.visit_team.avatar}  width={212} height={238} />
         </View>
         <Text>{this.trivia.local_team.name} VS {this.trivia.visit_team.name}</Text>
+        <Text>{this.trivia.start_datetime_local_string}</Text>
       </View>
       
     );

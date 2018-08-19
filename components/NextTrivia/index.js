@@ -4,8 +4,8 @@ import {connectStyle,Text} from 'native-base'
 
 import CountDown from '../CountDown';
 import TeamAvatar from '../TeamAvatar';
-import moment from 'moment';
 import BigTitle from '../Title/BigTitle';
+import Notice from '../Notice';
 
 
 
@@ -14,6 +14,18 @@ class NextTrivia extends Component {
       super(props);
       this.trivia = this.props.trivia;
    
+  }
+
+  getNotice = () => {
+    if(this.trivia.points_multiplier>1){
+        if(this.trivia.points_multiplier==2){
+            return <Notice text={'x cada acierto \n tus puntos se duplican!'} />
+        } else{
+            return <Notice text={'x cada acierto \n tus puntos valen '+this.trivia.points_multiplier+' veces más!'} />
+        }
+    }
+
+    return null;
   }
 
   render() {
@@ -34,7 +46,9 @@ class NextTrivia extends Component {
             <Text style={styles.vsText}>vs</Text>
             <TeamAvatar source={this.trivia.visit_team.avatar}  width={212} height={238} />
         </View>
+        {this.getNotice()}
       </View>
+
       
     );
   }

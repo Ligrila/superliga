@@ -22,6 +22,7 @@ import Layout from '../constants/Layout';
 
 import {Icon,Text} from 'native-base'
 import StatisticsScreen from '../screens/StatisticsScreen';
+import TriviasScreen from '../screens/TriviasScreen';
 
 
 const AuthStack = createStackNavigator(
@@ -54,6 +55,12 @@ var Main = createDrawerNavigator({
           <SidebarItem label={"Jugar"} source={require('../assets/images/menu/awards.png')}/>
         )
       }
+    }
+  },
+  TriviasScreen:{
+    screen: TriviasScreen,
+    navigationOptions: {
+      drawerLabel: () => null
     }
   },
   GameResult:{

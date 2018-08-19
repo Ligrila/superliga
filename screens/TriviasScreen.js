@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Reflux from 'reflux';
 import {
@@ -23,7 +24,7 @@ import bgSrc from '../assets/images/bg.png';
 import NextTrivia from '../components/NextTrivia';
 
 
-class HomeScreen extends Reflux.Component {
+class TriviasScreen extends Reflux.Component {
 
 	constructor(props) {
     super(props);
@@ -40,9 +41,6 @@ class HomeScreen extends Reflux.Component {
       <NextTrivia trivia={this.state.NextTrivia.Trivia}/>
     );
   }
-  _showTriviasScreen = () => {
-    this.props.navigation.navigate('TriviasScreen');
-  }
   render() {
     const styles = this.props.style;
     if (!this.state.NextTrivia.hasData) {
@@ -56,13 +54,6 @@ class HomeScreen extends Reflux.Component {
                  {this.renderNextTrivia()}
             </Content>
             <Footer style={styles.footer}>
-                <TouchableOpacity
-                 style={styles.nextMatchLink}
-                 onPress={this._showTriviasScreen}
-                >
-                    <Text style={styles.nextMatchText}>ver siguientes partidos</Text>
-                    <Image style={styles.nextMatchImage} source={require('../assets/images/nextArrow.png')}></Image>
-                </TouchableOpacity>
             </Footer>
             </Wallpaper>
           </Container>
@@ -72,4 +63,4 @@ class HomeScreen extends Reflux.Component {
 
 }
 
-export default connectStyle('SuperLiga.HomeScreen')(HomeScreen);
+export default connectStyle('SuperLiga.HomeScreen')(TriviasScreen);

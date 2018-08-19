@@ -10,6 +10,26 @@ const h = (size) => {
 }
 
 export default {
+    'SuperLiga.Notice':{
+        container:{
+            flex:1,
+            justifyContent:  'center',
+            alignItems: 'center',            
+        },
+        background: {
+            width: s(562),
+            height: s(176),
+            justifyContent:  'center',
+            alignItems: 'center'
+        },
+        text:{
+            textAlign: 'center',
+            color: '#a6f3ff',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+
+        }
+    },
     'SuperLiga.CountDown': {
         container:{
         },

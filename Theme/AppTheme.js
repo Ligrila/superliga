@@ -10,6 +10,18 @@ const h = (size) => {
 }
 
 export default {
+    'SuperLiga.NextTrivia':{
+        avatarContainer:{
+            flex:1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        vsText:{
+            marginLeft: 8,
+            marginRight: 8
+        },
+    },
     'SuperLiga.Awards':{
         slide:{
             flex:1,

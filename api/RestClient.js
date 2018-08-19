@@ -21,7 +21,7 @@ export default class RestClient {
 
     }
     async accessTokenExpired(){
-      console.log("TODO");
+      console.warn("accessTokenExpired");
     }
     _simulateDelay () {
       return new Promise(resolve => {
@@ -36,7 +36,7 @@ export default class RestClient {
     }
   
     async _fetch (route, method, body, isQuery = false,options={}) {
-      console.log("API REQUEST: " + route + " body: " + JSON.stringify(body));
+      //console.log("API REQUEST: " + route + " body: " + JSON.stringify(body));
       const defaultOptions = {
         authorizationHeader : true
       };
@@ -68,7 +68,7 @@ export default class RestClient {
         } else{
           Object.assign(opts, { body: body });
           opts.headers['Content-Type'] = 'multipart/form-data';
-          console.log('opts',opts);
+          //console.log('opts',opts);
 
         }
       }
@@ -102,7 +102,7 @@ export default class RestClient {
                 success: false,
                 error: response
               };
-              console.log(text);
+              //console.log(text);
               try{
                 ret = text? JSON.parse(text) : undefined;
               } catch(e){

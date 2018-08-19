@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Reflux from 'reflux';
 import {
   ActivityIndicator,
   AsyncStorage,
@@ -10,16 +11,20 @@ import {
 
 import Api from '../api/Api';
 
-export default  class GameLoadingScreen extends React.Component {
+import {NextTriviaStore} from '../store/NextTriviaStore'
+
+export default  class GameLoadingScreen extends Reflux.Component {
   api = new Api();
   constructor(props) {
     super(props);
+    this.store = NextTriviaStore; // cambiar por GameStore y chequear ahi
+
     this._bootstrapAsync();
   }
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    let gameInProgress = true;
+    let gameInProgress = false;
     this.props.navigation.navigate(gameInProgress ? 'GamePlay' : 'Home');
   };
 

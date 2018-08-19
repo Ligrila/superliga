@@ -28,7 +28,7 @@ class Game extends Component {
     }
 
     onQuestionTimeout(){
-        console.log("Question timed out");
+        //console.log("Question timed out");
     }
 
     render(){

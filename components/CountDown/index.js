@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {connectStyle} from 'native-base';
+
 import {
   StyleSheet,
   View,
@@ -89,17 +91,14 @@ class CountDown extends React.Component {
 
   renderDigit = (d) => {
     const {digitBgColor, digitTxtColor, size} = this.props;
+    const styles = this.props.style;
     return (
       <View style={[
         styles.digitCont,
         //{backgroundColor: digitBgColor},
         //{width: size * 2.3, height: size * 2.6},
       ]}>
-        <Text style={[
-          styles.digitTxt,
-          {fontSize: size},
-          {color: digitTxtColor}
-        ]}>
+        <Text style={styles.digitTxt}>
           {d}
         </Text>
       </View>
@@ -108,6 +107,7 @@ class CountDown extends React.Component {
 
   renderDoubleDigits = (label, digits) => {
     const {timeTxtColor, size} = this.props;
+    const styles = this.props.style;
 
     return (
       <View key={label} style={styles.doubleDigitCont}>
@@ -130,7 +130,7 @@ class CountDown extends React.Component {
     const {days, hours, minutes, seconds} = this.getTimeLeft();
     const newTime = sprintf('%02d :|%02d :|%02d :|%02d', days, hours, minutes, seconds).split('|');
     const Component = this.props.onPress ? TouchableOpacity : View;
-
+    const styles = this.props.style;
     return (
       <Component
         style={styles.timeCont}
@@ -145,8 +145,9 @@ class CountDown extends React.Component {
   };
 
   render() {
+    const styles = this.props.style;
     return (
-      <View style={this.props.style}>
+      <View style={styles.container}>
         {this.renderCountDown()}
       </View>
     );
@@ -166,36 +167,6 @@ CountDown.defaultProps = {
   size: 15,
 };
 
-const styles = StyleSheet.create({
-  timeCont: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  timeTxt: {
-    color: 'white',
-    marginVertical: 2,
-    backgroundColor: 'transparent',
-  },
-  timeInnerCont: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  digitCont: {
 
-    borderRadius: 5,
-    marginHorizontal: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  doubleDigitCont: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  digitTxt: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
 
-module.exports = CountDown;
+export default connectStyle('SuperLiga.CountDown')(CountDown);

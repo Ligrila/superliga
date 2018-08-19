@@ -2,11 +2,12 @@ import React from 'react';
 import Reflux from 'reflux';
 import {
   Image,
+  TouchableOpacity,
   ActivityIndicator,
   View,
 } from 'react-native';
 
-import { connectStyle,Text,Container,Content } from 'native-base';
+import { connectStyle,Text,Container,Content, Footer } from 'native-base';
 
 
 import Wallpaper from '../components/Wallpaper';
@@ -51,6 +52,12 @@ class HomeScreen extends Reflux.Component {
             <Content>
                  {this.renderNextTrivia()}
             </Content>
+            <Footer style={styles.footer}>
+                <TouchableOpacity style={styles.nextMatchLink}>
+                    <Text style={styles.nextMatchText}>ver siguientes partidos</Text>
+                    <Image style={styles.nextMatchImage} source={require('../assets/images/nextArrow.png')}></Image>
+                </TouchableOpacity>
+            </Footer>
             </Wallpaper>
           </Container>
     );

@@ -10,6 +10,57 @@ const h = (size) => {
 }
 
 export default {
+    'SuperLiga.CountDown': {
+        container:{
+        },
+        timeCont: {
+            flexDirection: 'row',
+            justifyContent: 'center',
+          },
+          timeTxt: {
+            color: 'white',
+            backgroundColor: 'transparent',
+
+          },
+          timeInnerCont: {
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+          digitCont: {
+            marginHorizontal: 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          doubleDigitCont: {
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+          digitTxt: {
+            color: 'white',
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(90),
+          },
+    },
+    'SuperLiga.HomeScreen':{
+        nextMatchLink:{
+            alignItems: 'center'
+        },
+        nextMatchText:{
+            textAlign: 'center',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+        },
+        nextMatchImage:{
+            marginTop: h(27),
+            marginBottom: h(27),
+            width: s(32),
+            height: s(40),
+        },
+        footer:{
+            height: 'auto',
+        }
+    },
     'SuperLiga.NextTrivia':{
         avatarContainer:{
             flex:1,
@@ -19,8 +70,11 @@ export default {
         },
         vsText:{
             marginLeft: 8,
-            marginRight: 8
+            marginRight: 8,
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
         },
+
     },
     'SuperLiga.Awards':{
         slide:{
@@ -82,6 +136,37 @@ export default {
             color: '#fff',
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: s(35)
+        },
+    },
+    'SuperLiga.BigTitle':{ // general component
+        container:{
+            alignItems: 'center',
+        },
+        title: {
+            textAlign: 'center',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(80),
+            marginBottom:0,
+        },
+        red:{
+            color: '#fe6c61',
+            textAlign: 'center',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(80),
+        },
+        subtitle: {
+            textAlign: 'center',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+            marginTop:-8,
+        },
+        separator: {
+            backgroundColor: 'white',
+            height: h(68),
+            width: 1,
+            marginTop: h(27),
+            marginBottom: h(27),
+
         },
     },
     'SuperLiga.Title':{ // general component

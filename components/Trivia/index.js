@@ -2,15 +2,12 @@ import React, { Component } from 'react'
 import { View,TouchableOpacity,Image } from 'react-native'
 import {connectStyle,Text} from 'native-base'
 
-import CountDown from '../CountDown';
 import TeamAvatar from '../TeamAvatar';
-import BigTitle from '../Title/BigTitle';
 import Notice from '../Notice';
-import Trivia from '../Trivia';
 
 
 
-class NextTrivia extends Component {
+class Trivia extends Component {
    constructor(props){
       super(props);
       this.trivia = this.props.trivia;
@@ -34,16 +31,16 @@ class NextTrivia extends Component {
 
     let sdate = this.trivia.start_datetime_local.toDate();
     let until = ( sdate.getTime() - new Date().getTime()) / 1000;
+    const width = this.props.avatarWidth || 212;
+    const height = this.props.avatarHeight || 238;
     return(
       <View>
-        <BigTitle 
-            text='Trivia en' 
-            red='Vivo' 
-            subtitle={this.trivia.local_team.name + ' VS ' + this.trivia.visit_team.name}/>
-        <CountDown until={until} />
-
-        <Trivia trivia={this.trivia} />
-        
+        <View style={styles.avatarContainer}>
+            <TeamAvatar source={this.trivia.local_team.avatar} width={width} height={height} />
+            <Text style={styles.vsText}>vs</Text>
+            <TeamAvatar source={this.trivia.visit_team.avatar}  width={width} height={height} />
+        </View>
+        {this.getNotice()}
       </View>
 
       
@@ -51,4 +48,4 @@ class NextTrivia extends Component {
   }
 }
 
-export default connectStyle('SuperLiga.NextTrivia')(NextTrivia);
+export default connectStyle('SuperLiga.Trivia')(Trivia);

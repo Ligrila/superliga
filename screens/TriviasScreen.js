@@ -22,6 +22,7 @@ import {NextTriviaStore,NextTriviaActions} from '../store/NextTriviaStore';
 
 import bgSrc from '../assets/images/bg.png';
 import NextTrivia from '../components/NextTrivia';
+import TriviaCarousel from '../components/Trivia/TriviaCarousel';
 
 
 class TriviasScreen extends Reflux.Component {
@@ -35,10 +36,10 @@ class TriviasScreen extends Reflux.Component {
   }
 
 
-  renderNextTrivia(){
+  renderTrivias(){
     if(!this.state.NextTrivia.hasData) return null;
     return (
-      <NextTrivia trivia={this.state.NextTrivia.Trivia}/>
+      <TriviaCarousel></TriviaCarousel>
     );
   }
   render() {
@@ -51,7 +52,7 @@ class TriviasScreen extends Reflux.Component {
             <Wallpaper source={bgSrc}>
             <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
             <Content>
-                 {this.renderNextTrivia()}
+                 {this.renderTrivias()}
             </Content>
             <Footer style={styles.footer}>
             </Footer>

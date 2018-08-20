@@ -96,6 +96,21 @@ export default {
         },
 
     },
+    'SuperLiga.Trivia':{
+        avatarContainer:{
+            flex:1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        vsText:{
+            marginLeft: 8,
+            marginRight: 8,
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+        },
+
+    },
     'SuperLiga.Awards':{
         slide:{
             flex:1,

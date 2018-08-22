@@ -40,6 +40,7 @@ class TriviaCarousel extends Reflux.Component {
   onSnapToItem = (index)=>{
     this.setState({ activeSlide: index });
     this.setState({ title:  item.date.name});
+    this.setState({ subtitle:  item.start_datetime.format('')});
   }
 
   pagination = () => {

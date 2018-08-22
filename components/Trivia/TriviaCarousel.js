@@ -26,21 +26,31 @@ const itemWidth = slideWidth;
 
 
 class TriviaCarousel extends Reflux.Component {
+
    constructor(props){
       super(props);
-      this.state = { activeSlide: 0 };
+      this.state = { title:'',subtitle:'',activeSlide: 0 };
       this.store = TriviaStore;
    
   }
 
   componentDidMount(){
     TriviaActions.index();
-  }
+    TriviaActions.index.completed.listen((trivias)=>{
+      this.setTitle(trivias.data[0]);
+    });
 
-  onSnapToItem = (index)=>{
-    this.setState({ activeSlide: index });
+  }
+  setTitle(item){
+    console.log('setTitle');
     this.setState({ title:  item.date.name});
-    this.setState({ subtitle:  item.start_datetime.format('')});
+    this.setState({ subtitle:  item.start_datetime_local.format('LL')});
+  }
+  onSnapToItem = (index)=>{
+    const item = this.state.Trivia.Trivias[index];
+    this.setTitle(item);
+    this.setState({ activeSlide: index });
+
   }
 
   pagination = () => {
@@ -81,11 +91,12 @@ _renderItem = ({item, index}) => {
   
   render() {
     const styles = this.props.style;
+
     return(
       <View>
         <BigTitle 
             text={this.state.title}
-            subtitle='5 de septiembre'/>
+            subtitle={this.state.subtitle} />
         <Carousel
             ref={(c) => { this._carousel = c; }}
             data={this.state.Trivia.Trivias}

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import 'moment/locale/es'
 import "moment-timezone";
 
 
@@ -15,6 +16,7 @@ class DateTimeHelper{
 
     static async datetime(date){
         let m = moment.utc(date);
+        m.locale('es');
         const tz = await DateTimeHelper._deviceTz();
         return m.tz(tz);
     }

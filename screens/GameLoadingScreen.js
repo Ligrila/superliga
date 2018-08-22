@@ -24,7 +24,9 @@ export default  class GameLoadingScreen extends Reflux.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    let gameInProgress = false;
+    const ct = await this.api.getCurrentTrivia();
+
+    let gameInProgress = ct.success;
     this.props.navigation.navigate(gameInProgress ? 'GamePlay' : 'Home');
   };
 

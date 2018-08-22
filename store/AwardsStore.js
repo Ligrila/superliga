@@ -27,11 +27,14 @@ export class AwardsStore extends Reflux.Store
 
     async index(){
         let response = await this.api.getAwards();
-        this.setState({
-            Awards:[
-                ...response.data
-            ]
-        });
+
+        if(response.success){
+            this.setState({
+                Awards:[
+                    ...response.data
+                ]
+            });
+        }
     }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View,Image,TouchableOpacity } from 'react-native'
 import Reflux from 'reflux'
-import {connectStyle,Text} from 'native-base'
+import {connectStyle,Text, Spinner} from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import BigTitle from '../Title/BigTitle';
@@ -36,7 +36,7 @@ class TriviaCarousel extends Reflux.Component {
 
    constructor(props){
       super(props);
-      this.state = { title:'',subtitle:'',activeSlide: 0 };
+      this.state = { loading:true,title:'',subtitle:'',activeSlide: 0 };
       this.store = TriviaStore;
    
   }
@@ -46,6 +46,7 @@ class TriviaCarousel extends Reflux.Component {
     TriviaActions.index.completed.listen((trivias)=>{
       this.setTitle(trivias.data[0]);
     });
+    this.setState({loading:false});
 
   }
   setTitle(item){
@@ -61,14 +62,15 @@ class TriviaCarousel extends Reflux.Component {
   }
 
   pagination = () => {
-    const { activeSlide,Trivia } = this.state;
+    const { activeSlide,Trivia,loading } = this.state;
+    if(loading){
+      return;
+    }
     const maxSlide = this.state.Trivia.Trivias.length;
     if(maxSlide<=0){
       return;
     }
     const value = ((activeSlide+1) * 100) / maxSlide;
-    console.log(value);
-    console.log(activeSlide);
     /*console.log('value',value);
     console.log('value',maxSlide);
     console.log('value',activeSlide);*/
@@ -124,6 +126,9 @@ prevItem = () =>{
   
   render() {
     const styles = this.props.style;
+    if(!this.state.Trivia.hasData){
+      return <Spinner />;
+    }
 
     return(
       <View style={styles.container}>

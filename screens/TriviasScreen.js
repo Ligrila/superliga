@@ -39,7 +39,7 @@ class TriviasScreen extends Reflux.Component {
   renderTrivias(){
     if(!this.state.NextTrivia.hasData) return null;
     return (
-      <TriviaCarousel></TriviaCarousel>
+        <TriviaCarousel></TriviaCarousel>
     );
   }
   render() {
@@ -48,14 +48,13 @@ class TriviasScreen extends Reflux.Component {
       return <View><ActivityIndicator></ActivityIndicator></View>;
     }
     return (
-          <Container>
+          <Container style={styles.content}>
             <Wallpaper source={bgSrc}>
             <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
-            <Content>
+            <Content style={styles.content}>
                  {this.renderTrivias()}
             </Content>
-            <Footer style={styles.footer}>
-            </Footer>
+
             </Wallpaper>
           </Container>
     );

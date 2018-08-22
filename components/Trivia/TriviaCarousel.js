@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View,Image,TouchableOpacity } from 'react-native'
 import Reflux from 'reflux'
 import {connectStyle,Text} from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -8,6 +8,13 @@ import BigTitle from '../Title/BigTitle';
 import Trivia from '../Trivia';
 
 import { TriviaStore, TriviaActions } from '../../store/TriviaStore';
+
+import AnimatedProgressBar from '..//AnimatedProgressBar';
+
+
+import carouselNext from '../../assets/images/carousel-next.png';
+import carouselPrev from '../../assets/images/carousel-prev.png';
+
 
 import Layout from '../../constants/Layout';
 
@@ -55,8 +62,26 @@ class TriviaCarousel extends Reflux.Component {
 
   pagination = () => {
     const { activeSlide,Trivia } = this.state;
+    const maxSlide = this.state.Trivia.Trivias.length;
+    if(maxSlide<=0){
+      return;
+    }
+    const value = ((activeSlide+1) * 100) / maxSlide;
+    console.log(value);
+    console.log(activeSlide);
+    /*console.log('value',value);
+    console.log('value',maxSlide);
+    console.log('value',activeSlide);*/
     return (
-        <Pagination
+      <AnimatedProgressBar
+      width={Layout.window.width * 0.5}
+      height={5}
+      backgroundColor='#fff'
+      containerBackgroundColor='#50aedf'
+      maxValue={100}
+      value={value}
+    />
+       /* <Pagination
           dotsLength={Trivia.Trivias.length}
           activeDotIndex={activeSlide}
           containerStyle={{ backgroundColor: 'transparent' }}
@@ -72,7 +97,7 @@ class TriviaCarousel extends Reflux.Component {
           }}
           inactiveDotOpacity={0.4}
           inactiveDotScale={0.6}
-        />
+        />*/
     );
 }
 
@@ -88,12 +113,30 @@ _renderItem = ({item, index}) => {
         </View>
     );
 }
+
+nextItem = () =>{
+  this._carousel.snapToNext(); 
+}
+
+prevItem = () =>{
+  this._carousel.snapToPrev(); 
+}
   
   render() {
     const styles = this.props.style;
 
     return(
-      <View>
+      <View style={styles.container}>
+        <View style={styles.prev}>
+          <TouchableOpacity onPress={this.prevItem}>
+            <Image source={carouselPrev} style={styles.prevImage} />
+            </TouchableOpacity>
+        </View>
+        <View style={styles.next}>
+          <TouchableOpacity onPress={this.nextItem}>
+            <Image source={carouselNext} style={styles.nextImage} />
+            </TouchableOpacity>
+        </View>
         <BigTitle 
             text={this.state.title}
             subtitle={this.state.subtitle} />
@@ -105,7 +148,9 @@ _renderItem = ({item, index}) => {
             itemWidth={itemWidth}
             onSnapToItem={this.onSnapToItem}
             />
+            <View style={styles.pagination}>
             {this.pagination()}
+            </View>
         
       </View>
 

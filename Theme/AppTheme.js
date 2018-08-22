@@ -63,6 +63,9 @@ export default {
           },
     },
     'SuperLiga.HomeScreen':{
+        content:{
+            flex:1,
+        },
         nextMatchLink:{
             alignItems: 'center'
         },
@@ -82,11 +85,38 @@ export default {
         }
     },
     'SuperLiga.NextTrivia':{
+        container:{
+            flex:1,
+        },
         avatarContainer:{
             flex:1,
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
+        },
+        next:{
+            zIndex:20,
+            position:'absolute',
+            right:0,
+            top: '30%',
+            width:s(99),
+            height:s(274),
+        },
+        prev:{
+            zIndex:20,
+            position:'absolute',
+            left:0,
+            top: '30%',
+            width:s(99),
+            height:s(274),
+        },
+        prevImage:{
+            width:s(99),
+            height:s(274),
+        },
+        nextImage:{
+            width:s(99),
+            height:s(274),
         },
         vsText:{
             marginLeft: 8,
@@ -94,7 +124,10 @@ export default {
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: s(40),
         },
-
+        pagination:{
+            marginTop:h(80),
+            alignItems: 'center',
+        }
     },
     'SuperLiga.Trivia':{
         avatarContainer:{

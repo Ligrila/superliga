@@ -4,6 +4,7 @@ import {ConnectedUsersStore,ConnectedUsersActions} from './ConnectedUsersStore';
 
 import {TriviaQuestionActions} from './TriviaQuestion';
 import { UsersStore, UsersActions } from './UserStore';
+import { NextTriviaActions } from './NextTriviaStore';
 
 
 
@@ -20,6 +21,9 @@ export default class ActionDispatcher{
                 break;
             case 'newQuestion':
                 TriviaQuestionActions.add(message.payload);
+                break;
+            case 'startTrivia':
+                NextTriviaActions.current(message.payload);
                 break;
             case 'finishedQuestion':
                 TriviaQuestionActions.finishedQuestion(message.payload);

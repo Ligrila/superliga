@@ -3,7 +3,7 @@ import Reflux from 'reflux';
 import Api from '../api/Api';
 import DateTimeHelper from '../DateTimeHelper';
 
-export const NextTriviaActions = Reflux.createActions(['get']);
+export const NextTriviaActions = Reflux.createActions(['get','current']);
 
 export class NextTriviaStore extends Reflux.Store
 {
@@ -20,9 +20,33 @@ export class NextTriviaStore extends Reflux.Store
         return {
             NextTrivia:{
                 hasData: false,
-                Trivia: {}
+                Trivia: []
             },
+            CurrentTrivia:{
+                hasData: false,
+                Trivia: []
+            }
         };
+    }
+
+    async onCurrent(payload){
+        let ct = {};
+        if(typeof(payload)==undefined){
+            ct = await this.api.getCurrentTrivia();
+        } else{
+            ct = {success:true,data:payload};
+        }
+        if(ct.success){
+            let data = ct.data;
+            data.start_datetime_local = await DateTimeHelper.datetime(data.start_datetime);
+            data.start_datetime_local_string = await DateTimeHelper.format(data.start_datetime);            
+            await this.setState({
+                CurrentTrivia:{
+                    hasData: true,
+                    Trivia: data
+                }
+            });
+        }
     }
 
     async onGet(){

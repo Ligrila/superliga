@@ -31,6 +31,7 @@ class HomeScreen extends Reflux.Component {
 	}
   async componentDidMount() {
     await NextTriviaActions.get();
+    console.log("mount");
   }
 
 
@@ -43,8 +44,14 @@ class HomeScreen extends Reflux.Component {
   _showTriviasScreen = () => {
     this.props.navigation.navigate('TriviasScreen');
   }
+  componentDidUpdate(){
+    if (this.state.CurrentTrivia.hasData) {
+      this.props.navigation.navigate('GamePlay');
+    }
+  }
   render() {
     const styles = this.props.style;
+
     if (!this.state.NextTrivia.hasData) {
       return <View><ActivityIndicator></ActivityIndicator></View>;
     }

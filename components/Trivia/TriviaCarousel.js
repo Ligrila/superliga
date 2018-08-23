@@ -9,7 +9,7 @@ import Trivia from '../Trivia';
 
 import { TriviaStore, TriviaActions } from '../../store/TriviaStore';
 
-import AnimatedProgressBar from '..//AnimatedProgressBar';
+import AnimatedProgressBar from '../AnimatedProgressBar';
 
 
 import carouselNext from '../../assets/images/carousel-next.png';

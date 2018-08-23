@@ -13,30 +13,34 @@ import Game from '../components/Game';
 import GameConnectedUsers from '../components/Game/GameConnectedUsers';
 
 import Reflux from 'reflux';
-import { TriviaQuestion } from '../store/TriviaQuestion';
+import { NextTriviaStore,NextTriviaActions } from '../store/NextTriviaStore';
 
 
 class GameScreen extends Reflux.Component {
   api = new Api;
   constructor(props){
     super(props);
-    this.state = {
+    /*this.state = {
       isLoadingComplete: false
-    }
-    this.store = TriviaQuestion; // TODO: use Trivia Store
+    }*/
+    this.store = NextTriviaStore; // TODO: use Trivia Store
   }
   async componentDidMount() {
+    NextTriviaActions.current();
+  }
+  /*async componentDidMount() {
     const currentTrivia = await this.api.getCurrentTrivia(); // TODO: move this to reflux
     if(currentTrivia.success){
       this.setState({isLoadingComplete:true,currentTrivia: currentTrivia});
     } else{
       // que hacemos ? // vamos a home ? mostramos no hay trivia todavia ? mostramos la siguiente ?
     }
-  }
+  }*/ 
   renderGame(){
-    if(this.state.isLoadingComplete){
+    if(this.state.CurrentTrivia.hasData){
+      console.log(this.state.CurrentTrivia.Trivia);
       return (
-        <Game currentTrivia={this.state.currentTrivia} navigation={this.props.navigation}>
+        <Game currentTrivia={this.state.CurrentTrivia.Trivia} navigation={this.props.navigation}>
         </Game>
       );
     } else{

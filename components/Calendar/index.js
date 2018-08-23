@@ -20,6 +20,7 @@ class Calendar extends Reflux.Component {
   }
 
   render() {
+    
     let datesItems = null;
     if(typeof this.state.Dates == 'object'){
     datesItems = this.state.Dates.map(item => (

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Reflux from 'reflux';
 import { View,Image, Alert } from 'react-native';
-import {connectStyle,Text, Button, Toast} from 'native-base'
+import {connectStyle,Text, Button, Toast, Spinner} from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import { AwardsStore, AwardsActions } from '../../store/AwardsStore';
@@ -96,7 +96,7 @@ class Awards extends Reflux.Component {
   _renderItem = ({item, index}) => {
     const styles = this.props.style;
     if(!this.state.hasInformation){
-      return;
+      return <Spinner />;
     }
     let points = 0;
     if(this.state.user.point){

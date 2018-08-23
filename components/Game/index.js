@@ -37,9 +37,9 @@ class Game extends Component {
         return(
                 <View style={styles.container}>
                     <View style={styles.avatarContainer}>
-                            <TeamAvatar source={this.props.currentTrivia.data.local_team.avatar} width={86} height={98} />
+                            <TeamAvatar source={this.props.currentTrivia.local_team.avatar} width={86} height={98} />
                             <Text style={styles.vsText}>vs</Text>
-                            <TeamAvatar source={this.props.currentTrivia.data.visit_team.avatar}  width={86} height={98} />
+                            <TeamAvatar source={this.props.currentTrivia.visit_team.avatar}  width={86} height={98} />
                         </View>
                     <View style={styles.mainContainer}>
                         {this.renderGamePlay()}

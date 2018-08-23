@@ -31,7 +31,7 @@ export class NextTriviaStore extends Reflux.Store
 
     async onCurrent(payload){
         let ct = {};
-        if(typeof(payload)==undefined){
+        if(typeof(payload)=='undefined'){
             ct = await this.api.getCurrentTrivia();
         } else{
             ct = {success:true,data:payload};

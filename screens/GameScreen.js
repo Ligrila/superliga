@@ -26,7 +26,12 @@ class GameScreen extends Reflux.Component {
     this.store = NextTriviaStore; // TODO: use Trivia Store
   }
   async componentDidMount() {
-    NextTriviaActions.current();
+    if(!this.state.hasData){
+      NextTriviaActions.current();
+    }
+    NextTriviaActions.finish.listen(()=>{
+      this.props.navigation.navigate('Home');
+    });
   }
   /*async componentDidMount() {
     const currentTrivia = await this.api.getCurrentTrivia(); // TODO: move this to reflux
@@ -38,7 +43,6 @@ class GameScreen extends Reflux.Component {
   }*/ 
   renderGame(){
     if(this.state.CurrentTrivia.hasData){
-      console.log(this.state.CurrentTrivia.Trivia);
       return (
         <Game currentTrivia={this.state.CurrentTrivia.Trivia} navigation={this.props.navigation}>
         </Game>

@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 
-import { connectStyle,Text,Container,Content, Footer } from 'native-base';
+import { connectStyle,Text,Container,Content, Spinner, Footer } from 'native-base';
 
 
 import Wallpaper from '../components/Wallpaper';
@@ -31,12 +31,11 @@ class HomeScreen extends Reflux.Component {
 	}
   async componentDidMount() {
     await NextTriviaActions.get();
-    console.log("mount");
   }
 
 
   renderNextTrivia(){
-    if(!this.state.NextTrivia.hasData) return null;
+    if(!this.state.NextTrivia.hasData) return <Spinner />;
     return (
       <NextTrivia trivia={this.state.NextTrivia.Trivia}/>
     );
@@ -52,9 +51,6 @@ class HomeScreen extends Reflux.Component {
   render() {
     const styles = this.props.style;
 
-    if (!this.state.NextTrivia.hasData) {
-      return <View><ActivityIndicator></ActivityIndicator></View>;
-    }
     return (
           <Container>
             <Wallpaper source={bgSrc}>

@@ -3,7 +3,7 @@ import Reflux from 'reflux';
 import Api from '../api/Api';
 import DateTimeHelper from '../DateTimeHelper';
 
-export const NextTriviaActions = Reflux.createActions(['get','current']);
+export const NextTriviaActions = Reflux.createActions(['get','current','finish']);
 
 export class NextTriviaStore extends Reflux.Store
 {
@@ -29,6 +29,15 @@ export class NextTriviaStore extends Reflux.Store
         };
     }
 
+    onFinish(){
+        this.setState({
+            CurrentTrivia:{
+                hasData: false,
+                Trivia: []
+            }
+        });
+    }
+
     async onCurrent(payload){
         let ct = {};
         if(typeof(payload)=='undefined'){
@@ -38,8 +47,10 @@ export class NextTriviaStore extends Reflux.Store
         }
         if(ct.success){
             let data = ct.data;
-            data.start_datetime_local = await DateTimeHelper.datetime(data.start_datetime);
-            data.start_datetime_local_string = await DateTimeHelper.format(data.start_datetime);            
+            if(data){
+                data.start_datetime_local = await DateTimeHelper.datetime(data.start_datetime);
+                data.start_datetime_local_string = await DateTimeHelper.format(data.start_datetime);            
+            }
             await this.setState({
                 CurrentTrivia:{
                     hasData: true,
@@ -53,8 +64,10 @@ export class NextTriviaStore extends Reflux.Store
         const nextTrivia = await this.api.getNextTrivia();
         if(nextTrivia.success){
             let data = nextTrivia.data;
-            data.start_datetime_local = await DateTimeHelper.datetime(data.start_datetime);
-            data.start_datetime_local_string = await DateTimeHelper.format(data.start_datetime);
+            if(data){
+                data.start_datetime_local = await DateTimeHelper.datetime(data.start_datetime);
+                data.start_datetime_local_string = await DateTimeHelper.format(data.start_datetime);
+            }
 
             await this.setState({
                 NextTrivia:{

@@ -3,7 +3,7 @@ import {
     View,
 } from "react-native";
 
-import { connectStyle, Text } from 'native-base'
+import { connectStyle, Text, Spinner } from 'native-base'
 
 
 import Layout from '../../constants/Layout';
@@ -34,6 +34,9 @@ class Game extends Component {
     render(){
         const ratio = Layout.window.ratio;
         const styles = this.props.style;
+        if(!this.props.currentTrivia.local_team){
+            return (<Spinner />)
+        }
         return(
                 <View style={styles.container}>
                     <View style={styles.avatarContainer}>

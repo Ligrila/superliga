@@ -27,6 +27,9 @@ class UserInfo extends Reflux.Component {
             if(this.state.user.life){
                 lives = this.state.user.life.lives;
             }
+            if(this.state.user.infinite_lives && this.state.user.infinite_lives[0]){
+                lives = '∞';
+            }
             if(this.state.user.point){
                 points = this.state.user.point.points;
             }

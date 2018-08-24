@@ -31,6 +31,14 @@ class NextTrivia extends Component {
 
   render() {
     const styles = this.props.style;
+    if(!this.trivia){
+      return (
+        <BigTitle 
+        text='Trivia en' 
+        red='Vivo' 
+        subtitle={'No hay próximas trivias. Prueba de nuevo más tarde'}/>
+      )
+    }
 
     let sdate = this.trivia.start_datetime_local.toDate();
     let until = ( sdate.getTime() - new Date().getTime()) / 1000;

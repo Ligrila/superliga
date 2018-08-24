@@ -22,6 +22,10 @@ export default class ActionDispatcher{
             case 'newQuestion':
                 TriviaQuestionActions.add(message.payload);
                 break;
+            case 'finishTrivia':
+                NextTriviaActions.finish();
+                NextTriviaActions.get();
+                break;
             case 'startTrivia':
                 NextTriviaActions.current(message.payload);
                 break;

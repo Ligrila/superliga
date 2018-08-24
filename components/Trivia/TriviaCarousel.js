@@ -66,6 +66,9 @@ class TriviaCarousel extends Reflux.Component {
     if(loading){
       return;
     }
+    if(!this.state.Trivia.Trivias){
+      return;
+    }
     const maxSlide = this.state.Trivia.Trivias.length;
     if(maxSlide<=0){
       return;
@@ -123,11 +126,33 @@ nextItem = () =>{
 prevItem = () =>{
   this._carousel.snapToPrev(); 
 }
+
+renderCarousel(){
+  return (
+    <Carousel
+            ref={(c) => { this._carousel = c; }}
+            data={this.state.Trivia.Trivias}
+            renderItem={this._renderItem}
+            sliderWidth={sliderWidth}
+            itemWidth={itemWidth}
+            onSnapToItem={this.onSnapToItem}
+            />
+  )
+}
   
   render() {
     const styles = this.props.style;
     if(!this.state.Trivia.hasData){
       return <Spinner />;
+    }
+
+    if(this.state.Trivia.Trivias.length==0){
+      return (
+        <BigTitle 
+        text='Próximas' 
+        red='trivias' 
+        subtitle={'No hay próximas trivias. Prueba de nuevo más tarde'}/>
+      )
     }
 
     return(
@@ -145,14 +170,7 @@ prevItem = () =>{
         <BigTitle 
             text={this.state.title}
             subtitle={this.state.subtitle} />
-        <Carousel
-            ref={(c) => { this._carousel = c; }}
-            data={this.state.Trivia.Trivias}
-            renderItem={this._renderItem}
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-            onSnapToItem={this.onSnapToItem}
-            />
+            {this.renderCarousel()}
             <View style={styles.pagination}>
             {this.pagination()}
             </View>

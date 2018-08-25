@@ -10,6 +10,19 @@ const h = (size) => {
 }
 
 export default {
+
+    'SuperLiga.Purchase':{
+        container:{
+            flex:1,
+            justifyContent:  'center',
+            alignItems: 'center',            
+        },
+        background: {
+            width: s(575),
+            height: s(939),
+            maxHeight: h(939),
+        }
+    },
     'SuperLiga.Notice':{
         container:{
             flex:1,
@@ -489,10 +502,15 @@ export default {
             marginRight: s(40)
         }
     },
-    'SuperLiga.Screen':{
+    'SuperLiga.GameScreen':{
         game:{
             flex:1,
         },
+        noLifeText:{
+            fontFamily: 'OpenSansCondensed_bold',
+            color: '#2cd6f5',
+            fontSize: s(35),
+        }
         
     },
     'SuperLiga.LoginScreen':{

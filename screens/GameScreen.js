@@ -1,12 +1,12 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { connectStyle,Container, Content, Footer,Spinner } from 'native-base'
+import { TouchableHighlight, TouchableOpacity,Modal,View } from 'react-native';
+import { connectStyle,Container, Content, Footer,Text,Spinner } from 'native-base'
 
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 
-import bgSrc from '../assets/images/bg.png';
 import gameBgSrc from '../assets/images/game/bg.png';
+import gameDisabledBgSrc from '../assets/images/result/wrong_bg.png';
 import Api from '../api/Api';
 
 import Game from '../components/Game';
@@ -14,33 +14,76 @@ import GameConnectedUsers from '../components/Game/GameConnectedUsers';
 
 import Reflux from 'reflux';
 import { NextTriviaStore,NextTriviaActions } from '../store/NextTriviaStore';
+import { UsersStore, UsersActions } from '../store/UserStore';
+import Purchase from '../components/Purchase';
 
 
 class GameScreen extends Reflux.Component {
   api = new Api;
+  state = {
+    modalVisible : false
+  }
   constructor(props){
     super(props);
     /*this.state = {
       isLoadingComplete: false
     }*/
-    this.store = NextTriviaStore; // TODO: use Trivia Store
+    this.stores = [NextTriviaStore,UsersStore]; // TODO: use Trivia Store
   }
   async componentDidMount() {
     if(!this.state.hasData){
       NextTriviaActions.current();
     }
+    if(!this.state.hasInformation){
+      UsersActions.update();
+    }
+
     NextTriviaActions.finish.listen(()=>{
       this.props.navigation.navigate('Home');
     });
+    UsersActions.me.listen(()=>{
+      if(this.state.user.lives <= 0 ){
+      }
+    });
   }
-  /*async componentDidMount() {
-    const currentTrivia = await this.api.getCurrentTrivia(); // TODO: move this to reflux
-    if(currentTrivia.success){
-      this.setState({isLoadingComplete:true,currentTrivia: currentTrivia});
-    } else{
-      // que hacemos ? // vamos a home ? mostramos no hay trivia todavia ? mostramos la siguiente ?
+  setModalVisible = (visible) =>{
+    this.setState({modalVisible: visible});
+  }
+  renderModal(){
+    return (
+      <Modal
+      animationType="slide"
+      transparent={true}
+      visible={this.state.modalVisible}
+      onRequestClose={() => {
+        this.setModalVisible(false);
+      }}>
+        <Purchase />
+    </Modal>
+    )
+  }
+  renderFooter(){
+    if(this.state.hasInformation){
+      const hasLives =  this.state.user.lives >= 1;
+      if(hasLives){
+        return (<GameConnectedUsers />);
+      } else{
+        const styles = this.props.style;
+        return(
+          <TouchableOpacity
+          onPress={() => {
+            this.setModalVisible(true);
+          }}>
+            <Text style={styles.noLifeText}>
+              Si queres seguir jugando hace click aca
+            </Text>
+          </TouchableOpacity>
+        )
+      }
+
     }
-  }*/ 
+    return (<GameConnectedUsers />);
+  }
   renderGame(){
     if(this.state.CurrentTrivia.hasData){
       return (
@@ -53,15 +96,21 @@ class GameScreen extends Reflux.Component {
   }
   render() {
     const styles = this.props.style;
+    let bgSrc = gameBgSrc;
+    if(this.state.hasInformation){
+      bgSrc =  this.state.user.lives <= 0 ? gameDisabledBgSrc : gameBgSrc
+    }
+
     return (
       <Container>
-        <Wallpaper source={gameBgSrc}>
+        <Wallpaper source={bgSrc}>
         <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
         <Content padder contentContainerStyle={styles.game}>
+          {this.renderModal()}
           {this.renderGame()}
         </Content>
         <Footer>
-          <GameConnectedUsers />
+          {this.renderFooter()}
         </Footer>
         </Wallpaper>
       </Container>
@@ -69,11 +118,7 @@ class GameScreen extends Reflux.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  game:{
-    flex:1,
-  }
-});
 
 
-export default connectStyle('SuperLiga.Screen')(GameScreen);
+
+export default connectStyle('SuperLiga.GameScreen')(GameScreen);

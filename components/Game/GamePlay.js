@@ -19,6 +19,7 @@ import GameAnswerResult from './GameAnswerResult';
 
 // store
 import {TriviaQuestion,TriviaQuestionActions} from '../../store/TriviaQuestion';
+import { UsersStore } from "../../store/UserStore";
 
 /**
  * 
@@ -27,8 +28,7 @@ import {TriviaQuestion,TriviaQuestionActions} from '../../store/TriviaQuestion';
 class GamePlay extends Reflux.Component {
     constructor(props){
         super(props);
-        this.store = TriviaQuestion;
-        console.log(this.state);
+        this.stores = [TriviaQuestion,UsersStore];
     }
     onQuestionTimeout(){
         console.log("Question ball timedout " + new Date());
@@ -45,10 +45,15 @@ class GamePlay extends Reflux.Component {
     }
 
     componentDidUpdate(){
-        console.log("did update");
         if(this.state.hasResult){
             const win = this.state.win;
             const serverSuccess = this.state.serverSuccess;
+            if(!serverSuccess){
+                if(this.state.hasInformation && this.state.user.lives <=0){
+                    // no está jugando porque no puede, no tiene vidas.
+                    return;
+                }
+            }
             TriviaQuestionActions.reset();
             this.props.navigation.navigate('GameResult', {
                 win: win,

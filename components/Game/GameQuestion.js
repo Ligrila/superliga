@@ -14,6 +14,7 @@ import Layout from '../../constants/Layout';
 // store
 import Reflux from 'reflux';
 import { TriviaQuestion, TriviaQuestionActions } from "../../store/TriviaQuestion";
+import { UsersStore } from "../../store/UserStore";
 
 
 /**
@@ -36,7 +37,7 @@ class GameQuestion extends Reflux.Component {
         this.onButton2Press = this.onButton2Press.bind(this);
         this.onButton3Press = this.onButton3Press.bind(this);
 
-        this.store = TriviaQuestion;
+        this.stores = [TriviaQuestion, UsersStore];
     }
     async _sendAnswer(option){
         let response = this.api.sendAnswer(this.props.question.id,option);
@@ -62,7 +63,16 @@ class GameQuestion extends Reflux.Component {
     }
     render(){
         const styles = this.props.style;
-        const renderDisabled = this.state.timedOut || this.state.disabled;
+        let lives = 0;
+        if(this.state.hasInformation){
+            if(this.state.user.life){
+                lives = this.state.user.life.lives;
+            }
+            if(this.state.user.infinite_lives && this.state.user.infinite_lives[0]){
+                lives = 100000;
+            }
+        }
+        const renderDisabled = this.state.timedOut || this.state.disabled || lives <= 0;
         return(
                 <View style={styles.container}>
                     <Text style={styles.text}>{this.props.question.question.toUpperCase()}</Text>

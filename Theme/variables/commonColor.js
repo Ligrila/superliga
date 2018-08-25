@@ -33,7 +33,7 @@ export default {
 
   // Button
   btnFontFamily: platform === "ios" ? "OpenSans" : "OpenSans",
-  btnDisabledBg: "#b5b5b5",
+  btnDisabledBg: "#414141",
   buttonPadding: 6,
   get btnPrimaryBg() {
     return this.brandPrimary;
@@ -108,7 +108,8 @@ export default {
   brandSuccess: "#5cb85c",
   brandDanger: "#d9534f",
   brandWarning: "#f0ad4e",
-  brandDark: "#7b4294",
+  //brandDark: "#7b4294",
+  brandDark: "#282828",
   brandLight: "#ededed",
 
   //Container

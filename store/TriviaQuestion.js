@@ -81,7 +81,9 @@ export class TriviaQuestion extends Reflux.Store
     }
     onAnswerQuestion(question_id,option,response){
         //necesitamos saber si response llego a destino antes de dar veredicto.
-
+        response.then((data)=>{
+            console.log(data);
+        })
         if(this.state.currentQuestion.id == question_id){
             this.setState({
                 answered: true,

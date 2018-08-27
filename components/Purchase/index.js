@@ -7,9 +7,15 @@ import {connectStyle,Text} from 'native-base'
 import bgSrc from '../../assets/images/purchase-modal.png'
 import { LivePacksStore, LivePacksActions } from '../../store/LivePacksStore';
 import Api from '../../api/Api';
+import Loader from '../Loader';
+
+
 
 class Purchase extends Reflux.Component {
     api = new Api
+    state = {
+        loading: false,
+    }
     constructor(props){
         super(props);
         this.store = LivePacksStore
@@ -21,8 +27,10 @@ class Purchase extends Reflux.Component {
       }
   }
   _callPurchase = async (item) =>{
+    this.setState({loading:true});
     const response = await this.api.purchase(item);
     const purchaseUrl = response.data.purchaseUrl;
+    this.setState({loading:false});
     this.props.navigation.navigate('Purchase',{purchaseUrl});
   }
   renderPacks(){
@@ -33,7 +41,7 @@ class Purchase extends Reflux.Component {
                 return (
                 <View key={item.id} style={styles.item}>
                     <TouchableOpacity onPress={()=>this._callPurchase(item)}>
-                        <Text style={styles.itemText}>{item.name}</Text>
+                        <Text style={styles.itemText}>QUIERO COMPRAR {item.name.toUpperCase()}{"\n"}({item.price}$ ARS)</Text>
                     </TouchableOpacity>
                 </View>
                 )
@@ -47,7 +55,8 @@ class Purchase extends Reflux.Component {
     const styles = this.props.style;
     return (
       <View style={styles.container}>
-        <ImageBackground source={bgSrc} style={styles.background}>
+        <Loader loading={this.state.loading} />
+        <ImageBackground source={bgSrc} style={{...styles.background,display: this.state.loading ? 'none': 'flex'}}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>
                     {'COMPRA VIDAS\n Y SEGUI\n JUGANDO'}

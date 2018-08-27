@@ -43,7 +43,7 @@ export default {
         itemText:{
             color: '#282828',
             fontFamily: 'OpenSansCondensed_bold',
-            fontSize: s(40),
+            fontSize: h(40),
             textAlign: 'center',
         }
     },

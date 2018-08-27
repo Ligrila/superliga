@@ -24,7 +24,7 @@ class Game extends Component {
     }
 
     renderGamePlay(){
-        return (<GamePlay navigation={this.props.navigation} />);
+        return (<GamePlay navigation={this.props.navigation} onNoLife={this.props.onNoLife} />);
     }
 
     onQuestionTimeout(){

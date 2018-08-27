@@ -2,10 +2,11 @@ import React from 'react';
 import {
     WebView
   } from 'react-native';
-import Enviroment from '../constants/Enviroment';
-import { Container } from 'native-base';
 
-export default class PurchaseScreen extends React.Component {
+import { Container,connectStyle, Button, Header, Body, Left, Title, Icon } from 'native-base';
+
+
+class PurchaseScreen extends React.Component {
     static navigationOptions = {
       title: 'Comprar',
     };
@@ -13,8 +14,8 @@ export default class PurchaseScreen extends React.Component {
     componentDidMount() {
     }
 
-    closeWebView(){
-      console.log("Close web view");
+    closeWebView = ()=>{
+      this.props.navigation.goBack()
     }
   
     onWebViewMessage = (event) =>{
@@ -37,16 +38,26 @@ export default class PurchaseScreen extends React.Component {
         consle.warn('Error: you must call this screen with a purchase uri');
         return;
       }
-
+      const styles = this.props.style;
       return (
         <Container>
-          <WebView
-            source={{uri: purchaseUrl}}
-            onMessage={this.onWebViewMessage}
-          />
+            <Header styles={{paddingTop:20}}>
+            <Left>
+              <Button transparent onPress={this.closeWebView}>
+                <Icon name='arrow-back' />
+              </Button>
+            </Left>
+            <Body />
+          </Header>
+            <WebView
+              source={{uri: purchaseUrl}}
+              onMessage={this.onWebViewMessage}
+              style={styles.webview}
+            />
         </Container>
       );
     }
   
   }
 
+export default connectStyle('SuperLiga.PurchaseScreen')(PurchaseScreen)

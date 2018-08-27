@@ -78,7 +78,6 @@ class Awards extends Reflux.Component {
 
       });
     }
-    console.log(response);
   }
   onChangeAward = (item) => {
     Alert
@@ -114,7 +113,7 @@ class Awards extends Reflux.Component {
             <View style={styles.buttonContainer}>
               <Button 
                           onPress={()=>{this.onChangeAward(item)}}
-                          dark={points>=item.points}
+                          primary={points>=item.points}
                           disabled={points<item.points}
                           large
                           rounded style={styles.button}>

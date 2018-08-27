@@ -63,7 +63,7 @@ class GamePlay extends Reflux.Component {
     }
     _renderCurrentQuestion(){
         if(this.state.hasQuestion && !this.state.hasResult ){
-            return (<GameQuestion question={this.state.currentQuestion} />);
+            return (<GameQuestion question={this.state.currentQuestion} onNoLife={this.props.onNoLife} />);
         } else{
             return (<GameWait text={'ESPERANDO \n JUGADA'} />);
         }

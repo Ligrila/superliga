@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 import Api from '../api/Api';
 
-export const UsersActions = Reflux.createActions(['me','update']);
+export const UsersActions = Reflux.createActions(['me','update','noLife']);
 
 export class UsersStore extends Reflux.Store
 {
@@ -17,6 +17,11 @@ export class UsersStore extends Reflux.Store
 
     getInititalState(){
         return {user:null,hasInformation:false};
+    }
+
+    onNoLife(lives){
+        // simplemente lo usamos para listen desde fuera
+        // UsersActions.onNoLife.list(fnc)
     }
 
     async onMe(user){
@@ -36,6 +41,9 @@ export class UsersStore extends Reflux.Store
             }
             data.lives = lives;
             UsersActions.me(data);
+            if(lives<=0){
+                UsersActions.noLife(lives);
+            }
         }
     }
 

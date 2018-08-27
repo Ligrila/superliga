@@ -114,7 +114,7 @@ export default (variables = variable) => {
       ".dark": {
         ...darkCommon,
         backgroundColor: "transparent",
-        borderColor: variables.brandDark,
+        borderColor: variables.btnDarkBg,
         borderWidth: variables.borderWidth * 2
       },
       ".light": {
@@ -175,7 +175,7 @@ export default (variables = variable) => {
       ".bordered": {
         ...darkCommon
       },
-      backgroundColor: variables.brandDark
+      backgroundColor: variables.btnDarkBg
     },
     ".light": {
       ".transparent": {

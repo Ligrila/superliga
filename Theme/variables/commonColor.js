@@ -38,6 +38,9 @@ export default {
   get btnPrimaryBg() {
     return this.brandPrimary;
   },
+  get btnDarkBg(){
+    return this.btnDisabledBg;
+  },
   get btnPrimaryColor() {
     return this.inverseTextColor;
   },

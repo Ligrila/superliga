@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
-    View
+    View,
+    TouchableWithoutFeedback
 } from "react-native";
 
 import { Text, Button } from 'native-base'
@@ -61,6 +62,14 @@ class GameQuestion extends Reflux.Component {
     componentDidMount(){
         
     }
+    showPurchaseModal = (lives) => {
+        if(lives<=0){
+            //intenta jugar sin vidas
+            // llegamos hasta 
+            // GameScreen setModalVisible(true)
+            this.props.onNoLife();
+        }
+    }
     render(){
         const styles = this.props.style;
         let lives = 0;
@@ -76,36 +85,54 @@ class GameQuestion extends Reflux.Component {
         return(
                 <View style={styles.container}>
                     <Text style={styles.text}>{this.props.question.question.toUpperCase()}</Text>
-                    <Button 
-                        onPress={this.onButton1Press}
-                        light={!this.state.button1Pressed}
-                        primary={this.state.button1Pressed}
-                        disabled={renderDisabled}
-                        block
-                        large
-                        rounded style={styles.button}>
-                        <Text style={styles.buttonText}>{this.props.question.option_1}</Text>
-                    </Button>
-                    <Button
-                        onPress={this.onButton2Press}
-                        light={!this.state.button2Pressed}
-                        primary={this.state.button2Pressed}
-                        disabled={renderDisabled}
-                        block
-                        large
-                        rounded style={styles.button}>
-                        <Text style={styles.buttonText}>{this.props.question.option_2}</Text>
-                    </Button>
-                    <Button
-                        onPress={this.onButton3Press}
-                        light={!this.state.button3Pressed}
-                        primary={this.state.button3Pressed}
-                        disabled={renderDisabled}
-                        block
-                        large
-                        rounded style={styles.button}>
-                        <Text style={styles.buttonText}>{this.props.question.option_3}</Text>
-                    </Button>
+                    <TouchableWithoutFeedback
+                    onPress={()=>{this.showPurchaseModal(lives)}}
+                    >
+                    <View>
+                        <Button 
+                            onPress={this.onButton1Press}
+                            light={!this.state.button1Pressed}
+                            primary={this.state.button1Pressed}
+                            disabled={renderDisabled}
+                            block
+                            large
+                            rounded style={styles.button}>
+                                <Text style={styles.buttonText}>{this.props.question.option_1}</Text>
+                        </Button>
+                    </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback
+                    onPress={()=>{this.showPurchaseModal(lives)}}
+                    >
+                        <View>
+                            <Button
+                                onPress={this.onButton2Press}
+                                light={!this.state.button2Pressed}
+                                primary={this.state.button2Pressed}
+                                disabled={renderDisabled}
+                                block
+                                large
+                                rounded style={styles.button}>
+                                <Text style={styles.buttonText}>{this.props.question.option_2}</Text>
+                            </Button>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback
+                    onPress={()=>{this.showPurchaseModal(lives)}}
+                    >
+                        <View>
+                            <Button
+                                onPress={this.onButton3Press}
+                                light={!this.state.button3Pressed}
+                                primary={this.state.button3Pressed}
+                                disabled={renderDisabled}
+                                block
+                                large
+                                rounded style={styles.button}>
+                                <Text style={styles.buttonText}>{this.props.question.option_3}</Text>
+                            </Button>
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
         )
     }

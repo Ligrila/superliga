@@ -10,7 +10,17 @@ const h = (size) => {
 }
 
 export default {
-
+    'SuperLiga.PurchaseScreen':{
+        webview:{
+            
+        },
+        header:{
+            background: '#000',
+        },
+        footer:{
+            height: 'auto',
+        }
+    },
     'SuperLiga.Purchase':{
         container:{
             flex:1,
@@ -21,6 +31,16 @@ export default {
             width: s(575),
             height: s(939),
             maxHeight: h(939),
+            position: 'relative',
+        },
+        close:{
+            position:'absolute',
+            top: 10,
+            right: 10,
+        },
+        closeText:{
+            fontFamily: 'Roboto',
+            fontSize: s(44),
         },
         header:{
             height: s(939) / 2,

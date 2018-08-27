@@ -58,7 +58,7 @@ class GameScreen extends Reflux.Component {
       onRequestClose={() => {
         this.setModalVisible(false);
       }}>
-        <Purchase navigation={this.props.navigation} />
+        <Purchase navigation={this.props.navigation} onHidePress={()=>this.setModalVisible(false)}/>
     </Modal>
     )
   }
@@ -87,7 +87,7 @@ class GameScreen extends Reflux.Component {
   renderGame(){
     if(this.state.CurrentTrivia.hasData){
       return (
-        <Game currentTrivia={this.state.CurrentTrivia.Trivia} navigation={this.props.navigation}>
+        <Game currentTrivia={this.state.CurrentTrivia.Trivia} navigation={this.props.navigation} onNoLife={()=>this.setModalVisible(true)}>
         </Game>
       );
     } else{

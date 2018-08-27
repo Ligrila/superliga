@@ -50,13 +50,22 @@ class Purchase extends Reflux.Component {
         return items;
     }
   }
-
+  onHide = () => {
+      this.props.onHidePress();
+  }
   render() {
     const styles = this.props.style;
     return (
       <View style={styles.container}>
         <Loader loading={this.state.loading} />
         <ImageBackground source={bgSrc} style={{...styles.background,display: this.state.loading ? 'none': 'flex'}}>
+            <View style={styles.close}>
+                <TouchableOpacity
+                onPress={this.onHide}
+                >
+                    <Text style={styles.closeText}>X</Text>
+                </TouchableOpacity>
+            </View>
             <View style={styles.header}>
                 <Text style={styles.headerText}>
                     {'COMPRA VIDAS\n Y SEGUI\n JUGANDO'}

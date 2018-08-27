@@ -50,9 +50,14 @@ class PurchaseScreen extends React.Component {
             <Body />
           </Header>
             <WebView
+             ref={component => this.webView = component}
               source={{uri: purchaseUrl}}
               onMessage={this.onWebViewMessage}
               style={styles.webview}
+              onLoad={()=>{
+                console.log("LOAD");
+                console.log(this.webView.props.source);
+              }}
             />
         </Container>
       );

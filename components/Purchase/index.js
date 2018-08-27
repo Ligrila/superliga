@@ -29,6 +29,10 @@ class Purchase extends Reflux.Component {
   _callPurchase = async (item) =>{
     this.setState({loading:true});
     const response = await this.api.purchase(item);
+    if(!response || !response.success){
+        this.setState({loading:false});
+        return;    
+    }
     const purchaseUrl = response.data.purchaseUrl;
     this.setState({loading:false});
     this.props.navigation.navigate('Purchase',{purchaseUrl});

@@ -23,6 +23,7 @@ import Layout from '../constants/Layout';
 import {Icon,Text} from 'native-base'
 import StatisticsScreen from '../screens/StatisticsScreen';
 import TriviasScreen from '../screens/TriviasScreen';
+import PurchaseScreen from '../screens/PurchaseScreen';
 
 
 const AuthStack = createStackNavigator(
@@ -65,6 +66,12 @@ var Main = createDrawerNavigator({
   },
   GameResult:{
     screen: GameResultScreen,
+    navigationOptions: {
+      drawerLabel: () => null
+    }
+  },
+  Purchase:{
+    screen: PurchaseScreen,
     navigationOptions: {
       drawerLabel: () => null
     }

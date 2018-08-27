@@ -21,6 +21,30 @@ export default {
             width: s(575),
             height: s(939),
             maxHeight: h(939),
+        },
+        header:{
+            height: s(939) / 2,
+            justifyContent:  'center',
+            alignItems: 'center',     
+
+        },
+        headerText:{
+            fontFamily: 'OpenSansCondensed_light',
+            color: '#fff',
+            fontSize: s(80),
+            textAlign: 'center',
+      
+        },
+        item:{
+            height: (s(939) / 2) / 3,
+            justifyContent:  'center',
+            alignItems: 'center',            
+        },
+        itemText:{
+            color: '#282828',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+            textAlign: 'center',
         }
     },
     'SuperLiga.Notice':{
@@ -506,6 +530,9 @@ export default {
         game:{
             flex:1,
         },
+        footer:{
+            height: 'auto',
+        },
         noLifeText:{
             fontFamily: 'OpenSansCondensed_bold',
             color: '#2cd6f5',
@@ -637,16 +664,16 @@ export default {
     'SuperLiga.GameQuestion': {
         text: {
             fontFamily: 'OpenSansCondensed_bold',
-            fontSize: s(60),
+            fontSize: h(60),
             textAlign:'center'
           },
         button:{
-            marginTop: s(36),
-            height: s(115),
+            marginTop: h(36),
+            height: h(115),
         },
         buttonText: {
             fontFamily: 'OpenSansCondensed_bold',
-            fontSize: s(35),
+            fontSize: h(35),
             textAlign:'center'
           }
       },

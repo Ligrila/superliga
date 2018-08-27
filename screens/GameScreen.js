@@ -58,7 +58,7 @@ class GameScreen extends Reflux.Component {
       onRequestClose={() => {
         this.setModalVisible(false);
       }}>
-        <Purchase />
+        <Purchase navigation={this.props.navigation} />
     </Modal>
     )
   }
@@ -109,7 +109,7 @@ class GameScreen extends Reflux.Component {
           {this.renderModal()}
           {this.renderGame()}
         </Content>
-        <Footer>
+        <Footer style={styles.footer}>
           {this.renderFooter()}
         </Footer>
         </Wallpaper>

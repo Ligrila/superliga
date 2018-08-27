@@ -117,5 +117,12 @@ export default class Api extends RestClient {
     return this.GET(`/dates/view/${id}`);
   }
 
+  getLivePacks(){
+    return this.GET('/live-packs/index');
+  }
+
+  purchase(item){
+    return this.GET('/payments/buy/'+item.id);
+  }
 
 };

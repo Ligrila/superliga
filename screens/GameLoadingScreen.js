@@ -28,6 +28,7 @@ export default  class GameLoadingScreen extends Reflux.Component {
 
     let gameInProgress = ct.success;
     this.props.navigation.navigate(gameInProgress ? 'GamePlay' : 'Home');
+    // test this.props.navigation.navigate('Purchase',{purchaseUrl: 'http://172.16.10.22/superliga/payments/back_url'});
   };
 
   // Render any loading content that you like here

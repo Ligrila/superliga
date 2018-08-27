@@ -12,7 +12,24 @@ export default class PurchaseScreen extends React.Component {
 
     componentDidMount() {
     }
+
+    closeWebView(){
+      console.log("Close web view");
+    }
   
+    onWebViewMessage = (event) =>{
+      console.log("Message received from webview ");
+      if(event.nativeEvent.data=='closeWebView'){
+        // close
+        this.props.navigation.goBack();
+      } else{
+        console.log("unknow data " + event.nativeEvent.data);
+      }
+
+
+  
+    }
+
     render() {
       const { navigation } = this.props;
       const purchaseUrl = navigation.getParam('purchaseUrl', false);
@@ -25,6 +42,7 @@ export default class PurchaseScreen extends React.Component {
         <Container>
           <WebView
             source={{uri: purchaseUrl}}
+            onMessage={this.onWebViewMessage}
           />
         </Container>
       );

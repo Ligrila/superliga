@@ -97,6 +97,19 @@ export default class App extends React.Component {
     const deviceTimezone = await Localization.getCurrentTimeZoneAsync();
     await AsyncStorage.setItem('deviceTimezone', `${deviceTimezone}`);
     return Promise.all([
+      Font.loadAsync({
+        // This is the font that we are using for our tab bar
+        ...Icon.Ionicons.font,
+        // We include SpaceMono because we use it in HomeScreen.js. Feel free
+        // to remove this if you are not using it in your app
+        'Roboto': require("native-base/Fonts/Roboto.ttf"),
+        'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
+        'edosz': require('./assets/fonts/edosz.ttf'),
+        'OpenSans': require('./assets/fonts/OpenSans-Regular.ttf'),
+        'OpenSans_bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+        'OpenSansCondensed_light': require('./assets/fonts/OpenSansCondensed-Light.ttf'),
+        'OpenSansCondensed_bold': require('./assets/fonts/OpenSansCondensed-Bold.ttf'),
+      }),
       Asset.loadAsync([
         require('./assets/images/robot-dev.png'),
         require('./assets/images/robot-prod.png'),
@@ -114,19 +127,6 @@ export default class App extends React.Component {
          
       ]),
       ...serverAssets,
-      Font.loadAsync({
-        // This is the font that we are using for our tab bar
-        ...Icon.Ionicons.font,
-        // We include SpaceMono because we use it in HomeScreen.js. Feel free
-        // to remove this if you are not using it in your app
-        'Roboto': require("native-base/Fonts/Roboto.ttf"),
-        'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
-        'edosz': require('./assets/fonts/edosz.ttf'),
-        'OpenSans': require('./assets/fonts/OpenSans-Regular.ttf'),
-        'OpenSans_bold': require('./assets/fonts/OpenSans-Bold.ttf'),
-        'OpenSansCondensed_light': require('./assets/fonts/OpenSansCondensed-Light.ttf'),
-        'OpenSansCondensed_bold': require('./assets/fonts/OpenSansCondensed-Bold.ttf'),
-      }),
     ]);
 
   };

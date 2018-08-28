@@ -142,11 +142,12 @@ var Main = createDrawerNavigator({
   Logout: {
     screen: LogoutScreen,
     navigationOptions: {
-      drawerLabel: () =>{
+      drawerLabel: () => null
+      /*drawerLabel: () =>{
         return (
           <SidebarItem label={"Cerrar sesion"} source={require('../assets/images/menu/awards.png')}/>
         )
-      }
+      }*/
     }
   }
 },{

@@ -1,8 +1,9 @@
 import React from 'react';
 import Reflux from 'reflux';
 import { View,TouchableOpacity } from 'react-native'
+import {Permissions} from 'expo'
 
-import {connectStyle,Header,Container,Content,Text, Icon, Toast} from 'native-base';
+import {connectStyle,Header,Container,Content,Text, Icon, Toast, Button, ActionSheet} from 'native-base';
 
 import { ImagePicker } from 'expo';
 
@@ -25,7 +26,9 @@ class ProfileScreen extends Reflux.Component {
     super(props);
     this.store = UsersStore;
   }
-
+  closeSession = () => {
+    this.props.navigation.navigate('Logout');
+  }
   render() {
     if(!this.state.hasInformation){
       return <View />;
@@ -62,13 +65,14 @@ class ProfileScreen extends Reflux.Component {
               </Text>
 
               <TouchableOpacity 
-                  onPress={this._pickImage}
+                  onPress={this._actionSheet}
                   style={styles.changeAvatarButton}
                 >
                   <Text> editar imagen de perfil
                   </Text>
                   <Icon style={styles.icon} type="Entypo" name="chevron-right"></Icon>
               </TouchableOpacity>
+              <Button light block onPress={this.closeSession}><Text>Cerrar sesión</Text></Button>
           </View>
           </Wallpaper>
         </Content>
@@ -77,6 +81,70 @@ class ProfileScreen extends Reflux.Component {
     );
   }
 
+  _actionSheet = ()=>{
+    const BUTTONS = ["Seleccionar de galeria", "Tomar foto", "Cancelar"];
+
+    const CANCEL_INDEX = 2
+    ActionSheet.show(
+      {
+        options: BUTTONS,
+        cancelButtonIndex: CANCEL_INDEX,
+        title: "Editar imagen de perfil"
+      },
+      buttonIndex => {
+        if(buttonIndex==0){
+          this._pickImage();
+        }
+        if(buttonIndex==1){
+          this._takePhoto();
+        }
+      }
+    )
+  }
+
+  _checkPermissions = async ()=>{
+
+  return await Promise.all([
+    Permissions.askAsync(Permissions.CAMERA),
+    Permissions.askAsync(Permissions.CAMERA_ROLL),
+  ])
+    .then(r => r.filter(o => o.status === 'granted'))
+    .then(permissions => {
+      if (permissions.length !== 2) {
+        return false;
+      }
+      return true;
+    });
+  }
+
+  _takePhoto = async () => {
+    
+    const c = await this._checkPermissions();
+    console.log('hasP',c);
+    if(!c){
+      return;
+    }
+    let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [1, 1],
+    });
+
+
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+      const response = await this.api.changeAvatar(result.uri);
+      if(response.success){
+        let user = this.state.user;
+        user.avatar = result.uri;
+        this.setState(user);
+      } else{
+        Toast.show({
+          text: 'No se pudo cambiar tu imagen de perfil. Por favor, intenta nuevamente',
+          buttonText: 'Aceptar'
+        });
+      }
+    }
+  }
   _pickImage = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,

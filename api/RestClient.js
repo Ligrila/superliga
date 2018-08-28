@@ -79,7 +79,6 @@ export default class RestClient {
         if (response.status >= 200 && response.status < 300) {
             return response.text().then(
               text => {
-                console.log('text',text);
                 return text? JSON.parse(text) : undefined
               }
             )
@@ -90,6 +89,7 @@ export default class RestClient {
         };
 
       const manageError = async response => {
+        //console.log('reject',await response.text());
         try{
           if(typeof(response.text)!=='function'){
             return {

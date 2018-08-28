@@ -39,12 +39,13 @@ class PurchaseScreen extends React.Component {
         return;
       }
       const styles = this.props.style;
+      console.log(styles);
       return (
         <Container>
-            <Header styles={{paddingTop:20}}>
+            <Header style={styles.header} noShadow>
             <Left>
               <Button transparent onPress={this.closeWebView}>
-                <Icon name='arrow-back' />
+                <Icon name='close' type="MaterialIcons" />
               </Button>
             </Left>
             <Body />

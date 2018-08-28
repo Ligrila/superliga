@@ -15,7 +15,8 @@ export default {
             
         },
         header:{
-            background: '#000',
+            paddingTop: 20,
+            backgroundColor: '#009ee3',
         },
         footer:{
             height: 'auto',

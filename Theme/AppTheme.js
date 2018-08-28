@@ -10,6 +10,13 @@ const h = (size) => {
 }
 
 export default {
+    'SuperLiga.LivePacksScreen':{
+        container:{
+            flex:1,
+            alignItems:'center',
+            justifyContent: 'center'
+        },
+    },
     'SuperLiga.PurchaseScreen':{
         webview:{
             

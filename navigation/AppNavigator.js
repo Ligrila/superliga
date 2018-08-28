@@ -24,6 +24,7 @@ import {Icon,Text} from 'native-base'
 import StatisticsScreen from '../screens/StatisticsScreen';
 import TriviasScreen from '../screens/TriviasScreen';
 import PurchaseScreen from '../screens/PurchaseScreen';
+import LivePacksScreen from '../screens/LivePacksScreen';
 
 
 const AuthStack = createStackNavigator(
@@ -96,6 +97,18 @@ var Main = createDrawerNavigator({
         }
       }
   },
+  LivePacks: {
+    screen: LivePacksScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Comprar"} source={require('../assets/images/menu/profile.png')}/>
+        )
+      },
+      mode: 'modal',
+      headerMode: 'none',
+    }
+  },
   Awards:{
     screen: AwardsScreen,
     navigationOptions: {
@@ -145,6 +158,7 @@ var Main = createDrawerNavigator({
     drawerToggleRoute: 'DrawerToggle'
   }
 );
+
 
 export default createSwitchNavigator({
   // You could add another route here for authentication.

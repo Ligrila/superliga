@@ -70,6 +70,16 @@ class GameQuestion extends Reflux.Component {
             this.props.onNoLife();
         }
     }
+
+    button1Styles = () => {
+        return this.state.button1Pressed ? {backgroundColor:'#7b4295'} : {};
+    }
+    button2Styles = () => {
+        return this.state.button2Pressed ? {backgroundColor:'#7b4295'} : {};
+    }
+    button3Styles = () => {
+        return this.state.button3Pressed ? {backgroundColor:'#7b4295'} : {};
+    }
     render(){
         const styles = this.props.style;
         let lives = 0;
@@ -96,7 +106,7 @@ class GameQuestion extends Reflux.Component {
                             disabled={renderDisabled}
                             block
                             large
-                            rounded style={styles.button}>
+                            rounded style={{...styles.button,...this.button1Styles()}}>
                                 <Text style={styles.buttonText}>{this.props.question.option_1}</Text>
                         </Button>
                     </View>
@@ -112,7 +122,7 @@ class GameQuestion extends Reflux.Component {
                                 disabled={renderDisabled}
                                 block
                                 large
-                                rounded style={styles.button}>
+                                rounded style={{...styles.button,...this.button2Styles()}}>
                                 <Text style={styles.buttonText}>{this.props.question.option_2}</Text>
                             </Button>
                         </View>
@@ -128,7 +138,7 @@ class GameQuestion extends Reflux.Component {
                                 disabled={renderDisabled}
                                 block
                                 large
-                                rounded style={styles.button}>
+                                rounded style={{...styles.button,...this.button3Styles()}}>
                                 <Text style={styles.buttonText}>{this.props.question.option_3}</Text>
                             </Button>
                         </View>

@@ -15,7 +15,7 @@ import Layout from '../../constants/Layout';
 
 
 import superligaAppImg from '../../assets/images/app_logo.png';
-import superligaImg from '../../assets/images/logo.png';
+//import superligaImg from '../../assets/images/logo.png';
 import menuImg from '../../assets/images/menu.png';
 
 
@@ -25,7 +25,8 @@ class AppHeader extends Component {
         if(this.props.game){
             return (<UserInfo />);    
         }
-        return (<Image source={superligaImg} style={styles.superligaImg} resizeMode="contain" />);
+        //return (<Image source={superligaImg} style={styles.superligaImg} resizeMode="contain" />);
+        return null;
     }
     render() {
         return (

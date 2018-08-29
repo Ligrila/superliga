@@ -18,7 +18,7 @@ import {GameBallCircularProgress} from '../GameBallCircularProgress'
 
 class StatisticItem extends React.Component {
     state = {
-        tintColor: "#6adc95"
+        tintColor: "#a97bcd"
     }
     constructor(props){
         super(props);

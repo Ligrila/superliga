@@ -7,6 +7,7 @@ import Wallpaper from '../components/Wallpaper';
 import StatisticItem from '../components/StatisticItem';
 import AppHeader from '../components/AppHeader/AppHeader';
 import { StatisticsStore, StatisticsActions } from '../store/StatisticsStore';
+import BigTitle from '../components/Title/BigTitle';
 
 const bgSrc = require('../assets/images/bg.png');
 
@@ -31,6 +32,7 @@ class StatisticsScreen extends Reflux.Component {
       <Wallpaper source={bgSrc}>
       <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} />
         <Content padder contentContainerStyle={styles.statistics}>
+          <BigTitle text={"ESTADISTICAS DE JUEGO"}></BigTitle>
           <View style={styles.container}>
               <View style={styles.rowContainer}>
                 <StatisticItem fill={this.state.Statistics.points} text="puntos" fillText={this.state.Statistics.points}/>

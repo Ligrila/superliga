@@ -3,7 +3,8 @@ import {
     WebView
   } from 'react-native';
 
-import { Container,connectStyle, Button, Header, Body, Left, Title, Icon } from 'native-base';
+import { Container,connectStyle, Button, Header, Body, Left, Title, Icon, Content } from 'native-base';
+import { UsersActions } from '../store/UserStore';
 
 
 class PurchaseScreen extends React.Component {
@@ -15,14 +16,14 @@ class PurchaseScreen extends React.Component {
     }
 
     closeWebView = ()=>{
-      this.props.navigation.goBack()
+      UsersActions.update();
+      this.props.navigation.goBack();
     }
   
     onWebViewMessage = (event) =>{
       console.log("Message received from webview ");
       if(event.nativeEvent.data=='closeWebView'){
-        // close
-        this.props.navigation.goBack();
+        this.closeWebView();
       } else{
         console.log("unknow data " + event.nativeEvent.data);
       }
@@ -55,10 +56,6 @@ class PurchaseScreen extends React.Component {
               source={{uri: purchaseUrl}}
               onMessage={this.onWebViewMessage}
               style={styles.webview}
-              onLoad={()=>{
-                console.log("LOAD");
-                console.log(this.webView.props.source);
-              }}
             />
         </Container>
       );

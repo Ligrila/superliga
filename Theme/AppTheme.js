@@ -5,9 +5,9 @@ const s = (size) => {
     return size * Layout.window.ratio;
 }
 const h = (size) => {
-    console.log('h',size * Layout.window.heightRatio);
-    return size * Layout.window.heightRatio;
+     return size * Layout.window.heightRatio;
 }
+
 
 export default {
     'SuperLiga.LivePacksScreen':{
@@ -19,7 +19,6 @@ export default {
     },
     'SuperLiga.PurchaseScreen':{
         webview:{
-            
         },
         header:{
             paddingTop: 20,
@@ -33,7 +32,8 @@ export default {
         container:{
             flex:1,
             justifyContent:  'center',
-            alignItems: 'center',            
+            alignItems: 'center',     
+            marginTop: -70
         },
         background: {
             width: s(575),
@@ -276,6 +276,12 @@ export default {
             alignItems: 'center',
         },
         title: {
+            textAlign: 'center',
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(50),
+            marginBottom:0,
+        },
+        bigTitle:{
             textAlign: 'center',
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: s(80),

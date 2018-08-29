@@ -24,8 +24,6 @@ import Api from '../../api/Api';
   // Get the token that uniquely identifies this device
   let token = await Notifications.getExpoPushTokenAsync();
 
-  console.log(token);
-
   const api = new Api;
   return api.pushNotificationsRegister(token);
 

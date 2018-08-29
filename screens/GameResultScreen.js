@@ -17,6 +17,7 @@ import MakeItRain from '../components/MakeItRain';
 
 
 class GameResultScreen extends React.Component {
+  timeout = null;
   constructor(props){
     super(props);
   }
@@ -25,17 +26,24 @@ class GameResultScreen extends React.Component {
     const hasLife = navigation.getParam('hasLives', true); // TODO:
     const changeNavigationTimeout = 6000;
     if(hasLife){
-      setTimeout(()=>{
-        navigation.navigate('HomeSwitcher');
+      this.timeout = setTimeout(()=>{
+        navigation.goBack();
       },changeNavigationTimeout)
+    }
+  }
+  componentWillUnmount(){
+    if(this.timeout){
+      clearTimeout(this.timeout);
     }
   }
   renderResult(){
     const { navigation } = this.props;
     const win = navigation.getParam('win', false);
+    const points = navigation.getParam('points', null);
+    const lives = navigation.getParam('lives', null);
     const serverSuccess = navigation.getParam('serverSuccess', false);
     
-    return (<GameAnswerResult win={win} serverSuccess={serverSuccess} navigation={this.props.navigation} />);    
+    return (<GameAnswerResult win={win} points={points} lives={lives} serverSuccess={serverSuccess} navigation={this.props.navigation} />);    
   
   }
 
@@ -43,10 +51,12 @@ class GameResultScreen extends React.Component {
     const styles = this.props.style;
     const { navigation } = this.props;
     const win = navigation.getParam('win', false);
+    const lives = navigation.getParam('lives', null);
     const rain = win ? <MakeItRain /> : null;
+    const renderBg = (win||lives>0) ? bgSrc : wrongBgSrc;
     return (
       <Container>
-        <Wallpaper source={win ? bgSrc : wrongBgSrc}>
+        <Wallpaper source={renderBg}>
         {rain}
         <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
         <Content padder contentContainerStyle={styles.game}>

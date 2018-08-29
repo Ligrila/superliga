@@ -701,6 +701,11 @@ export default {
             fontSize: h(60),
             textAlign:'center'
           },
+          subtitle: {
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: h(30),
+            textAlign:'center'
+          },
         button:{
             marginTop: h(36),
             height: h(115),
@@ -708,7 +713,7 @@ export default {
         buttonText: {
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: h(35),
-            textAlign:'center'
+            textAlign:'center',
           }
       },
       'SuperLiga.GameAnswerResult': {

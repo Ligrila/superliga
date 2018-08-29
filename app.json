@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Superliga",
-    "description": "A very interesting project.",
-    "slug": "Superliga",
+    "name": "Jugada Superliga",
+    "description": "Trivia oficial de la Super Liga Argentina de futbol.",
+    "slug": "jugada-superliga",
     "privacy": "public",
     "sdkVersion": "29.0.0",
     "platforms": ["ios", "android"],
@@ -30,9 +30,9 @@
       "supportsTablet": true
     },
     "facebookAppId": "882017118635234",
-    "facebookDisplayName": "Trivia SuperLiga"
+    "facebookDisplayName": "Jugada SuperLiga"
   },
   "android":{
-    "package": "ar.com.saf.trivia"
+    "package": "com.balltoball.jugadasuperliga"
   }  
 }

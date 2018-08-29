@@ -72,13 +72,22 @@ class GameQuestion extends Reflux.Component {
     }
 
     button1Styles = () => {
-        return this.state.button1Pressed ? {backgroundColor:'#7b4295'} : {};
+        return this.state.button1Pressed ? {backgroundColor:'#7b4295'} : {backgroundColor: '#ededed'};
     }
     button2Styles = () => {
-        return this.state.button2Pressed ? {backgroundColor:'#7b4295'} : {};
+        return this.state.button2Pressed ? {backgroundColor:'#7b4295'} : {backgroundColor: '#ededed'};
     }
     button3Styles = () => {
-        return this.state.button3Pressed ? {backgroundColor:'#7b4295'} : {};
+        return this.state.button3Pressed ? {backgroundColor:'#7b4295'} : {backgroundColor: '#ededed'};
+    }
+    button1TextStyles = () => {
+        return this.state.button1Pressed ? {color:'#fff'} : {color: '#282828'};
+    }
+    button2TextStyles = () => {
+        return this.state.button2Pressed ? {color:'#fff'} : {color: '#282828'};
+    }
+    button3TextStyles = () => {
+        return this.state.button3Pressed ? {color:'#fff'} : {color: '#282828'};
     }
     render(){
         const styles = this.props.style;
@@ -91,10 +100,17 @@ class GameQuestion extends Reflux.Component {
                 lives = 100000;
             }
         }
+        let subtitle = `JUGAS POR ${this.props.question.points} PUNTOS`;
+        let title = this.props.question.question.toUpperCase();
         const renderDisabled = this.state.timedOut || this.state.disabled || lives <= 0;
+        if(this.state.timedOut && !this.state.answered){
+            title= "SE ACABO\n EL TIEMPO";
+            subtitle = 'JUGADA ANULADA';
+        }
         return(
                 <View style={styles.container}>
-                    <Text style={styles.text}>{this.props.question.question.toUpperCase()}</Text>
+                    <Text style={styles.text}>{title}</Text>
+                    <Text style={styles.subtitle}>{subtitle}</Text>
                     <TouchableWithoutFeedback
                     onPress={()=>{this.showPurchaseModal(lives)}}
                     >
@@ -107,7 +123,7 @@ class GameQuestion extends Reflux.Component {
                             block
                             large
                             rounded style={{...styles.button,...this.button1Styles()}}>
-                                <Text style={styles.buttonText}>{this.props.question.option_1}</Text>
+                                <Text style={{...styles.buttonText,...this.button1TextStyles()}}>{this.props.question.option_1}</Text>
                         </Button>
                     </View>
                     </TouchableWithoutFeedback>
@@ -123,7 +139,7 @@ class GameQuestion extends Reflux.Component {
                                 block
                                 large
                                 rounded style={{...styles.button,...this.button2Styles()}}>
-                                <Text style={styles.buttonText}>{this.props.question.option_2}</Text>
+                                <Text style={{...styles.buttonText,...this.button2TextStyles()}}>{this.props.question.option_2}</Text>
                             </Button>
                         </View>
                     </TouchableWithoutFeedback>
@@ -139,7 +155,7 @@ class GameQuestion extends Reflux.Component {
                                 block
                                 large
                                 rounded style={{...styles.button,...this.button3Styles()}}>
-                                <Text style={styles.buttonText}>{this.props.question.option_3}</Text>
+                                <Text style={{...styles.buttonText,...this.button3TextStyles()}}>{this.props.question.option_3}</Text>
                             </Button>
                         </View>
                     </TouchableWithoutFeedback>

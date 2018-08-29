@@ -54,11 +54,16 @@ class GamePlay extends Reflux.Component {
                     return;
                 }
             }
+            const currentQuestion = this.state.currentQuestion;
             TriviaQuestionActions.reset();
             this.props.navigation.navigate('GameResult', {
                 win: win,
+                lives: this.state.user.lives,
+                points: currentQuestion.points,
                 serverSuccess: serverSuccess,
               });
+
+
         }
     }
     _renderCurrentQuestion(){

@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 import Api from '../api/Api';
 
-export const UsersActions = Reflux.createActions(['me','update','noLife']);
+export const UsersActions = Reflux.createActions(['me','update','noLife','isLoggedIn']);
 
 export class UsersStore extends Reflux.Store
 {
@@ -24,6 +24,13 @@ export class UsersStore extends Reflux.Store
         // UsersActions.onNoLife.list(fnc)
     }
 
+    onIsLoggedIn(b){
+        // simplemente lo usamos para listen desde fuera
+        // para las notificaciones push en App.js
+        // se actualiza desde AuthLoading screen
+        // y desde el loginScreen
+        // UsersActions.onUserIsLogin.list(fnc) 
+    }
     async onMe(user){
         await this.setState({user: user,hasInformation:true});
     }

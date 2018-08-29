@@ -2,7 +2,7 @@ import Reflux from 'reflux';
 
 import Api from '../api/Api';
 
-import DateTimeHelper from '../DateTimeHelper';
+import DateTimeHelper from '../helpers/DateTimeHelper';
 
 
 TriviaActions = Reflux.createActions(

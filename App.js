@@ -13,7 +13,9 @@ import Api from './api/Api';
 import AppTheme from './Theme';
 import { UsersActions } from './store/UserStore';
 
-import { DangerZone } from 'expo';
+import './helpers/RegisterPushNotification';
+
+import { DangerZone, Notifications } from 'expo';
 const { Localization } = DangerZone;
 
 export default class App extends React.Component {
@@ -36,9 +38,25 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    UsersActions.isLoggedIn.listen(
+      (b) => {
+        registerPushNotifications().then((data)=>console.log(data));
+      }
+    )
+    
     this.initNetwork();
-  }
 
+    // Handle notifications that are received or selected while the app
+    // is open. If the app was closed and then opened by tapping the
+    // notification (rather than just tapping the app icon to open it),
+    // this function will fire on the next tick after the app starts
+    // with the notification data.
+
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+  }
+  _handleNotification = (notification) => {
+    console.log("NOTIFICATION", notification);
+  };
   componentWillUmount(){
     this.socket.close();    
   }

@@ -125,4 +125,10 @@ export default class Api extends RestClient {
     return this.GET('/payments/buy/'+item.id);
   }
 
+  pushNotificationsRegister(token){
+    return this.POST('/push-notifications/add',{
+      token
+    });
+  }
+
 };

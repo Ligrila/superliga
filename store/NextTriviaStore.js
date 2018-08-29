@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 
 import Api from '../api/Api';
-import DateTimeHelper from '../DateTimeHelper';
+import DateTimeHelper from '../helpers/DateTimeHelper';
 
 export const NextTriviaActions = Reflux.createActions(['get','current','finish']);
 

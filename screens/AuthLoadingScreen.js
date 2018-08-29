@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import Api from '../api/Api';
+import { UsersActions } from '../store/UserStore';
 
 export default  class AuthLoadingScreen extends React.Component {
   api = new Api();
@@ -36,7 +37,7 @@ export default  class AuthLoadingScreen extends React.Component {
     } catch(e){
       console.log(e);
     }
-
+    UsersActions.isLoggedIn(isLogin);
     this.props.navigation.navigate(isLogin ? 'Main' : 'Auth');
   };
 

@@ -120,7 +120,6 @@ class ProfileScreen extends Reflux.Component {
   _takePhoto = async () => {
     
     const c = await this._checkPermissions();
-    console.log('hasP',c);
     if(!c){
       return;
     }

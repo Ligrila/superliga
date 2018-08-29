@@ -1,18 +1,29 @@
 import React from 'react';
+import Reflux from 'reflux';
 import { View } from 'react-native';
 import {connectStyle,Container,Content} from 'native-base'
 
 import Wallpaper from '../components/Wallpaper';
 import StatisticItem from '../components/StatisticItem';
 import AppHeader from '../components/AppHeader/AppHeader';
+import { StatisticsStore, StatisticsActions } from '../store/StatisticsStore';
 
 const bgSrc = require('../assets/images/bg.png');
 
-class StatisticsScreen extends React.Component {
+class StatisticsScreen extends Reflux.Component {
   static navigationOptions = {
     title: 'Comprar partidas',
   };
 
+  constructor(props) {
+    super(props)
+    this.store = StatisticsStore;
+  };
+
+  componentDidMount(){
+    StatisticsActions.update();
+  }
+  
   render() {
     const styles = this.props.style;
     return (
@@ -22,17 +33,17 @@ class StatisticsScreen extends React.Component {
         <Content padder contentContainerStyle={styles.statistics}>
           <View style={styles.container}>
               <View style={styles.rowContainer}>
-                <StatisticItem fill={40} text="puntos" fillText="7750"/>
-                <StatisticItem fill={70} text={"aciertos totales\n vs media"} fillText="25%"/>
-                <StatisticItem fill={170} text={"respuestas\n correctas"} fillText="157"/>
+                <StatisticItem fill={this.state.Statistics.points} text="puntos" fillText={this.state.Statistics.points}/>
+                <StatisticItem fill={this.state.Statistics.mediaHits} text={"aciertos totales\n vs media"} fillText={this.state.Statistics.mediaHits + "%"}/>
+                <StatisticItem fill={this.state.Statistics.correctAnswers} text={"respuestas\n correctas"} fillText={this.state.Statistics.correctAnswers}/>
               </View>
               <View style={styles.rowContainer}>
-                <StatisticItem fill={170} text={"respuestas\n incorrectas"} fillText="157"/>
-                <StatisticItem fill={12} text={"aciertos por\n incidencia"} fillText="12%"/>
-                <StatisticItem fill={170} text={"vidas\n utilizadas"} fillText="157"/>
+                <StatisticItem fill={this.state.Statistics.wrongAnswers} text={"respuestas\n incorrectas"} fillText={this.state.Statistics.wrongAnswers}/>
+                <StatisticItem fill={this.state.Statistics.triviaHits} text={"aciertos por\n incidencia"} fillText={this.state.Statistics.triviaHits + "%"}/>
+                <StatisticItem fill={this.state.Statistics.usedLives} text={"vidas\n utilizadas"} fillText={this.state.Statistics.usedLives}/>
               </View>
               <View style={styles.rowContainer}>
-                <StatisticItem fill={59} text={"puesto\n general"} fillText="59"/>
+                <StatisticItem fill={this.state.Statistics.ranking} text={"puesto\n general"} fillText={this.state.Statistics.ranking}/>
               </View>
            </View>
         </Content>

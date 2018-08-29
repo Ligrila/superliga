@@ -131,4 +131,8 @@ export default class Api extends RestClient {
     });
   }
 
+  getStatistics(){
+    return this.GET('/users/statistics');
+  }
+
 };

@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 import Api from '../api/Api';
 
-export const UsersActions = Reflux.createActions(['me','update','noLife','isLoggedIn']);
+export const UsersActions = Reflux.createActions(['me','update','noLife','isLoggedIn','reset']);
 
 export class UsersStore extends Reflux.Store
 {
@@ -23,7 +23,10 @@ export class UsersStore extends Reflux.Store
         // simplemente lo usamos para listen desde fuera
         // UsersActions.onNoLife.list(fnc)
     }
-
+    reset(){
+        this.setState(this.getInititalState());
+        this.onIsLoggedIn(false);
+    }
     onIsLoggedIn(b){
         // simplemente lo usamos para listen desde fuera
         // para las notificaciones push en App.js

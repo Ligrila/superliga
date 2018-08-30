@@ -100,11 +100,11 @@ export default (variables = variable) => {
     justifyContent: "center",
     borderTopWidth:
       platform === "ios" && platformStyle !== "material"
-        ? variables.borderWidth
+        ? undefined
         : undefined,
     borderColor:
       platform === "ios" && platformStyle !== "material"
-        ? "#cbcbcb"
+        ? undefined
         : undefined,
     height: variables.footerHeight,
     paddingBottom: variables.footerPaddingBottom,

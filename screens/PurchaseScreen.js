@@ -7,6 +7,20 @@ import { Container,connectStyle, Button, Header, Body, Left, Title, Icon, Conten
 import { UsersActions } from '../store/UserStore';
 
 
+const patchPostMessageFunction = function() {
+  var originalPostMessage = window.postMessage;
+
+  var patchedPostMessage = function(message, targetOrigin, transfer) { 
+    originalPostMessage(message, targetOrigin, transfer);
+  };
+
+  patchedPostMessage.toString = function() { 
+    return String(Object.hasOwnProperty).replace('hasOwnProperty', 'postMessage');
+  };
+
+  window.postMessage = patchedPostMessage;
+};
+
 class PurchaseScreen extends React.Component {
     static navigationOptions = {
       title: 'Comprar',
@@ -32,9 +46,14 @@ class PurchaseScreen extends React.Component {
   
     }
 
+
+
     render() {
       const { navigation } = this.props;
       const purchaseUrl = navigation.getParam('purchaseUrl', false);
+
+      const patchPostMessageJsCode = '(' + String(patchPostMessageFunction) + ')();';
+
       if(!purchaseUrl){
         consle.warn('Error: you must call this screen with a purchase uri');
         return;
@@ -54,6 +73,7 @@ class PurchaseScreen extends React.Component {
             <WebView
              ref={component => this.webView = component}
               source={{uri: purchaseUrl}}
+              injectedJavaScript={patchPostMessageJsCode}
               onMessage={this.onWebViewMessage}
               style={styles.webview}
             />

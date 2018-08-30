@@ -5,6 +5,7 @@ import {
     AsyncStorage,
     Button
   } from 'react-native';
+import { UsersActions } from '../store/UserStore';
 
 export default class LogoutScreen extends React.Component {
     static navigationOptions = {
@@ -15,7 +16,8 @@ export default class LogoutScreen extends React.Component {
         AsyncStorage.removeItem('token');
         AsyncStorage.removeItem('refreshToken');
         AsyncStorage.removeItem('tokenExpire');
-        this.props.navigation.navigate('Login');
+        UsersActions.reset();
+        console.log('Login',this.props.navigation.navigate('Login'));
     }
   
     render() {

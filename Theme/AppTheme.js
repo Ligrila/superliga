@@ -25,6 +25,7 @@ export default {
             backgroundColor: '#009ee3',
         },
         footer:{
+            borderTopWidth:0,
             height: 'auto',
         }
     },
@@ -146,6 +147,7 @@ export default {
             height: s(40),
         },
         footer:{
+            borderTopWidth:0,
             height: 'auto',
         }
     },
@@ -565,6 +567,7 @@ export default {
             flex:1,
         },
         footer:{
+            borderTopWidth:0,
             height: 'auto',
         },
         noLifeText:{

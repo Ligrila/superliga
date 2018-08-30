@@ -16,10 +16,11 @@ import Reflux from 'reflux';
 import { NextTriviaStore,NextTriviaActions } from '../store/NextTriviaStore';
 import { UsersStore, UsersActions } from '../store/UserStore';
 import Purchase from '../components/Purchase';
-
+import { PurchaseModalStore } from '../store/PurchaseModalStore';
 
 class GameScreen extends Reflux.Component {
   api = new Api;
+  static modalVisible = false;
   state = {
     modalVisible : false
   }
@@ -28,8 +29,9 @@ class GameScreen extends Reflux.Component {
     /*this.state = {
       isLoadingComplete: false
     }*/
-    this.stores = [NextTriviaStore,UsersStore]; // TODO: use Trivia Store
+    this.stores = [NextTriviaStore,UsersStore,PurchaseModalStore]; // TODO: use Trivia Store
   }
+
   async componentDidMount() {
     if(!this.state.hasData){
       NextTriviaActions.current();
@@ -45,7 +47,13 @@ class GameScreen extends Reflux.Component {
       if(this.state.user.lives <= 0 ){
       }
     });
+    if(this.state.PurchaseModal.visible){
+      console.log("purchaseModal",this.state.PurchaseModal);
+      this.setModalVisible(true);
+    }
   }
+  
+
   setModalVisible = (visible) =>{
     this.setState({modalVisible: visible});
   }
@@ -87,7 +95,7 @@ class GameScreen extends Reflux.Component {
   renderGame(){
     if(this.state.CurrentTrivia.hasData){
       return (
-        <Game currentTrivia={this.state.CurrentTrivia.Trivia} navigation={this.props.navigation} onNoLife={()=>this.setModalVisible(true)}>
+        <Game currentTrivia={this.state.CurrentTrivia.Trivia} navigation={this.props.navigation} onNoLife={()=>this.setModalVisible(true)} setModalVisibleProp={this.setModalVisibleProp}>
         </Game>
       );
     } else{

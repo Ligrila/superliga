@@ -23,7 +23,9 @@ class GameResultScreen extends React.Component {
   }
   async componentDidMount() {
     const { navigation } = this.props;
-    const hasLife = navigation.getParam('hasLives', true); // TODO:
+    const lives = navigation.getParam('lives', null);
+    const win = navigation.getParam('win', false);
+    const hasLife = win||lives>1;
     const changeNavigationTimeout = 6000;
     if(hasLife){
       this.timeout = setTimeout(()=>{
@@ -43,7 +45,7 @@ class GameResultScreen extends React.Component {
     const lives = navigation.getParam('lives', null);
     const serverSuccess = navigation.getParam('serverSuccess', false);
     
-    return (<GameAnswerResult win={win} points={points} lives={lives} serverSuccess={serverSuccess} navigation={this.props.navigation} />);    
+    return (<GameAnswerResult win={win} points={points} lives={lives} serverSuccess={serverSuccess} navigation={this.props.navigation}/>);    
   
   }
 
@@ -53,7 +55,7 @@ class GameResultScreen extends React.Component {
     const win = navigation.getParam('win', false);
     const lives = navigation.getParam('lives', null);
     const rain = win ? <MakeItRain /> : null;
-    const renderBg = (win||lives>0) ? bgSrc : wrongBgSrc;
+    const renderBg = (win||lives>1) ? bgSrc : wrongBgSrc;
     return (
       <Container>
         <Wallpaper source={renderBg}>

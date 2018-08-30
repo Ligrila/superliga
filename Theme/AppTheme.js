@@ -739,7 +739,12 @@ export default {
             textAlign:'center'
           },
         subtext:{
-            fontSize: s(40),
+            fontSize: s(35),
+            fontFamily: 'OpenSansCondensed_light',
+            textAlign:'center'
+        },
+        subtextBold:{
+            fontSize: s(35),
             fontFamily: 'OpenSansCondensed_bold',
             textAlign:'center'
         }

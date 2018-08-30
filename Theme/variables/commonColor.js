@@ -112,7 +112,7 @@ export default {
   brandInfo: "#50aedf",
   brandSuccess: "#5cb85c",
   brandDanger: "#d9534f",
-  brandWarning: "#f0ad4e",
+  brandWarning: "#84edf8", // usado en game result
   //brandDark: "#7b4294",
   brandDark: "#282828",
   brandLight: "#ededed",

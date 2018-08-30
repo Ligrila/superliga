@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import moneyFront from '../../assets/images/rain.png';
-import moneyBack from '../../assets/images/rain.png';
+import moneyBack from '../../assets/images/rain_back.png';
 
 const MONEY_DIMENSIONS = { width: 61, height: 64 };
 const SCREEN_DIMENSIONS = Dimensions.get('window');
@@ -102,6 +102,12 @@ const MakeItRain = ({ count = 15, duration = 3000 }) => (
         >
           <Swinging amplitude={MONEY_DIMENSIONS.width / 5} delay={randomize(duration)}>
             <FlippingImage source={moneyFront} delay={flipDelay} />
+            <FlippingImage
+              source={moneyBack}
+              delay={flipDelay}
+              back
+              style={{ position: 'absolute' }}
+            />
           </Swinging>
         </Falling>
       ))}

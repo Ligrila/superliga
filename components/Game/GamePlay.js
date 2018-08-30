@@ -61,6 +61,7 @@ class GamePlay extends Reflux.Component {
                 lives: this.state.user.lives,
                 points: currentQuestion.points,
                 serverSuccess: serverSuccess,
+                onNoLife: this.props.setModalVisibleProp
               });
 
 

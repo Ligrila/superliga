@@ -1,25 +1,31 @@
+import {AsyncStorage} from 'react-native';
 import Reflux from 'reflux';
+import CacheStore from './CacheStore'
 import Api from '../api/Api';
+import DateTimeHelper from '../helpers/DateTimeHelper';
 
 export const DatesActions = Reflux.createActions(['calendar','reset']);
 
-export class DatesStore extends Reflux.Store
+
+
+export class DatesStore extends CacheStore
 {
     
     api = new Api;
 
     constructor()
     {
-        super();
+        super('Store.Dates');
         this.listenables = DatesActions;
-        this.state = this.getInititalState();
-
     }
+
+
     getInititalState(){
         return {
             Dates:[]
         };
     }
+
     onReset(){
         this.setState(this.getInititalState());
     }
@@ -30,11 +36,12 @@ export class DatesStore extends Reflux.Store
     */
     async calendar(){
         let response = await this.api.calendar();
-        this.setState({
+        const state = {
             Dates:[
                 ...response.data
             ]
-        });
+        }
+        this.setStateCache('Store.Dates',state)
     }
 }
 

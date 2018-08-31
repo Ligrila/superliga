@@ -22,7 +22,10 @@ export class DatesStore extends CacheStore
 
     getInititalState(){
         return {
-            Dates:[]
+            Dates:{
+                hasData: false,
+                data: []
+            }
         };
     }
 
@@ -30,18 +33,16 @@ export class DatesStore extends CacheStore
         this.setState(this.getInititalState());
     }
 
-    /***
-     * @param question_id question id
-     * @param option integer, the number of option
-    */
+ 
     async calendar(){
         let response = await this.api.calendar();
         const state = {
-            Dates:[
-                ...response.data
-            ]
+            Dates:{
+                hasData: true,
+                data: response.data
+            }
         }
-        this.setStateCache('Store.Dates',state)
+        this.setStateCache(state)
     }
 }
 

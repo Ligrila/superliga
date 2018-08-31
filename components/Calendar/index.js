@@ -22,8 +22,9 @@ class Calendar extends Reflux.Component {
   render() {
     
     let datesItems = null;
-    if(typeof this.state.Dates == 'object'){
-    datesItems = this.state.Dates.map(item => (
+
+    if(typeof this.state.Dates.data == 'object'){
+    datesItems = this.state.Dates.data.map(item => (
         <CalendarItem key={item.id} item={item} />
         )
       );

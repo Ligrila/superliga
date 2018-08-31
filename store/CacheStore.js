@@ -23,7 +23,7 @@ export default class CacheStore extends Reflux.Store{
     }
 
     setInititalStateCache(key,data){
-        this.state = data;
+        this.state = data;return;
         try{
             AsyncStorage.getItem(key).then(
                 (cacheData) => {
@@ -41,9 +41,9 @@ export default class CacheStore extends Reflux.Store{
 
     setStateCacheWithKey(key,data){
         try{
-            AsyncStorage.setItem(key,JSON.stringify(data))
             this.setState(data);
-        } catch(e){}
+            AsyncStorage.setItem(key,JSON.stringify(data))
+        } catch(e){console.log(e)}
     }
 
 }

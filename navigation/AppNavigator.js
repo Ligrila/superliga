@@ -32,6 +32,9 @@ const AuthStack = createStackNavigator(
     Login: LoginScreen,
     Register: RegisterScreen
   },
+  {
+    initialRouteName: 'Login'
+  }
 );
 
 var GameSwitcher = createSwitchNavigator({

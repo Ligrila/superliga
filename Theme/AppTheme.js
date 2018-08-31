@@ -7,7 +7,11 @@ const s = (size) => {
 const h = (size) => {
      return size * Layout.window.heightRatio;
 }
+const FooterStyle ={
+    borderTopWidth:0,
+    height: Layout.isIphoneX ? null: 'auto',
 
+};
 
 export default {
     'SuperLiga.LivePacksScreen':{
@@ -25,8 +29,7 @@ export default {
             backgroundColor: '#009ee3',
         },
         footer:{
-            borderTopWidth:0,
-            height: 'auto',
+            ...FooterStyle
         }
     },
     'SuperLiga.Purchase':{
@@ -147,8 +150,7 @@ export default {
             height: s(40),
         },
         footer:{
-            borderTopWidth:0,
-            height: 'auto',
+            ...FooterStyle
         }
     },
     'SuperLiga.NextTrivia':{
@@ -503,13 +505,14 @@ export default {
             color: "#fff",
           },
           header: {
-            height: null,
+            height: 'auto', // null
             alignItems: "center",
             justifyContent: "center",
           },
           content:{
           },
           headerBody:{
+            paddingTop: Layout.isIphoneX ? 30 : 0,
             alignItems:'center',
             justifyContent: 'center',
           },
@@ -567,8 +570,7 @@ export default {
             flex:1,
         },
         footer:{
-            borderTopWidth:0,
-            height: 'auto',
+            ...FooterStyle
         },
         noLifeText:{
             fontFamily: 'OpenSansCondensed_bold',

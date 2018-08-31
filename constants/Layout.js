@@ -1,7 +1,8 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
+const platform = Platform.OS;
 
 const widthTarget = 750;
 const heightTarget = 1334;
@@ -13,6 +14,10 @@ if(ratio > 1){
 if(heightRatio > 1){
   heightRatio = 1; // no maximize images
 }
+
+const isIphoneX =
+  platform === "ios" && (height === 812 || width === 812);
+
 export default {
   window: {
     width,
@@ -22,6 +27,7 @@ export default {
   },
   
   isSmallDevice: width < 375,
+  isIphoneX: isIphoneX
 };
 
 

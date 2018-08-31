@@ -13,11 +13,12 @@ export default class LogoutScreen extends React.Component {
     };
 
     componentDidMount() {
-        AsyncStorage.removeItem('token');
         AsyncStorage.removeItem('refreshToken');
         AsyncStorage.removeItem('tokenExpire');
+        AsyncStorage.removeItem('token').then(
+          () => this.props.navigation.navigate('Login2')
+        );
         UsersActions.reset();
-        console.log('Login',this.props.navigation.navigate('Login'));
     }
   
     render() {

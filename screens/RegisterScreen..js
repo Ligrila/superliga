@@ -25,7 +25,8 @@ class RegisterScreen extends React.Component {
       first_name: null,
       last_name: null,
       email: null,
-      password: null
+      password: null,
+      referral_username: null
     }
     constructor(props) {
       super(props);
@@ -47,6 +48,10 @@ class RegisterScreen extends React.Component {
     onPasswordChange = async (password)=>{
       await this.setState({password});
 
+    }
+
+    onReferralChange = async(referral_username)=>{
+      await this.setState({referral_username});
     }
 
 
@@ -80,6 +85,11 @@ class RegisterScreen extends React.Component {
                       onChangeText={this.onPasswordChange}
                     />
                   </Item>
+                  <Item style={styles.item}>
+                    <Input style={styles.input} placeholder="Código de referencia" 
+                      onChangeText={this.onReferralChange}
+                    />
+                  </Item>
                 </Form>
                 <Button rounded block large onPress={this._onSubmit} style={styles.submitButton}>
                       <Text style={styles.submitButtonText}>Registrarse</Text>
@@ -101,8 +111,8 @@ class RegisterScreen extends React.Component {
     this.props.navigation.navigate('Login');
    }
     async _onSubmit (){
-        let {first_name, last_name, email,password} = this.state;
-        var user = await this.api.register(first_name,last_name,email,password).catch(e=>{
+        let {first_name, last_name, email,password,referral_username} = this.state;
+        var user = await this.api.register(first_name,last_name,email,password,referral_username).catch(e=>{
           console.log(e);
         });
         console.log(user);
@@ -120,6 +130,7 @@ class RegisterScreen extends React.Component {
           });
           this.props.navigation.navigate('Login');
         } else{
+
           Toast.show({
             text: 'Datos inválidos',
             buttonText: 'Aceptar'

@@ -1,6 +1,6 @@
 import React from 'react';
 import Reflux from 'reflux';
-import { View,TouchableOpacity } from 'react-native'
+import { View,TouchableOpacity,Share } from 'react-native'
 import {Permissions} from 'expo'
 
 import {connectStyle,Header,Container,Content,Text, Icon, Toast, Button, ActionSheet} from 'native-base';
@@ -16,6 +16,9 @@ import UserAvatar from '../components/UserAvatar';
 import Api from '../api/Api';
 import AppHeader from '../components/AppHeader/AppHeader';
 
+import BigTitle from '../components/Title/BigTitle';
+
+
 class ProfileScreen extends Reflux.Component {
   api = new Api;
   static navigationOptions = {
@@ -28,6 +31,14 @@ class ProfileScreen extends Reflux.Component {
   }
   closeSession = () => {
     this.props.navigation.navigate('Logout');
+  }
+  share = () =>{
+    Share.share(
+      {
+        title: 'Jugada Super Liga',
+        message: "Hola estoy jugando a Jugada Super Liga. Usa mi código '"+this.state.user.first_name+"' para registrate. https://get.superliga.mocla.us"
+      }
+    );
   }
   render() {
     if(!this.state.hasInformation){
@@ -53,14 +64,16 @@ class ProfileScreen extends Reflux.Component {
       <Wallpaper source={bgSrc}>
       <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} style={styles.header} />
         <Content contentContainerStyle={styles.profile}>
+          <View style={styles.bigTitle}>
+                <BigTitle text="MI PERFIL"></BigTitle>
+            </View>
           <Wallpaper source={sidebarBgSrc} style={styles.profileWallpaper}>
           <View style={styles.profileContainer}>
-              <Text>MI PERFIL</Text>
               <UserAvatar avatar={this.state.user.avatar} />
-              <Text>{(this.state.user.first_name + " " + this.state.user.last_name).toUpperCase()}</Text>
-              <Text>
+              <Text style={styles.userTitle}>{(this.state.user.first_name + " " + this.state.user.last_name).toUpperCase()}</Text>
+              <Text style={styles.text}>
                 <Text style={styles.bold}>Puntos:</Text> {points} {"\n"}
-                <Text style={styles.bold}>Vidas:</Text> {lives} {"\n"}
+                <Text style={styles.bold}>Vidas disponibles:</Text> {lives} {"\n"}
                 <Text style={styles.bold}>Partidos jugados:</Text> {playedGames} {"\n"}
               </Text>
 
@@ -68,11 +81,15 @@ class ProfileScreen extends Reflux.Component {
                   onPress={this._actionSheet}
                   style={styles.changeAvatarButton}
                 >
-                  <Text> editar imagen de perfil
+                  <Text style={styles.changeAvatarButtonText}> editar imagen de perfil
                   </Text>
                   <Icon style={styles.icon} type="Entypo" name="chevron-right"></Icon>
               </TouchableOpacity>
-              <Button light block onPress={this.closeSession}><Text>Cerrar sesión</Text></Button>
+              
+              <View style={styles.buttonsContainer}>
+                <Button info onPress={this.share}><Text>Invitar</Text></Button>
+                <Button light onPress={this.closeSession}><Text>Cerrar sesión</Text></Button>
+              </View>
           </View>
           </Wallpaper>
         </Content>

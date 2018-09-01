@@ -410,12 +410,25 @@ export default {
     },
     'SuperLiga.ProfileScreen':{
         profileContainer:{
+            paddingTop: 100,
             flex:1,
             alignItems:'center',
-            justifyContent: 'center'
+            justifyContent: 'flex-start'
+        },
+        bigTitle:{
+            position: 'relative',
+            zIndex: 100,
+            marginBottom: h(-130)
         },
         profileWallpaper: {
+            position: 'relative',
+            paddingTop: h(150),
             marginBottom: s(50),
+        },
+        userTitle:{
+            marginVertical: h(70),
+            fontSize: s(48),
+            fontFamily: 'OpenSansCondensed_light',
         },
         icon:{
             color: '#fff',
@@ -431,6 +444,24 @@ export default {
             flex:1,
             marginTop: s(80),
         },
+        bold:{
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40)
+        },
+        text:{
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(40)
+        },
+        changeAvatarButtonText:{
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(40)
+        },
+        buttonsContainer:{
+            flexDirection: 'row',
+            width: '100%',
+            paddingHorizontal: 20,
+            justifyContent: 'space-between',
+        }
     },
     'SuperLiga.StatisticsScreen':{
         statistics:{

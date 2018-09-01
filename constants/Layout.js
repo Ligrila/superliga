@@ -9,10 +9,10 @@ const heightTarget = 1334;
 const ratio =  ((width * 100 )/ widthTarget)/100;
 const heightRatio =  ((height * 100 )/ heightTarget)/100;
 if(ratio > 1){
-  ratio = 1; // no maximize images
+  //ratio = 1; // no maximize images
 }
 if(heightRatio > 1){
-  heightRatio = 1; // no maximize images
+  //heightRatio = 1; // no maximize images
 }
 
 const isIphoneX =

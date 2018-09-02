@@ -14,7 +14,8 @@ import ActionDispatcher from '../../store/ActionDispatcher';
 import Enviroment from '../../constants/Enviroment';
 
 
-
+import {Toast} from 'native-base'
+import { ConnectionStatusActions } from '../../store/ConnectionStatusStore';
 
 export default class SocketClient{
     _connectedEvents = [];
@@ -32,7 +33,7 @@ export default class SocketClient{
             this.socket.formatter = new WebSockHop.JsonFormatter();
 
             this.socket.on('opened', function () {
-              console.log('connected');
+              ConnectionStatusActions.set(true);
             });
             this.socket.on('message', (message) => {
               if(typeof(message.eventName)=='string'){
@@ -41,7 +42,7 @@ export default class SocketClient{
             });
       
             this.socket.on('error', function (v,c) {
-      
+              ConnectionStatusActions.set(false);
             });
       
             this.socket.on('closed', function() {

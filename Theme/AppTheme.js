@@ -13,6 +13,8 @@ const FooterStyle ={
 
 };
 
+console.log('0isSm',Layout.isSmallDevice);
+
 export default {
     'SuperLiga.LivePacksScreen':{
         container:{
@@ -410,7 +412,7 @@ export default {
     },
     'SuperLiga.ProfileScreen':{
         profileContainer:{
-            paddingTop: 100,
+            paddingTop: h(120),
             flex:1,
             alignItems:'center',
             justifyContent: 'flex-start'
@@ -418,12 +420,11 @@ export default {
         bigTitle:{
             position: 'relative',
             zIndex: 100,
-            marginBottom: h(-130)
+            marginBottom: h(-120)
         },
         profileWallpaper: {
             position: 'relative',
-            paddingTop: h(150),
-            marginBottom: s(50),
+            marginBottom: h(50),
         },
         userTitle:{
             marginVertical: h(70),
@@ -442,7 +443,7 @@ export default {
         },
         profile:{
             flex:1,
-            marginTop: s(80),
+            marginTop: h(80),
         },
         bold:{
             fontFamily: 'OpenSansCondensed_bold',

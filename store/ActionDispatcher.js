@@ -5,6 +5,8 @@ import {ConnectedUsersStore,ConnectedUsersActions} from './ConnectedUsersStore';
 import {TriviaQuestionActions} from './TriviaQuestion';
 import { UsersStore, UsersActions } from './UserStore';
 import { NextTriviaActions } from './NextTriviaStore';
+import { ConnectionStatusStore } from './ConnectionStatusStore';
+
 
 
 
@@ -12,6 +14,8 @@ export default class ActionDispatcher{
     constructor(){
         Reflux.initStore(ConnectedUsersStore); // la necesitamos iniciada
         Reflux.initStore(UsersStore);
+        Reflux.initStore(ConnectionStatusStore);
+        
     }
     
     dispatch(message){

@@ -1,8 +1,8 @@
 import React from 'react';
-import {  StyleSheet, Image,AsyncStorage } from 'react-native';
+import {  StyleSheet, Image,AsyncStorage, NetInfo } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import { Root,  Text, Button, Container, Content } from "native-base";
+import { Root,  Text, Button, Container, Content, Toast } from "native-base";
 
 import { StyleProvider } from 'native-base';
 
@@ -16,7 +16,9 @@ import { UsersActions } from './store/UserStore';
 import './helpers/RegisterPushNotification';
 
 import { DangerZone, Notifications } from 'expo';
+import { ConnectionStatusActions } from './store/ConnectionStatusStore';
 const { Localization } = DangerZone;
+
 
 export default class App extends React.Component {
   state = {
@@ -26,6 +28,9 @@ export default class App extends React.Component {
   };
   api = new Api;
   socket = null;
+  constructor(props){
+    super(props)
+  }
   async initNetwork(){
       /*console.ignoredYellowBox = [
         'Setting a timer'
@@ -35,6 +40,18 @@ export default class App extends React.Component {
       if(token){
         UsersActions.update();
       }
+      NetInfo.getConnectionInfo().then((connectionInfo) => {
+        handleConnectivityChange(connectionInfo);
+      });
+      handleConnectivityChange = (connectionInfo) => {
+        if(connectionInfo.type=='none'){
+          ConnectionStatusActions.set(false);
+        }
+      }
+      NetInfo.addEventListener(
+        'connectionChange',
+        handleConnectivityChange
+      );
   }
 
   componentDidMount() {
@@ -188,9 +205,4 @@ export default class App extends React.Component {
   };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
+

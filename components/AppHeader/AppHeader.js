@@ -19,6 +19,9 @@ import superligaAppImg from '../../assets/images/app_logo.png';
 import menuImg from '../../assets/images/menu.png';
 
 
+import OfflineNotice from '../OfflineNotice';
+
+
 
 class AppHeader extends Component {
     renderLeft(){
@@ -42,7 +45,7 @@ class AppHeader extends Component {
                         <Image source={menuImg} style={styles.menuImg}   resizeMode="contain"/>
                     </Button>
                 </Right>
-
+                <OfflineNotice />
             </Header>
         );
     }

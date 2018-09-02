@@ -80,12 +80,6 @@ var Main = createDrawerNavigator({
       drawerLabel: () => null
     }
   },
-  Login2:{
-    screen: LoginScreen,
-    navigationOptions: {
-      drawerLabel: () => null
-    }
-  },
 
   Profile: {
     screen: ProfileScreen,

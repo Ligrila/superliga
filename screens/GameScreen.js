@@ -48,7 +48,6 @@ class GameScreen extends Reflux.Component {
       }
     });
     if(this.state.PurchaseModal.visible){
-      console.log("purchaseModal",this.state.PurchaseModal);
       this.setModalVisible(true);
     }
   }

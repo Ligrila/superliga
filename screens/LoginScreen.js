@@ -10,6 +10,7 @@ import {connectStyle,Header,Container,Content,Button,Form, Item, Input,Text,Icon
 import Expo from 'expo';
 
 import Wallpaper from '../components/Wallpaper';
+import Loader from '../components/Loader';
 const bgSrc = require('../assets/images/login/bg.png');
 
 import Api from '../api/Api';
@@ -25,7 +26,8 @@ class LoginScreen extends React.Component {
     api = new Api;
     state = {
       email: 'test@mocla.us',
-      password: 'asdasd'
+      password: 'asdasd',
+      loading:false,
     }
     constructor(props) {
       super(props);
@@ -46,9 +48,11 @@ class LoginScreen extends React.Component {
 
     render() {
       const styles = this.props.style;
+      
       return (
         <Container>
         <Wallpaper source={bgSrc}>
+          <Loader loading={this.state.loading} />
           <Content padder contentContainerStyle={styles.login}>
             <View style={styles.container}>
                 <Text style={styles.title}>Logueate con tu usuario {"\n"}
@@ -109,6 +113,7 @@ class LoginScreen extends React.Component {
         });
 
         if (result.type === 'success') {
+          this.setState({loading:true});
           const accessToken =  result.accessToken;
           var user = await this.api.googleLogin(accessToken);
           if(user.success){
@@ -120,6 +125,7 @@ class LoginScreen extends React.Component {
               console.log(e);
             }
             UsersActions.update();
+            this.setState({loading:false});
             this.props.navigation.navigate('Main');
           } else{
             console.warn("Error google login", user);
@@ -138,6 +144,7 @@ class LoginScreen extends React.Component {
           permissions: ['email'],
         });
       if (type === 'success') {
+        this.setState({loading:true});
         // Get the user's name using Facebook's Graph API
         /*console.log(`https://graph.facebook.com/me?access_token=${token}&fields=name,email,first_name,last_name`);
         const response = await fetch(
@@ -154,6 +161,7 @@ class LoginScreen extends React.Component {
             console.log(e);
           }
           UsersActions.update();
+          this.setState({loading:false});
           this.props.navigation.navigate('Main');
         } else{
           console.warn("Error facebook login", user);

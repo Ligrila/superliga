@@ -9,7 +9,7 @@ const h = (size) => {
 }
 const FooterStyle ={
     borderTopWidth:0,
-    height: Layout.isIphoneX ? null: 'auto',
+    //height: Layout.isIphoneX ? null: 'auto',
 
 };
 

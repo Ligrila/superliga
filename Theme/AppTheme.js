@@ -443,7 +443,7 @@ export default {
         },
         profile:{
             flex:1,
-            marginTop: h(80),
+            marginTop: h(10),
         },
         bold:{
             fontFamily: 'OpenSansCondensed_bold',

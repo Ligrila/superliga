@@ -13,7 +13,6 @@ const FooterStyle ={
 
 };
 
-console.log('0isSm',Layout.isSmallDevice);
 
 export default {
     'SuperLiga.LivePacksScreen':{
@@ -590,6 +589,12 @@ export default {
               fontSize: s(35),
               fontFamily: 'OpenSansCondensed_light',
           },
+          sidebarItemIcon:{
+            marginLeft: s(80),
+            marginRight: s(40),
+            color: '#fff',
+            fontSize: s(45)
+        },
           sidebarItemImage:{
             marginLeft: s(80),
             width: s(35),

@@ -6,13 +6,13 @@ import {
     View,
 } from 'react-native';
 
-
 import { 
   connectStyle,
   Container,
   Content,
   Header,
   Text,
+  Icon,
   Body
 } from 'native-base'
 
@@ -28,10 +28,12 @@ class _SidebarItem extends React.Component{
   render(){
     const styles = this.props.style;
     const source = this.props.source;
+    const icon = this.props.icon;
+    //<Image source={source} style={styles.sidebarItemImage}></Image>
     if(source){
       return(
           <View style={styles.sidebarItemStyle}>
-              <Image source={source} style={styles.sidebarItemImage}></Image>
+              <Icon type="FontAwesome" name={icon}  style={styles.sidebarItemIcon}/>
               <Text style={styles.sidebarItemLabel}>{this.props.label.toUpperCase()}</Text>
           </View>
         ); 

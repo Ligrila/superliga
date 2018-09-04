@@ -107,6 +107,9 @@ class GameQuestion extends Reflux.Component {
             title= "SE ACABO\n EL TIEMPO";
             subtitle = 'JUGADA ANULADA';
         }
+        if(this.state.answered){
+            title= "ESPERANDO RESPUESTA";
+        }
         return(
                 <View style={styles.container}>
                     <Text style={styles.text}>{title}</Text>

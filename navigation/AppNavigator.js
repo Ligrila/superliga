@@ -57,7 +57,7 @@ var Main = createDrawerNavigator({
       title: "Inicio",
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Jugar"} source={require('../assets/images/menu/awards.png')}/>
+          <SidebarItem label={"Jugar"} icon="gamepad" source={require('../assets/images/menu/awards.png')}/>
         )
       }
     }
@@ -86,7 +86,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Mi perfil"} source={require('../assets/images/menu/profile.png')}/>
+          <SidebarItem label={"Mi perfil"} icon="user" source={require('../assets/images/menu/profile.png')}/>
         )
       }
     }
@@ -96,7 +96,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
         drawerLabel: () =>{
           return (
-            <SidebarItem label={"Fixture"} source={require('../assets/images/menu/fixture.png')}/>
+            <SidebarItem label={"Fixture"} icon="calendar" source={require('../assets/images/menu/fixture.png')}/>
           )
         }
       }
@@ -106,7 +106,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Comprar"} source={require('../assets/images/menu/profile.png')}/>
+          <SidebarItem label={"Comprar"} icon="shopping-cart" source={require('../assets/images/menu/profile.png')}/>
         )
       },
       mode: 'modal',
@@ -118,7 +118,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Premios"} source={require('../assets/images/menu/awards.png')}/>
+          <SidebarItem label={"Premios"} icon="trophy" source={require('../assets/images/menu/awards.png')}/>
         )
       }
     }
@@ -138,7 +138,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Estadisticas"} source={require('../assets/images/menu/statistics.png')}/>
+          <SidebarItem label={"Estadisticas"} icon="bar-chart" source={require('../assets/images/menu/statistics.png')}/>
         )
       }
     }

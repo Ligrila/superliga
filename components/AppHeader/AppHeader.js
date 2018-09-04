@@ -3,6 +3,7 @@ import {
     View,
     Image,
     TouchableOpacity,
+    Platform,
     StyleSheet
 } from "react-native";
 
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
     superligaAppImg: {
         width: 181 * widthRatio,
         height: 133 * widthRatio,
+        marginLeft: Platform.OS == 'ios' ? 2 : 0, // por alguna razon en IOS no se centra la imagen
      },
     menuImg:{
         width: 61 * widthRatio,

@@ -16,14 +16,14 @@ const ENV = {
     ...localEnviroment
   },
   staging: {
-    socketUrl: 'http://superliga.mocla.us/wss',
-    apiUrl: 'http://superliga.mocla.us',
+    socketUrl: 'https://www.jugadasuperliga.com/wss',
+    apiUrl: 'https://www.jugadasuperliga.com',
     androidClientId: '190225167822-mr7k6a28m4u8va61l8q7i3l56bbju50j.apps.googleusercontent.com',
     iosClientId: '190225167822-3he321e8jqcbfbdprv2u81cbu9jmfkvj.apps.googleusercontent.com',
   },
   prod: {
-    socketUrl: 'http://superliga.mocla.us/wss',
-    apiUrl: 'http://superliga.mocla.us',
+    socketUrl: 'https://www.jugadasuperliga.com/wss',
+    apiUrl: 'https://www.jugadasuperliga.com',
     androidClientId: '190225167822-mr7k6a28m4u8va61l8q7i3l56bbju50j.apps.googleusercontent.com',
     iosClientId: '190225167822-3he321e8jqcbfbdprv2u81cbu9jmfkvj.apps.googleusercontent.com'
   }

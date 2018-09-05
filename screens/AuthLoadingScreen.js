@@ -30,7 +30,7 @@ export default  class AuthLoadingScreen extends React.Component {
       if(isLogin){
         // TODO: reveer esto, buscar una forma de detectar logouts en los request
         const user  = await this.api.getUserInformation();
-        if(!user){
+        if(!user||!user.success){
           isLogin = false;
         }
       }

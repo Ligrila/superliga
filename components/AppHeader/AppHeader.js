@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     },
     left:{
       flex:1,
-      paddingTop: Layout.isIphoneX ? 40 : 0,
+      paddingTop: Layout.isIphoneX ? 40 : 10,
     },
     body:{
         flex:1,

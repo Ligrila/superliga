@@ -38,7 +38,8 @@ export default class RestClient {
     async _fetch (route, method, body, isQuery = false,options={}) {
       //console.log("API REQUEST: " + route + " body: " + JSON.stringify(body));
       const defaultOptions = {
-        authorizationHeader : true
+        authorizationHeader : true,
+        edirect: 'follow'
       };
       options = {...defaultOptions,...options};
       if (!route) throw new Error('Route is undefined');

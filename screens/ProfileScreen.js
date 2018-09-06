@@ -36,7 +36,7 @@ class ProfileScreen extends Reflux.Component {
     Share.share(
       {
         title: 'Jugada Super Liga',
-        message: "Hola estoy jugando a Jugada Super Liga. Usa mi código '"+this.state.user.username+"' para registrate. https://get.superliga.mocla.us"
+        message: "Hola estoy jugando a Jugada Super Liga. Usa mi código '"+this.state.user.username+"' para registrate. https://www.jugadasuperliga.com/get"
       }
     );
   }

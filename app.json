@@ -23,11 +23,16 @@
       "resizeMode": "cover",
       "backgroundColor": "#000"
     },
-    "googleSignIn":{
-      "apiKey": "AIzaSyDRpd5bI4KjO-r0jIt5sLVR2UeKhJ8vVH4",
-    },
+
     "android":{
-      "package": "com.balltoball.jugadasuperliga"
+      "package": "com.balltoball.jugadasuperliga",
+      "versionCode": 2,
+      "config":{
+        "googleSignIn":
+          {
+            "apiKey":"AIzaSyDRpd5bI4KjO-r0jIt5sLVR2UeKhJ8vVH4"
+          }
+      }
     },
     "updates": {
       "fallbackToCacheTimeout": 0

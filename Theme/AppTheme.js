@@ -50,6 +50,9 @@ export default {
             position:'absolute',
             top: 10,
             right: 10,
+            zIndex:22,
+        },
+        closeTouchable:{
         },
         closeText:{
             fontFamily: 'Roboto',

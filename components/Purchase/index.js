@@ -68,6 +68,7 @@ class Purchase extends Reflux.Component {
     return(
         <View style={styles.close}>
         <TouchableOpacity
+        style={styles.closeTouchable}
         onPress={this.onHide}
         >
             <Text style={styles.closeText}>X</Text>

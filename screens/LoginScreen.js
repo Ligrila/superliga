@@ -189,6 +189,8 @@ class LoginScreen extends React.Component {
         } else{
           Toast.show({
             text: 'Email o contraseña inválidos',
+            position: "top",
+            type: 'danger',
             buttonText: 'Aceptar'
           });
         }

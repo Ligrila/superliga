@@ -16,6 +16,9 @@ class OfflineNotice extends Reflux.Component {
         this.store = ConnectionStatusStore
     }
   render() {
+      if(this.state.ConnectionStatus.appState.match(/inactive|background/)){
+        return null;
+      }
       if(this.state.ConnectionStatus.connected){
           return null;
       }

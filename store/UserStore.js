@@ -1,14 +1,15 @@
 import Reflux from 'reflux';
 import Api from '../api/Api';
+import CacheStore from './CacheStore'
 
 export const UsersActions = Reflux.createActions(['me','update','noLife','isLoggedIn','reset']);
 
-export class UsersStore extends Reflux.Store
+export class UsersStore extends CacheStore
 {
     api = new Api;
     constructor()
     {
-        super();
+        super('Store.Users');
         this.listenables = UsersActions;
         this.state = this.getInititalState();
 
@@ -35,7 +36,7 @@ export class UsersStore extends Reflux.Store
         // UsersActions.onUserIsLogin.list(fnc) 
     }
     async onMe(user){
-        await this.setState({user: user,hasInformation:true});
+        await this.setStateCache({user: user,hasInformation:true});
     }
 
     async onUpdate(){

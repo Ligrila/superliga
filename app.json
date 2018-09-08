@@ -42,7 +42,8 @@
     ],
     "ios": {
       "bundleIdentifier": "com.balltoball.jugadasuperliga",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "icon": "./assets/images/icon_ios.png"
     },
     "facebookAppId": "882017118635234",
     "facebookDisplayName": "Jugada SuperLiga"

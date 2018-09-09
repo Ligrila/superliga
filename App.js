@@ -4,7 +4,7 @@ import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { Root,  Text, Button, Container, Content, Toast } from "native-base";
 
-import { StyleProvider } from 'native-base';
+import { StyleProvider, Header } from 'native-base';
 
 import SocketClient from './modules/SocketClient';
 
@@ -15,7 +15,7 @@ import { UsersActions } from './store/UserStore';
 
 import './helpers/RegisterPushNotification';
 
-import { DangerZone, Notifications } from 'expo';
+import { DangerZone, Notifications, Util } from 'expo';
 import { ConnectionStatusActions } from './store/ConnectionStatusStore';
 const { Localization } = DangerZone;
 
@@ -81,14 +81,15 @@ export default class App extends React.Component {
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       if(this.state.isLoadingError){
-        /*return (
+        return (
           <Container>
+            <Header />
             <Content>
             <Text>Se produjo un error iniciando la red. Por favor, salga de la aplicación e intente nuevamente cuando estes conectado a internet</Text>
-            <Button><Text>Cerrar aplicacion</Text></Button>
+            <Button onPress={Util.reload}><Text>Cerrar aplicacion</Text></Button>
             </Content>
           </Container>
-        );*/
+        );
       }
       return (
         <AppLoading

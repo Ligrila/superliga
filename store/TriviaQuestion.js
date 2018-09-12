@@ -96,7 +96,7 @@ export class TriviaQuestion extends Reflux.Store
         }
     }
     onTimeout(){
-        console.log("Question timed out" + new Date());
+        //console.log("Question timed out" + new Date());
         this.setState({
             timedOut: true,
         });

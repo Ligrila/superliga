@@ -33,7 +33,7 @@ export default class SocketClient{
             this.socket.formatter = new WebSockHop.JsonFormatter();
 
             this.socket.on('opened', function () {
-              ConnectionStatusActions.set(true);
+              //ConnectionStatusActions.set(true);
             });
             this.socket.on('message', (message) => {
               if(typeof(message.eventName)=='string'){
@@ -42,7 +42,7 @@ export default class SocketClient{
             });
       
             this.socket.on('error', function (v,c) {
-              ConnectionStatusActions.set(false);
+              //ConnectionStatusActions.set(false);
             });
       
             this.socket.on('closed', function() {

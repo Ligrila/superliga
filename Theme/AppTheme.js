@@ -346,6 +346,7 @@ export default {
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: s(40),
             textAlign: 'center',
+            marginTop: h(35),
         },
         allTrivias:{
             marginTop: h(40),

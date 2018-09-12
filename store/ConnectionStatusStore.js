@@ -30,7 +30,7 @@ export class ConnectionStatusStore extends Reflux.Store
     getInititalState(){
         return {
             ConnectionStatus: {
-                connected: false,
+                connected: true,
                 appState: AppState.currentState
             }
         };

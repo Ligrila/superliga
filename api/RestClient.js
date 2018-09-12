@@ -43,7 +43,7 @@ export default class RestClient {
       options = {...defaultOptions,...options};
       if (!route) throw new Error('Route is undefined');
       var fullRoute = this._fullRoute(route);
-      console.log("API REQUEST: " + fullRoute + " body: " + JSON.stringify(body));
+      //console.log("API REQUEST: " + fullRoute + " body: " + JSON.stringify(body));
       if (isQuery && body) {
         var qs = require('qs');
         const query = qs.stringify(body);

@@ -458,6 +458,9 @@ export default {
         },
         changeAvatarButtonText:{
             fontFamily: 'OpenSansCondensed_light',
+            textDecorationColor: '#fff',
+            textDecorationStyle: 'dotted',
+            textDecorationLine: 'underline',
             fontSize: s(40)
         },
         buttonsContainer:{

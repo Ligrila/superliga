@@ -81,9 +81,9 @@ class ProfileScreen extends Reflux.Component {
                   onPress={this._actionSheet}
                   style={styles.changeAvatarButton}
                 >
-                  <Text style={styles.changeAvatarButtonText}> editar imagen de perfil
+                  <Text style={styles.changeAvatarButtonText}> Editar imagen de perfil
                   </Text>
-                  <Icon style={styles.icon} type="Entypo" name="chevron-right"></Icon>
+                  <Text> {"\n"}</Text>
               </TouchableOpacity>
               
               <View style={styles.buttonsContainer}>

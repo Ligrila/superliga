@@ -20,7 +20,7 @@ class CalendarItem extends Component {
               </View>
               <View style={styles.textContainer}>
                 <Text style={styles.teamsText}>{trivia.local_team.name} vs. {trivia.visit_team.name}</Text>
-                <Text style={styles.dateText}>{trivia.start_datetime}</Text>
+                <Text style={styles.dateText}>{typeof(trivia.start_datetime_local)=='object' ? trivia.start_datetime_local.format("DD/MM/YYYY HH:mm") : trivia.start_datetime}</Text>
               </View>
       </View>
     );

@@ -154,7 +154,8 @@ export default {
             height: s(40),
         },
         footer:{
-            ...FooterStyle
+            ...FooterStyle,
+            height: 'auto'
         }
     },
     'SuperLiga.NextTrivia':{

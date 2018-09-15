@@ -25,8 +25,8 @@ class LoginScreen extends React.Component {
     };
     api = new Api;
     state = {
-      email: 'test@mocla.us',
-      password: 'asdasd',
+      email: '',
+      password: '',
       loading:false,
     }
     constructor(props) {
@@ -108,7 +108,9 @@ class LoginScreen extends React.Component {
       try {
         const result = await Expo.Google.logInAsync({
           androidClientId: Enviroment.androidClientId,
+          androidStandaloneAppClientId: Enviroment.androidStandaloneAppClientId,
           iosClientId: Enviroment.iosClientId,
+          iosStandaloneAppClientId: Enviroment.iosStandaloneAppClientId,
           scopes: ['profile', 'email'],
         });
 

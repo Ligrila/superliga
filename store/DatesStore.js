@@ -36,18 +36,24 @@ export class DatesStore extends CacheStore
  
     async calendar(){
         let response = await this.api.calendar();
+        let data = [];
         if(response.success){
             for(var i=0;i<response.data.length;i++){
+                let hasTrivia = false;
                 for(var j=0;j<response.data[i].trivias.length;j++){
+                    hasTrivia = true;
                     response.data[i].trivias[j].start_datetime_local = await DateTimeHelper.datetime(response.data[i].trivias[j].start_datetime);
                     response.data[i].trivias[j].start_datetime_local_string = await DateTimeHelper.format(response.data[i].trivias[j].start_datetime);
+                }
+                if(hasTrivia){
+                    data.push(response.data[i]);
                 }
             }
         }
         const state = {
             Dates:{
                 hasData: true,
-                data: response.data
+                data: data
             }
         }
         this.setStateCache(state)

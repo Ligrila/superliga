@@ -127,6 +127,7 @@ class LoginScreen extends React.Component {
               console.log(e);
             }
             UsersActions.update();
+            UsersActions.isLoggedIn(true);
             this.setState({loading:false});
             this.props.navigation.navigate('Main');
           } else{
@@ -163,6 +164,7 @@ class LoginScreen extends React.Component {
             console.log(e);
           }
           UsersActions.update();
+          UsersActions.isLoggedIn(true);
           this.setState({loading:false});
           this.props.navigation.navigate('Main');
         } else{
@@ -187,6 +189,7 @@ class LoginScreen extends React.Component {
             console.log(e);
           }
           UsersActions.update();
+          UsersActions.isLoggedIn(true);
           this.props.navigation.navigate('Main');
         } else{
           Toast.show({

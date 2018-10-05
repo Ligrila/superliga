@@ -41,7 +41,7 @@ class GameAnswerResult extends Reflux.Component {
         if(this.props.win){
             return(
                     <View style={styles.container}>
-                        <Text style={styles.text}>Muy {"\n"}<Text style={styles.bigText}>Bien!</Text></Text>
+                        <Text style={styles.text}>Correcto <Text style={styles.bigText}>crack!</Text></Text>
                         <Text style={styles.subtext}>GANASTE {"\n"}<Text style={styles.subtextBold}>{points} PUNTOS</Text>{"\n"} Y SEGUIS{"\n"}PARTICIPANDO</Text>
                     </View>
             )
@@ -50,14 +50,14 @@ class GameAnswerResult extends Reflux.Component {
             if(lives>1 /** a 1 porque todavia no se desconto la vida, se descuenta asincronicamente luego de mostrar está pantalla para darle fluidez al juego */ ){
                 return(
                     <View style={styles.container}>
-                        <Text style={styles.text}>PER{"\n"}<Text style={styles.bigText}>DISTE!</Text></Text>
+                        <Text style={styles.text}>Uhh, le pifiaste</Text>
                         <Text style={styles.subtext}>TE DESCUENTA{"\n"} <Text style={styles.subtext}>1 VIDA...</Text></Text>
                     </View>
                 )
             } else{
                 return (
                 <View style={styles.container}>
-                <Text style={styles.text}>ESTAS{"\n"}<Text style={styles.bigText}>FUERA!</Text></Text>
+                <Text style={styles.text}>Sonó el silbato, te quedaste sin tiempo</Text>
                 <Text style={styles.subtext}>PERDISTE{"\n"} <Text style={styles.subtextBold}>{points} PUNTOS</Text>{"\n"} </Text>
                     <Button block warning rounded onPress={this.backToGamePlayAndBuyLives} style={styles.button}><Text style={styles.buttonText}>Quiero Seguir jugando</Text></Button>
                 </View>
@@ -68,7 +68,7 @@ class GameAnswerResult extends Reflux.Component {
 
         return(
             <View style={styles.container}>
-                <Text style={styles.text}><Text style={styles.bigText}>UPS!</Text></Text>
+                <Text style={styles.text}>Sonó el silbato, te quedaste sin tiempo</Text>
                 <Text style={styles.subtext}>NO RESPONDISTE {"\n"} A TIEMPO</Text>
             </View>
         )

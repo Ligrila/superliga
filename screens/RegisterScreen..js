@@ -126,13 +126,15 @@ class RegisterScreen extends React.Component {
           }
           Toast.show({
             text: 'Ya puedes ingresar. Usa tus datos proporcionados anteriormente',
+            type: 'success',
             buttonText: 'Aceptar'
           });
           this.props.navigation.navigate('Login');
         } else{
-
           Toast.show({
-            text: 'Datos inválidos',
+            text: 'Datos inválidos o email ya registrado',
+            position: "top",
+            type: 'danger',
             buttonText: 'Aceptar'
           });
         }

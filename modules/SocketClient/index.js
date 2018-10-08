@@ -26,7 +26,6 @@ export default class SocketClient{
             this.actionDispatcher = new ActionDispatcher;
             this.socket = new WebSockHop(Enviroment.socketUrl, {
               createSocket: function (url) {
-                console.log(url);
                 return new WebSocket(url);
               }
             });
@@ -35,7 +34,7 @@ export default class SocketClient{
 
             this.socket.on('opened', function () {
               //ConnectionStatusActions.set(true);
-              console.log('a');
+              //console.log('a');
             });
             this.socket.on('message', (message) => {
               if(typeof(message.eventName)=='string'){
@@ -44,13 +43,10 @@ export default class SocketClient{
             });
       
             this.socket.on('error', function (v,c) {
-              //ConnectionStatusActions.set(false);
-              console.log('ea');
 
             });
       
             this.socket.on('closed', function() {
-              console.log('finished');
               this.socket = null;
             });
         } catch(e){

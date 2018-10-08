@@ -44,10 +44,13 @@
     "ios": {
       "bundleIdentifier": "com.balltoball.jugadasuperliga",
       "supportsTablet": true,
-      "buildNumber":"2.2.3",
+      "buildNumber":"2.2.4",
       "icon": "./assets/images/icon_ios.png",
       "config": {
-        "usesNonExemptEncryption": false
+        "usesNonExemptEncryption": false,
+        "googleSignIn":{
+          "reservedClientId": "com.googleusercontent.apps.190225167822-3he321e8jqcbfbdprv2u81cbu9jmfkvj"
+        }
       }
     },
     "facebookAppId": "882017118635234",

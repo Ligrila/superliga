@@ -89,6 +89,32 @@ class GameQuestion extends Reflux.Component {
     button3TextStyles = () => {
         return this.state.button3Pressed ? {color:'#fff'} : {color: '#282828'};
     }
+    getNumberOfLines(text, fontSize, fontConstant, containerWidth){
+
+        let cpl = Math.floor(containerWidth / (fontSize / fontConstant) );
+        const words = text.split(' ');
+        const elements = [];
+        let line = '';
+    
+        while(words.length > 0){
+            if(line.length + words[0].length + 1 <= cpl || line.length === 0 && words[0].length + 1 >= cpl){
+                let word = words.splice(0,1);
+                if(line.length === 0){
+                    line = word;
+                }else {
+                    line = line + " " + word;
+                }
+                if(words.length === 0){
+                    elements.push(line);
+                }
+            }
+            else {
+                elements.push(line);
+                line = "";
+            }
+        }
+        return elements.length;
+    }
     render(){
         const styles = this.props.style;
         let lives = 0;
@@ -110,9 +136,21 @@ class GameQuestion extends Reflux.Component {
         if(this.state.answered){
             title= "ESPERANDO RESPUESTA";
         }
+        const titleLength = title.length;
+        //const cpl = Math.round((Layout.window.width - 40 ) / (styles.text.fontSize / 2.15))
+        //const numberOfLines = titleLength / cpl;
+        const numberOfLines = this.getNumberOfLines(title,styles.text.fontSize,2.15,(Layout.window.width - 40 ))
+        let titleStyles = {};
+        //console.log("titleLenght",titleLength);
+        //console.log("nol",numberOfLines);
+        if(numberOfLines>2){
+            const newFontSize = ((styles.text.fontSize * 2) / numberOfLines)
+            titleStyles = {fontSize: newFontSize}
+            //console.log(titleStyles)
+        }
         return(
                 <View style={styles.container}>
-                    <Text style={styles.text}>{title}</Text>
+                    <Text style={{...styles.text,...titleStyles}}>{title}</Text>
                     <Text style={styles.subtitle}>{subtitle}</Text>
                     <TouchableWithoutFeedback
                     onPress={()=>{this.showPurchaseModal(lives)}}

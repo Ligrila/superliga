@@ -36,8 +36,16 @@ class GameAnswerResult extends Reflux.Component {
         const styles = this.props.style;
         const points = this.props.points;
         const lives = this.props.lives;
+        const canceled = this.props.canceled;
 
         //<Button block info rounded onPress={this.backToGamePlay} style={styles.button}><Text style={styles.buttonText}>Quiero seguir jugando</Text></Button>
+        if(canceled){
+            return(
+                    <View style={styles.container}>
+                        <Text style={styles.text}>Uhhh, pregunta<Text style={styles.bigText}> cancelada!</Text></Text>
+                    </View>
+            )
+        }
         if(this.props.win){
             return(
                     <View style={styles.container}>

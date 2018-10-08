@@ -60,6 +60,7 @@ export class TriviaQuestion extends Reflux.Store
                 this.state.answeredServerResponse.then((data)=>{
                     this.setState({
                         hasQuestion: false,
+                        currentQuestion: question,
                         correctOption: question.correct_option,
                         hasResult: true,
                         serverSuccess: data.success,
@@ -70,6 +71,7 @@ export class TriviaQuestion extends Reflux.Store
                 this.setState({
                     hasQuestion: false,
                     correctOption: question.correct_option,
+                    currentQuestion: question,
                     hasResult: true,
                     serverSuccess: false,
                     win: false

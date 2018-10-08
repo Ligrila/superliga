@@ -43,9 +43,11 @@ class GameResultScreen extends React.Component {
     const win = navigation.getParam('win', false);
     const points = navigation.getParam('points', null);
     const lives = navigation.getParam('lives', null);
+    const canceled = navigation.getParam('canceled', false);
+
     const serverSuccess = navigation.getParam('serverSuccess', false);
     
-    return (<GameAnswerResult win={win} points={points} lives={lives} serverSuccess={serverSuccess} navigation={this.props.navigation}/>);    
+    return (<GameAnswerResult win={win} canceled={canceled} points={points} lives={lives} serverSuccess={serverSuccess} navigation={this.props.navigation}/>);    
   
   }
 

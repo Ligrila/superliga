@@ -58,6 +58,7 @@ class GamePlay extends Reflux.Component {
             TriviaQuestionActions.reset();
             this.props.navigation.navigate('GameResult', {
                 win: win,
+                canceled: currentQuestion.canceled,
                 lives: this.state.user.lives,
                 points: currentQuestion.points,
                 serverSuccess: serverSuccess,

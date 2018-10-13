@@ -12,6 +12,7 @@ import CalendarScreen from '../screens/CalendarScreen';
 import AwardsScreen from '../screens/AwardsScreen';
 import BuyScreen from '../screens/BuyScreen';
 import LogoutScreen from '../screens/LogoutScreen';
+import RankingScreen from '../screens/RankingScreen';
 
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import GameLoadingScreen from '../screens/GameLoadingScreen';
@@ -143,6 +144,17 @@ var Main = createDrawerNavigator({
       }
     }
   },
+  Ranking:{
+    screen: RankingScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Ranking"} icon="list-ol" source={require('../assets/images/menu/statistics.png')}/>
+        )
+      }
+    }
+  },
+  
   Logout: {
     screen: LogoutScreen,
     navigationOptions: {

@@ -26,7 +26,7 @@
 
     "android":{
       "package": "com.balltoball.jugadasuperliga",
-      "versionCode": 10,
+      "versionCode": 11,
       "config":{
         "googleSignIn":
           {
@@ -44,7 +44,7 @@
     "ios": {
       "bundleIdentifier": "com.balltoball.jugadasuperliga",
       "supportsTablet": true,
-      "buildNumber":"2.2.4",
+      "buildNumber":"2.2.5",
       "icon": "./assets/images/icon_ios.png",
       "config": {
         "usesNonExemptEncryption": false,

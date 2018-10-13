@@ -15,6 +15,94 @@ const FooterStyle ={
 
 
 export default {
+    'SuperLiga.RankingItem':{
+        container:{
+            display:'flex',
+            flexDirection:'row',
+            flex:1,
+            alignItems:'center',
+            justifyContent:'center',
+            marginBottom:2,
+        },
+        number:{
+            flex:1,
+            backgroundColor: '#fff',
+            height: h(93),
+            alignItems:'center',
+            justifyContent:'center',
+
+
+
+        },
+        numberText:{
+            color: '#282828',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(37)
+        },
+        name:{
+            display:'flex',
+            flexDirection: 'row',
+            flex:4,
+            backgroundColor: '#282828',
+            height: h(93),
+            alignItems:'center',
+            paddingHorizontal: s(60),
+            justifyContent: 'space-between',
+        },
+        nameText:{
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(30)
+        },
+        namePointsText:{
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(48)
+        }
+    },
+    'SuperLiga.Ranking':{
+        pickerContainer:{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        picker:{
+            width: s(547),
+            backgroundColor: '#fff',
+            marginBottom: h(95),
+            marginTop: h(95),
+            justifyContent:'center',
+            height:40
+        },
+        pickerIcon: {
+            color: '#282828',
+            position: 'absolute',
+            top: 5,
+            right: 0,
+            justifyContent: 'center',
+            alignItems: 'center'
+        },
+        pickerText:{
+            color: '#353535',
+            fontFamily: 'OpenSansCondensed_bold',
+            textAlign:'center',
+            //width: '100%',
+            fontSize: s(31)
+        },
+        pickerItemText:{
+            color: '#000'
+        },
+        bold:{
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(50),
+            textAlign: 'center'
+        },
+        light:{
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(50),
+            textAlign: 'center',
+            marginBottom: h(50)
+
+        }
+    },
     'SuperLiga.LivePacksScreen':{
         container:{
             flex:1,

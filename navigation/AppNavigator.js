@@ -26,11 +26,19 @@ import StatisticsScreen from '../screens/StatisticsScreen';
 import TriviasScreen from '../screens/TriviasScreen';
 import PurchaseScreen from '../screens/PurchaseScreen';
 import LivePacksScreen from '../screens/LivePacksScreen';
+import BrowserScreen from '../screens/BrowserScreen';
+
 
 
 const AuthStack = createStackNavigator(
   { 
     Login: LoginScreen,
+    Browser: {
+      screen: BrowserScreen,
+      navigationOptions: {
+        drawerLabel: () => null
+      }
+    },
     Register: RegisterScreen
   },
   {
@@ -154,6 +162,8 @@ var Main = createDrawerNavigator({
       }
     }
   },
+
+ 
   
   Logout: {
     screen: LogoutScreen,

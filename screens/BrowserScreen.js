@@ -21,17 +21,16 @@ const patchPostMessageFunction = function() {
   window.postMessage = patchedPostMessage;
 };
 
-class PurchaseScreen extends React.Component {
+class BrowserScreen extends React.Component {
     static navigationOptions = {
-      title: 'Comprar',
+      title: 'SuperLiga',
     };
 
     componentDidMount() {
     }
 
     closeWebView = ()=>{
-      UsersActions.update();
-      this.props.navigation.goBack();
+      this.props.navigation.navigate(this.props.navigation.getParam('return','Login'));
     }
   
     onWebViewMessage = (event) =>{
@@ -50,29 +49,20 @@ class PurchaseScreen extends React.Component {
 
     render() {
       const { navigation } = this.props;
-      const purchaseUrl = navigation.getParam('purchaseUrl', false);
+      const url = navigation.getParam('url', false);
 
       const patchPostMessageJsCode = '(' + String(patchPostMessageFunction) + ')();';
 
-      if(!purchaseUrl){
-        console.warn('Error: you must call this screen with a purchase uri');
+      if(!url){
         return;
       }
       const styles = this.props.style;
       console.log(styles);
       return (
         <Container>
-            <Header style={styles.header} noShadow>
-            <Left>
-              <Button transparent onPress={this.closeWebView}>
-                <Icon name='close' type="MaterialIcons" />
-              </Button>
-            </Left>
-            <Body />
-          </Header>
             <WebView
              ref={component => this.webView = component}
-              source={{uri: purchaseUrl}}
+              source={{uri: url}}
               injectedJavaScript={patchPostMessageJsCode}
               onMessage={this.onWebViewMessage}
               style={styles.webview}
@@ -83,4 +73,4 @@ class PurchaseScreen extends React.Component {
   
   }
 
-export default connectStyle('SuperLiga.PurchaseScreen')(PurchaseScreen)
+export default connectStyle('SuperLiga.BrowserScreen')(BrowserScreen)

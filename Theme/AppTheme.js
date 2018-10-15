@@ -110,6 +110,17 @@ export default {
             justifyContent: 'center'
         },
     },
+    'SuperLiga.BrowserScreen':{
+        webview:{
+        },
+        header:{
+            paddingTop: 20,
+            backgroundColor: '#7b3e96',
+        },
+        footer:{
+            ...FooterStyle
+        }
+    },
     'SuperLiga.PurchaseScreen':{
         webview:{
         },
@@ -751,6 +762,12 @@ export default {
             fontSize: s(40),
             marginTop: s(50),
         },
+        registerSubTitle:{
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(35),
+            textAlign: 'center',
+            marginTop: h(10),
+        },
         registerButton:{
             marginTop:s(30),
         },
@@ -792,6 +809,10 @@ export default {
             height: s(20),
             backgroundColor: '#fff',
             marginHorizontal: 10,
+        },
+        termsAndConditionsContainer:{
+            marginTop: s(20),
+
         }
     },
     'SuperLiga.Game':{

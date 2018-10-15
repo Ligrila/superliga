@@ -2,6 +2,7 @@ import React from 'react';
 import {
     View,
     StyleSheet,
+    TouchableOpacity,
     AsyncStorage
   } from 'react-native';
 
@@ -20,7 +21,7 @@ import { UsersActions } from '../store/UserStore';
 
 class LoginScreen extends React.Component {
     static navigationOptions = {
-      title: 'Please sign in',
+      title: 'Ingresar',
       header: null
     };
     api = new Api;
@@ -35,7 +36,14 @@ class LoginScreen extends React.Component {
       this.facebookLogin = this.facebookLogin.bind(this);
       this.googleLogin = this.googleLogin.bind(this);
     }
-    
+    onForgotPassword = ()=>{
+      this.props.navigation.navigate('Browser',{url: Enviroment.apiUrl  + '/../users/forgot-password', return: 'Login' });
+
+    }
+    onTermsAndConditions = ()=>{
+      this.props.navigation.navigate('Browser',{url: Enviroment.apiUrl  + '/../pages/display/terms-and-conditions', return: 'Login' });
+
+    }
     onEmailChange = async (email)=>{
       await  this.setState({email});
 
@@ -75,6 +83,11 @@ class LoginScreen extends React.Component {
                       <Text style={styles.submitButtonText}>Ingresar</Text>
                 </Button>
 
+                <TouchableOpacity
+                onPress={this.onForgotPassword}
+                ><Text style={styles.registerSubTitle}>¿Olvidaste tu contraseña?</Text></TouchableOpacity>
+
+
                 <Text style={styles.registerTitle}>O no tenes cuenta :</Text>
                 
                 <Button rounded block large info onPress={this._onRegister} style={styles.registerButton}>
@@ -93,10 +106,16 @@ class LoginScreen extends React.Component {
                       </Button>
                     </View>
                   </View>
+                  <View style={styles.termsAndConditionsContainer}>
+                    <TouchableOpacity
+                    onPress={this.onTermsAndConditions}
+                    ><Text style={styles.registerSubTitle}>Al ingresar a nuestra aceptas nuestros términos y condiciones</Text></TouchableOpacity>
+                  </View>
               </View>
           </Content>
           <Footer>
             <Text>{Enviroment.channel}</Text>
+            
           </Footer>
          </Wallpaper>
         </Container>
@@ -145,6 +164,7 @@ class LoginScreen extends React.Component {
     async facebookLogin() {
       const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('882017118635234', {
           permissions: ['email'],
+          behavior: 'web'
         });
       if (type === 'success') {
         this.setState({loading:true});

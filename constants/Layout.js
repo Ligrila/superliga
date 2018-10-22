@@ -16,9 +16,9 @@ if(heightRatio > 1){
 }
 
 if(Platform.isPad){
+  // si es ipad el alto es el menor de los dos. Para que se vea bien utilizamos el alto.
   ratio = heightRatio;
 }
-console.log("isPadh",Platform.isPad );
 
 const isIphoneX =
   platform === "ios" && (height === 812 || width === 812);

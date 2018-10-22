@@ -46,7 +46,6 @@ class AppHeader extends Component {
                         <Image source={menuImg} style={styles.menuImg}   resizeMode="contain"/>
                     </Button>
                 </Right>
-                <OfflineNotice />
             </Header>
         );
     }

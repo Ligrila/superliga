@@ -109,7 +109,7 @@ class LoginScreen extends React.Component {
                   <View style={styles.termsAndConditionsContainer}>
                     <TouchableOpacity
                     onPress={this.onTermsAndConditions}
-                    ><Text style={styles.registerSubTitle}>Al ingresar a nuestra aceptas nuestros términos y condiciones</Text></TouchableOpacity>
+                    ><Text style={styles.registerSubTitle}>Al ingresar aceptas nuestros términos y condiciones</Text></TouchableOpacity>
                   </View>
               </View>
           </Content>
@@ -164,7 +164,7 @@ class LoginScreen extends React.Component {
     async facebookLogin() {
       const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('882017118635234', {
           permissions: ['email'],
-          behavior: 'web'
+          //behavior: 'web'
         });
       if (type === 'success') {
         this.setState({loading:true});

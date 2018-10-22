@@ -86,7 +86,7 @@ class RegisterScreen extends React.Component {
                     />
                   </Item>
                   <Item style={styles.item}>
-                    <Input style={styles.input} placeholder="Código de referencia" 
+                    <Input style={styles.input} placeholder="Código de referencia (Opcional)" 
                       onChangeText={this.onReferralChange}
                     />
                   </Item>

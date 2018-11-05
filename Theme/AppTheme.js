@@ -112,6 +112,7 @@ export default {
     },
     'SuperLiga.BrowserScreen':{
         webview:{
+            paddingHorizontal:20
         },
         header:{
             paddingTop: 20,

@@ -27,6 +27,7 @@ import TriviasScreen from '../screens/TriviasScreen';
 import PurchaseScreen from '../screens/PurchaseScreen';
 import LivePacksScreen from '../screens/LivePacksScreen';
 import BrowserScreen from '../screens/BrowserScreen';
+import GameRulesScreen from '../screens/GameRulesScreen';
 
 
 
@@ -67,6 +68,17 @@ var Main = createDrawerNavigator({
       drawerLabel: () =>{
         return (
           <SidebarItem label={"Jugar"} icon="gamepad" source={require('../assets/images/menu/awards.png')}/>
+        )
+      }
+    }
+  },
+  Rules: {
+    screen: GameRulesScreen,
+    navigationOptions: {
+      title: "Reglas",
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Reglas del juego"} icon="legal" source={require('../assets/images/menu/awards.png')}/>
         )
       }
     }

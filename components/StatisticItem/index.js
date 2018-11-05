@@ -37,7 +37,7 @@ class StatisticItem extends React.Component {
                     <GameBallCircularProgress
                             ref={(ref) => this.circularProgress = ref}
                             size={175 * Layout.window.ratio}
-                            width={6}
+                            width={20 * Layout.window.ratio}
                             duration={duration}
                             fill={fill}
                             backgroundColor="rgba(255,255,255,0.42)"

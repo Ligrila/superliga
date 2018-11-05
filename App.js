@@ -15,7 +15,7 @@ import { UsersActions } from './store/UserStore';
 
 import './helpers/RegisterPushNotification';
 
-import { DangerZone, Notifications, Util } from 'expo';
+import { DangerZone, Notifications, Util, KeepAwake } from 'expo';
 import { ConnectionStatusActions } from './store/ConnectionStatusStore';
 const { Localization } = DangerZone;
 
@@ -60,6 +60,9 @@ export default class App extends React.Component {
         registerPushNotifications().then((data)=>console.log(data));
       }
     )
+
+    KeepAwake.activate();
+
     
     this.initNetwork();
 

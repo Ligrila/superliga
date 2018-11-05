@@ -29,6 +29,7 @@ class Purchase extends Reflux.Component {
   _callPurchase = async (item) =>{
     this.setState({loading:true});
     const response = await this.api.purchase(item);
+    //console.log("purchase",response);
     if(!response || !response.success){
         this.setState({loading:false});
         return;    
@@ -45,7 +46,7 @@ class Purchase extends Reflux.Component {
                 return (
                 <View key={item.id} style={styles.item}>
                     <TouchableOpacity onPress={()=>this._callPurchase(item)}>
-                        <Text style={styles.itemText}>QUIERO COMPRAR {item.name.toUpperCase()}{"\n"}({item.price}$ ARS)</Text>
+                        <Text style={styles.itemText}>COMPRAR {item.name.toUpperCase()}{item.infinite ? " " : "\n"}({item.price}$ ARS)</Text>
                     </TouchableOpacity>
                 </View>
                 )

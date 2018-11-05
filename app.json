@@ -44,7 +44,7 @@
     "ios": {
       "bundleIdentifier": "com.balltoball.jugadasuperliga",
       "supportsTablet": true,
-      "buildNumber":"2.2.8",
+      "buildNumber":"2.3.0",
       "icon": "./assets/images/icon_ios.png",
       "config": {
         "usesNonExemptEncryption": false,

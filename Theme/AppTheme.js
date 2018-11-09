@@ -281,7 +281,7 @@ export default {
             alignItems:'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            marginTop: h(150)
+            marginTop: h(250)
         },
         userStatisticsItem:{
 
@@ -344,8 +344,10 @@ export default {
             fontSize: h(40),
         },
         triviaAwardContainer:{
-            marginTop:h(85),
-            alignItems: 'center'
+            alignItems: 'center',
+            position: 'absolute',
+            top: (Layout.window.height / 2) - h(133) - (Layout.isIphoneX ? 10 : 10),
+            left: 0,
 
         },
         triviaAwardText:{

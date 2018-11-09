@@ -22,7 +22,7 @@ import {NextTriviaStore,NextTriviaActions} from '../store/NextTriviaStore';
 import bgSrc from '../assets/images/home_bg.png';
 import NextTrivia2 from '../components/NextTrivia2';
 import { UsersStore } from '../store/UserStore';
-import { StatisticsStore } from '../store/StatisticsStore';
+import { StatisticsStore, StatisticsActions } from '../store/StatisticsStore';
 
 
 
@@ -33,7 +33,9 @@ class HomeScreen2 extends Reflux.Component {
 		this.stores = [NextTriviaStore,UsersStore,StatisticsStore];
 	}
   async componentDidMount() {
+    StatisticsActions.update();
     await NextTriviaActions.get();
+
   }
 
 
@@ -82,7 +84,7 @@ class HomeScreen2 extends Reflux.Component {
                       <View style={styles.userStatisticsSeparator}></View>
                     </View>
                     <View style={styles.userStatisticsItem}>
-                      <Text style={styles.userStatisticsItemValue}>225</Text>
+                      <Text style={styles.userStatisticsItemValue}>{this.state.Statistics.ranking}</Text>
                       <Text style={styles.userStatisticsItemVText}>Ranking</Text>
                     </View>
                     <View style={styles.userStatisticsItem}>

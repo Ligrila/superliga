@@ -16,6 +16,7 @@ import Api from '../../api/Api';
     finalStatus = status;
   }
 
+
   // Stop here if the user did not grant permissions
   if (finalStatus !== 'granted') {
     return;
@@ -25,7 +26,8 @@ import Api from '../../api/Api';
   let token = await Notifications.getExpoPushTokenAsync();
 
   const api = new Api;
-  return api.pushNotificationsRegister(token);
+  const ret = await api.pushNotificationsRegister(token);
+  return ret;
 
 }
 

@@ -57,7 +57,7 @@ export default class App extends React.Component {
   componentDidMount() {
     UsersActions.isLoggedIn.listen(
       (b) => {
-        registerPushNotifications().then((data)=>console.log(data));
+        registerPushNotifications().then((data)=>console.log('PushNotificationsRegister',data));
       }
     )
 

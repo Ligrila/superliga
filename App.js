@@ -158,6 +158,7 @@ export default class App extends React.Component {
         require ('./assets/images/teams/colon.png'),
         require ('./assets/images/teams/patronato.png'),
         require ('./assets/images/ball.png'),
+        require ('./assets/images/home_bg.png'),
         require ('./assets/images/carousel-prev.png'),
         require ('./assets/images/rain_back.png'),
         require ('./assets/images/result/wrong_bg.png'),

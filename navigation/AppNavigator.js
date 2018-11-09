@@ -3,6 +3,8 @@ import { createSwitchNavigator,createDrawerNavigator, createStackNavigator } fro
 
 
 import HomeScreen from '../screens/HomeScreen';
+import HomeScreen2 from '../screens/HomeScreen2';
+
 import GameScreen from '../screens/GameScreen';
 import GameResultScreen from '../screens/GameResultScreen';
 import LoginScreen from '../screens/LoginScreen';
@@ -51,7 +53,8 @@ var GameSwitcher = createSwitchNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   GameLoading: GameLoadingScreen,
-  Home: HomeScreen,
+  HomeOld: HomeScreen,
+  Home: HomeScreen2,
   GamePlay: GameScreen,
 
 },

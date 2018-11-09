@@ -258,6 +258,137 @@ export default {
             height: 'auto'
         }
     },
+    'SuperLiga.HomeScreen2':{
+        content:{
+            flex:1,
+        },
+        nextMatchLink:{
+            alignItems: 'center'
+        },
+
+        nextMatchText:{
+            textAlign: 'center',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+        },
+        nextMatchImage:{
+            marginTop: h(27),
+            marginBottom: h(27),
+            width: s(32),
+            height: s(40),
+        },
+        userStatisticsContainer:{
+            alignItems:'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+            marginTop: h(150)
+        },
+        userStatisticsItem:{
+
+        },
+        userStatisticsSeparator:{
+            height: h(40),
+            width: 1,
+            backgroundColor: '#fff',
+            marginHorizontal: s(30),
+        },
+        userStatisticsItemValue:{
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: h(80),
+            textAlign: 'center'
+
+
+        },
+        userStatisticsItemText:{
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: h(30),
+            textAlign: 'center'
+        },
+        actionsContainer:{
+            marginTop: h(40),
+            alignItems:'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+        actionsItem:{
+            paddingHorizontal: s(40),
+            alignItems:'center',
+            flexDirection: 'row',
+
+        },
+        actionsItemText:{
+            color: '#fff',
+            fontSize: h(73),
+        },
+        footer:{
+            ...FooterStyle,
+            height: 'auto'
+        }
+    },
+
+    'SuperLiga.NextTrivia2':{
+        container:{
+            flex:1,
+        },
+        avatarContainer:{
+            flex:1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        triviaDateTextContainer:{
+            alignItems: 'center'
+        },
+        triviaDateText:{
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: h(40),
+        },
+        triviaAwardContainer:{
+            marginTop:h(85),
+            alignItems: 'center'
+
+        },
+        triviaAwardText:{
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: h(40),
+            transform: [{ rotate: '-14deg'}]
+    
+        },
+        next:{
+            zIndex:20,
+            position:'absolute',
+            right:0,
+            top: '30%',
+            width:s(99),
+            height:s(274),
+        },
+        prev:{
+            zIndex:20,
+            position:'absolute',
+            left:0,
+            top: '30%',
+            width:s(99),
+            height:s(274),
+        },
+        prevImage:{
+            width:s(99),
+            height:s(274),
+        },
+        nextImage:{
+            width:s(99),
+            height:s(274),
+        },
+        vsText:{
+            marginLeft: 8,
+            marginRight: 8,
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+        },
+        pagination:{
+            marginTop:h(80),
+            alignItems: 'center',
+        }
+    },
     'SuperLiga.NextTrivia':{
         container:{
             flex:1,

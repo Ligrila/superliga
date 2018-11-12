@@ -30,6 +30,7 @@ import PurchaseScreen from '../screens/PurchaseScreen';
 import LivePacksScreen from '../screens/LivePacksScreen';
 import BrowserScreen from '../screens/BrowserScreen';
 import GameRulesScreen from '../screens/GameRulesScreen';
+import GameEndScreen from '../screens/GameEndScreen';
 
 
 
@@ -49,13 +50,25 @@ const AuthStack = createStackNavigator(
   }
 );
 
+const GameStack = createStackNavigator(
+  {
+    GamePlay: GameScreen,
+    GameResult: GameResultScreen,
+    GameEnd: GameEndScreen,
+
+  },
+  {
+    headerMode: 'none',
+  }
+)
+
 var GameSwitcher = createSwitchNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   GameLoading: GameLoadingScreen,
   HomeOld: HomeScreen,
   Home: HomeScreen2,
-  GamePlay: GameScreen,
+  GamePlay: GameStack ,
 
 },
 {
@@ -92,12 +105,7 @@ var Main = createDrawerNavigator({
       drawerLabel: () => null
     }
   },
-  GameResult:{
-    screen: GameResultScreen,
-    navigationOptions: {
-      drawerLabel: () => null
-    }
-  },
+
   Purchase:{
     screen: PurchaseScreen,
     navigationOptions: {

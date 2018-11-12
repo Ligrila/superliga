@@ -16,7 +16,7 @@ const FlippingImage = ({ back = false, delay, duration = 1000, source, style = {
     }}
     duration={duration}
     delay={delay}
-    easing="linear"
+    easing="ease-out" // linear original
     iterationCount="infinite"
     useNativeDriver
     source={source}

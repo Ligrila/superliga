@@ -704,6 +704,30 @@ export default {
             justifyContent: 'space-between',
         }
     },
+    'SuperLiga.GameStatistics':{
+        statistics:{
+          flex: 1,
+        },
+
+        container:{
+            flex:1,
+
+        },
+        statisticsContainer:{
+            flex:1,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        rowContainer:{
+            flex:3,
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+        },
+        statisticsItem:{
+        },
+    },
     'SuperLiga.StatisticsScreen':{
         statistics:{
           flex: 1,
@@ -1041,6 +1065,45 @@ export default {
             fontFamily: 'OpenSansCondensed_bold',
             textAlign:'center'
         }
+      },
+      'SuperLiga.GameMessage': {
+        container:{
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%'
+        },
+        bigText: {
+            fontFamily: 'edosz',
+            fontSize: s(184),
+            transform: [{ rotate: '-10deg'}],
+            textAlign:'center'
+          },
+          button:{
+            marginTop: s(36),
+            height: s(115),
+            },
+        buttonText: {
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(35),
+            textAlign:'center'
+            },
+          image : {
+              marginTop: h(-180),
+              width: s(412),
+              height: s(285),
+              zIndex:10
+          },
+          text: {
+            fontFamily: 'edosz',
+            fontSize: s(130),
+            marginTop: h(-50),
+
+            transform: [{ rotate: '-10deg'}],
+            textAlign:'center'
+
+
+          },
+     
       },
     'SuperLiga.GameWait': {
         text: {

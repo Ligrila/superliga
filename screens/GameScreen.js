@@ -1,6 +1,8 @@
 import React from 'react';
 import { TouchableHighlight, TouchableOpacity,Modal,View } from 'react-native';
 import { connectStyle,Container, Content, Footer,Text,Spinner } from 'native-base'
+import { StackActions,NavigationActions } from 'react-navigation';
+
 
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
@@ -40,9 +42,16 @@ class GameScreen extends Reflux.Component {
       UsersActions.update();
     }
 
-    NextTriviaActions.finish.listen(()=>{
-      this.props.navigation.navigate('Home');
-    });
+    //NextTriviaActions.finish.listen(()=>{
+ 
+
+      const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'GameEnd' })],
+      });
+      this.props.navigation.dispatch(resetAction);
+
+    //});
     UsersActions.me.listen(()=>{
       if(this.state.user.lives <= 0 ){
       }

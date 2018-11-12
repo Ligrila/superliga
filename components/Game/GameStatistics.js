@@ -16,6 +16,7 @@ import { PurchaseModalStore, PurchaseModalActions } from "../../store/PurchaseMo
 import { CurrentTriviaStatisticsStore, CurrentTriviaStatisticsActions } from "../../store/CurrentTriviaStatisticsStore";
 import BigTitle from "../Title/BigTitle";
 import StatisticItem from "../StatisticItem";
+import { NextTriviaStore } from "../../store/NextTriviaStore";
 
 
 
@@ -26,12 +27,12 @@ import StatisticItem from "../StatisticItem";
 class GameStatistics extends Reflux.Component {
     constructor(props){
         super(props);
-        this.store = CurrentTriviaStatisticsStore
+        this.stores = [CurrentTriviaStatisticsStore,NextTriviaStore]
     }
 
     componentDidMount(){
-        CurrentTriviaStatisticsActions.update();
-      }
+        CurrentTriviaStatisticsActions.update(this.state.CurrentTrivia.Trivia.id);
+    }
     render(){
         const styles = this.props.style;
 

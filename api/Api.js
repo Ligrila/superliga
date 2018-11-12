@@ -134,5 +134,8 @@ export default class Api extends RestClient {
   getStatistics(){
     return this.GET('/users/statistics');
   }
+  getTriviaStatistics(trivia_id){
+    return this.GET('/users/trivia_statistics/'+trivia_id);
+  }
 
 };

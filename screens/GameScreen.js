@@ -42,7 +42,7 @@ class GameScreen extends Reflux.Component {
       UsersActions.update();
     }
 
-    //NextTriviaActions.finish.listen(()=>{
+    NextTriviaActions.finish.listen(()=>{
  
 
       const resetAction = StackActions.reset({
@@ -51,7 +51,7 @@ class GameScreen extends Reflux.Component {
       });
       this.props.navigation.dispatch(resetAction);
 
-    //});
+    });
     UsersActions.me.listen(()=>{
       if(this.state.user.lives <= 0 ){
       }

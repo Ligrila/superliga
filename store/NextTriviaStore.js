@@ -20,11 +20,11 @@ export class NextTriviaStore extends Reflux.Store
         return {
             NextTrivia:{
                 hasData: false,
-                Trivia: []
+                Trivia: {}
             },
             CurrentTrivia:{
                 hasData: false,
-                Trivia: []
+                Trivia: {}
             }
         };
     }
@@ -33,7 +33,7 @@ export class NextTriviaStore extends Reflux.Store
         this.setState({
             CurrentTrivia:{
                 hasData: false,
-                Trivia: []
+                Trivia: {}
             }
         });
     }

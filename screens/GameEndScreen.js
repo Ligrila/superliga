@@ -11,10 +11,11 @@ import BigTitle from '../components/Title/BigTitle';
 import GameMessage from '../components/Game/GameMessage';
 import GameStatistics from '../components/Game/GameStatistics';
 import MakeItRain from '../components/MakeItRain';
+import { NextTriviaStore } from '../store/NextTriviaStore';
 
 const bgSrc = require('../assets/images/bg.png');
 
-class GameEndScreen extends React.Component {
+class GameEndScreen extends Reflux.Component {
   static navigationOptions = {
     title: 'Fin del partido',
   };
@@ -25,11 +26,11 @@ class GameEndScreen extends React.Component {
 
   constructor(props) {
     super(props)
-    this.store = CurrentTriviaStatisticsStore;
+    this.store = NextTriviaStore;
   };
 
   componentDidMount(){
-    CurrentTriviaStatisticsActions.update();
+
   }
 
   renderMessage = () => {
@@ -41,6 +42,7 @@ class GameEndScreen extends React.Component {
     if(this.state.messageRendered){
       return (<GameStatistics />)
     }
+    CurrentTriviaStatisticsActions.update(this.state.CurrentTrivia.Trivia.id);
     return (
       <GameMessage title="Termino el partido"></GameMessage>
     )

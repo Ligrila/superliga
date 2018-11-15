@@ -53,6 +53,11 @@ class HomeScreen2 extends Reflux.Component {
       this.props.navigation.navigate('GamePlay');
     }
   }
+
+  goToTutorial = () => {
+    this.props.navigation.navigate('Tutorial');
+
+  }
   render() {
     const styles = this.props.style;
     let points = 0;
@@ -99,7 +104,9 @@ class HomeScreen2 extends Reflux.Component {
                  </View>
                  <View style={styles.actionsContainer}>
                     <View style={styles.actionsItem}>
-                      <TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={this.goToTutorial}
+                      >
                         <Icon style={styles.actionsItemText} name='help'  type="Entypo"></Icon>
                       </TouchableOpacity>
                     </View>

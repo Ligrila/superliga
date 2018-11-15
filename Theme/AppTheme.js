@@ -710,6 +710,12 @@ export default {
             justifyContent: 'space-between',
         }
     },
+    'SuperLiga.TutorialScreen':{
+        tutorialImg: {
+            width: s(750),
+            height: s(5249)
+        }
+    },
     'SuperLiga.GameStatistics':{
         statistics:{
           flex: 1,

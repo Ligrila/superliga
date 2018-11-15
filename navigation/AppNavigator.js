@@ -31,6 +31,9 @@ import LivePacksScreen from '../screens/LivePacksScreen';
 import BrowserScreen from '../screens/BrowserScreen';
 import GameRulesScreen from '../screens/GameRulesScreen';
 import GameEndScreen from '../screens/GameEndScreen';
+import TutorialScreen from '../screens/TutorialScreen';
+
+
 
 
 
@@ -87,6 +90,13 @@ var Main = createDrawerNavigator({
           <SidebarItem label={"Jugar"} icon="gamepad" source={require('../assets/images/menu/awards.png')}/>
         )
       }
+    }
+  },
+  Tutorial: {
+    screen: TutorialScreen,
+    navigationOptions: {
+      title: "Tutorial",
+      drawerLabel: () => null
     }
   },
   Rules: {

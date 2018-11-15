@@ -103,8 +103,8 @@ class GameScreen extends Reflux.Component {
   }
   renderGame(){
     if(this.state.CurrentTrivia.hasData){
-      const currentTriviaId = this.state.CurrentTrivia.Trivia.id;
-      this.props.navigation.navigate({ routeName: 'GameEnd' , params: {currentTriviaId}})
+      //const currentTriviaId = this.state.CurrentTrivia.Trivia.id;
+      //this.props.navigation.navigate({ routeName: 'GameEnd' , params: {currentTriviaId}})
       return (
         <Game currentTrivia={this.state.CurrentTrivia.Trivia} navigation={this.props.navigation} onNoLife={()=>this.setModalVisible(true)} setModalVisibleProp={this.setModalVisibleProp}>
         </Game>

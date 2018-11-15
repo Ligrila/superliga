@@ -36,7 +36,7 @@ class GameEndScreen extends React.Component {
     this.goToHomeTimeout = setTimeout( () => {
       this.props.navigation.navigate('Home')
     },  
-    20000 * 80000
+    20000 
     );
   }
 

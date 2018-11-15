@@ -43,15 +43,16 @@ class NextTrivia2 extends Component {
     let sdate = this.trivia.start_datetime_local.toDate();
     let until = ( sdate.getTime() - new Date().getTime()) / 1000;
     return(
-      <View>
+      <View style={styles.container}>
         <Trivia trivia={this.trivia} />
         <View style={styles.triviaDateTextContainer}>
           <Text style={styles.triviaDateText}>Próximo partido</Text>
           <Text style={styles.triviaDateText}>{this.trivia.start_datetime_local.format('LL')}</Text>
         </View>
         <View style={styles.triviaAwardContainer}>
-          <Text style={styles.triviaAwardText}> Jugas por: </Text>
-        </View>
+          <Text style={styles.triviaAwardText}> Jugas por: {this.trivia.award}</Text>
+          </View>
+      
 
       </View>
 

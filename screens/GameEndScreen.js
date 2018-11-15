@@ -11,14 +11,17 @@ import BigTitle from '../components/Title/BigTitle';
 import GameMessage from '../components/Game/GameMessage';
 import GameStatistics from '../components/Game/GameStatistics';
 import MakeItRain from '../components/MakeItRain';
-import { NextTriviaStore } from '../store/NextTriviaStore';
 
 const bgSrc = require('../assets/images/bg.png');
 
-class GameEndScreen extends Reflux.Component {
+class GameEndScreen extends React.Component {
   static navigationOptions = {
     title: 'Fin del partido',
   };
+
+  goToHomeTimeout = null;
+  goToStatisticsTimeout = null;
+  currentTriviaId = false;
 
   state = {
     messageRendered: false
@@ -26,23 +29,33 @@ class GameEndScreen extends Reflux.Component {
 
   constructor(props) {
     super(props)
-    this.store = NextTriviaStore;
+    this.currentTriviaId = this.props.navigation.getParam("currentTriviaId",false);
   };
 
   componentDidMount(){
+    this.goToHomeTimeout = setTimeout( () => {
+      this.props.navigation.navigate('Home')
+    },  
+    20000 * 80000
+    );
+  }
 
+  componentWillUnmount(){
+    clearTimeout(this.goToHomeTimeout);
+    clearTimeout(this.goToStatisticsTimeout);
   }
 
   renderMessage = () => {
-    setTimeout( () => {
+    this.goToStatisticsTimeout = setTimeout( () => {
       const messageRendered = true
       this.setState({messageRendered})
+      clearTimeout(this.goToStatisticsTimeout);
     }
     , 5000)
     if(this.state.messageRendered){
-      return (<GameStatistics />)
+      return (<GameStatistics trivia_id={this.currentTriviaId}/>)
     }
-    CurrentTriviaStatisticsActions.update(this.state.CurrentTrivia.Trivia.id);
+
     return (
       <GameMessage title="Termino el partido"></GameMessage>
     )

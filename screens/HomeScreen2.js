@@ -74,7 +74,9 @@ class HomeScreen2 extends Reflux.Component {
             <Wallpaper source={bgSrc}>
             <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
             <Content>
-                 {this.renderNextTrivia()}
+                 <View style={styles.nextTriviaIconsContainer}>
+                  {this.renderNextTrivia()}
+                 </View>
                  <View style={styles.userStatisticsContainer}>
                     <View style={styles.userStatisticsItem}>
                       <Text style={styles.userStatisticsItemValue}>{points}</Text>

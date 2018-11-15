@@ -36,7 +36,7 @@ export class CurrentTriviaStatisticsStore extends Reflux.Store
 
 
 
-    async update(trivia_id){
+    async onUpdate(trivia_id){
         let response = await this.api.getTriviaStatistics(trivia_id);
         if(response.success){
             this.setState({

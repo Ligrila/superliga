@@ -263,14 +263,18 @@ export default {
             flex:1,
         },
         nextMatchLink:{
-            alignItems: 'center'
+            alignItems: 'center',
         },
-
+        nextTriviaIconsContainer:{
+            position: 'relative',
+            height: Layout.window.height / 2 - h(80),
+        },
         nextMatchText:{
             textAlign: 'center',
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: s(40),
         },
+
         nextMatchImage:{
             marginTop: h(27),
             marginBottom: h(27),
@@ -281,7 +285,7 @@ export default {
             alignItems:'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            marginTop: h(250)
+            //marginTop: h(250)
         },
         userStatisticsItem:{
 
@@ -329,12 +333,7 @@ export default {
     'SuperLiga.NextTrivia2':{
         container:{
             flex:1,
-        },
-        avatarContainer:{
-            flex:1,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
+            paddingTop: h(50)
         },
         triviaDateTextContainer:{
             alignItems: 'center'
@@ -346,14 +345,21 @@ export default {
         triviaAwardContainer:{
             alignItems: 'center',
             position: 'absolute',
-            top: (Layout.window.height / 2) - h(133) - (Layout.isIphoneX ? 10 : 10),
+            bottom: 0,
             left: 0,
+            right:0,
+            width: "100%",
+            height: h(250),
+            alignItems: 'flex-start',
+            justifyContent:'center',
 
         },
         triviaAwardText:{
+            width: '100%',
+
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: h(40),
-            transform: [{ rotate: '-14deg'}]
+            transform: [{ rotate: '-15deg'}]
     
         },
         next:{
@@ -438,7 +444,7 @@ export default {
     },
     'SuperLiga.Trivia':{
         avatarContainer:{
-            flex:1,
+            //flex:1,
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
@@ -708,7 +714,32 @@ export default {
         statistics:{
           flex: 1,
         },
+        ranking:{
+            textAlign: 'center',
+            fontSize: h(212),
+            fontFamily: 'OpenSansCondensed_bold',
 
+            color: '#e4c7fb'
+        },
+        title:{
+            textAlign: 'center',
+            fontSize: h(50),
+            fontFamily: 'OpenSansCondensed_bold',
+        },
+        titleSeparatorContainer:{
+            alignItems: 'center'
+        },
+        titleSeparator:{
+            height: 1,
+            width: s(100),
+            backgroundColor: '#fff',
+        },
+        subtitle:{
+            textAlign: 'center',
+            fontSize: h(30),
+            fontFamily: 'OpenSansCondensed_bold',
+            marginBottom: h(50),
+        },
         container:{
             flex:1,
 

@@ -30,7 +30,7 @@ export default class ActionDispatcher{
                 TriviaQuestionActions.add(message.payload);
                 break;
             case 'finishTrivia':
-                NextTriviaActions.finish();
+                NextTriviaActions.finish(message.payload);
                 NextTriviaActions.get();
                 break;
             case 'startTrivia':

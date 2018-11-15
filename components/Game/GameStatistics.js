@@ -16,7 +16,6 @@ import { PurchaseModalStore, PurchaseModalActions } from "../../store/PurchaseMo
 import { CurrentTriviaStatisticsStore, CurrentTriviaStatisticsActions } from "../../store/CurrentTriviaStatisticsStore";
 import BigTitle from "../Title/BigTitle";
 import StatisticItem from "../StatisticItem";
-import { NextTriviaStore } from "../../store/NextTriviaStore";
 
 
 
@@ -27,22 +26,24 @@ import { NextTriviaStore } from "../../store/NextTriviaStore";
 class GameStatistics extends Reflux.Component {
     constructor(props){
         super(props);
-        this.stores = [CurrentTriviaStatisticsStore,NextTriviaStore]
+        this.stores = [CurrentTriviaStatisticsStore]
     }
 
     componentDidMount(){
-        CurrentTriviaStatisticsActions.update(this.state.CurrentTrivia.Trivia.id);
+        CurrentTriviaStatisticsActions.update(this.props.trivia_id);
     }
     render(){
         const styles = this.props.style;
 
-        
         return(
             <View style={styles.container}>
-                <BigTitle text={"ESTADISTICAS DE JUEGO"}></BigTitle>
+                <Text style={styles.ranking}>{this.state.CurrentTriviaStatistics.ranking}</Text>
+                <Text style={styles.title}>TU POSICIÓN</Text>
+                <View style={styles.titleSeparatorContainer}><View style={styles.titleSeparator}></View></View>
+                <Text style={styles.subtitle}>RESULTADOS DEL PARTIDO</Text>
                 <View style={styles.statisticsContainer}>
                     <View style={styles.rowContainer}>
-                    <StatisticItem fill={this.state.CurrentTriviaStatistics.points} text="puntos" fillText={this.state.CurrentTriviaStatistics.points}/>
+                    <StatisticItem fill={this.state.CurrentTriviaStatistics.generalRanking} text="Puesto general" fillText={this.state.CurrentTriviaStatistics.generalRanking}/>
                     <StatisticItem fill={this.state.CurrentTriviaStatistics.mediaHits} text={"aciertos totales\n vs media"} fillText={this.state.CurrentTriviaStatistics.mediaHits + "%"}/>
                     <StatisticItem fill={this.state.CurrentTriviaStatistics.correctAnswers} text={"respuestas\n correctas"} fillText={this.state.CurrentTriviaStatistics.correctAnswers}/>
                     </View>
@@ -51,9 +52,7 @@ class GameStatistics extends Reflux.Component {
                     <StatisticItem fill={this.state.CurrentTriviaStatistics.triviaHits} text={"aciertos por\n incidencia"} fillText={this.state.CurrentTriviaStatistics.triviaHits + "%"}/>
                     <StatisticItem fill={this.state.CurrentTriviaStatistics.usedLives} text={"vidas\n utilizadas"} fillText={this.state.CurrentTriviaStatistics.usedLives}/>
                     </View>
-                    <View style={styles.rowContainer}>
-                    <StatisticItem fill={this.state.CurrentTriviaStatistics.ranking} text={"puesto\n general"} fillText={this.state.CurrentTriviaStatistics.ranking}/>
-                    </View>
+
                 </View>
             </View>
         )

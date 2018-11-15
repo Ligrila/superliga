@@ -42,16 +42,17 @@ class GameScreen extends Reflux.Component {
       UsersActions.update();
     }
 
-    NextTriviaActions.finish.listen(()=>{
- 
 
+    NextTriviaActions.finish.listen((trivia)=>{
+      const currentTriviaId = trivia.id;
       const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'GameEnd' })],
+        actions: [NavigationActions.navigate({ routeName: 'GameEnd' , params: {currentTriviaId}})],
       });
       this.props.navigation.dispatch(resetAction);
 
-    });
+      
+   });
     UsersActions.me.listen(()=>{
       if(this.state.user.lives <= 0 ){
       }
@@ -102,6 +103,8 @@ class GameScreen extends Reflux.Component {
   }
   renderGame(){
     if(this.state.CurrentTrivia.hasData){
+      const currentTriviaId = this.state.CurrentTrivia.Trivia.id;
+      this.props.navigation.navigate({ routeName: 'GameEnd' , params: {currentTriviaId}})
       return (
         <Game currentTrivia={this.state.CurrentTrivia.Trivia} navigation={this.props.navigation} onNoLife={()=>this.setModalVisible(true)} setModalVisibleProp={this.setModalVisibleProp}>
         </Game>

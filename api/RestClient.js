@@ -90,7 +90,7 @@ export default class RestClient {
         };
 
       const manageError = async response => {
-        //console.log('reject',await response.text());
+        console.log('reject',await response.text());
         try{
           if(typeof(response.text)!=='function'){
             return {

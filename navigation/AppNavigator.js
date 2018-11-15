@@ -55,6 +55,7 @@ const GameStack = createStackNavigator(
     GamePlay: GameScreen,
     GameResult: GameResultScreen,
     GameEnd: GameEndScreen,
+    GameLoading: GameLoadingScreen,
 
   },
   {

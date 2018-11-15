@@ -4,6 +4,7 @@ import {connectStyle,Text} from 'native-base'
 
 import TeamAvatar from '../TeamAvatar';
 import Notice from '../Notice';
+import Layout from '../../constants/Layout';
 
 
 
@@ -31,8 +32,8 @@ class Trivia extends Component {
 
     let sdate = this.trivia.start_datetime_local.toDate();
     let until = ( sdate.getTime() - new Date().getTime()) / 1000;
-    const width = this.props.avatarWidth || 212;
-    const height = this.props.avatarHeight || 238;
+    const width = this.props.avatarWidth || 212 * Layout.window.ratio;
+    const height = this.props.avatarHeight || 238 * Layout.window.ratio;
     return(
       <View>
         <View style={styles.avatarContainer}>

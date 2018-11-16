@@ -73,7 +73,6 @@ var GameSwitcher = createSwitchNavigator({
   HomeOld: HomeScreen,
   Home: HomeScreen2,
   GamePlay: GameStack ,
-
 },
 {
   initialRouteName: 'GameLoading'

@@ -60,6 +60,13 @@ class GameEndScreen extends React.Component {
       <GameMessage title="Termino el partido"></GameMessage>
     )
   }
+
+  renderRain = () => {
+    if(this.state.messageRendered){
+      return null;
+    }
+    return (<MakeItRain />)
+  }
   
   render() {
     const styles = this.props.style
@@ -70,8 +77,8 @@ class GameEndScreen extends React.Component {
       <Container>
       <Wallpaper source={bgSrc}>
 
-      <MakeItRain />
 
+      {this.renderRain()}
       <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} />
         <Content padder contentContainerStyle={styles.statistics}>
           {this.renderMessage()}

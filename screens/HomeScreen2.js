@@ -23,6 +23,7 @@ import bgSrc from '../assets/images/home_bg.png';
 import NextTrivia2 from '../components/NextTrivia2';
 import { UsersStore } from '../store/UserStore';
 import { StatisticsStore, StatisticsActions } from '../store/StatisticsStore';
+import TriviaCarouselMinimal from '../components/Trivia/TriviaCarouselMinimal';
 
 
 
@@ -41,6 +42,7 @@ class HomeScreen2 extends Reflux.Component {
 
   renderNextTrivia(){
     if(!this.state.NextTrivia.hasData) return <Spinner />;
+    return (<TriviaCarouselMinimal></TriviaCarouselMinimal>)
     return (
       <NextTrivia2 trivia={this.state.NextTrivia.Trivia}/>
     );

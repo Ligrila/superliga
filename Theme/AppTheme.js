@@ -397,6 +397,76 @@ export default {
             alignItems: 'center',
         }
     },
+    'SuperLiga.TriviaCarouselMinimal':{
+        container:{
+            flex:1,
+            paddingTop: h(50)
+        },
+        slide:{
+            flex:1,
+        },
+        triviaDateTextContainer:{
+            alignItems: 'center'
+        },
+        triviaDateText:{
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: h(40),
+        },
+        triviaAwardContainer:{
+            alignItems: 'center',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right:0,
+            width: "100%",
+            height: h(250),
+            alignItems: 'flex-start',
+            justifyContent:'center',
+
+        },
+        triviaAwardText:{
+            width: '100%',
+            textAlign:'center',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: h(40),
+            transform: [{ rotate: '-15deg'}]
+    
+        },
+        next:{
+            zIndex:20,
+            position:'absolute',
+            right:"5%",
+            top: '15%',
+            width:s(28),
+            height:s(49),
+        },
+        prev:{
+            zIndex:20,
+            position:'absolute',
+            left:"5%",
+            top: '15%',
+            width:s(28),
+            height:s(49),
+        },
+        prevImage:{
+            width:s(28),
+            height:s(49),
+        },
+        nextImage:{
+            width:s(28),
+            height:s(49),
+        },
+        vsText:{
+            marginLeft: 8,
+            marginRight: 8,
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+        },
+        pagination:{
+            marginTop:h(80),
+            alignItems: 'center',
+        }
+    },
     'SuperLiga.NextTrivia':{
         container:{
             flex:1,
@@ -711,6 +781,12 @@ export default {
         }
     },
     'SuperLiga.TutorialScreen':{
+        container: {
+            backgroundColor: '#f3f3f3',
+        },
+        icon:{
+            color: '#282828',
+        },
         tutorialImg: {
             width: s(750),
             height: s(5249)

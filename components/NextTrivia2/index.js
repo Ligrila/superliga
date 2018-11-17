@@ -6,7 +6,7 @@ import CountDown from '../CountDown';
 import TeamAvatar from '../TeamAvatar';
 import BigTitle from '../Title/BigTitle';
 import Notice from '../Notice';
-import Trivia from '../Trivia';
+import TriviaMinimal from '../Trivia/TriviaMinimal';
 
 
 
@@ -44,7 +44,7 @@ class NextTrivia2 extends Component {
     let until = ( sdate.getTime() - new Date().getTime()) / 1000;
     return(
       <View style={styles.container}>
-        <Trivia trivia={this.trivia} />
+        <TriviaMinimal trivia={this.trivia} />
         <View style={styles.triviaDateTextContainer}>
           <Text style={styles.triviaDateText}>Próximo partido</Text>
           <Text style={styles.triviaDateText}>{this.trivia.start_datetime_local.format('LL')}</Text>

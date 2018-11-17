@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   View,
+  Share
 } from 'react-native';
 
 import { connectStyle,Text,Container,Content, Spinner, Footer, Icon } from 'native-base';
@@ -60,6 +61,18 @@ class HomeScreen2 extends Reflux.Component {
     this.props.navigation.navigate('Tutorial');
 
   }
+  goToPurchase = () => {
+    this.props.navigation.navigate('LivePacks');
+
+  }
+  share = () =>{
+    Share.share(
+      {
+        title: 'Jugada Super Liga',
+        message: "Hola estoy jugando a Jugada Super Liga. Usa mi código '"+this.state.user.username+"' para registrate. https://www.jugadasuperliga.com/get"
+      }
+    );
+  }
   render() {
     const styles = this.props.style;
     let points = 0;
@@ -87,21 +100,21 @@ class HomeScreen2 extends Reflux.Component {
                  <View style={styles.userStatisticsContainer}>
                     <View style={styles.userStatisticsItem}>
                       <Text style={styles.userStatisticsItemValue}>{points}</Text>
-                      <Text style={styles.userStatisticsItemVText}>Puntos</Text>
+                      <Text style={styles.userStatisticsItemVText}>PUNTOS</Text>
                     </View>
                     <View style={styles.userStatisticsItem}>
                       <View style={styles.userStatisticsSeparator}></View>
                     </View>
                     <View style={styles.userStatisticsItem}>
                       <Text style={styles.userStatisticsItemValue}>{this.state.Statistics.ranking}</Text>
-                      <Text style={styles.userStatisticsItemVText}>Ranking</Text>
+                      <Text style={styles.userStatisticsItemVText}>RANKING</Text>
                     </View>
                     <View style={styles.userStatisticsItem}>
                       <View style={styles.userStatisticsSeparator}></View>
                     </View>
                     <View style={styles.userStatisticsItem}>
                       <Text style={styles.userStatisticsItemValue}>{lives}</Text>
-                      <Text style={styles.userStatisticsItemVText}>Vidas</Text>
+                      <Text style={styles.userStatisticsItemVText}>VIDAS</Text>
                     </View>
                  </View>
                  <View style={styles.actionsContainer}>
@@ -113,27 +126,25 @@ class HomeScreen2 extends Reflux.Component {
                       </TouchableOpacity>
                     </View>
                     <View style={styles.actionsItem}>
-                      <TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={this.goToPurchase}
+
+                      >
                         <Icon style={styles.actionsItemText} name='shopping-cart' type="Entypo"></Icon>
                       </TouchableOpacity>
                     </View>
                     <View style={styles.actionsItem}>
-                      <TouchableOpacity>
+                      <TouchableOpacity
+                            onPress={this.share}
+
+                      >
                         <Icon style={styles.actionsItemText} name='user-plus' type="FontAwesome"></Icon>
                       </TouchableOpacity>
                     </View>
                  </View>
 
             </Content>
-            <Footer style={styles.footer}>
-                <TouchableOpacity
-                 style={styles.nextMatchLink}
-                 onPress={this._showTriviasScreen}
-                >
-                    <Text style={styles.nextMatchText}>ver siguientes partidos</Text>
-                    <Image style={styles.nextMatchImage} source={require('../assets/images/nextArrow.png')}></Image>
-                </TouchableOpacity>
-            </Footer>
+
             </Wallpaper>
           </Container>
     );

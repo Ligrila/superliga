@@ -5,9 +5,12 @@ import {connectStyle,Text, Spinner} from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import BigTitle from '../Title/BigTitle';
-import Trivia from '../Trivia';
+import TriviaMinimal from '../Trivia/TriviaMinimal';
 
 import { TriviaStore, TriviaActions } from '../../store/TriviaStore';
+
+import Notice from '../Notice';
+
 
 import AnimatedProgressBar from '../AnimatedProgressBar';
 
@@ -105,6 +108,19 @@ class TriviaCarouselMinimal extends Reflux.Component {
     );
 }
 
+getNotice = (item) => {
+    if(item.points_multiplier>1){
+          const styles = this.props.style;
+
+        if(item.points_multiplier==2){
+            return (<Text style={styles.pointsMultiplierText}>Tus puntos se duplican!</Text>)
+        } else{
+            return (<Text style={styles.pointsMultiplierText}>Tus puntos valen x{item.points_multiplier}!</Text>)
+        }
+    }
+
+    return null;
+  }
 _renderItem = ({item, index}) => {
     const styles = this.props.style;
     if(!this.state.Trivia.hasData){
@@ -113,10 +129,12 @@ _renderItem = ({item, index}) => {
 
     return (
         <View style={styles.slide}>
-          <Trivia trivia={item} />
+          <TriviaMinimal trivia={item} />
           <View style={styles.triviaDateTextContainer}>
-            <Text style={styles.triviaDateText}>Próximo partido</Text>
+            <Text style={styles.triviaDateText}></Text>
             <Text style={styles.triviaDateText}>{item.start_datetime_local.format('LL')}</Text>
+            <Text style={styles.triviaDateText}>{item.start_datetime_local.format('HH:mm')}hs</Text>
+            {this.getNotice(item)}
           </View>
           <View style={styles.triviaAwardContainer}>
             <Text style={styles.triviaAwardText}> Jugas por: {item.award}</Text>

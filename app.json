@@ -6,7 +6,7 @@
     "privacy": "public",
     "sdkVersion": "29.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "notification": {
@@ -26,7 +26,7 @@
 
     "android":{
       "package": "com.balltoball.jugadasuperliga",
-      "versionCode": 15,
+      "versionCode": 16,
       "config":{
         "googleSignIn":
           {
@@ -44,7 +44,7 @@
     "ios": {
       "bundleIdentifier": "com.balltoball.jugadasuperliga",
       "supportsTablet": true,
-      "buildNumber":"2.3.2",
+      "buildNumber":"2.5",
       "icon": "./assets/images/icon_ios.png",
       "config": {
         "usesNonExemptEncryption": false,

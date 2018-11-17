@@ -292,20 +292,20 @@ export default {
         },
         userStatisticsSeparator:{
             height: h(40),
-            width: 1,
+            width: 2,
             backgroundColor: '#fff',
             marginHorizontal: s(30),
         },
         userStatisticsItemValue:{
-            fontFamily: 'OpenSansCondensed_light',
-            fontSize: h(80),
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: h(53),
             textAlign: 'center'
 
 
         },
         userStatisticsItemText:{
             fontFamily: 'OpenSansCondensed_bold',
-            fontSize: h(30),
+            fontSize: h(19),
             textAlign: 'center'
         },
         actionsContainer:{
@@ -321,7 +321,7 @@ export default {
 
         },
         actionsItemText:{
-            color: '#fff',
+            color: '#7e599a',
             fontSize: h(73),
         },
         footer:{
@@ -412,6 +412,13 @@ export default {
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: h(40),
         },
+        pointsMultiplierText:{
+            textAlign: 'center',
+            color: '#a6f3ff',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(30),
+
+        },
         triviaAwardContainer:{
             alignItems: 'center',
             position: 'absolute',
@@ -419,7 +426,7 @@ export default {
             left: 0,
             right:0,
             width: "100%",
-            height: h(250),
+            height: Layout.isIphoneX ? '40%' : h(250),
             alignItems: 'flex-start',
             justifyContent:'center',
 

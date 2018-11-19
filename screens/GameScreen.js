@@ -22,6 +22,7 @@ import { UsersStore, UsersActions } from '../store/UserStore';
 import Purchase from '../components/Purchase';
 import { PurchaseModalStore } from '../store/PurchaseModalStore';
 import { TriviaQuestionActions,TriviaQuestion } from '../store/TriviaQuestion';
+import MakeItRain from '../components/MakeItRain';
 
 class GameScreen extends Reflux.Component {
   api = new Api;
@@ -142,6 +143,11 @@ class GameScreen extends Reflux.Component {
       return(<Spinner />);
     }
   }
+  makeItRain = () => {
+    if(this.state.hasResult && this.state.win){
+      return <MakeItRain />;
+    }
+  }
   render() {
     const styles = this.props.style;
     let bgSrc = gameBgSrc;
@@ -155,6 +161,7 @@ class GameScreen extends Reflux.Component {
     return (
       <Container>
         <Wallpaper source={bgSrc}>
+        {this.makeItRain()}
         <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
         <Content padder contentContainerStyle={styles.game}>
           {this.renderModal()}

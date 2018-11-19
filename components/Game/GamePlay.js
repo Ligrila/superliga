@@ -54,8 +54,12 @@ class GamePlay extends Reflux.Component {
         );
 
     }
-
+    resetTimeOut = null;
+    componentWillUnmount(){
+        clearTimeout(this.resetTimeOut);
+    }
     componentDidUpdate(){
+        clearTimeout(this.resetTimeOut);
         if(this.state.hasResult){
             const win = this.state.win;
             const serverSuccess = this.state.serverSuccess;
@@ -65,6 +69,9 @@ class GamePlay extends Reflux.Component {
                     return;
                 }
             }
+            this.resetTimeOut = setTimeout(()=>{
+                TriviaQuestionActions.reset();    
+            },6000)
             /*const currentQuestion = this.state.currentQuestion;
             TriviaQuestionActions.reset();
             this.props.navigation.navigate('GameResult', {

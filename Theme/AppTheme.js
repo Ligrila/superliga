@@ -285,7 +285,7 @@ export default {
             alignItems:'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            //marginTop: h(250)
+            marginTop: h(80)
         },
         userStatisticsItem:{
 
@@ -309,7 +309,7 @@ export default {
             textAlign: 'center'
         },
         actionsContainer:{
-            marginTop: h(40),
+            marginTop: h(170),
             alignItems:'center',
             justifyContent: 'center',
             flexDirection: 'row',
@@ -426,7 +426,7 @@ export default {
             left: 0,
             right:0,
             width: "100%",
-            height: Layout.isIphoneX ? '40%' : h(250),
+            height: Layout.isAndroid ? '60%' : Layout.isIphoneX ? '40%' : h(250),
             alignItems: 'flex-start',
             justifyContent:'center',
 
@@ -1192,12 +1192,7 @@ export default {
             justifyContent: 'center',
             height: '100%'
         },
-        bigText: {
-            fontFamily: 'edosz',
-            fontSize: s(184),
-            transform: [{ rotate: '-10deg'}],
-            textAlign:'center'
-          },
+   
           button:{
             marginTop: s(36),
             height: s(115),
@@ -1215,13 +1210,19 @@ export default {
           },
           text: {
             fontFamily: 'edosz',
-            fontSize: s(130),
+            fontSize: s(100),
             marginTop: h(-50),
 
             transform: [{ rotate: '-10deg'}],
             textAlign:'center'
+          },
+          bigText: {
+            fontFamily: 'edosz',
+            fontSize: s(140),
+            marginTop: h(-50),
 
-
+            transform: [{ rotate: '-10deg'}],
+            textAlign:'center'
           },
      
       },

@@ -37,8 +37,6 @@ export default class SocketClient{
               //console.log('a');
             });
             this.socket.on('message', (message) => {
-                            console.log(message);
-
               if(typeof(message.eventName)=='string'){
                 this.actionDispatcher.dispatch(message);
               }

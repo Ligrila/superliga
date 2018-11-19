@@ -30,7 +30,7 @@ export default {
     ratio,
     heightRatio
   },
-  
+  isAndroid: platform === "android",
   isSmallDevice: width < 375,
   isIphoneX: isIphoneX
 };

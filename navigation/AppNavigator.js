@@ -32,6 +32,10 @@ import BrowserScreen from '../screens/BrowserScreen';
 import GameRulesScreen from '../screens/GameRulesScreen';
 import GameEndScreen from '../screens/GameEndScreen';
 import TutorialScreen from '../screens/TutorialScreen';
+import GameHalfTimeEndScreen from '../screens/GameHalfTimeEndScreen';
+import GameHalfTimeStartScreen from '../screens/GameHalfTimeStartScreen';
+import GameStartScreen from '../screens/GameStartScreen';
+
 
 
 
@@ -58,6 +62,10 @@ const GameStack = createStackNavigator(
     GamePlay: GameScreen,
     GameResult: GameResultScreen,
     GameEnd: GameEndScreen,
+    StartFirstTime: GameStartScreen,
+    HalfTime: GameHalfTimeEndScreen,
+    HalfTimeStart: GameHalfTimeStartScreen,
+
     GameLoading: GameLoadingScreen,
 
   },

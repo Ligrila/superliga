@@ -3,7 +3,7 @@ import Reflux from 'reflux';
 import Api from '../api/Api';
 import DateTimeHelper from '../helpers/DateTimeHelper';
 
-export const NextTriviaActions = Reflux.createActions(['get','current','finish']);
+export const NextTriviaActions = Reflux.createActions(['get','current','startTrivia','finish','finishHalfTime','halfTime','startHalfTime','halfTimeStarted']);
 
 export class NextTriviaStore extends Reflux.Store
 {
@@ -38,11 +38,38 @@ export class NextTriviaStore extends Reflux.Store
         });
     }
 
+    halfTime(b){}
+
+    finishHalfTime(payload){
+        if(!this.state.CurrentTrivia.hasData){
+            return;
+        }
+        if(this.state.CurrentTrivia.Trivia.id == payload.id ){
+            this.state.CurrentTrivia.Trivia.half_time_finished = true;
+            NextTriviaActions.halfTime(true);
+        }
+    }
+    
+    halfTimeStarted(){}
+
+    startHalfTime(payload){
+        if(!this.state.CurrentTrivia.hasData){
+            return;
+        }
+        if(this.state.CurrentTrivia.Trivia.id == payload.id ){
+            this.state.CurrentTrivia.Trivia.half_time_finished = true;
+            this.state.CurrentTrivia.Trivia.half_time_started = true;
+
+            NextTriviaActions.halfTimeStarted(true);
+        }
+    }
+
     async onCurrent(payload){
         let ct = {};
         if(typeof(payload)=='undefined'){
             ct = await this.api.getCurrentTrivia();
         } else{
+            // por aqui es por el socket o sea mostramos comienza el primer tiempo
             ct = {success:true,data:payload};
         }
         if(ct.success){
@@ -58,6 +85,10 @@ export class NextTriviaStore extends Reflux.Store
                 }
             });
         }
+    }
+
+    startTrivia(){
+
     }
 
     async onGet(){

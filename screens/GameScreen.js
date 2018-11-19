@@ -27,12 +27,20 @@ class GameScreen extends Reflux.Component {
     modalVisible : false
   }
   constructor(props){
+    console.log("GAmeScreen");
     super(props);
     /*this.state = {
       isLoadingComplete: false
     }*/
     this.stores = [NextTriviaStore,UsersStore,PurchaseModalStore]; // TODO: use Trivia Store
+    this._bootstrap();
+
   }
+
+  _bootstrap(){
+
+  }
+
 
   async componentDidMount() {
     if(!this.state.hasData){
@@ -41,6 +49,8 @@ class GameScreen extends Reflux.Component {
     if(!this.state.hasInformation){
       UsersActions.update();
     }
+
+   
 
 
     NextTriviaActions.finish.listen((trivia)=>{
@@ -51,8 +61,14 @@ class GameScreen extends Reflux.Component {
       });
       this.props.navigation.dispatch(resetAction);
 
-      
    });
+
+    NextTriviaActions.halfTime.listen((b)=>{
+      this.props.navigation.navigate('HalfTime')
+    })
+    NextTriviaActions.halfTimeStarted.listen((b)=>{
+      this.props.navigation.navigate('HalfTimeStart')
+    })
     UsersActions.me.listen(()=>{
       if(this.state.user.lives <= 0 ){
       }

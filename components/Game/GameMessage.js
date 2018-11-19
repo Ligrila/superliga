@@ -31,12 +31,16 @@ class GameMessage extends React.Component {
     render(){
         const styles = this.props.style;
         const title = this.props.title;
+        const bigText = this.props.bigText;
+
 
         
         return(
             <View style={styles.container}>
                 <Image source={whistleImg} style={styles.image} />
                 <Text style={styles.text}>{title}</Text>
+                <Text style={styles.bigText}>{bigText}</Text>
+
             </View>
         )
     }

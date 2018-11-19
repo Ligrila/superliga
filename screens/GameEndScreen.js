@@ -57,7 +57,7 @@ class GameEndScreen extends React.Component {
     }
 
     return (
-      <GameMessage title="Termino el partido"></GameMessage>
+      <GameMessage title="Termino el" bigText="partido!"></GameMessage>
     )
   }
 

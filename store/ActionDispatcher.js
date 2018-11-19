@@ -29,6 +29,12 @@ export default class ActionDispatcher{
             case 'newQuestion':
                 TriviaQuestionActions.add(message.payload);
                 break;
+            case 'finishHalfTime':
+                NextTriviaActions.finishHalfTime(message.payload);
+                break;
+            case 'startHalfTime':
+                NextTriviaActions.startHalfTime(message.payload);
+                break;
             case 'finishTrivia':
                 NextTriviaActions.finish(message.payload);
                 NextTriviaActions.get();

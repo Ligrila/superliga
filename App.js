@@ -123,7 +123,6 @@ export default class App extends React.Component {
   }
 
   _loadResourcesAsync = async () => {
-
     const teams  =await this.api.getTeams();
     const teamImages = [];
     if(teams.data){

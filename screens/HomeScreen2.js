@@ -53,7 +53,7 @@ class HomeScreen2 extends Reflux.Component {
   }
   componentDidUpdate(){
     if (this.state.CurrentTrivia.hasData) {
-      this.props.navigation.navigate('GamePlay');
+      this.props.navigation.navigate('StartFirstTime');
     }
   }
 

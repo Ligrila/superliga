@@ -7,7 +7,7 @@ import {
     StyleSheet
 } from "react-native";
 
-import { Header, Body, Container, Title, Content, Left, Icon, Right, Text, Button } from 'native-base'
+import { Header, Body, Container, Title, Content, Left, Icon, Right, Text, Button, connectStyle } from 'native-base'
 
 
 import UserInfo from '../UserInfo';
@@ -33,8 +33,13 @@ class AppHeader extends Component {
         return null;
     }
     render() {
+        const styles  = this.props.style;
+        console.log(styles);
+        const heightRatio = Layout.window.heightRatio;
+        const marginBottom = this.props.game ? -50 * heightRatio : 5;
+        
         return (
-            <Header transparent style={styles.header}>
+            <Header transparent style={{marginBottom:marginBottom,...styles.header}}>
                 <Left style={styles.left}>
                     {this.renderLeft()}
                 </Left>
@@ -50,45 +55,7 @@ class AppHeader extends Component {
         );
     }
 }
-export default AppHeader;
+
+export default connectStyle("SuperLiga.AppHeader")(AppHeader);
 
 
-const widthRatio = Layout.window.ratio;
-
-const styles = StyleSheet.create({
-    header: {
-        //paddingTop:0,
-        height: 'auto',
-        justifyContent: 'flex-start',
-    
-    },
-    left:{
-      flex:1,
-      paddingTop: Layout.isIphoneX ? 40 : 10,
-    },
-    body:{
-        flex:1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        height: '100%',
-    },
-    right:{
-        flex:1,
-    },
-    title:{
-        
-    },
-    superligaAppImg: {
-        width: 181 * widthRatio,
-        height: 133 * widthRatio,
-        marginLeft: Platform.OS == 'ios' ? 2 : 0, // por alguna razon en IOS no se centra la imagen
-     },
-    menuImg:{
-        width: 61 * widthRatio,
-        height: 26 * widthRatio,
-    },
-    superligaImg: {
-        width: 65 * widthRatio,
-        height: 65 * widthRatio,
-    },
-  });

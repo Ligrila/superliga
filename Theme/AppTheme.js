@@ -990,6 +990,9 @@ export default {
     'SuperLiga.GameScreen':{
         game:{
             flex:1,
+
+            zIndex:10,
+
         },
         footer:{
             ...FooterStyle
@@ -1101,6 +1104,7 @@ export default {
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'flex-start',
+
         },
         mainContainer:{
             flex:1,
@@ -1108,6 +1112,7 @@ export default {
             justifyContent: 'center',
             flexDirection: 'column',
             width: "100%",
+            
         },
         vsText:{
             marginLeft: 8,
@@ -1144,14 +1149,24 @@ export default {
             textAlign:'center'
           },
         button:{
-            marginTop: h(36),
+            marginTop: h(25),
             height: h(115),
+            alignItems:'center',
+            justifyContent: 'center',
+            position:'relative',
         },
         buttonText: {
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: h(35),
             textAlign:'center',
-          }
+          },
+        correctQuestionIcon:{
+            color: '#00a651',
+            fontSize: h(35),
+            position: 'absolute',
+            top: h(37),
+            right: s(20),
+        }
       },
       'SuperLiga.GameAnswerResult': {
         bigText: {
@@ -1244,4 +1259,42 @@ export default {
             textAlign:'center'
           }
       },
+      "SuperLiga.AppHeader":{
+        header: {
+            //paddingTop:0,
+            zIndex: 1,
+            height: 'auto',
+            justifyContent: 'flex-start',
+        
+        },
+        left:{
+          flex:1,
+          paddingTop: Layout.isIphoneX ? 40 : 10,
+        },
+        body:{
+            flex:1,
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            height: '100%',
+        },
+        right:{
+            flex:1,
+        },
+        title:{
+            
+        },
+        superligaAppImg: {
+            width: s(181),
+            height: s(133),
+            marginLeft: Layout.platform == 'ios' ? 2 : 0, // por alguna razon en IOS no se centra la imagen
+         },
+        menuImg:{
+            width: s(61),
+            height: s(26),
+        },
+        superligaImg: {
+            width: s(65),
+            height: s(65),
+        },
+      }
   };

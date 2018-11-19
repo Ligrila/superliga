@@ -4,7 +4,7 @@ import {
     TouchableWithoutFeedback
 } from "react-native";
 
-import { Text, Button } from 'native-base'
+import { Text, Button, Icon } from 'native-base'
 import { connectStyle } from 'native-base';
 
 import Api from '../../api/Api';
@@ -71,7 +71,27 @@ class GameQuestion extends Reflux.Component {
             this.props.onNoLife();
         }
     }
-
+    button1AddOn = () => {
+        if(!this.state.hasResult || this.state.correctOption!='option_1'){
+            return null;
+        }
+        const styles = this.props.style;
+        return (<Icon type='FontAwesome' name='check' style={styles.correctQuestionIcon}></Icon>)
+    }
+    button2AddOn = () => {
+        if(!this.state.hasResult || this.state.correctOption!='option_2'){
+            return null;
+        }
+        const styles = this.props.style;
+        return (<Icon type='FontAwesome' name='check' style={styles.correctQuestionIcon}></Icon>)
+    }
+    button3AddOn = () => {
+        if(!this.state.hasResult || this.state.correctOption!='option_3'){
+            return null;
+        }
+        const styles = this.props.style;
+        return (<Icon type='FontAwesome' name='check' style={styles.correctQuestionIcon}></Icon>)
+    }
     button1Styles = () => {
         return this.state.button1Pressed ? {backgroundColor:'#7b4295'} : {backgroundColor: '#ededed'};
     }
@@ -193,6 +213,7 @@ class GameQuestion extends Reflux.Component {
                             large
                             rounded style={{...styles.button,...this.button1Styles()}}>
                                 <Text style={{...styles.buttonText,...this.button1TextStyles()}}>{this.props.question.option_1}</Text>
+                                {this.button1AddOn()}
                         </Button>
                     </View>
                     </TouchableWithoutFeedback>
@@ -209,6 +230,7 @@ class GameQuestion extends Reflux.Component {
                                 large
                                 rounded style={{...styles.button,...this.button2Styles()}}>
                                 <Text style={{...styles.buttonText,...this.button2TextStyles()}}>{this.props.question.option_2}</Text>
+                                {this.button2AddOn()}
                             </Button>
                         </View>
                     </TouchableWithoutFeedback>
@@ -225,6 +247,7 @@ class GameQuestion extends Reflux.Component {
                                 large
                                 rounded style={{...styles.button,...this.button3Styles()}}>
                                 <Text style={{...styles.buttonText,...this.button3TextStyles()}}>{this.props.question.option_3}</Text>
+                                {this.button3AddOn()}
                             </Button>
                         </View>
                     </TouchableWithoutFeedback>

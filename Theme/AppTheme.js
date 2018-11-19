@@ -1156,9 +1156,11 @@ export default {
       'SuperLiga.GameAnswerResult': {
         bigText: {
             fontFamily: 'edosz',
-            fontSize: s(184),
+            fontSize: s(140),
             transform: [{ rotate: '-10deg'}],
-            textAlign:'center'
+            textAlign:'center',
+            lineHeight: s(120),
+
           },
           button:{
             marginTop: s(36),
@@ -1171,13 +1173,14 @@ export default {
             },
           text: {
             fontFamily: 'edosz',
-            fontSize: s(130),
+            fontSize: s(140),
             transform: [{ rotate: '-10deg'}],
-            textAlign:'center'
+            textAlign:'center',
+            lineHeight: s(120),
           },
         subtext:{
-            fontSize: s(35),
-            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(30),
+            fontFamily: 'OpenSansCondensed_bold',
             textAlign:'center'
         },
         subtextBold:{

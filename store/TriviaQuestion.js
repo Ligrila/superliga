@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 
-export const TriviaQuestionActions = Reflux.createActions(['add','timeout','answerQuestion','finishedQuestion','reset']);
+export const TriviaQuestionActions = Reflux.createActions(['add','onNewQuestion','onFinishQuestion','timeout','answerQuestion','finishedQuestion','reset']);
 
 export class TriviaQuestion extends Reflux.Store
 {
@@ -48,9 +48,18 @@ export class TriviaQuestion extends Reflux.Store
             currentTimeout: timeout,
             timedOut: false
         });
+
+        TriviaQuestionActions.onNewQuestion(q);
         
 
     }
+    onNewQuestion(q){
+
+    }
+    onFinishQuestion(q){
+
+    }
+
     onFinishedQuestion(question){
         if(!this.state.hasQuestion){
             return;
@@ -80,6 +89,9 @@ export class TriviaQuestion extends Reflux.Store
         } else{
             console.warn("Intentando finalizar a una pregunta que no es la actual");
         }
+
+        TriviaQuestionActions.onFinishQuestion(question);
+
     }
     onAnswerQuestion(question_id,option,response){
         //necesitamos saber si response llego a destino antes de dar veredicto.

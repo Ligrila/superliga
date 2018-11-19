@@ -42,15 +42,15 @@ class GameAnswerResult extends Reflux.Component {
         if(canceled){
             return(
                     <View style={styles.container}>
-                        <Text style={styles.text}>Uhhh, pregunta<Text style={styles.bigText}> cancelada!</Text></Text>
+                        <Text style={styles.text}>Uhhh, pregunta cancelada!</Text>
                     </View>
             )
         }
         if(this.props.win){
             return(
                     <View style={styles.container}>
-                        <Text style={styles.text}>Correcto <Text style={styles.bigText}>crack!</Text></Text>
-                        <Text style={styles.subtext}>GANASTE {"\n"}<Text style={styles.subtextBold}>{points} PUNTOS</Text>{"\n"} Y SEGUIS{"\n"}PARTICIPANDO</Text>
+                        <Text style={styles.text}>Sos un <Text style={styles.bigText}>crack!</Text></Text>
+                        <Text style={styles.subtext}>SUMAS {points} PUNTOS</Text>
                     </View>
             )
         }
@@ -58,16 +58,15 @@ class GameAnswerResult extends Reflux.Component {
             if(lives>1 /** a 1 porque todavia no se desconto la vida, se descuenta asincronicamente luego de mostrar está pantalla para darle fluidez al juego */ ){
                 return(
                     <View style={styles.container}>
-                        <Text style={styles.text}>Uhh, le pifiaste</Text>
-                        <Text style={styles.subtext}>TE DESCUENTA{"\n"} <Text style={styles.subtext}>1 VIDA...</Text></Text>
+                        <Text style={styles.text}>Uhh, la pifiaste</Text>
+                        <Text style={styles.subtext}>TE DESCUENTA 1 VIDA.</Text>
                     </View>
                 )
             } else{
                 return (
                 <View style={styles.container}>
-                <Text style={styles.text}>Sonó el silbato, te quedaste sin tiempo</Text>
-                <Text style={styles.subtext}>PERDISTE{"\n"} <Text style={styles.subtextBold}>{points} PUNTOS</Text>{"\n"} </Text>
-                    <Button block warning rounded onPress={this.backToGamePlayAndBuyLives} style={styles.button}><Text style={styles.buttonText}>Quiero Seguir jugando</Text></Button>
+                    <Text style={styles.text}>Sono el Silbato!</Text>
+                    <Text style={styles.subtext}>PERDISTE{"\n"} {points} PUNTOS</Text>
                 </View>
                 );
             }
@@ -76,7 +75,7 @@ class GameAnswerResult extends Reflux.Component {
 
         return(
             <View style={styles.container}>
-                <Text style={styles.text}>Sonó el silbato, te quedaste sin tiempo</Text>
+                <Text style={styles.text}>Sono el Silbato!</Text>
                 <Text style={styles.subtext}>NO RESPONDISTE {"\n"} A TIEMPO</Text>
             </View>
         )

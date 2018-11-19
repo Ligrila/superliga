@@ -16,6 +16,7 @@ import Layout from '../../constants/Layout';
 import Reflux from 'reflux';
 import { TriviaQuestion, TriviaQuestionActions } from "../../store/TriviaQuestion";
 import { UsersStore } from "../../store/UserStore";
+import Segment from "../../Theme/components/Segment";
 
 
 /**
@@ -115,6 +116,23 @@ class GameQuestion extends Reflux.Component {
         }
         return elements.length;
     }
+
+    processCurrentQuestion(){
+        if(this.state.hasResult){
+            const win = this.state.win;
+            const serverSuccess = this.state.serverSuccess;
+            if(!serverSuccess){
+                if(this.state.hasInformation && this.state.user.lives <=0){
+                    // no está jugando porque no puede, no tiene vidas.
+                    console.log("El usuario no esta jugando se ignora");
+                    return;
+                }
+            }
+
+            setTimeout(()=>{TriviaQuestionActions.reset();},6000)
+        }
+    }
+
     render(){
         const styles = this.props.style;
         let lives = 0;
@@ -136,6 +154,7 @@ class GameQuestion extends Reflux.Component {
         if(this.state.answered){
             title= "ESPERANDO RESPUESTA";
         }
+       
         const titleLength = title.length;
         //const cpl = Math.round((Layout.window.width - 40 ) / (styles.text.fontSize / 2.15))
         //const numberOfLines = titleLength / cpl;
@@ -143,16 +162,25 @@ class GameQuestion extends Reflux.Component {
         let titleStyles = {};
         //console.log("titleLenght",titleLength);
         //console.log("nol",numberOfLines);
+  
         if(numberOfLines>2){
             const newFontSize = ((styles.text.fontSize * 2) / numberOfLines)
             titleStyles = {fontSize: newFontSize}
             //console.log(titleStyles)
         }
+        let titleTags = (
+            <View>
+            <Text style={{...styles.text,...titleStyles}}>{title}</Text>
+            <Text style={styles.subtitle}>{subtitle}</Text>
+            </View>
+            );
+        if(this.state.hasResult){
+            titleTags = null;
+        }
         return(
                 <View style={styles.container}>
-                    <Text style={{...styles.text,...titleStyles}}>{title}</Text>
-                    <Text style={styles.subtitle}>{subtitle}</Text>
-                    <TouchableWithoutFeedback
+                   {titleTags}
+                  <TouchableWithoutFeedback
                     onPress={()=>{this.showPurchaseModal(lives)}}
                     >
                     <View>

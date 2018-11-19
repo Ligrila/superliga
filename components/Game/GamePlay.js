@@ -34,6 +34,17 @@ class GamePlay extends Reflux.Component {
         console.log("Question ball timedout " + new Date());
     }
     _renderBall(){
+        if(this.state.hasResult){
+            const win = this.state.win;
+            const serverSuccess = this.state.serverSuccess;
+            const lives = this.state.user.lives;
+            const canceled = this.state.currentQuestion.canceled;
+            const points = this.state.currentQuestion.points;
+            return <GameAnswerResult
+                win={win} serverSuccess={serverSuccess}
+                lives={lives} canceled={canceled} points={points}
+            ></GameAnswerResult>;
+        }
         const styles = this.props.style;
         const duration = this.state.currentTimeout;
         return (  
@@ -54,7 +65,7 @@ class GamePlay extends Reflux.Component {
                     return;
                 }
             }
-            const currentQuestion = this.state.currentQuestion;
+            /*const currentQuestion = this.state.currentQuestion;
             TriviaQuestionActions.reset();
             this.props.navigation.navigate('GameResult', {
                 win: win,
@@ -64,12 +75,12 @@ class GamePlay extends Reflux.Component {
                 serverSuccess: serverSuccess,
                 onNoLife: this.props.setModalVisibleProp
               });
-
+              */
 
         }
     }
     _renderCurrentQuestion(){
-        if(this.state.hasQuestion && !this.state.hasResult ){
+        if(this.state.hasQuestion || this.state.hasResult ){
             return (<GameQuestion question={this.state.currentQuestion} onNoLife={this.props.onNoLife} />);
         } else{
             return (<GameWait text={'ESPERANDO \n JUGADA'} />);

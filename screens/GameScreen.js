@@ -9,6 +9,8 @@ import AppHeader from '../components/AppHeader/AppHeader';
 
 import gameBgSrc from '../assets/images/game/bg.png';
 import gameDisabledBgSrc from '../assets/images/result/wrong_bg.png';
+import genericQuestionBg from '../assets/images/game/genericQuestionBg.png';
+
 import Api from '../api/Api';
 
 import Game from '../components/Game';
@@ -19,20 +21,21 @@ import { NextTriviaStore,NextTriviaActions } from '../store/NextTriviaStore';
 import { UsersStore, UsersActions } from '../store/UserStore';
 import Purchase from '../components/Purchase';
 import { PurchaseModalStore } from '../store/PurchaseModalStore';
+import { TriviaQuestionActions,TriviaQuestion } from '../store/TriviaQuestion';
 
 class GameScreen extends Reflux.Component {
   api = new Api;
   static modalVisible = false;
   state = {
-    modalVisible : false
+    modalVisible : false,
+    genericQuestion: false
   }
   constructor(props){
-    console.log("GAmeScreen");
     super(props);
     /*this.state = {
       isLoadingComplete: false
     }*/
-    this.stores = [NextTriviaStore,UsersStore,PurchaseModalStore]; // TODO: use Trivia Store
+    this.stores = [TriviaQuestion,NextTriviaStore,UsersStore,PurchaseModalStore]; // TODO: use Trivia Store
     this._bootstrap();
 
   }
@@ -49,6 +52,16 @@ class GameScreen extends Reflux.Component {
     if(!this.state.hasInformation){
       UsersActions.update();
     }
+    /*TriviaQuestionActions.onNewQuestion.listen((q)=>{
+      if(q.model=='GenericQuestions'){
+        this.setState({genericQuestion:true});
+      } else{
+        this.setState({genericQuestion:false});
+      }
+    })
+    TriviaQuestionActions.onFinishQuestion((q)=>{
+      this.setState({genericQuestion:false});
+    });*/
 
    
 
@@ -134,6 +147,9 @@ class GameScreen extends Reflux.Component {
     let bgSrc = gameBgSrc;
     if(this.state.hasInformation){
       bgSrc =  this.state.user.lives <= 0 ? gameDisabledBgSrc : gameBgSrc
+    }
+    if(this.state.hasQuestion && this.state.currentQuestion.model == 'GenericQuestions'){
+      bgSrc = genericQuestionBg;
     }
 
     return (

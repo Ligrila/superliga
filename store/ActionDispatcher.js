@@ -32,7 +32,7 @@ export default class ActionDispatcher{
             case 'finishHalfTime':
                 NextTriviaActions.finishHalfTime(message.payload);
                 break;
-            case 'starHalfTimePlay':
+            case 'startHalfTimePlay':
                 NextTriviaActions.startHalfTimePlay(message.payload);
                 break;
             case 'startExtraPlay':

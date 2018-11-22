@@ -83,6 +83,17 @@ class GameScreen extends Reflux.Component {
     NextTriviaActions.halfTimeStarted.listen((b)=>{
       this.props.navigation.navigate('HalfTimeStart')
     })
+
+    NextTriviaActions.halfTimePlay.listen(()=>{
+      this.props.navigation.navigate('GameHalfTimePlay')
+    })
+    NextTriviaActions.extraPlay.listen(()=>{
+      this.props.navigation.navigate('GameExtraPlay')
+    })
+
+    NextTriviaActions.halfTimeStarted.listen((b)=>{
+      this.props.navigation.navigate('HalfTimeStart')
+    })
     UsersActions.me.listen(()=>{
       if(this.state.user.lives <= 0 ){
       }

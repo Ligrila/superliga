@@ -35,6 +35,8 @@ import TutorialScreen from '../screens/TutorialScreen';
 import GameHalfTimeEndScreen from '../screens/GameHalfTimeEndScreen';
 import GameHalfTimeStartScreen from '../screens/GameHalfTimeStartScreen';
 import GameStartScreen from '../screens/GameStartScreen';
+import GameHalfTimePlayScreen from '../screens/GameHalfTimePlayScreen';
+import GameExtraPlayScreen from '../screens/GameExtraPlayScreen';
 
 
 
@@ -65,7 +67,8 @@ const GameStack = createStackNavigator(
     StartFirstTime: GameStartScreen,
     HalfTime: GameHalfTimeEndScreen,
     HalfTimeStart: GameHalfTimeStartScreen,
-
+    GameHalfTimePlay: GameHalfTimePlayScreen,
+    GameExtraPlay: GameExtraPlayScreen,
     GameLoading: GameLoadingScreen,
 
   },

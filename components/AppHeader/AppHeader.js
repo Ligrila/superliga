@@ -34,7 +34,6 @@ class AppHeader extends Component {
     }
     render() {
         const styles  = this.props.style;
-        console.log(styles);
         const heightRatio = Layout.window.heightRatio;
         const marginBottom = this.props.game ? -50 * heightRatio : 5;
         

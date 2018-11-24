@@ -1,5 +1,8 @@
 import React from 'react';
-import {connectStyle,Container,Content} from 'native-base'
+import {connectStyle,Container,Content,Text} from 'native-base'
+
+import {View} from 'react-native'
+
 
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
@@ -51,7 +54,12 @@ class GameHalfTimePlayScreen extends React.Component {
 
       <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} />
         <Content padder contentContainerStyle={styles.statistics}>
-          {this.renderMessage()}
+          <View style={styles.textContainer}>
+            <Text style={styles.textLine1}>JUGADA</Text>
+            <Text style={styles.textLine2}>DE ENTRE</Text>
+            <Text style={styles.textLine3}>TIEMPO</Text>
+
+          </View>
         </Content>
        </Wallpaper>
       </Container>
@@ -60,4 +68,4 @@ class GameHalfTimePlayScreen extends React.Component {
 
 }
 
-export default connectStyle('SuperLiga.StatisticsScreen')(GameHalfTimePlayScreen);
+export default connectStyle('SuperLiga.GameHalfTimePlayScreen')(GameHalfTimePlayScreen);

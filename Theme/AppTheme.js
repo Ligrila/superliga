@@ -987,6 +987,37 @@ export default {
             marginRight: s(40)
         }
     },
+    'SuperLiga.GameHalfTimePlayScreen':{
+        textContainer: {
+            marginTop: h(50),
+            alignItems:'center',
+            justifyContent: 'center',
+        },
+        textLine1: {
+            fontFamily: 'OpenSansCondensed_bold',
+            transform: [{ rotate: '-5deg'}],
+            textAlign: 'center',
+            fontSize: s(223),
+            marginBottom: s(-80),
+        },
+        textLine2: {
+            fontFamily: 'OpenSansCondensed_bold',
+            transform: [{ rotate: '-5deg'}],
+            textAlign: 'center',
+            fontSize: s(223),
+            marginHorizontal: s(-70),
+            marginBottom: s(-80),
+        },
+        textLine3: {
+            fontFamily: 'OpenSansCondensed_bold',
+            transform: [{ rotate: '-5deg'}],
+            textAlign: 'right',
+            width:"100%",
+            marginRight: s(-70),
+
+            fontSize: s(223),
+        }
+    },
     'SuperLiga.GameScreen':{
         game:{
             flex:1,

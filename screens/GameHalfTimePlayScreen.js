@@ -58,7 +58,6 @@ class GameHalfTimePlayScreen extends React.Component {
             <Text style={styles.textLine1}>JUGADA</Text>
             <Text style={styles.textLine2}>DE ENTRE</Text>
             <Text style={styles.textLine3}>TIEMPO</Text>
-
           </View>
         </Content>
        </Wallpaper>

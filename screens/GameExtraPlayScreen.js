@@ -1,12 +1,13 @@
 import React from 'react';
-import {connectStyle,Container,Content} from 'native-base'
+import {View} from 'react-native'
+import {Text,connectStyle,Container,Content} from 'native-base'
 
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 import GameMessage from '../components/Game/GameMessage';
 import MakeItRain from '../components/MakeItRain';
 
-const bgSrc = require('../assets/images/extraPlayBg.png');
+const bgSrc = require('../assets/images/halfTimePlayBg.png');
 
 
 class GameExtraPlayScreen extends React.Component {
@@ -50,7 +51,11 @@ class GameExtraPlayScreen extends React.Component {
 
       <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} />
         <Content padder contentContainerStyle={styles.statistics}>
-          {this.renderMessage()}
+        <View style={styles.textContainer}>
+            <Text style={styles.textLine1}>JUGADA</Text>
+            <Text style={styles.textLine2}>EXTRA</Text>
+            <Text style={styles.textLine3}>BONUS TRACK</Text>
+          </View>
         </Content>
        </Wallpaper>
       </Container>
@@ -59,4 +64,4 @@ class GameExtraPlayScreen extends React.Component {
 
 }
 
-export default connectStyle('SuperLiga.StatisticsScreen')(GameExtraPlayScreen);
+export default connectStyle('SuperLiga.GameExtraPlayScreen')(GameExtraPlayScreen);

@@ -9,6 +9,8 @@ import AppHeader from '../components/AppHeader/AppHeader';
 
 import gameBgSrc from '../assets/images/game/bg.png';
 import gameDisabledBgSrc from '../assets/images/result/wrong_bg.png';
+// usado para entre tiempo
+// y final
 import genericQuestionBg from '../assets/images/game/genericQuestionBg.png';
 
 import Api from '../api/Api';
@@ -165,9 +167,14 @@ class GameScreen extends Reflux.Component {
     if(this.state.hasInformation){
       bgSrc =  this.state.user.lives <= 0 ? gameDisabledBgSrc : gameBgSrc
     }
-    if(this.state.hasQuestion && this.state.currentQuestion.model == 'GenericQuestions'){
+    if(this.state.CurrentTrivia.Trivia.half_time_finished && !this.state.CurrentTrivia.Trivia.half_time_started){
       bgSrc = genericQuestionBg;
     }
+
+    if(this.state.CurrentTrivia.Trivia.game_finished){
+      bgSrc = genericQuestionBg;
+    }
+
 
     return (
       <Container>

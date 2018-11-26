@@ -41,6 +41,9 @@ export default class ActionDispatcher{
             case 'startHalfTime':
                 NextTriviaActions.startHalfTime(message.payload);
                 break;
+            case 'finishGame':
+                NextTriviaActions.finishGame(message.payload);
+                break;
             case 'finishTrivia':
                 NextTriviaActions.finish(message.payload);
                 NextTriviaActions.get();

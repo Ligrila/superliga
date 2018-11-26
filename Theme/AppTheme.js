@@ -1018,6 +1018,36 @@ export default {
             fontSize: s(223),
         }
     },
+    'SuperLiga.GameExtraPlayScreen':{
+        textContainer: {
+            marginTop: h(50),
+            alignItems:'center',
+            justifyContent: 'center',
+        },
+        textLine1: {
+            fontFamily: 'OpenSansCondensed_bold',
+            transform: [{ rotate: '-5deg'}],
+            textAlign: 'center',
+            fontSize: s(261),
+            marginBottom: s(-80),
+            marginHorizontal: (-70)
+        },
+        textLine2: {
+            fontFamily: 'OpenSansCondensed_bold',
+            transform: [{ rotate: '-5deg'}],
+            textAlign: 'center',
+            fontSize: s(261),
+            marginBottom: s(-80),
+        },
+        textLine3: {
+            fontFamily: 'OpenSansCondensed_bold',
+            transform: [{ rotate: '-5deg'}],
+            textAlign: 'right',
+            width:"100%",
+
+            fontSize: s(85),
+        }
+    },
     'SuperLiga.GameScreen':{
         game:{
             flex:1,

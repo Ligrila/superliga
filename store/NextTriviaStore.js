@@ -15,6 +15,8 @@ export const NextTriviaActions = Reflux.createActions(
         'halfTimeStarted',
         'startHalfTimePlay',
         'halfTimePlay',
+        'finishGame',
+        'gameFinished',
         'startExtraPlay',
         'extraPlay'
     ]
@@ -60,7 +62,11 @@ export class NextTriviaStore extends Reflux.Store
             return;
         }
         if(this.state.CurrentTrivia.Trivia.id == payload.id ){
-            this.state.CurrentTrivia.Trivia.half_time_finished = true;
+            let CurrentTrivia = this.state.CurrentTrivia;
+            CurrentTrivia.Trivia.half_time_finished = true;
+            CurrentTrivia.Trivia.half_time_started = false;
+
+            this.setState({CurrentTrivia});
             NextTriviaActions.halfTime(true);
         }
     }
@@ -98,10 +104,28 @@ export class NextTriviaStore extends Reflux.Store
             return;
         }
         if(this.state.CurrentTrivia.Trivia.id == payload.id ){
-            this.state.CurrentTrivia.Trivia.half_time_finished = true;
-            this.state.CurrentTrivia.Trivia.half_time_started = true;
-
+            let CurrentTrivia = this.state.CurrentTrivia;
+            CurrentTrivia.Trivia.half_time_finished = true;
+            CurrentTrivia.Trivia.half_time_started = true;
+            this.setState({CurrentTrivia});
             NextTriviaActions.halfTimeStarted(true);
+        }
+    }
+
+    gameFinished(){}
+
+    finishGame(payload){
+        if(!this.state.CurrentTrivia.hasData){
+            return;
+        }
+        if(this.state.CurrentTrivia.Trivia.id == payload.id ){
+            let CurrentTrivia = this.state.CurrentTrivia;
+            CurrentTrivia.Trivia.half_time_finished = true;
+            CurrentTrivia.Trivia.half_time_started = true;
+            CurrentTrivia.Trivia.game_finished = true;
+
+            this.setState({CurrentTrivia});
+            NextTriviaActions.gameFinished();
         }
     }
 

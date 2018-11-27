@@ -31,6 +31,21 @@ class Game extends Component {
         //console.log("Question timed out");
     }
 
+    renderTeams = () => {
+        const styles = this.props.style;
+        if(this.props.currentTrivia.type=='trivia'){
+            return (
+                <View style={styles.avatarContainer}>    
+                </View>
+                )
+        }
+        return (<View style={styles.avatarContainer}>
+            <TeamAvatar source={this.props.currentTrivia.local_team.avatar} width={86} height={98} />
+            <Text style={styles.vsText}>vs</Text>
+            <TeamAvatar source={this.props.currentTrivia.visit_team.avatar}  width={86} height={98} />    
+        </View>);
+    }
+
     render(){
         const ratio = Layout.window.ratio;
         const styles = this.props.style;
@@ -39,11 +54,7 @@ class Game extends Component {
         }
         return(
                 <View style={styles.container}>
-                    <View style={styles.avatarContainer}>
-                            <TeamAvatar source={this.props.currentTrivia.local_team.avatar} width={86} height={98} />
-                            <Text style={styles.vsText}>vs</Text>
-                            <TeamAvatar source={this.props.currentTrivia.visit_team.avatar}  width={86} height={98} />
-                        </View>
+                    {this.renderTeams()}
                     <View style={styles.mainContainer}>
                         {this.renderGamePlay()}
                     </View>

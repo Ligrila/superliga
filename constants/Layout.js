@@ -22,6 +22,9 @@ if(Platform.isPad){
 
 const isIphoneX =
   platform === "ios" && (height === 812 || width === 812);
+const isIphoneXR =
+  platform === "ios" && (height === 896 || width === 896);
+
 
 export default {
   window: {
@@ -32,7 +35,8 @@ export default {
   },
   isAndroid: platform === "android",
   isSmallDevice: width < 375,
-  isIphoneX: isIphoneX
+  isIphoneX: isIphoneX,
+  isIphoneXR: isIphoneXR
 };
 
 

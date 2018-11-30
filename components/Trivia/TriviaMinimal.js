@@ -23,6 +23,17 @@ class TriviaMinimal extends Component {
     let until = ( sdate.getTime() - new Date().getTime()) / 1000;
     const width = this.props.avatarWidth || 212 * Layout.window.ratio;
     const height = this.props.avatarHeight || 238 * Layout.window.ratio;
+    if(this.trivia.type=='trivia'){
+                  return (
+                      <View style={styles.avatarContainer}>
+                        <View style={styles.programmedTriviaTextContainer}>
+                          <Text style={styles.programmedTriviaText1}>TRIVIA</Text>
+                          <Text style={styles.programmedTriviaText2}>SEMANAL</Text>
+                        </View>
+
+                      </View>
+                 )
+    }
     return(
       <View>
         <View style={styles.avatarContainer}>
@@ -37,4 +48,4 @@ class TriviaMinimal extends Component {
   }
 }
 
-export default connectStyle('SuperLiga.Trivia')(TriviaMinimal);
+export default connectStyle('SuperLiga.TriviaMinimal')(TriviaMinimal);

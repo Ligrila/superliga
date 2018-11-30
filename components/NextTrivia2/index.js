@@ -39,7 +39,7 @@ class NextTrivia2 extends Component {
         subtitle={'No hay próximas trivias. Prueba de nuevo más tarde'}/>
       )
     }
-    const winnerText = this.trivia.award.lenght > 0 ? 'Jugas por: ' + this.trivia.award  : ''
+    const winnerText = this.trivia.award.length > 0 ? 'Jugas por: ' + this.trivia.award  : ''
     let sdate = this.trivia.start_datetime_local.toDate();
     let until = ( sdate.getTime() - new Date().getTime()) / 1000;
     return(

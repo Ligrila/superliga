@@ -267,7 +267,7 @@ export default {
         },
         nextTriviaIconsContainer:{
             position: 'relative',
-            height: Layout.window.height / 2 - h(80),
+            height: (Layout.window.height / 2) - (Layout.isIphoneX ? h(85) : Layout.isIphoneXR ? h(75) : h(60)  ) ,
         },
         nextMatchText:{
             textAlign: 'center',
@@ -297,19 +297,19 @@ export default {
             marginHorizontal: s(30),
         },
         userStatisticsItemValue:{
-            fontFamily: 'OpenSansCondensed_bold',
-            fontSize: h(53),
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: h(80),
             textAlign: 'center'
 
 
         },
         userStatisticsItemText:{
             fontFamily: 'OpenSansCondensed_bold',
-            fontSize: h(19),
+            fontSize: h(30),
             textAlign: 'center'
         },
         actionsContainer:{
-            marginTop: h(170),
+            marginTop: h(50),
             alignItems:'center',
             justifyContent: 'center',
             flexDirection: 'row',
@@ -323,6 +323,10 @@ export default {
         actionsItemText:{
             color: '#7e599a',
             fontSize: h(73),
+        },
+        actionsIcon:{
+            width: s(118),
+            height: s(118)
         },
         footer:{
             ...FooterStyle,
@@ -533,6 +537,40 @@ export default {
             fontSize: s(40),
         },
 
+    },
+    'SuperLiga.TriviaMinimal':{
+        avatarContainer:{
+            //flex:1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        vsText:{
+            marginLeft: 8,
+            marginRight: 8,
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(40),
+        },
+        programmedTriviaTextContainer:{
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        programmedTriviaText1:{
+            fontFamily: 'edosz',
+            fontSize: h(99),
+            color: '#e8f1ff',
+            transform: [{ rotate: '-5deg'}],
+            textAlign:'center',
+            marginBottom: h(-20)
+        },
+        programmedTriviaText2:{
+            fontFamily: 'edosz',
+            fontSize: h(99),
+            color: '#e8f1ff',
+            transform: [{ rotate: '-5deg'}],
+            textAlign:'center',
+        },
     },
     'SuperLiga.Awards':{
         slide:{
@@ -1322,15 +1360,15 @@ export default {
       },
       "SuperLiga.AppHeader":{
         header: {
-            //paddingTop:0,
+            paddingTop: Layout.isIphoneXR ? 29 : 0,
             zIndex: 1,
-            height: 'auto',
             justifyContent: 'flex-start',
+            height: 'auto',
         
         },
         left:{
           flex:1,
-          paddingTop: Layout.isIphoneX ? 40 : 10,
+          paddingTop: Layout.isIphoneX ? 40 : Layout.isPhoneXR ? 60: 10,
         },
         body:{
             flex:1,

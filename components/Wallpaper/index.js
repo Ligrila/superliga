@@ -22,5 +22,8 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     resizeMode: 'cover',
+
   }
 });
+
+

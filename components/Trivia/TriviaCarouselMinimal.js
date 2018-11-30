@@ -126,7 +126,8 @@ _renderItem = ({item, index}) => {
     if(!this.state.Trivia.hasData){
       return;
     }
-
+    const winnerText = item.award.length > 0 ? 'Jugas por: ' + item.award  : ''
+    
     return (
         <View style={styles.slide}>
           <TriviaMinimal trivia={item} />
@@ -137,7 +138,7 @@ _renderItem = ({item, index}) => {
             {this.getNotice(item)}
           </View>
           <View style={styles.triviaAwardContainer}>
-            <Text style={styles.triviaAwardText}> Jugas por: {item.award}</Text>
+            <Text style={styles.triviaAwardText}> {winnerText}</Text>
           </View>
         </View>
     );

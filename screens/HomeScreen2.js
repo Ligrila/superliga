@@ -21,6 +21,9 @@ import {NextTriviaStore,NextTriviaActions} from '../store/NextTriviaStore';
 
 
 import bgSrc from '../assets/images/home_bg.png';
+import helpSrc from '../assets/images/home/help.png';
+import shareSrc from '../assets/images/home/share.png';
+import shopSrc from '../assets/images/home/shop.png';
 import NextTrivia2 from '../components/NextTrivia2';
 import { UsersStore } from '../store/UserStore';
 import { StatisticsStore, StatisticsActions } from '../store/StatisticsStore';
@@ -122,7 +125,7 @@ class HomeScreen2 extends Reflux.Component {
                       <TouchableOpacity
                         onPress={this.goToTutorial}
                       >
-                        <Icon style={styles.actionsItemText} name='help'  type="Entypo"></Icon>
+                        <Image source={helpSrc} style={styles.actionsIcon}/>
                       </TouchableOpacity>
                     </View>
                     <View style={styles.actionsItem}>
@@ -130,7 +133,7 @@ class HomeScreen2 extends Reflux.Component {
                         onPress={this.goToPurchase}
 
                       >
-                        <Icon style={styles.actionsItemText} name='shopping-cart' type="Entypo"></Icon>
+                        <Image source={shopSrc} style={styles.actionsIcon}/>
                       </TouchableOpacity>
                     </View>
                     <View style={styles.actionsItem}>
@@ -138,7 +141,7 @@ class HomeScreen2 extends Reflux.Component {
                             onPress={this.share}
 
                       >
-                        <Icon style={styles.actionsItemText} name='user-plus' type="FontAwesome"></Icon>
+                        <Image source={shareSrc} style={styles.actionsIcon}/>
                       </TouchableOpacity>
                     </View>
                  </View>

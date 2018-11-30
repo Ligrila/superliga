@@ -26,7 +26,7 @@
 
     "android":{
       "package": "com.balltoball.jugadasuperliga",
-      "versionCode": 22,
+      "versionCode": 24,
       "config":{
         "googleSignIn":
           {

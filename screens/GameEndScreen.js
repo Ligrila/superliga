@@ -30,6 +30,8 @@ class GameEndScreen extends React.Component {
   constructor(props) {
     super(props)
     this.currentTriviaId = this.props.navigation.getParam("currentTriviaId",false);
+    this.trivia = this.props.navigation.getParam("trivia",false);
+
   };
 
   componentDidMount(){
@@ -53,7 +55,7 @@ class GameEndScreen extends React.Component {
     }
     , 5000)
     if(this.state.messageRendered){
-      return (<GameStatistics trivia_id={this.currentTriviaId}/>)
+      return (<GameStatistics trivia_id={this.currentTriviaId} trivia={this.trivia}/>)
     }
 
     return (

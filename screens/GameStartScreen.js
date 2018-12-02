@@ -7,6 +7,8 @@ import GameMessage from '../components/Game/GameMessage';
 import MakeItRain from '../components/MakeItRain';
 
 const bgSrc = require('../assets/images/bg.png');
+const bgProgrammedTriviaSrc = require('../assets/images/programmed-trivia-bg.png');
+
 
 
 class GameStartScreen extends React.Component {
@@ -39,6 +41,12 @@ class GameStartScreen extends React.Component {
  
 
   renderMessage = () => {
+    const trivia = this.props.navigation.getParam("trivia",false);
+    if(trivia && trivia.type=='trivia'){
+      return (
+        <GameMessage title="Arranca la" bigText='trivia!' award={trivia.award}></GameMessage>
+      )
+    }
     return (
       <GameMessage title="Comienza el" bigText='partido!'></GameMessage>
     )
@@ -53,9 +61,16 @@ class GameStartScreen extends React.Component {
 
     const rain =  <MakeItRain />
 
+    let currentBg = bgSrc;
+    const trivia = this.props.navigation.getParam("trivia",false);
+    if(trivia && trivia.type=='trivia'){
+      currentBg = bgProgrammedTriviaSrc;
+    }
+    
+
     return (
       <Container>
-      <Wallpaper source={bgSrc}>
+      <Wallpaper source={currentBg}>
 
 
       {this.renderRain()}

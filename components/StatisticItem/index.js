@@ -23,6 +23,12 @@ class StatisticItem extends React.Component {
     constructor(props){
         super(props);
     }
+    componentDidMount(){
+        
+        if(this.props.type=='trivia'){
+            this.setState({tintColor:'#4fc0fa'})
+        }
+    }
     onBallFill(){}
     onTimeout(){
     }

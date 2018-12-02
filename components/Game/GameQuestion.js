@@ -17,6 +17,7 @@ import Reflux from 'reflux';
 import { TriviaQuestion, TriviaQuestionActions } from "../../store/TriviaQuestion";
 import { UsersStore } from "../../store/UserStore";
 import Segment from "../../Theme/components/Segment";
+import { NextTriviaStore } from "../../store/NextTriviaStore";
 
 
 /**
@@ -39,7 +40,7 @@ class GameQuestion extends Reflux.Component {
         this.onButton2Press = this.onButton2Press.bind(this);
         this.onButton3Press = this.onButton3Press.bind(this);
 
-        this.stores = [TriviaQuestion, UsersStore];
+        this.stores = [TriviaQuestion, UsersStore, NextTriviaStore];
     }
     async _sendAnswer(option){
         let response = this.api.sendAnswer(this.props.question.id,option);
@@ -92,14 +93,20 @@ class GameQuestion extends Reflux.Component {
         const styles = this.props.style;
         return (<Icon type='FontAwesome' name='check' style={styles.correctQuestionIcon}></Icon>)
     }
+    primaryButtonColor = () => {
+        if(this.state.CurrentTrivia.Trivia.type == 'trivia'){
+            return '#4fc0fa';
+        }
+        return '#7b4295';
+    }
     button1Styles = () => {
-        return this.state.button1Pressed ? {backgroundColor:'#7b4295'} : {backgroundColor: '#ededed'};
+        return this.state.button1Pressed ? {backgroundColor:this.primaryButtonColor()} : {backgroundColor: '#ededed'};
     }
     button2Styles = () => {
-        return this.state.button2Pressed ? {backgroundColor:'#7b4295'} : {backgroundColor: '#ededed'};
+        return this.state.button2Pressed ? {backgroundColor:this.primaryButtonColor()} : {backgroundColor: '#ededed'};
     }
     button3Styles = () => {
-        return this.state.button3Pressed ? {backgroundColor:'#7b4295'} : {backgroundColor: '#ededed'};
+        return this.state.button3Pressed ? {backgroundColor:this.primaryButtonColor()} : {backgroundColor: '#ededed'};
     }
     button1TextStyles = () => {
         return this.state.button1Pressed ? {color:'#fff'} : {color: '#282828'};

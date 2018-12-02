@@ -35,7 +35,9 @@ class Game extends Component {
         const styles = this.props.style;
         if(this.props.currentTrivia.type=='trivia'){
             return (
-                <View style={styles.avatarContainer}>    
+                <View style={styles.programmedTriviaContainer}>    
+                    <Text style={styles.programmedTriviaText1}>Trivia</Text>
+                    <Text style={styles.programmedTriviaText2}>Semanal</Text>
                 </View>
                 )
         }

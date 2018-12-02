@@ -1217,6 +1217,24 @@ export default {
             marginLeft: 8,
             marginRight: 8
         },
+        programmedTriviaContainer:{
+            flexDirection: 'column',
+        },
+        programmedTriviaText1:{
+            fontFamily: 'edosz',
+            fontSize: h(99),
+            color: '#e8f1ff',
+            transform: [{ rotate: '-5deg'}],
+            textAlign:'center',
+            marginBottom: h(-20)
+        },
+        programmedTriviaText2:{
+            fontFamily: 'edosz',
+            fontSize: h(99),
+            color: '#e8f1ff',
+            transform: [{ rotate: '-5deg'}],
+            textAlign:'center',
+        },
     },
     'SuperLiga.GameBall':{
         ballContainer:{

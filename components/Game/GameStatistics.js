@@ -18,7 +18,6 @@ import BigTitle from "../Title/BigTitle";
 import StatisticItem from "../StatisticItem";
 
 
-
 /**
  * 
  */
@@ -34,23 +33,29 @@ class GameStatistics extends Reflux.Component {
     }
     render(){
         const styles = this.props.style;
+        const triviaType = this.props.trivia.type;
+        let rankingStyle = styles.ranking;
+
+        if(triviaType=='trivia'){
+            rankingStyle = {...rankingStyle,color:'#4fc0fa'};
+        }
 
         return(
             <View style={styles.container}>
-                <Text style={styles.ranking}>{this.state.CurrentTriviaStatistics.ranking}</Text>
+                <Text style={rankingStyle}>{this.state.CurrentTriviaStatistics.ranking}</Text>
                 <Text style={styles.title}>TU POSICIÓN</Text>
                 <View style={styles.titleSeparatorContainer}><View style={styles.titleSeparator}></View></View>
                 <Text style={styles.subtitle}>RESULTADOS DEL PARTIDO</Text>
                 <View style={styles.statisticsContainer}>
                     <View style={styles.rowContainer}>
-                    <StatisticItem fill={this.state.CurrentTriviaStatistics.generalRanking} text="Puesto general" fillText={this.state.CurrentTriviaStatistics.generalRanking}/>
-                    <StatisticItem fill={this.state.CurrentTriviaStatistics.mediaHits} text={"aciertos totales\n vs media"} fillText={this.state.CurrentTriviaStatistics.mediaHits + "%"}/>
-                    <StatisticItem fill={this.state.CurrentTriviaStatistics.correctAnswers} text={"respuestas\n correctas"} fillText={this.state.CurrentTriviaStatistics.correctAnswers}/>
+                    <StatisticItem type={triviaType} fill={this.state.CurrentTriviaStatistics.generalRanking} text="Puesto general" fillText={this.state.CurrentTriviaStatistics.generalRanking}/>
+                    <StatisticItem type={triviaType} fill={this.state.CurrentTriviaStatistics.mediaHits} text={"aciertos totales\n vs media"} fillText={this.state.CurrentTriviaStatistics.mediaHits + "%"}/>
+                    <StatisticItem type={triviaType} fill={this.state.CurrentTriviaStatistics.correctAnswers} text={"respuestas\n correctas"} fillText={this.state.CurrentTriviaStatistics.correctAnswers}/>
                     </View>
                     <View style={styles.rowContainer}>
-                    <StatisticItem fill={this.state.CurrentTriviaStatistics.wrongAnswers} text={"respuestas\n incorrectas"} fillText={this.state.CurrentTriviaStatistics.wrongAnswers}/>
-                    <StatisticItem fill={this.state.CurrentTriviaStatistics.triviaHits} text={"aciertos por\n incidencia"} fillText={this.state.CurrentTriviaStatistics.triviaHits + "%"}/>
-                    <StatisticItem fill={this.state.CurrentTriviaStatistics.usedLives} text={"vidas\n utilizadas"} fillText={this.state.CurrentTriviaStatistics.usedLives}/>
+                    <StatisticItem type={triviaType} fill={this.state.CurrentTriviaStatistics.wrongAnswers} text={"respuestas\n incorrectas"} fillText={this.state.CurrentTriviaStatistics.wrongAnswers}/>
+                    <StatisticItem type={triviaType} fill={this.state.CurrentTriviaStatistics.triviaHits} text={"aciertos por\n incidencia"} fillText={this.state.CurrentTriviaStatistics.triviaHits + "%"}/>
+                    <StatisticItem type={triviaType} fill={this.state.CurrentTriviaStatistics.usedLives} text={"vidas\n utilizadas"} fillText={this.state.CurrentTriviaStatistics.usedLives}/>
                     </View>
 
                 </View>

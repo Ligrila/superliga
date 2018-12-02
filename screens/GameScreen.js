@@ -9,6 +9,8 @@ import AppHeader from '../components/AppHeader/AppHeader';
 
 import gameBgSrc from '../assets/images/game/bg.png';
 import gameDisabledBgSrc from '../assets/images/result/wrong_bg.png';
+const bgProgrammedTriviaSrc = require('../assets/images/programmed-trivia-bg.png');
+
 // usado para entre tiempo
 // y final
 import genericQuestionBg from '../assets/images/game/genericQuestionBg.png';
@@ -73,7 +75,7 @@ class GameScreen extends Reflux.Component {
       const currentTriviaId = trivia.id;
       const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'GameEnd' , params: {currentTriviaId}})],
+        actions: [NavigationActions.navigate({ routeName: 'GameEnd' , params: {currentTriviaId,trivia}})],
       });
       this.props.navigation.dispatch(resetAction);
 
@@ -170,7 +172,9 @@ class GameScreen extends Reflux.Component {
     if(this.state.CurrentTrivia.Trivia.half_time_finished && !this.state.CurrentTrivia.Trivia.half_time_started){
       bgSrc = genericQuestionBg;
     }
-
+    if(this.state.CurrentTrivia.Trivia.type=='trivia'){
+      bgSrc = bgProgrammedTriviaSrc;
+    }
     if(this.state.CurrentTrivia.Trivia.game_finished){
       bgSrc = genericQuestionBg;
     }

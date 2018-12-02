@@ -18,6 +18,7 @@ import BigTitle from "../Title/BigTitle";
 import StatisticItem from "../StatisticItem";
 
 
+
 /**
  * 
  */
@@ -31,6 +32,8 @@ class GameStatistics extends Reflux.Component {
     componentDidMount(){
         CurrentTriviaStatisticsActions.update(this.props.trivia_id);
     }
+
+    
     render(){
         const styles = this.props.style;
         const triviaType = this.props.trivia.type;

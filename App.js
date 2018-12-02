@@ -162,7 +162,9 @@ export default class App extends React.Component {
         require ('./assets/images/game/genericQuestionBg.png'),      
         require ('./assets/images/extraPlayBg.png'),        
         require ('./assets/images/halfTimePlayBg.png'),     
+        require ('./assets/images/share.png'),    
         require ('./assets/images/programmed-trivia-bg.png'),        
+    
    
 
         

@@ -848,6 +848,7 @@ export default {
 
             color: '#e4c7fb'
         },
+
         title:{
             textAlign: 'center',
             fontSize: h(50),
@@ -865,20 +866,20 @@ export default {
             textAlign: 'center',
             fontSize: h(30),
             fontFamily: 'OpenSansCondensed_bold',
-            marginBottom: h(50),
+            marginBottom: h(10),
         },
         container:{
             flex:1,
 
         },
         statisticsContainer:{
+            marginTop: h(20),
             flex:1,
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
         },
         rowContainer:{
-            flex:3,
             flexDirection: 'row',
             alignItems: 'flex-start',
             justifyContent: 'center',
@@ -897,12 +898,20 @@ export default {
             justifyContent: 'center',
         },
         rowContainer:{
-            flex:3,
             flexDirection: 'row',
             alignItems: 'flex-start',
             justifyContent: 'center',
         },
         statisticsItem:{
+        },
+        shareContainer:{
+            position: 'absolute',
+            bottom:0,
+            right:0
+        },
+        shareImg:{
+            width: s(159),
+            height: s(149)
         },
     },
     'SuperLiga.StatisticItem':{
@@ -930,7 +939,7 @@ export default {
         text:{
             fontFamily: 'OpenSans',
             fontSize: s(20),
-            marginTop: 10,
+            marginTop: s(10),
             textAlign:'center',
         }
     },

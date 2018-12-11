@@ -21,6 +21,8 @@ import {NextTriviaStore,NextTriviaActions} from '../store/NextTriviaStore';
 
 
 import bgSrc from '../assets/images/home_bg.png';
+import triviaBgSrc from '../assets/images/home_trivia_bg.png';
+
 import helpSrc from '../assets/images/home/help.png';
 import shareSrc from '../assets/images/home/share.png';
 import shopSrc from '../assets/images/home/shop.png';
@@ -33,6 +35,9 @@ import TriviaCarouselMinimal from '../components/Trivia/TriviaCarouselMinimal';
 
 class HomeScreen2 extends Reflux.Component {
 
+  state = {
+    screenBg : bgSrc
+  }
 	constructor(props) {
     super(props);
 		this.stores = [NextTriviaStore,UsersStore,StatisticsStore];
@@ -43,10 +48,17 @@ class HomeScreen2 extends Reflux.Component {
 
   }
 
-
+  carouselChange = (item) => {
+    if(item.type=='trivia'){
+      this.setState({screenBg: triviaBgSrc})
+      return;
+    }
+    
+    this.setState({screenBg: bgSrc})
+  }
   renderNextTrivia(){
     if(!this.state.NextTrivia.hasData) return <Spinner />;
-    return (<TriviaCarouselMinimal></TriviaCarouselMinimal>)
+    return (<TriviaCarouselMinimal onItem={this.carouselChange}></TriviaCarouselMinimal>)
     return (
       <NextTrivia2 trivia={this.state.NextTrivia.Trivia}/>
     );
@@ -81,6 +93,7 @@ class HomeScreen2 extends Reflux.Component {
     const styles = this.props.style;
     let points = 0;
     let lives = 0;
+    let homeBg = this.state.screenBg;
     if(this.state.hasInformation){
         if(this.state.user.life){
             lives = this.state.user.life.lives;
@@ -95,7 +108,7 @@ class HomeScreen2 extends Reflux.Component {
 
     return (
           <Container>
-            <Wallpaper source={bgSrc}>
+            <Wallpaper source={homeBg}>
             <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
             <Content>
                  <View style={styles.nextTriviaIconsContainer}>

@@ -147,6 +147,7 @@ export default class App extends React.Component {
         'OpenSans_bold': require('./assets/fonts/OpenSans-Bold.ttf'),
         'OpenSansCondensed_light': require('./assets/fonts/OpenSansCondensed-Light.ttf'),
         'OpenSansCondensed_bold': require('./assets/fonts/OpenSansCondensed-Bold.ttf'),
+        'AbadiMTCondensedExtraBold': require('./assets/fonts/AbadiMTCondensedExtraBold.ttf'),
       }),
       Asset.loadAsync([
         require ('./assets/images/noticeBg.png'),
@@ -172,6 +173,7 @@ export default class App extends React.Component {
         require ('./assets/images/teams/patronato.png'),
         require ('./assets/images/ball.png'),
         require ('./assets/images/home_bg.png'),
+        require ('./assets/images/home_trivia_bg.png'),
         require ('./assets/images/carousel-prev.png'),
         require ('./assets/images/rain_back.png'),
         require ('./assets/images/result/wrong_bg.png'),

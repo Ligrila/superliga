@@ -48,6 +48,8 @@ class TriviaCarouselMinimal extends Reflux.Component {
     TriviaActions.index();
     TriviaActions.index.completed.listen((trivias)=>{
       this.setTitle(trivias.data[0]);
+      this.props.onItem(trivias.data[0]);
+
     });
     this.setState({loading:false});
 
@@ -58,6 +60,7 @@ class TriviaCarouselMinimal extends Reflux.Component {
   }
   onSnapToItem = (index)=>{
     const item = this.state.Trivia.Trivias[index];
+    this.props.onItem(item)
     this.setTitle(item);
     this.setState({ activeSlide: index });
 

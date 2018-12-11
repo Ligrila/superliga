@@ -27,7 +27,19 @@ class GameMessage extends React.Component {
     componentDidMount(){
         Vibration.vibrate()
     }
+    renderAward(){
 
+        if(this.props.award && this.props.award.length > 0){
+            const styles = this.props.style;
+            return (
+                <View>
+                    <Text style={styles.awardText}>EL MEJOR DE 15</Text>
+                    <Text style={styles.awardText}>PREGUNTAS SE</Text>
+                    <Text style={styles.awardText}>SE LLEVA UNA {this.props.award.toUpperCase()}!</Text>
+                </View>
+            );
+        }
+    }
     render(){
         const styles = this.props.style;
         const title = this.props.title;
@@ -40,7 +52,7 @@ class GameMessage extends React.Component {
                 <Image source={whistleImg} style={styles.image} />
                 <Text style={styles.text}>{title}</Text>
                 <Text style={styles.bigText}>{bigText}</Text>
-
+                {this.renderAward()}
             </View>
         )
     }

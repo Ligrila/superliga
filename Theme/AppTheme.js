@@ -557,18 +557,16 @@ export default {
             alignItems: 'center',
         },
         programmedTriviaText1:{
-            fontFamily: 'edosz',
-            fontSize: h(99),
-            color: '#e8f1ff',
-            transform: [{ rotate: '-5deg'}],
+            fontFamily: 'AbadiMTCondensedExtraBold',
+            fontSize: h(100),
+            color: '#fff',
             textAlign:'center',
             marginBottom: h(-20)
         },
         programmedTriviaText2:{
-            fontFamily: 'edosz',
-            fontSize: h(99),
-            color: '#e8f1ff',
-            transform: [{ rotate: '-5deg'}],
+            fontFamily: 'AbadiMTCondensedExtraBold',
+            color: '#fff',
+            fontSize: h(100),
             textAlign:'center',
         },
     },
@@ -1368,6 +1366,14 @@ export default {
             transform: [{ rotate: '-10deg'}],
             textAlign:'center'
           },
+          awardText:{
+              fontSize: s(45),
+              fontFamily: 'OpenSansCondensed_bold',
+              textAlign:'center',
+              lineHeight: s(45)
+
+
+          }
      
       },
     'SuperLiga.GameWait': {

@@ -95,7 +95,7 @@ class GameQuestion extends Reflux.Component {
     }
     primaryButtonColor = () => {
         if(this.state.CurrentTrivia.Trivia.type == 'trivia'){
-            return '#4fc0fa';
+            return '#cc366b';
         }
         return '#7b4295';
     }
@@ -198,11 +198,15 @@ class GameQuestion extends Reflux.Component {
         let titleTags = (
             <View>
             <Text style={{...styles.text,...titleStyles}}>{title}</Text>
-            <Text style={styles.subtitle}>{subtitle}</Text>
             </View>
             );
+        let bottomTags = (
+            <View>
+                <Text style={styles.subtitle}>{subtitle}</Text>
+            </View>
+        )
         if(this.state.hasResult){
-            titleTags = null;
+            titleTags = bottomTags = null;
         }
         return(
                 <View style={styles.container}>
@@ -258,6 +262,7 @@ class GameQuestion extends Reflux.Component {
                             </Button>
                         </View>
                     </TouchableWithoutFeedback>
+                    {bottomTags}
                 </View>
         )
     }

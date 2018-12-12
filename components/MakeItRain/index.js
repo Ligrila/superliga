@@ -3,8 +3,9 @@ import { Dimensions, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import moneyFront from '../../assets/images/rain.png';
 import moneyBack from '../../assets/images/rain_back.png';
+import Layout from '../../constants/Layout'
 
-const MONEY_DIMENSIONS = { width: 61, height: 64 };
+const MONEY_DIMENSIONS = { width: 32, height: 27 };
 const SCREEN_DIMENSIONS = Dimensions.get('window');
 const WIGGLE_ROOM = 50;
 

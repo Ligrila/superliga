@@ -14,6 +14,7 @@ import { connectStyle } from 'native-base';
 
 
 const whistleImg = require('../../assets/images/whistle.png')
+const whistle2Img = require('../../assets/images/whistle2.png')
 
 /**
  * 
@@ -40,6 +41,13 @@ class GameMessage extends React.Component {
             );
         }
     }
+    renderWhistle(){
+        const styles = this.props.style
+        if(this.props.whistle2){
+            return (<Image source={whistle2Img} style={styles.image} />)    
+        }
+        return (<Image source={whistleImg} style={styles.image} />)
+    }
     render(){
         const styles = this.props.style;
         const title = this.props.title;
@@ -49,7 +57,7 @@ class GameMessage extends React.Component {
         
         return(
             <View style={styles.container}>
-                <Image source={whistleImg} style={styles.image} />
+                {this.renderWhistle()}
                 <Text style={styles.text}>{title}</Text>
                 <Text style={styles.bigText}>{bigText}</Text>
                 {this.renderAward()}

@@ -181,6 +181,7 @@ export default class App extends React.Component {
         require ('./assets/images/tutorial.png'),
 
         require ('./assets/images/whistle.png'),
+        require ('./assets/images/whistle2.png'),
         require ('./assets/images/nextArrow.png'),
         require ('./assets/images/menu/fixture.png'),
         require ('./assets/images/menu/buy.png'),

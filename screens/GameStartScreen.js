@@ -44,7 +44,7 @@ class GameStartScreen extends React.Component {
     const trivia = this.props.navigation.getParam("trivia",false);
     if(trivia && trivia.type=='trivia'){
       return (
-        <GameMessage title="Arranca la" bigText='trivia!' award={trivia.award}></GameMessage>
+        <GameMessage title="Arranca la" bigText='trivia!' award={trivia.award} whistle2={true}></GameMessage>
       )
     }
     return (

@@ -1228,18 +1228,20 @@ export default {
             flexDirection: 'column',
         },
         programmedTriviaText1:{
-            fontFamily: 'edosz',
-            fontSize: h(99),
-            color: '#e8f1ff',
-            transform: [{ rotate: '-5deg'}],
+            fontFamily: 'AbadiMTCondensedExtraBold',
+            fontSize: h(65),
+            lineHeight: h(65),
+            color: '#fff',
+            
             textAlign:'center',
-            marginBottom: h(-20)
+            
         },
         programmedTriviaText2:{
-            fontFamily: 'edosz',
-            fontSize: h(99),
-            color: '#e8f1ff',
-            transform: [{ rotate: '-5deg'}],
+            fontFamily: 'AbadiMTCondensedExtraBold',
+            fontSize: h(65),
+            lineHeight: h(65),
+            color: '#fff',
+            
             textAlign:'center',
         },
     },
@@ -1348,12 +1350,12 @@ export default {
               marginTop: h(-180),
               width: s(412),
               height: s(285),
-              zIndex:10
+              zIndex:0
           },
           text: {
             fontFamily: 'edosz',
             fontSize: s(100),
-            marginTop: h(-50),
+            marginTop: h(-80),
 
             transform: [{ rotate: '-10deg'}],
             textAlign:'center'

@@ -40,7 +40,7 @@ class GameStatistics extends Reflux.Component {
         let rankingStyle = styles.ranking;
 
         if(triviaType=='trivia'){
-            rankingStyle = {...rankingStyle,color:'#4fc0fa'};
+            rankingStyle = {...rankingStyle,color:'#cc366b'};
         }
 
         return(

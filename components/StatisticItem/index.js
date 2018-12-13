@@ -26,7 +26,7 @@ class StatisticItem extends React.Component {
     componentDidMount(){
         
         if(this.props.type=='trivia'){
-            this.setState({tintColor:'#4fc0fa'})
+            this.setState({tintColor:'#cc366b'})
         }
     }
     onBallFill(){}

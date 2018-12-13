@@ -558,7 +558,7 @@ export default {
         },
         programmedTriviaText1:{
             fontFamily: 'AbadiMTCondensedExtraBold',
-            fontSize: h(100),
+            fontSize: h(60),
             color: '#fff',
             textAlign:'center',
             marginBottom: h(-20)
@@ -1229,7 +1229,7 @@ export default {
         },
         programmedTriviaText1:{
             fontFamily: 'AbadiMTCondensedExtraBold',
-            fontSize: h(65),
+            fontSize: h(35),
             lineHeight: h(65),
             color: '#fff',
             

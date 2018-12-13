@@ -23,12 +23,14 @@ class TriviaMinimal extends Component {
     let until = ( sdate.getTime() - new Date().getTime()) / 1000;
     const width = this.props.avatarWidth || 212 * Layout.window.ratio;
     const height = this.props.avatarHeight || 238 * Layout.window.ratio;
+    const title1 = this.trivia.title1 ? this.trivia.title1.toUpperCase() : 'TRIVIA';
+    const title2 = this.trivia.title2 ? this.trivia.title2.toUpperCase() : 'SEMANAL';
     if(this.trivia.type=='trivia'){
                   return (
                       <View style={styles.avatarContainer}>
                         <View style={styles.programmedTriviaTextContainer}>
-                          <Text style={styles.programmedTriviaText1}>TRIVIA</Text>
-                          <Text style={styles.programmedTriviaText2}>SEMANAL</Text>
+                          <Text style={styles.programmedTriviaText1}>{title1}</Text>
+                          <Text style={styles.programmedTriviaText2}>{title2}</Text>
                         </View>
 
                       </View>

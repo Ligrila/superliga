@@ -34,10 +34,12 @@ class Game extends Component {
     renderTeams = () => {
         const styles = this.props.style;
         if(this.props.currentTrivia.type=='trivia'){
+            const title1 = this.props.currentTrivia.title1 ? this.props.currentTrivia.title1.toUpperCase() : 'TRIVIA';
+            const title2 = this.props.currentTrivia.title2 ? this.props.currentTrivia.title2.toUpperCase() : 'SEMANAL';
             return (
                 <View style={styles.programmedTriviaContainer}>    
-                    <Text style={styles.programmedTriviaText1}>TRIVIA</Text>
-                    <Text style={styles.programmedTriviaText2}>SEMANAL</Text>
+                    <Text style={styles.programmedTriviaText1}>{title1}</Text>
+                    <Text style={styles.programmedTriviaText2}>{title2}</Text>
                 </View>
                 )
         }

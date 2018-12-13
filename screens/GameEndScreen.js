@@ -13,6 +13,7 @@ import GameStatistics from '../components/Game/GameStatistics';
 import MakeItRain from '../components/MakeItRain';
 
 const bgSrc = require('../assets/images/bg.png');
+const bgProgrammedTriviaSrc = require('../assets/images/programmed-trivia-bg.png');
 const shareSrc = require('../assets/images/share.png');
 
 
@@ -80,6 +81,10 @@ class GameEndScreen extends React.Component {
       return (<GameStatistics trivia_id={this.currentTriviaId} trivia={this.trivia}/>)
     }
 
+    if(this.trivia.type='trivia'){
+      return (<GameMessage title="Termino el" bigText="partido!" whistle2={true}></GameMessage>)
+    }
+
     return (
       <GameMessage title="Termino el" bigText="partido!"></GameMessage>
     )
@@ -94,12 +99,15 @@ class GameEndScreen extends React.Component {
   
   render() {
     const styles = this.props.style
-
+    let screenBg = bgSrc;
+    if(this.trivia.type=='trivia'){
+      screenBg = bgProgrammedTriviaSrc
+    }
     const rain =  <MakeItRain />
 
     return (
       <Container>
-      <Wallpaper source={bgSrc}>
+      <Wallpaper source={screenBg}>
 
 
       {this.renderRain()}

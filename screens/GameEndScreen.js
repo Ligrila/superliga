@@ -82,7 +82,7 @@ class GameEndScreen extends React.Component {
     }
 
     if(this.trivia.type='trivia'){
-      return (<GameMessage title="Termino el" bigText="partido!" whistle2={true}></GameMessage>)
+      return (<GameMessage title="Termino la" bigText="trivia!" whistle2={true}></GameMessage>)
     }
 
     return (

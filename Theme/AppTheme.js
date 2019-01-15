@@ -9,6 +9,8 @@ const h = (size) => {
 }
 const FooterStyle ={
     borderTopWidth:0,
+    elevation:0
+
     //height: Layout.isIphoneX ? null: 'auto',
 
 };
@@ -559,15 +561,18 @@ export default {
         programmedTriviaText1:{
             fontFamily: 'AbadiMTCondensedExtraBold',
             fontSize: h(60),
+            lineHeight: h(60),
             color: '#fff',
             textAlign:'center',
-            marginBottom: h(-20)
         },
         programmedTriviaText2:{
             fontFamily: 'AbadiMTCondensedExtraBold',
             color: '#fff',
             fontSize: h(100),
+            lineHeight: h(100),
             textAlign:'center',
+            marginBottom: h(-20)
+
         },
     },
     'SuperLiga.Awards':{
@@ -1101,7 +1106,8 @@ export default {
 
         },
         footer:{
-            ...FooterStyle
+            ...FooterStyle,
+
         },
         noLifeText:{
             fontFamily: 'OpenSansCondensed_bold',
@@ -1113,8 +1119,9 @@ export default {
     'SuperLiga.LoginScreen':{
         login:{
             flex:1,
-            alignItems:'center',
-            justifyContent: 'center'
+            minHeight:'100%',
+            alignItems:'center', // horizontal
+            justifyContent: 'center',
         },
         container:{
             flex:1,
@@ -1137,7 +1144,7 @@ export default {
         },
         submitButton:{
             backgroundColor: '#7b4294',
-            marginTop: s(40),
+            marginTop: h(40),
         },
         submitButtonText:{
             color: '#fff',
@@ -1147,7 +1154,7 @@ export default {
         registerTitle:{
             fontFamily: 'OpenSansCondensed_light',
             fontSize: s(40),
-            marginTop: s(50),
+            marginTop: h(50),
         },
         registerSubTitle:{
             fontFamily: 'OpenSansCondensed_light',
@@ -1176,7 +1183,7 @@ export default {
             marginHorizontal:0,
         },
         socialLoginContainer:{
-            marginTop: s(50),
+            marginTop: h(50),
             width: "100%",
             justifyContent: 'center',
             alignItems: 'center',
@@ -1186,19 +1193,19 @@ export default {
             fontSize: s(40),
         },
         socialLoginIcons:{
-            marginTop: s(30),
+            marginTop: h(30),
             alignItems:'center',
             justifyContent:'center',
             flexDirection: 'row'
         },
         socialIconSeparator:{
             width: 1,
-            height: s(20),
+            height: h(20),
             backgroundColor: '#fff',
             marginHorizontal: 10,
         },
         termsAndConditionsContainer:{
-            marginTop: s(20),
+            marginTop: h(20),
 
         }
     },
@@ -1395,11 +1402,11 @@ export default {
       },
       "SuperLiga.AppHeader":{
         header: {
-            paddingTop: Layout.isIphoneXR ? 29 : 0,
+            paddingTop: Layout.isIphoneXR ? 29 : Layout.isAndroid ? 23 : 0,
+            paddingBottom: Layout.isAndroid ? 20 : 0,
             zIndex: 1,
             justifyContent: 'flex-start',
-            height: 'auto',
-        
+            height: 'auto'        
         },
         left:{
           flex:1,

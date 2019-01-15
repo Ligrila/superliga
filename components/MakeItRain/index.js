@@ -10,6 +10,7 @@ const SCREEN_DIMENSIONS = Dimensions.get('window');
 const WIGGLE_ROOM = 50;
 
 const FlippingImage = ({ back = false, delay, duration = 1000, source, style = {} }) => (
+  
   <Animatable.Image
     animation={{
       from: { rotateX: back ? '0deg' : '180deg', rotate: !back ? '180deg' : '0deg' },
@@ -17,7 +18,7 @@ const FlippingImage = ({ back = false, delay, duration = 1000, source, style = {
     }}
     duration={duration}
     delay={delay}
-    easing="ease-out" // linear original
+    easing={Layout.isAndroid ? 'linear' : 'ease-out'}
     iterationCount="infinite"
     useNativeDriver
     source={source}

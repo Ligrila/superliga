@@ -52,7 +52,14 @@ class LoginScreen extends React.Component {
       await this.setState({password});
 
     }
-
+    renderFooter = () => {
+      if(Enviroment.channel == ''){
+        return null
+      }
+      return (<Footer>
+      <Text>{Enviroment.channel}</Text>
+      </Footer>)
+    }
 
     render() {
       const styles = this.props.style;
@@ -69,7 +76,7 @@ class LoginScreen extends React.Component {
                   <Item style={styles.item}>
                     <Input style={styles.input} placeholder="Email"
                       onChangeText={this.onEmailChange}
-                      keyboardType='email-address' 
+                      keyboardType='email-address'
 
                     />
                   </Item>
@@ -113,10 +120,7 @@ class LoginScreen extends React.Component {
                   </View>
               </View>
           </Content>
-          <Footer>
-            <Text>{Enviroment.channel}</Text>
-            
-          </Footer>
+          {this.renderFooter()}
          </Wallpaper>
         </Container>
       );

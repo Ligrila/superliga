@@ -43,7 +43,7 @@ export default class RestClient {
       options = {...defaultOptions,...options};
       if (!route) throw new Error('Route is undefined');
       var fullRoute = this._fullRoute(route);
-      //console.log("API REQUEST: " + fullRoute + " body: " + JSON.stringify(body));
+      console.log("API REQUEST: " + fullRoute + " body: " + JSON.stringify(body));
       if (isQuery && body) {
         var qs = require('qs');
         const query = qs.stringify(body);
@@ -77,9 +77,11 @@ export default class RestClient {
 
       
       const extractResponse = response => {
+
         if (response.status >= 200 && response.status < 300) {
             return response.text().then(
               text => {
+                console.log(text);
                 return text? JSON.parse(text) : undefined
               }
             )
@@ -91,7 +93,7 @@ export default class RestClient {
 
       const manageError = async response => {
         console.log('reject url', this.url)
-        console.log('reject',await response.text());
+        console.log('reject',await response);
         
         try{
           if(typeof(response.text)!=='function'){
@@ -106,7 +108,7 @@ export default class RestClient {
                 success: false,
                 error: response
               };
-              //console.log(text);
+              console.log(text);
               try{
                 ret = text? JSON.parse(text) : undefined;
               } catch(e){

@@ -16,7 +16,6 @@ import Api from '../../api/Api';
     finalStatus = status;
   }
 
-
   // Stop here if the user did not grant permissions
   if (finalStatus !== 'granted') {
     return;

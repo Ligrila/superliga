@@ -7,6 +7,8 @@ import { UsersStore, UsersActions } from './UserStore';
 import { NextTriviaActions } from './NextTriviaStore';
 import { ConnectionStatusStore } from './ConnectionStatusStore';
 import { StatisticsStore } from './StatisticsStore';
+import { CurrentTriviaStatisticsStore, CurrentTriviaStatisticsActions } from './CurrentTriviaStatisticsStore';
+
 
 
 
@@ -17,6 +19,7 @@ export default class ActionDispatcher{
         Reflux.initStore(UsersStore);
         Reflux.initStore(ConnectionStatusStore);
         Reflux.initStore(StatisticsStore);
+        Reflux.initStore(CurrentTriviaStatisticsStore);
 
         
     }
@@ -50,6 +53,7 @@ export default class ActionDispatcher{
                 break;
             case 'startTrivia':
                 NextTriviaActions.current(message.payload);
+                CurrentTriviaStatisticsActions.reset();
                 break;
             case 'finishedQuestion':
                 TriviaQuestionActions.finishedQuestion(message.payload);

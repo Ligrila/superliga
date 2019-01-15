@@ -189,7 +189,7 @@ class GameScreen extends Reflux.Component {
           {this.renderModal()}
           {this.renderGame()}
         </Content>
-        <Footer style={styles.footer}>
+        <Footer style={styles.footer} transparent>
           {this.renderFooter()}
         </Footer>
         </Wallpaper>

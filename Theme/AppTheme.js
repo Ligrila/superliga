@@ -836,9 +836,17 @@ export default {
             color: '#282828',
         },
         tutorialImg: {
-            width: s(750),
-            height: s(5249)
-        }
+            width: Layout.window.width,
+            height: s(1636)
+        },
+        tutorialImg2: {
+            width: Layout.window.width,
+            height: s(1968)
+        },
+        tutorialImg3: {
+            width: Layout.window.width,
+            height: s(1644)
+        },
     },
     'SuperLiga.GameStatistics':{
         statistics:{

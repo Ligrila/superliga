@@ -37,6 +37,10 @@ import GameHalfTimeStartScreen from '../screens/GameHalfTimeStartScreen';
 import GameStartScreen from '../screens/GameStartScreen';
 import GameHalfTimePlayScreen from '../screens/GameHalfTimePlayScreen';
 import GameExtraPlayScreen from '../screens/GameExtraPlayScreen';
+import ChampionshipScreen from '../screens/ChampionshipScreen';
+import ChampionshipViewScreen from '../screens/ChampionshipViewScreen';
+import ChampionshipCreateScreen from '../screens/ChampionshipCreateScreen';
+import ChampionshipSubscribeScreen from '../screens/ChampionshipSubscribeScreen';
 
 
 
@@ -77,6 +81,20 @@ const GameStack = createStackNavigator(
   }
 )
 
+const ChampionshipStack = createStackNavigator(
+  {
+    ChampionshipHome: ChampionshipScreen,
+    ChampionshipView: ChampionshipViewScreen,
+    ChampionshipCreate: ChampionshipCreateScreen,
+    ChampionshiSubscribe: ChampionshipSubscribeScreen
+
+
+  },
+  {
+    headerMode: 'none',
+  }
+)
+
 var GameSwitcher = createSwitchNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
@@ -97,7 +115,7 @@ var Main = createDrawerNavigator({
       title: "Inicio",
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Jugar"} icon="gamepad" source={require('../assets/images/menu/awards.png')}/>
+          <SidebarItem label={"Jugar"} icon="gamepad" />
         )
       }
     }
@@ -115,7 +133,7 @@ var Main = createDrawerNavigator({
       title: "Reglas",
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Reglas del juego"} icon="legal" source={require('../assets/images/menu/awards.png')}/>
+          <SidebarItem label={"Reglas del juego"} icon="legal" />
         )
       }
     }
@@ -139,7 +157,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Mi perfil"} icon="user" source={require('../assets/images/menu/profile.png')}/>
+          <SidebarItem label={"Mi perfil"} icon="user" />
         )
       }
     }
@@ -149,7 +167,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
         drawerLabel: () =>{
           return (
-            <SidebarItem label={"Fixture"} icon="calendar" source={require('../assets/images/menu/fixture.png')}/>
+            <SidebarItem label={"Fixture"} icon="calendar" />
           )
         }
       }
@@ -159,11 +177,21 @@ var Main = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Comprar"} icon="shopping-cart" source={require('../assets/images/menu/profile.png')}/>
+          <SidebarItem label={"Comprar"} icon="shopping-cart" />
         )
       },
       mode: 'modal',
       headerMode: 'none',
+    }
+  },
+  Championship:{
+    screen: ChampionshipStack,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Torneo amigos"} icon="trophy"  />
+        )
+      }
     }
   },
   Awards:{
@@ -171,7 +199,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Premios"} icon="trophy" source={require('../assets/images/menu/awards.png')}/>
+          <SidebarItem label={"Premios"} icon="gift" />
         )
       }
     }
@@ -191,7 +219,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Estadisticas"} icon="bar-chart" source={require('../assets/images/menu/statistics.png')}/>
+          <SidebarItem label={"Estadisticas"} icon="bar-chart" />
         )
       }
     }
@@ -201,7 +229,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Ranking"} icon="list-ol" source={require('../assets/images/menu/statistics.png')}/>
+          <SidebarItem label={"Ranking"} icon="list-ol" />
         )
       }
     }

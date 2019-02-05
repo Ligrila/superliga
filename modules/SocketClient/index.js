@@ -18,7 +18,7 @@ import {Toast} from 'native-base'
 import { ConnectionStatusActions } from '../../store/ConnectionStatusStore';
 
 export default class SocketClient{
-    _connectedEvents = [];
+    connected = false;
     constructor(){
         //WebSockHop.logger = this.logger;
         try{
@@ -35,19 +35,22 @@ export default class SocketClient{
             this.socket.on('opened', function () {
               //ConnectionStatusActions.set(true);
               //console.log('a');
+              this.connected = true;
             });
             this.socket.on('message', (message) => {
+              //console.log({message});
               if(typeof(message.eventName)=='string'){
                 this.actionDispatcher.dispatch(message);
               }
             });
       
             this.socket.on('error', function (v,c) {
-
+              this.connected = false;
             });
       
             this.socket.on('closed', function() {
               this.socket = null;
+              this.connected = false;
             });
         } catch(e){
           console.log(e);

@@ -36,22 +36,34 @@ const itemWidth = slideWidth;
 
 
 class TriviaCarouselMinimal extends Reflux.Component {
-
+   completedUnsuscribe = null;
    constructor(props){
       super(props);
-      this.state = { loading:true,title:'',subtitle:'',activeSlide: 0 };
+      this.state = { loading:true,title:'',subtitle:'',activeSlide: 0,didMount: false };
       this.store = TriviaStore;
    
   }
 
   componentDidMount(){
     TriviaActions.index();
-    TriviaActions.index.completed.listen((trivias)=>{
+    this.completedUnsuscribe = TriviaActions.index.completed.listen((trivias)=>{
       this.setTitle(trivias.data[0]);
       this.props.onItem(trivias.data[0]);
 
     });
     this.setState({loading:false});
+    this.setState({didMount:true});
+
+  }
+  componentWillUnmount(){
+    super.componentWillUnmount();
+    this.setState({didMount:false});
+    if(this.completedUnsuscribe){
+      //console.log("unsuscribe");
+      this.completedUnsuscribe();
+
+
+    }
 
   }
   setTitle(item){
@@ -129,7 +141,7 @@ _renderItem = ({item, index}) => {
     if(!this.state.Trivia.hasData){
       return;
     }
-    const winnerText = item.award.length > 0 ? 'Jugas por: ' + item.award  : ''
+    const winnerText = item.award.length > 0 ? item.award  : ''
     
     return (
         <View style={styles.slide}>
@@ -156,6 +168,9 @@ prevItem = () =>{
 }
 
 renderCarousel(){
+  if(!this.state.didMount){
+    return;
+  }
   return (
     <Carousel
             ref={(c) => { this._carousel = c; }}

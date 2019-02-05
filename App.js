@@ -1,6 +1,6 @@
 import React from 'react';
-import {  StyleSheet, Image,AsyncStorage, NetInfo } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import {  AppState, Image,AsyncStorage, NetInfo } from 'react-native';
+import { AppLoading, Asset, Font, Icon, Linking } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { Root,  Text, Button, Container, Content, Toast } from "native-base";
 
@@ -15,22 +15,50 @@ import { UsersActions } from './store/UserStore';
 
 import './helpers/RegisterPushNotification';
 
-import { DangerZone, Notifications, Util, KeepAwake } from 'expo';
+import {  Notifications, Util, KeepAwake } from 'expo';
 import { ConnectionStatusActions } from './store/ConnectionStatusStore';
-const { Localization } = DangerZone;
+import { Localization } from 'expo-localization';
+
+import { NavigationActions } from 'react-navigation';
+
 
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
     isConnected: false,
-    isLoadingError: false
+    isLoadingError: false,
+    appState: AppState.currentState
+
   };
   api = new Api;
   socket = null;
   constructor(props){
     super(props)
+    this._addLinkingListener()
   }
+
+  _handleRedirect = event => {
+
+    const {path} = Linking.parse(event.url);
+    if(path){
+      const parts = path.split('/')
+      if(parts[0]=='championships' && parts[1]){
+        const championshipId = parts[1]
+        this.navigate('ChampionshiSubscribe',{championship:{id:championshipId}})
+      }
+    }
+    
+  };
+
+  _addLinkingListener = () => {
+    Linking.addEventListener('url', this._handleRedirect);
+  };
+
+  _removeLinkingListener = () => {
+    Linking.removeEventListener('url', this._handleRedirect);
+  };
+
   async initNetwork(){
       /*console.ignoredYellowBox = [
         'Setting a timer'
@@ -55,9 +83,14 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+
     UsersActions.isLoggedIn.listen(
       (b) => {
-        registerPushNotifications().then((data)=>console.log('PushNotificationsRegister',data));
+        registerPushNotifications().then((data)=>console.log('PushNotificationsRegister',data))
+        .catch(function(e) {
+          //rejected
+        });;
       }
     )
 
@@ -78,7 +111,28 @@ export default class App extends React.Component {
     console.log("NOTIFICATION", notification);
   };
   componentWillUmount(){
-    this.socket.close();    
+    this.socket.close();
+    AppState.removeEventListener('change', this._handleAppStateChange);
+    
+  }
+
+  navigate(routeName, params) {
+    this.AppNavigator.dispatch(
+      NavigationActions.navigate({
+        routeName,
+        params,
+      })
+    );
+  }
+
+  _handleAppStateChange = (nextAppState) => {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      if(!this.socket.connected){
+        //this.navigate('HomeSwitcher'); // en test, error solamente llamar si estas en home
+      }
+      //console.log('App has come to the foreground!')
+    }
+    this.setState({appState: nextAppState});
   }
 
   render() {
@@ -105,7 +159,15 @@ export default class App extends React.Component {
       return (
         <Root>
           <StyleProvider style={AppTheme}>
-              <AppNavigator />
+              <AppNavigator 
+                  ref={
+                      (navigatorRef) =>{
+                        this.AppNavigator = navigatorRef
+                        //console.log(navigatorRef.dispatch)
+                      }
+                    }
+
+              />
           </StyleProvider>
         </Root>
       );
@@ -132,8 +194,8 @@ export default class App extends React.Component {
     }
 
     const serverAssets = this.cacheImages(teamImages);
-    const deviceTimezone = await Localization.getCurrentTimeZoneAsync();
-    await AsyncStorage.setItem('deviceTimezone', `${deviceTimezone}`);
+    const deviceTimezone = await Localization.getLocalizationAsync();
+    await AsyncStorage.setItem('deviceTimezone', `${deviceTimezone.timezone}`);
     return Promise.all([
       Font.loadAsync({
         // This is the font that we are using for our tab bar
@@ -185,13 +247,6 @@ export default class App extends React.Component {
         require ('./assets/images/whistle.png'),
         require ('./assets/images/whistle2.png'),
         require ('./assets/images/nextArrow.png'),
-        require ('./assets/images/menu/fixture.png'),
-        require ('./assets/images/menu/buy.png'),
-        require ('./assets/images/menu/settings.png'),
-        require ('./assets/images/menu/statistics.png'),
-        require ('./assets/images/menu/awards.png'),
-        require ('./assets/images/menu/rewards.png'),
-        require ('./assets/images/menu/profile.png'),
         require ('./assets/images/splash.png'),
         require ('./assets/images/rain.png'),
         require ('./assets/images/robot-dev.png'),

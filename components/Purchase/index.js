@@ -56,7 +56,7 @@ class Purchase extends Reflux.Component {
     }
   }
   onHide = () => {
-      console.log("ONHIDE");
+      //console.log("ONHIDE");
       this.props.onHidePress();
   }
   renderHide(){

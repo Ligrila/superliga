@@ -17,6 +17,239 @@ const FooterStyle ={
 
 
 export default {
+    'SuperLiga.ChampionshipSubscribeScreen':{
+        card:{
+            backgroundColor: 'transparent'
+        },
+        cardItem:{
+            backgroundColor: 'transparent'
+        },
+    },
+    'SuperLiga.ChampionshipView':{
+        container:{
+            flex: 1,
+        },
+        buttons:{
+            flexDirection: 'row',
+            alignItems: 'center'
+        },
+        list:{
+        },
+        listItem:{
+            backgroundColor: '#fff',
+            height: h(94),
+            paddingHorizontal:0,
+            marginHorizontal:0,
+            width: "100%",
+            borderWidth:0,
+            marginTop:2
+        },
+        positionMargin:{
+            width: s(18)
+        },
+        positionText:{
+            fontSize: s(37),
+            fontFamily: 'OpenSansCondensed_light',
+            color: '#282828',
+        },
+        userNameText:{
+            fontSize: s(30),
+            fontFamily: 'OpenSansCondensed_bold',
+        },
+        pointsText:{
+            fontSize: s(48),
+            fontFamily: 'OpenSansCondensed_light',
+        },
+
+        trophyImage:{
+            width: s(54),
+            height: s(42),
+        },
+        medalImage:{
+            position: 'absolute',
+            top: 0,
+            left: s(107),
+            width: s(37),
+            height: s(53),
+        },
+
+        listItemPosition:{
+
+        },
+        listItemLeft:{
+            position: 'relative',
+            backgroundColor: '#fff',
+            width: s(135),
+            height: '100%',
+            textAlign:'center',
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        listItemPositionLeft:{
+            1:{
+                width: s(187)
+            },
+            2:{
+                width: s(172)
+            },
+            3: {
+                width: s(163)
+            }
+        },
+        listItemBody:{
+            backgroundColor: '#245591',
+            textAlign:'center',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        listItemPositionBody:{
+            1: {
+                backgroundColor: '#723e8e',
+            },
+            2:{
+                backgroundColor: '#9461af',
+            },
+            3:{
+                backgroundColor: '#b68acd',
+            }
+        },
+        listItemRight:{
+            backgroundColor: '#245591',
+            textAlign:'center',
+            alignItems: 'center',
+            justifyContent: 'center'
+
+        },
+        listItemPositionRight:{
+            1: {
+                backgroundColor: '#723e8e',
+            },
+            2:{
+                backgroundColor: '#9461af',
+            },
+            3:{
+                backgroundColor: '#b68acd',
+            }
+        },
+        buttonText: {
+            color: '#fff',
+            fontSize: s(30),
+            fontFamily: 'OpenSansCondensed_bold',
+            alignItems: 'center'
+        }
+    },
+    'SuperLiga.ChampionshipList':{
+        container:{
+            flex: 1,
+        },
+        list:{
+            
+        },
+        listItem:{
+            marginTop: 2,
+            paddingHorizontal: s(10),
+            backgroundColor: '#fff', 
+        },
+        text:{
+            color: '#282828'
+        }
+
+    },
+    'SuperLiga.CreateChampionship':{
+        'placeholder':{
+            fontSize: s(35),
+            fontFamily: 'OpenSansCondensed_bold',
+            color: '#282828',
+        },
+        'input':{
+            borderRadius: s(10),
+            textAlign: 'center',
+            fontSize: s(35),
+            fontFamily: 'OpenSansCondensed_bold',
+            color: '#282828',
+            backgroundColor: '#fff', 
+            borderWidth: 0,
+            height: h(120),
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        'calendarContainer':{
+            marginTop: h(30),
+            borderRadius: s(10),
+            textAlign: 'center',
+            fontSize: s(35),
+            fontFamily: 'OpenSansCondensed_bold',
+            color: '#282828',
+            backgroundColor: '#fff', 
+            borderWidth: 0,
+            height: h(120),
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        'calendarIcon':{
+            color: '#7b4294',
+            fontSize: s(45),
+        },
+        'calendar':{
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+        'label':{
+            fontSize: s(35),
+            fontFamily: 'OpenSansCondensed_bold',
+            color: '#282828',
+        },
+        'buttonContainer':{
+            marginTop: h(30),
+            width: '100%',
+            textAlign: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+        'button':{
+            width: s(126),
+            height: s(126),
+            borderRadius: s(126),
+            alignItems: 'center',
+            justifyContent: 'center'
+
+        },
+        'buttonIcon':{
+            color: '#fff', 
+
+        },
+    },
+    'SuperLiga.Championship':{
+        container:{
+            flex: 1,
+        },
+        createButton:{
+            height: 56,
+            width: 56,
+            borderRadius: 28,
+            elevation: 4,
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.4,
+            justifyContent: "center",
+            alignItems: "center",
+            shadowRadius: 2,
+            position: "absolute",
+            bottom: 0,
+            right: 0,
+        },
+        createButtonIcon:{
+            color: '#fff',
+        }
+    },
+    'SuperLiga.ChampionshipScreen':{
+        content:{
+            flex: 1,
+        },
+    },
     'SuperLiga.RankingItem':{
         container:{
             display:'flex',
@@ -982,6 +1215,7 @@ export default {
             height: 'auto', // null
             alignItems: "center",
             justifyContent: "center",
+            paddingTop: ( Layout.isIphoneX || Layout.isIphoneXR) ? 30 : 0
           },
           content:{
           },
@@ -1410,7 +1644,7 @@ export default {
       },
       "SuperLiga.AppHeader":{
         header: {
-            paddingTop: Layout.isIphoneXR ? 29 : Layout.isAndroid ? 23 : 0,
+            paddingTop: Layout.isIphoneX ? 5 : Layout.isIphoneXR ? 29 : Layout.isAndroid ? 23 : 0,
             paddingBottom: Layout.isAndroid ? 20 : 0,
             zIndex: 1,
             justifyContent: 'flex-start',

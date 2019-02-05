@@ -10,9 +10,6 @@ import { StatisticsStore } from './StatisticsStore';
 import { CurrentTriviaStatisticsStore, CurrentTriviaStatisticsActions } from './CurrentTriviaStatisticsStore';
 
 
-
-
-
 export default class ActionDispatcher{
     constructor(){
         Reflux.initStore(ConnectedUsersStore); // la necesitamos iniciada

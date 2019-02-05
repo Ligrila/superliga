@@ -4,14 +4,15 @@ import "moment-timezone";
 
 
 import { DangerZone } from 'expo';
-const { Localization } = DangerZone;
+import { Localization } from 'expo-localization';
 
 
 class DateTimeHelper{
 
     
     static async _deviceTz(){
-        return await Localization.getCurrentTimeZoneAsync();
+        const t = await Localization.getLocalizationAsync();
+        return t.timezone;
     }
 
     static async datetime(date){

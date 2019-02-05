@@ -67,7 +67,7 @@ class Ranking extends Reflux.Component {
                 iosHeader="Seleccionar una fecha"
                 Header="Seleccionar una fecha"
                 style={styles.picker}
-                iosIcon={<Icon style={styles.pickerIcon} name="ios-arrow-down-outline" />}
+                iosIcon={<Icon style={styles.pickerIcon} name="ios-arrow-dropdown" />}
 
                 textStyle={styles.pickerText}
                 itemTextStyle={styles.pickerItemText}

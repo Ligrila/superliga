@@ -31,6 +31,7 @@ export class TriviaQuestion extends Reflux.Store
     onReset(){
         this.setState(this.getInititalState());
     }
+
     async onAdd(q){
         if(this.timer){
             clearTimeout(this.timer);
@@ -67,7 +68,7 @@ export class TriviaQuestion extends Reflux.Store
         if(this.state.currentQuestion.id == question.id){
             if(this.state.answeredServerResponse){
                 this.state.answeredServerResponse.then((data)=>{
-                    console.log(data);
+                    //console.log(data);
                     this.setState({
                         hasQuestion: false,
                         currentQuestion: question,

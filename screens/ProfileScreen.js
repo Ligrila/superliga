@@ -162,6 +162,10 @@ class ProfileScreen extends Reflux.Component {
     }
   }
   _pickImage = async () => {
+      const c = await this._checkPermissions();
+      if(!c){
+        return;
+      }
       let result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
         aspect: [1, 1],

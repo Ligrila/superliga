@@ -5,6 +5,9 @@ import Events from "./Events";
 import ErrorEnumValue from "./ErrorEnumValue";
 import { StringFormatter, JsonFormatter, MessageFormatterBase } from "./formatters";
 
+const MAX_TIMER_DURATION_MS = 60 * 1000;
+
+
 function defaultCreateSocket(url, protocols) {
     if (!WebSockHop.isAvailable()) {
         throw "WebSockHop cannot be instantiated because one or more validity checks failed.";
@@ -68,6 +71,9 @@ class WebSockHop {
             if (this._tries > 0) {
                 const timeCap = 1 << Math.min(6, (this._tries - 1));
                 delay = timeCap * 1000 + Math.floor(Math.random() * 1000);
+                if(delay>=MAX_TIMER_DURATION_MS){
+                    delay = MAX_TIMER_DURATION_MS;
+                }
                 WebSockHop.log("info", `Trying again in ${delay}ms`);
             }
             this._tries = this._tries + 1;

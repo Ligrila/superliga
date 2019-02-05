@@ -138,4 +138,24 @@ export default class Api extends RestClient {
     return this.GET('/users/trivia_statistics/'+trivia_id);
   }
 
+  championshipList(){
+    return this.GET('/championships/index');
+  }
+  championshipRanking(id,type){
+    return this.GET('/championships/ranking/'+id+'?type='+type);
+  }
+
+
+  createChampionship(name,startDate,endDate){
+    return this.POST('/championships/add',{
+      name: name,
+      start_date: startDate,
+      end_date: endDate
+    });
+  }
+  subscribeChampionship(id){
+    return this.POST('/championships/subscribe/'+id,{
+    });
+  }
+
 };

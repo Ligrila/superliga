@@ -27,10 +27,9 @@ import UserAvatar from '../UserAvatar';
 class _SidebarItem extends React.Component{
   render(){
     const styles = this.props.style;
-    const source = this.props.source;
     const icon = this.props.icon;
     //<Image source={source} style={styles.sidebarItemImage}></Image>
-    if(source){
+    if(icon){
       return(
           <View style={styles.sidebarItemStyle}>
               <Icon type="FontAwesome" name={icon}  style={styles.sidebarItemIcon}/>

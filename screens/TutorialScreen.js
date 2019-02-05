@@ -26,7 +26,7 @@ class TutorialScreen extends React.Component {
             <Button transparent
               onPress={this.goBack}
             >
-              <Icon name='arrow-back' style={styles.icon} />
+              <Icon name='ios-arrow-back' style={styles.icon} />
             </Button>
           </Left>
         </Header>

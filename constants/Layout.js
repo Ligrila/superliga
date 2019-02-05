@@ -6,7 +6,7 @@ const platform = Platform.OS;
 
 const widthTarget = 750;
 const heightTarget = 1334;
-const ratio =  ((width * 100 )/ widthTarget)/100;
+let ratio =  ((width * 100 )/ widthTarget)/100;
 const heightRatio =  ((height * 100 )/ heightTarget)/100;
 if(ratio > 1){
   //ratio = 1; // no maximize images

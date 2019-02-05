@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import {
     View,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Vibration
 } from "react-native";
 
 import { Text, Button, Icon } from 'native-base'
@@ -18,6 +19,7 @@ import { TriviaQuestion, TriviaQuestionActions } from "../../store/TriviaQuestio
 import { UsersStore } from "../../store/UserStore";
 import Segment from "../../Theme/components/Segment";
 import { NextTriviaStore } from "../../store/NextTriviaStore";
+import { ACTION_VOICE_CONTROL_BATTERY_SAVER_MODE } from "expo/build/IntentLauncherAndroid/IntentLauncherAndroid";
 
 
 /**
@@ -62,7 +64,17 @@ class GameQuestion extends Reflux.Component {
         this._sendAnswer(3);
     }
     componentDidMount(){
-        
+        this.questionListener = TriviaQuestionActions.onNewQuestion.listen(
+            (q) => {
+                Vibration.vibrate();
+            }
+        )
+    }
+    componentWillUnmount(){
+        super.componentWillUnmount();
+        if(this.questionListener){
+            this.questionListener();
+        }
     }
     showPurchaseModal = (lives) => {
         if(lives<=0){

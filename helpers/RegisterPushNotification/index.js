@@ -18,7 +18,7 @@ import Api from '../../api/Api';
 
   // Stop here if the user did not grant permissions
   if (finalStatus !== 'granted') {
-    return;
+    return Promise.reject();
   }
 
   // Get the token that uniquely identifies this device

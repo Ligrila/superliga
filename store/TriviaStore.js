@@ -5,7 +5,7 @@ import Api from '../api/Api';
 import DateTimeHelper from '../helpers/DateTimeHelper';
 
 
-TriviaActions = Reflux.createActions(
+const TriviaActions = Reflux.createActions(
     {
         'index':{'children':['completed','failed'],asyncResult: true,actionName: 'index'}
     }

@@ -6,9 +6,11 @@ import {
     AsyncStorage
   } from 'react-native';
 
+import Expo from 'expo';
+import { Facebook, Google } from 'expo';
 
 import {connectStyle,Header,Container,Content,Button,Form, Item, Input,Text,Icon,Toast, Footer} from 'native-base';
-import Expo from 'expo';
+
 
 import Wallpaper from '../components/Wallpaper';
 import Loader from '../components/Loader';
@@ -129,7 +131,7 @@ class LoginScreen extends React.Component {
 
     async googleLogin() {
       try {
-        const result = await Expo.Google.logInAsync({
+        const result = await Google.logInAsync({
           androidClientId: Enviroment.androidClientId,
           androidStandaloneAppClientId: Enviroment.androidStandaloneAppClientId,
           iosClientId: Enviroment.iosClientId,
@@ -166,7 +168,7 @@ class LoginScreen extends React.Component {
     }
 
     async facebookLogin() {
-      const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('882017118635234', {
+      const { type, token } = await Facebook.logInWithReadPermissionsAsync('882017118635234', {
           permissions: ['email'],
           //behavior: 'web'
         });

@@ -36,7 +36,8 @@ import TriviaCarouselMinimal from '../components/Trivia/TriviaCarouselMinimal';
 class HomeScreen2 extends Reflux.Component {
 
   state = {
-    screenBg : bgSrc
+    screenBg : bgSrc,
+    didMount : false,
   }
 	constructor(props) {
     super(props);
@@ -44,11 +45,24 @@ class HomeScreen2 extends Reflux.Component {
 	}
   async componentDidMount() {
     StatisticsActions.update();
+    
     await NextTriviaActions.get();
+    const didMount = true;
+    this.setState({didMount});
+
+  }
+
+  componentWillUnmount(){
+    const didMount = false;
+    this.setState({didMount});
+    super.componentWillUnmount();
 
   }
 
   carouselChange = (item) => {
+    if(!this.state.didMount){
+      return;
+    }
     if(item.type=='trivia'){
       this.setState({screenBg: triviaBgSrc})
       return;

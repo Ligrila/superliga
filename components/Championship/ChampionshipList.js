@@ -79,7 +79,7 @@ class ChampionshipList extends Reflux.Component {
         }
       );
     }
-
+    let isFirst = true;
     return this.state.Championships.data.map((championshipUsers)=>{
       const championship = championshipUsers.championship
       const button = () => {
@@ -90,10 +90,11 @@ class ChampionshipList extends Reflux.Component {
         )
       };
       const buttonRender = (championship.user_id == this.state.user.id) ? button() : null;
-
+      const itemStyle = isFirst ? {...styles.listItemFirst,...styles.listItem} : styles.listItem;
+      isFirst = false;
       return (
 
-        <ListItem avatar button style={styles.listItem} key={championship.id} onPress={()=>this.viewItem(championship)}>
+        <ListItem avatar button style={itemStyle} key={championship.id} onPress={()=>this.viewItem(championship)}>
           <Left>
             <View  style={styles.thumbnail } >
             <Image source={trophyAvatarSrc}  style={styles.thumbnailImg } />

@@ -276,10 +276,16 @@ export default {
             width: s(63),
             height: s(63),
         },
+        listItemFirst:{
+            borderTopWidth: 1,
+          
+        },
         listItem:{
             marginTop: 2,
             paddingHorizontal: s(10),
             backgroundColor: 'transparent', 
+            borderBottomWidth: 1,
+            borderColor: '#fff'
         },
         text:{
             color: '#fff',

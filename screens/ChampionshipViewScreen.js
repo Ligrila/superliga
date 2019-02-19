@@ -30,10 +30,13 @@ class ChampionshipViewScreen extends React.Component {
   }
   render() {
     const styles = this.props.style;
+    const returnButton = (<Button transparent onPress={()=>{
+      this.props.navigation.navigate("ChampionshipHome")
+    }}><Icon name='ios-arrow-back' /></Button>)
     return (
       <Container>
         <Wallpaper source={bgSrc}>
-        <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
+        <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} return={returnButton} />
         <Content contentContainerStyle={styles.content} >
           <ChampionshipView championship={this.championship} created={this.created}/>
         </Content>

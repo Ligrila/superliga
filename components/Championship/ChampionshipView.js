@@ -30,11 +30,9 @@ class ChampionshipView extends Reflux.Component {
   constructor(props) {
     super(props);
     this.championship = this.props.championship
-    this.created = this.props.created || true
+    this.created = this.props.created || false
     this.state.shareVisible = this.created
-    console.log(this.state)
     this.store = ChampionshipViewStore
-
   }
 
   onShare(){
@@ -53,6 +51,7 @@ class ChampionshipView extends Reflux.Component {
     ChampionshipViewActions.changeChampionship(this.championship.id)
     ChampionshipViewActions.ranking(this.championship.id, this.state.type)
   }
+
   formatDate(s){
     const pad = function(num) { return ('00'+num).slice(-2) };
     const d = new Date(s.split(" ")[0]);
@@ -190,14 +189,9 @@ class ChampionshipView extends Reflux.Component {
     const styles = this.props.style;
     return (
       <Content style={styles.container}>
-
         {this.renderShare()}
         <Title text={'TORNEO ' + this.championship.name}></Title>
-        <View style={styles.titleContainer}>
-          <Button transparent onPress={()=>this.onShare()}>
-              <Icon name="share-alt-square" type="FontAwesome"/>
-            </Button>
-        </View>
+
 
         {this.renderButtons()}
 

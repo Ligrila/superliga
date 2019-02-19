@@ -20,6 +20,8 @@ import Api from '../api/Api';
 import Enviroment from '../constants/Enviroment';
 
 import { UsersActions } from '../store/UserStore';
+import { LoginScreenActions } from '../store/LoginScreenStore';
+
 
 class LoginScreen extends React.Component {
     static navigationOptions = {
@@ -52,6 +54,37 @@ class LoginScreen extends React.Component {
     }
     onPasswordChange = async (password)=>{
       await this.setState({password});
+    }
+
+    componentDidMount(){
+      this.checkForMessages();
+      
+      LoginScreenActions.checkForMessages.listen(this.checkForMessages)
+    }
+    checkForMessages = async () =>{
+      const championshipId = await AsyncStorage.getItem('afterLoginChampionshipSubscribe');
+      const messageOk = await AsyncStorage.getItem('afterLoginChampionshipSubscribeMessage');
+      if(!messageOk && championshipId){
+        Toast.show({
+          text: 'Parece que te han invitado a un torneo pero aun no has ingresado. Una vez que ingreses te inscribiremos.',
+          position: "bottom",
+          type: 'warning',
+          buttonText: 'Aceptar',
+          duration: 5000
+        });
+        AsyncStorage.setItem('afterLoginChampionshipSubscribeMessage',"ok");
+      }
+    }
+    async afterLogin(){
+      const championshipId = await AsyncStorage.getItem('afterLoginChampionshipSubscribe');
+      if(championshipId){
+        AsyncStorage.removeItem("afterLoginChampionshipSubscribe")
+        AsyncStorage.removeItem("afterLoginChampionshipSubscribeMessage")
+        this.props.navigation.navigate('ChampionshipSubscribe',{championship:{id:championshipId}})
+        return;
+      }
+
+      this.props.navigation.navigate('Main');
 
     }
     renderFooter = () => {
@@ -154,7 +187,7 @@ class LoginScreen extends React.Component {
             UsersActions.update();
             UsersActions.isLoggedIn(true);
             this.setState({loading:false});
-            this.props.navigation.navigate('Main');
+            this.afterLogin();
           } else{
             console.warn("Error google login", user);
           }
@@ -192,7 +225,7 @@ class LoginScreen extends React.Component {
           UsersActions.update();
           UsersActions.isLoggedIn(true);
           this.setState({loading:false});
-          this.props.navigation.navigate('Main');
+          this.afterLogin();
         } else{
           console.warn("Error facebook login", user);
         }
@@ -216,7 +249,7 @@ class LoginScreen extends React.Component {
           }
           UsersActions.update();
           UsersActions.isLoggedIn(true);
-          this.props.navigation.navigate('Main');
+          this.afterLogin();
         } else{
           Toast.show({
             text: 'Email o contraseña inválidos',

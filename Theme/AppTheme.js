@@ -17,23 +17,140 @@ const FooterStyle ={
 
 
 export default {
+    'SuperLiga.AboutScreen':{
+        content:{
+            flex:1,
+            alignItems: 'center',
+        },
+        icon:{
+            width: s(300),
+            height: s(300)
+        },
+        buttonText: {
+            color: '#fff'
+        }
+    },
     'SuperLiga.ChampionshipSubscribeScreen':{
+        content:{
+            alignItems: 'center'
+        },
+        messageView:{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center'
+
+        },
         card:{
             backgroundColor: 'transparent'
         },
         cardItem:{
             backgroundColor: 'transparent'
         },
+        buttonText:{
+            color: '#fff'
+        }
     },
     'SuperLiga.ChampionshipView':{
         container:{
             flex: 1,
+            flexDirection: 'row'
+        },
+        shareButton:{
+            height: 56,
+            width: 56,
+            borderRadius: 28,
+            elevation: 4,
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.4,
+            justifyContent: "center",
+            alignItems: "center",
+            shadowRadius: 2,
+            position: "absolute",
+            bottom: 20,
+            right: 20,
+        },
+        shareButtonIcon:{
+            color: '#fff',
         },
         buttons:{
             flexDirection: 'row',
-            alignItems: 'center'
+            alignItems: 'center',
+            width: Layout.window.width,
+        },
+        titleContainer:{
+            flexDirection: 'row',
+            
+            alignItems: 'center',
+            justifyContent: 'center',
         },
         list:{
+        },
+        modal:{
+
+
+        },
+        modalContent:{
+            flex: 1,
+            zIndex:50,
+            alignItems: 'center',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            backgroundColor: '#00000040'
+        },
+        modalBody:{
+            backgroundColor: '#fff',
+            width: "90%",
+            padding: s(70),
+            borderRadius: s(20),
+            alignItems: 'center'
+            
+            },
+            trophyCreatedImage:{
+                width: s(184),
+                height: s(184),
+            },
+        modalTitle:{
+                fontFamily: 'OpenSansCondensed_bold',
+                fontSize: s(70),
+                marginBottom: h(-20),
+                color: '#7b4294',
+                textAlign: 'center'
+            },
+        modalText:{
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize: s(35),
+            color: '#282828',
+            textAlign: 'center'
+        },
+        modalButtons:{
+            marginTop: s(80),
+            flexDirection: 'row',
+            alignItems: 'center'
+        },
+        modalShareButton:{
+            width: s(125),
+            height: s(125),
+            borderRadius: s(125),
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        modalShareButtonIcon:{
+            color: '#fff',
+            fontSize:s(50),
+        },
+        modalCloseButton:{
+            position: 'absolute',
+            top: 0,
+            right: 0
+        },
+        modalCloseButtonIcon:{
+            color: '#282828',
+        },
+        buttonText:{
+            color: '#fff',
+            fontSize: s(38),
         },
         listItem:{
             backgroundColor: '#fff',
@@ -65,6 +182,7 @@ export default {
             width: s(54),
             height: s(42),
         },
+
         medalImage:{
             position: 'absolute',
             top: 0,
@@ -146,13 +264,36 @@ export default {
         list:{
             
         },
+        thumbnail:{
+            backgroundColor: '#fff',
+            width: s(102),
+            height: s(96),
+            borderRadius: s(102),
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        thumbnailImg:{
+            width: s(63),
+            height: s(63),
+        },
         listItem:{
             marginTop: 2,
             paddingHorizontal: s(10),
-            backgroundColor: '#fff', 
+            backgroundColor: 'transparent', 
         },
         text:{
-            color: '#282828'
+            color: '#fff',
+            fontFamily: 'OpenSans',
+            fontSize: s(25),
+        },
+        championshipName:{
+            color: '#fff',
+            fontSize: s(48),
+            fontFamily: 'OpenSansCondensed_bold',
+        },
+
+        icon:{
+            color: '#fff',
         }
 
     },
@@ -249,6 +390,7 @@ export default {
         content:{
             flex: 1,
         },
+
     },
     'SuperLiga.RankingItem':{
         container:{
@@ -914,7 +1056,7 @@ export default {
         },
         title: {
             textAlign: 'center',
-            fontFamily: 'OpenSansCondensed_light',
+            fontFamily: 'OpenSansCondensed_bold',
             fontSize: s(50),
         },
         separator: {

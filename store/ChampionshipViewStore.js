@@ -34,6 +34,10 @@ export class ChampionshipViewStore extends CacheStore
                     hasData: false,
                     data: []
                 },
+                "trivia":{
+                    hasData: false,
+                    data: []
+                },
                 "all": {
                     hasData: false,
                     data: []
@@ -47,7 +51,7 @@ export class ChampionshipViewStore extends CacheStore
     }
 
  
-    async ranking(id,type='day'){
+    async ranking(id,type='trivia'){
         this.cacheKey = 'Store.ChampionshipView.' + id;
         let response = await this.api.championshipRanking(id,type);
         let state = this.state;

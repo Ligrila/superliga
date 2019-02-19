@@ -20,6 +20,8 @@ import { ConnectionStatusActions } from './store/ConnectionStatusStore';
 import { Localization } from 'expo-localization';
 
 import { NavigationActions } from 'react-navigation';
+import { LoginScreenActions } from './store/LoginScreenStore';
+import { TriviaQuestionActions } from './store/TriviaQuestion';
 
 
 
@@ -35,24 +37,47 @@ export default class App extends React.Component {
   socket = null;
   constructor(props){
     super(props)
-    this._addLinkingListener()
   }
 
-  _handleRedirect = event => {
+  
+  isLogin = async () => {
+    const userToken = await AsyncStorage.getItem('token');
+    const tokenExpire = await AsyncStorage.getItem('tokenExpire');
 
+    let timestamp = new Date().getTime();
+    let notExpired = tokenExpire > timestamp;
+    return (userToken && (tokenExpire !== null && notExpired));
+  }
+
+  handleNavigatorEvents = () =>{
+    this._addLinkingListener();
+  }
+
+  _handleRedirect = async (event,initialUrl=false) => {
+    const isLogin = await this.isLogin();
     const {path} = Linking.parse(event.url);
     if(path){
       const parts = path.split('/')
       if(parts[0]=='championships' && parts[1]){
         const championshipId = parts[1]
-        this.navigate('ChampionshiSubscribe',{championship:{id:championshipId}})
+        if(isLogin){
+          this.navigate('ChampionshipSubscribe',{championship:{id:championshipId}})
+        } else{
+          AsyncStorage.setItem('afterLoginChampionshipSubscribe',championshipId);
+          AsyncStorage.removeItem('afterLoginChampionshipSubscribeMessage');
+          LoginScreenActions.checkForMessages()
+        }
       }
     }
     
   };
 
-  _addLinkingListener = () => {
+   _addLinkingListener = async () => {
+    const initialUrl = await Linking.getInitialURL();
+
+    this._handleRedirect({url:initialUrl},true)
     Linking.addEventListener('url', this._handleRedirect);
+
   };
 
   _removeLinkingListener = () => {
@@ -106,6 +131,21 @@ export default class App extends React.Component {
     // with the notification data.
 
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
+
+
+    TriviaQuestionActions.onNewQuestion.listen((question)=>{
+        // send local push notification is app is in background
+        if(this.state.appState.match(/inactive|background/) ){
+          console.log(question);
+          const localNotification = {
+            title: question.title,
+            body: 'Responde ahora la pregunta'
+          }
+          Notifications.presentLocalNotificationAsync(localNotification);
+        }
+    })
+
+
   }
   _handleNotification = (notification) => {
     console.log("NOTIFICATION", notification);
@@ -116,7 +156,7 @@ export default class App extends React.Component {
     
   }
 
-  navigate(routeName, params) {
+  navigate = (routeName, params) => {
     this.AppNavigator.dispatch(
       NavigationActions.navigate({
         routeName,
@@ -163,6 +203,7 @@ export default class App extends React.Component {
                   ref={
                       (navigatorRef) =>{
                         this.AppNavigator = navigatorRef
+                        this.handleNavigatorEvents()
                         //console.log(navigatorRef.dispatch)
                       }
                     }
@@ -221,6 +262,10 @@ export default class App extends React.Component {
         require ('./assets/images/home/help.png'),
         require ('./assets/images/home/shop.png'),
         require ('./assets/images/home/share.png'),
+        require('./assets/images/championship/bg.png'),
+        require('./assets/images/championship/medal.png'),
+        require('./assets/images/championship/trophy-avatar.png'),
+        require('./assets/images/championship/trophy.png'),
 
         require ('./assets/images/game/genericQuestionBg.png'),      
         require ('./assets/images/extraPlayBg.png'),        

@@ -41,6 +41,7 @@ import ChampionshipScreen from '../screens/ChampionshipScreen';
 import ChampionshipViewScreen from '../screens/ChampionshipViewScreen';
 import ChampionshipCreateScreen from '../screens/ChampionshipCreateScreen';
 import ChampionshipSubscribeScreen from '../screens/ChampionshipSubscribeScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 
 
@@ -86,7 +87,7 @@ const ChampionshipStack = createStackNavigator(
     ChampionshipHome: ChampionshipScreen,
     ChampionshipView: ChampionshipViewScreen,
     ChampionshipCreate: ChampionshipCreateScreen,
-    ChampionshiSubscribe: ChampionshipSubscribeScreen
+    ChampionshipSubscribe: ChampionshipSubscribeScreen
 
 
   },
@@ -235,6 +236,17 @@ var Main = createDrawerNavigator({
     }
   },
 
+
+  About:{
+    screen: AboutScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Acerca"} icon="soccer-ball-o" />
+        )
+      }
+    }
+  },
  
   
   Logout: {

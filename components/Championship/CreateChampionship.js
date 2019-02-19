@@ -25,13 +25,13 @@ class CreateChampionship extends Reflux.Component {
 
   componentDidMount(){
     CreateChampionshipActions.created.listen(async (championship)=>{
-      this.props.navigation.navigate('ChampionshipView',{championship})
+      this.props.navigation.navigate('ChampionshipView',{championship:championship,created:true})
     })
   }
   setName = (name) =>{
     this.setState({name})
   }
-  setFromDate = (_fromDate) =>{
+  setFromDate = async (_fromDate) =>{
       const pad = function(num) { return ('00'+num).slice(-2) };
       const day = pad(_fromDate.getDate());
       const month = pad(_fromDate.getMonth() + 1);
@@ -39,14 +39,15 @@ class CreateChampionship extends Reflux.Component {
       const fromDate = `${year}-${month}-${day}`
       this.setState({fromDate})
   }
-  setToDate = (_toDate) =>{
+  setToDate = async (_toDate) =>{
     const pad = function(num) { return ('00'+num).slice(-2) };
 
     const day = pad(_toDate.getDate());
     const month = pad(_toDate.getMonth() + 1);
     const year = _toDate.getFullYear();
     const toDate = `${year}-${month}-${day}`
-    this.setState({toDate})
+    await this.setFromDate(new Date())
+    await this.setState({toDate})
   }
   onNextClick = () =>{
     if(!this.state.name || !this.state.fromDate || !this.state.toDate){
@@ -69,7 +70,25 @@ class CreateChampionship extends Reflux.Component {
     }
     CreateChampionshipActions.create(this.state.name,this.state.fromDate,this.state.toDate)
   }
-
+/*<View style={styles.calendarContainer}>
+                <View style={styles.calendar}>
+                    <Icon name="calendar" type="FontAwesome" style={styles.calendarIcon} />
+                    <DatePicker
+                                defaultDate={new Date()}
+                                minimumDate={new Date()}
+                                locale={"es"}
+                                timeZoneOffsetInMinutes={undefined}
+                                modalTransparent={false}
+                                animationType={"fade"}
+                                androidMode={"default"}
+                                placeHolderText="Desde"
+                                textStyle={styles.label}
+                                placeHolderTextStyle={styles.label}
+                                onDateChange={this.setFromDate}
+                                disabled={false}
+                        />
+                </View>
+               </View>*/
   render() {
     const styles = this.props.style;
     return (
@@ -83,32 +102,14 @@ class CreateChampionship extends Reflux.Component {
                  placeholderTextColor={styles.placeholder.color}
                  onChangeText={this.setName}
                  />
-              <View style={styles.calendarContainer}>
-                <View style={styles.calendar}>
-                    <Icon name="calendar" type="FontAwesome" style={styles.calendarIcon} />
-                    <DatePicker
-                                defaultDate={new Date()}
-                                minimumDate={new Date(2018, 1, 1)}
-                                locale={"es"}
-                                timeZoneOffsetInMinutes={undefined}
-                                modalTransparent={false}
-                                animationType={"fade"}
-                                androidMode={"default"}
-                                placeHolderText="Desde"
-                                textStyle={styles.label}
-                                placeHolderTextStyle={styles.label}
-                                onDateChange={this.setFromDate}
-                                disabled={false}
-                        />
-                </View>
-               </View>
+              
 
                <View style={styles.calendarContainer}>
                 <View style={styles.calendar}>
                     <Icon name="calendar" type="FontAwesome" style={styles.calendarIcon} />
                     <DatePicker
                                 defaultDate={new Date()}
-                                minimumDate={new Date(2018, 1, 1)}
+                                minimumDate={new Date()}
                                 locale={"es"}
                                 timeZoneOffsetInMinutes={undefined}
                                 modalTransparent={false}

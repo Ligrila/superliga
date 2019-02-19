@@ -46,14 +46,15 @@ class ChampionshipSubscribeScreen extends React.Component {
     if(this.state.response && this.state.response.success){
       const name = this.state.response.data.name
       message = `¡Felicitaciones! Ya estás participando del torneo de amigos "${name}"`;
-      button = (<Button 
+      button = (<Button block
       onPress={()=>this.viewChampionship(this.state.response.data)}
-      primary><Text>Ver torneo</Text></Button>)
+      primary><Text style={styles.buttonText}>Ver torneo</Text></Button>)
     }
     
     return(
-      <View>
+      <View style={styles.messageView}>
           <Notice text={message} />
+          <Text />
           {button}
     </View>
     )

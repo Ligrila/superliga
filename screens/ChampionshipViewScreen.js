@@ -1,12 +1,13 @@
 import React from 'react';
 
-import {connectStyle,Container, Content } from 'native-base'
+import {connectStyle,Container, Content, Button,Icon } from 'native-base'
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 
 import bgSrc from '../assets/images/championship/bg.png';
-import Championship from '../components/Championship';
 import ChampionshipView from '../components/Championship/ChampionshipView';
+
+
 
 
 
@@ -24,6 +25,7 @@ class ChampionshipViewScreen extends React.Component {
   constructor(props){
     super(props);
     this.championship = this.props.navigation.getParam('championship', this.championship);
+    this.created = this.props.navigation.getParam('created', false);
 
   }
   render() {
@@ -32,8 +34,8 @@ class ChampionshipViewScreen extends React.Component {
       <Container>
         <Wallpaper source={bgSrc}>
         <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
-        <Content contentContainerStyle={styles.game} >
-          <ChampionshipView championship={this.championship} />
+        <Content contentContainerStyle={styles.content} >
+          <ChampionshipView championship={this.championship} created={this.created}/>
         </Content>
         </Wallpaper>
       </Container>

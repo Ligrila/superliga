@@ -29,6 +29,9 @@ class AppHeader extends Component {
         if(this.props.game){
             return (<UserInfo />);    
         }
+        if(this.props.return){
+            return this.props.return;
+        }
         //return (<Image source={superligaImg} style={styles.superligaImg} resizeMode="contain" />);
         return null;
     }

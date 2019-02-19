@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Reflux from 'reflux';
-import { View,Image } from 'react-native';
-import {connectStyle,List, ListItem, Left, Body, Thumbnail, Text, Right,Button,Icon, Content} from 'native-base'
+import { View,Image ,Modal, Share } from 'react-native';
+import {connectStyle,List, ListItem, Left, Body, Icon, Text, Right,Button, Content} from 'native-base'
 
 import Title from '../Title';
 import { ChampionshipViewStore, ChampionshipViewActions } from '../../store/ChampionshipViewStore';
+import { Linking } from 'expo';
 
 const trophyImage = require('../../assets/images/championship/trophy.png')
 const medalImage = require('../../assets/images/championship/medal.png')
+const trophyCreatedImage = require('../../assets/images/championship/trophy-created.png')
 
 
 class ChampionshipView extends Reflux.Component {
@@ -22,13 +24,28 @@ class ChampionshipView extends Reflux.Component {
     }
   }
   state = {
-    type : 'day'
+    type : 'trivia',
+    shareVisible:false
   }
   constructor(props) {
     super(props);
     this.championship = this.props.championship
+    this.created = this.props.created || true
+    this.state.shareVisible = this.created
+    console.log(this.state)
     this.store = ChampionshipViewStore
 
+  }
+
+  onShare(){
+    const c = this.championship
+    const shareUrl = Linking.makeUrl('championships/' + c.id)
+    Share.share(
+      {
+        title: 'Jugada Super Liga',
+        message: "Hola te invito a mi torneo de amigos '"+c.name+"', para participar has click aquí " + shareUrl
+      }
+    );
   }
 
 
@@ -47,11 +64,60 @@ class ChampionshipView extends Reflux.Component {
   viewItem(championship){
     this.props.navigation.navigate("ChampionshipView",{championship})
   }
+  setShareVisible(visible) {
+    this.setState({shareVisible: visible});
+  }
+  renderShare(){
+    const styles = this.props.style
+    let title = "FELICITACIONES!"
+    let text = "Invitá a los amigos que quieras que participen en tu torneo:"
+    
+    return (
+    <Modal
+    style={styles.modal}
+    animationType="slide"
+    transparent={true}
+    visible={this.state.shareVisible}
+    onRequestClose={() => {
+      
+    }}>
+    <View style={styles.modalContent}>
+
+
+      <View style={styles.modalBody}>
+      <Button transparent
+            style={styles.modalCloseButton}
+            onPress={() => {
+              this.setShareVisible(!this.state.shareVisible);
+            }}>
+            <Icon style={styles.modalCloseButtonIcon} type="FontAwesome" name="times"></Icon>
+          </Button>
+      <Image source={trophyCreatedImage} style={styles.trophyCreatedImage} />
+      <Text style={styles.modalTitle}>{title}</Text>
+      <Text style={styles.modalText}>CREASTE TU TORNEO.</Text>
+        <Text style={styles.modalText}>{text}</Text>
+        <View style={styles.modalButtons}>
+          <Button primary
+            onPress={() => {
+              this.onShare();
+            }}
+            style={styles.modalShareButton}
+            >
+            <Icon style={styles.modalShareButtonIcon} type="FontAwesome" name="user-plus"></Icon>
+            </Button>
+
+        </View>
+      </View>
+    </View>
+  </Modal>)
+  }
   renderItems(){
     const styles = this.props.style;
 
-    
-    
+
+    if(typeof this.state.ChampionshipView[this.state.type] == 'undefined'){
+      return null;
+    }
     return this.state.ChampionshipView[this.state.type].data.map((ranking,index)=>{
       let image = null;
       ranking.position = index + 1
@@ -88,6 +154,9 @@ class ChampionshipView extends Reflux.Component {
   allRanking = () => {
     this.rankingFilter('all')
   }
+  triviaRanking = () => {
+    this.rankingFilter('trivia')
+  }
   dayRanking = () => {
     this.rankingFilter('day')
   }
@@ -107,8 +176,8 @@ class ChampionshipView extends Reflux.Component {
         <Text style={{...styles.buttonText,...selected.all}}>Ranking Total</Text>
       </Button>
       <Text style={styles.buttonText}> | </Text>
-      <Button transparent onPress={this.dayRanking}>
-        <Text style={{...styles.buttonText,...selected.day}}>Ranking Día</Text>
+      <Button transparent onPress={this.triviaRanking}>
+        <Text style={{...styles.buttonText,...selected.trivia}}>Ultima trivia</Text>
       </Button>
       <Text style={styles.buttonText}> | </Text>
       <Button transparent onPress={this.weekRanking}>
@@ -121,12 +190,23 @@ class ChampionshipView extends Reflux.Component {
     const styles = this.props.style;
     return (
       <Content style={styles.container}>
+
+        {this.renderShare()}
         <Title text={'TORNEO ' + this.championship.name}></Title>
+        <View style={styles.titleContainer}>
+          <Button transparent onPress={()=>this.onShare()}>
+              <Icon name="share-alt-square" type="FontAwesome"/>
+            </Button>
+        </View>
+
         {this.renderButtons()}
 
         <List style={styles.list}>
           {this.renderItems()}
         </List>
+        <Button style={styles.shareButton} onPress={this.onCreatePress}>
+            <Icon name="user-plus" type="FontAwesome" style={styles.shareButtonIcon} />
+        </Button>
       </Content>
     );
   }

@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import Reflux from 'reflux';
-import { Share } from 'react-native';
-import {connectStyle,List, ListItem, Left, Body, Thumbnail, Text, Right,Button,Icon, Content} from 'native-base'
+import { Share, Image, View } from 'react-native';
+import {connectStyle,List, ListItem, Left, Body, Text, Right,Button,Icon, Content, ActionSheet} from 'native-base'
 import {Linking} from 'expo'
 
 
 import Title from '../Title';
 import { ChampionshipsStore, ChampionshipsActions } from '../../store/ChampionshipsStore';
 import Notice from '../Notice';
+import { UsersStore } from '../../store/UserStore';
 
-const logo = require('../../assets/images/app_logo.png')
+
+const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.png')
+
 
 
 class ChampionshipList extends Reflux.Component {
@@ -18,7 +21,7 @@ class ChampionshipList extends Reflux.Component {
  }
   constructor(props) {
     super(props);
-    this.store = ChampionshipsStore;
+    this.stores = [ChampionshipsStore,UsersStore];
 
   }
 
@@ -54,25 +57,56 @@ class ChampionshipList extends Reflux.Component {
       )
     }
 
+    actionSheets = (championship) =>{      
+      const BUTTONS = ["Compartir", "Editar", "Cancelar"];
+      const DESTRUCTIVE_INDEX = 2;
+      const CANCEL_INDEX = 3;
+      ActionSheet.show(
+        {
+          options: BUTTONS,
+          cancelButtonIndex: CANCEL_INDEX,
+          destructiveButtonIndex: DESTRUCTIVE_INDEX,
+          title: "Opciones"
+        },
+        buttonIndex => {
+
+          switch(buttonIndex){
+            case 0: this.onShare(championship);break;
+            case 1: this.onEdit(championship);break;
+            default: break;
+          }
+          
+        }
+      );
+    }
+
     return this.state.Championships.data.map((championshipUsers)=>{
       const championship = championshipUsers.championship
-      const avatar = championship.user.avatar
+      const button = () => {
+        return (
+          <Button transparent onPress={()=>actionSheets(championship)}>
+            <Icon name="gear" style={styles.icon} type="FontAwesome"/>
+          </Button>
+        )
+      };
+      const buttonRender = (championship.user_id == this.state.user.id) ? button() : null;
+
       return (
 
         <ListItem avatar button style={styles.listItem} key={championship.id} onPress={()=>this.viewItem(championship)}>
           <Left>
-            <Thumbnail source={{uri:avatar}} />
+            <View  style={styles.thumbnail } >
+            <Image source={trophyAvatarSrc}  style={styles.thumbnailImg } />
+            </View>
           </Left>
           <Body>
-            <Text style={styles.text}>{championship.name}</Text>
-            <Text note>Organizado por {championship.user.first_name} {championship.user.last_name}{'\n'}
-            del {this.formatDate(championship.start_date)}  al {this.formatDate(championship.end_date)}
+            <Text style={styles.championshipName}>{championship.name}</Text>
+            <Text style={styles.text}>Organizado por {championship.user.first_name} {championship.user.last_name}{'\n'}
+            finaliza el {this.formatDate(championship.end_date)}
             </Text>
           </Body>
           <Right>
-            <Button transparent onPress={()=>this.onShare(championship)}>
-              <Icon name="share-alt-square" type="FontAwesome"/>
-            </Button>
+            {buttonRender}
           </Right>
         </ListItem>
       )

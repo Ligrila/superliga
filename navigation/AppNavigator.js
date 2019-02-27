@@ -37,12 +37,11 @@ import GameHalfTimeStartScreen from '../screens/GameHalfTimeStartScreen';
 import GameStartScreen from '../screens/GameStartScreen';
 import GameHalfTimePlayScreen from '../screens/GameHalfTimePlayScreen';
 import GameExtraPlayScreen from '../screens/GameExtraPlayScreen';
-import ChampionshipScreen from '../screens/ChampionshipScreen';
-import ChampionshipViewScreen from '../screens/ChampionshipViewScreen';
-import ChampionshipCreateScreen from '../screens/ChampionshipCreateScreen';
-import ChampionshipSubscribeScreen from '../screens/ChampionshipSubscribeScreen';
+
 import AboutScreen from '../screens/AboutScreen';
 
+import ChampionshipNavigator from './ChampionshipNavigator'
+import NotificationScreen from '../screens/NotificationScreen';
 
 
 
@@ -82,19 +81,6 @@ const GameStack = createStackNavigator(
   }
 )
 
-const ChampionshipStack = createStackNavigator(
-  {
-    ChampionshipHome: ChampionshipScreen,
-    ChampionshipView: ChampionshipViewScreen,
-    ChampionshipCreate: ChampionshipCreateScreen,
-    ChampionshipSubscribe: ChampionshipSubscribeScreen
-
-
-  },
-  {
-    headerMode: 'none',
-  }
-)
 
 var GameSwitcher = createSwitchNavigator({
   // You could add another route here for authentication.
@@ -117,6 +103,17 @@ var Main = createDrawerNavigator({
       drawerLabel: () =>{
         return (
           <SidebarItem label={"Jugar"} icon="gamepad" />
+        )
+      }
+    }
+  },
+  Notification:{
+    screen: NotificationScreen,
+    navigationOptions: {
+      title: "Notificaciones",
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Notificaciones"} icon="comment" />
         )
       }
     }
@@ -186,7 +183,7 @@ var Main = createDrawerNavigator({
     }
   },
   Championship:{
-    screen: ChampionshipStack,
+    screen: ChampionshipNavigator,
     navigationOptions: {
       drawerLabel: () =>{
         return (

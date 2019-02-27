@@ -29,6 +29,7 @@ class ChampionshipSubscribeScreen extends React.Component {
   }
   async componentDidMount(){
     const response = await this.api.subscribeChampionship(this.championship.id)
+    console.log({response})
     this.setState({loading:false,response:response})
 
   }

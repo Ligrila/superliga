@@ -15,9 +15,18 @@ if(heightRatio > 1){
   //heightRatio = 1; // no maximize images
 }
 
+
+
 if(Platform.isPad){
   // si es ipad el alto es el menor de los dos. Para que se vea bien utilizamos el alto.
   ratio = heightRatio;
+}
+
+const s = (size) => {
+  return size * ratio;
+}
+const h = (size) => {
+   return size * heightRatio;
 }
 
 const isIphoneX =
@@ -33,6 +42,8 @@ export default {
     ratio,
     heightRatio
   },
+  h,
+  s,
   isAndroid: platform === "android",
   isSmallDevice: width < 375,
   isIphoneX: isIphoneX,

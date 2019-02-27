@@ -17,6 +17,29 @@ const FooterStyle ={
 
 
 export default {
+    'SuperLiga.NotificationItem':{
+        container:{
+            backgroundColor: '#fff',
+            borderRadius: s(20),
+            marginTop: s(10),
+            paddingVertical: s(20),
+            paddingHorizontal: s(20),
+            flexDirection: 'row'
+        },
+        dateText:{
+            textAlign: 'right',
+            fontFamily: 'OpenSansCondensed_bold',
+            color: '#282828'
+        },
+        body:{
+            flexDirection: 'column',
+            width: '100%'
+        },
+        text: {
+            fontFamily: 'OpenSansCondensed_light',
+            color: '#282828'
+        }
+    },
     'SuperLiga.AboutScreen':{
         content:{
             flex:1,
@@ -385,7 +408,7 @@ export default {
             alignItems: "center",
             shadowRadius: 2,
             position: "absolute",
-            bottom: 0,
+            bottom: h(130),
             right: 0,
         },
         createButtonIcon:{
@@ -743,10 +766,9 @@ export default {
         },
         triviaAwardText:{
             width: '100%',
-
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: h(40),
-            transform: [{ rotate: '-15deg'}]
+            //transform: [{ rotate: '-15deg'}]
     
         },
         next:{
@@ -813,17 +835,20 @@ export default {
             left: 0,
             right:0,
             width: "100%",
-            height: Layout.isAndroid ? '60%' : Layout.isIphoneX ? '40%' : h(250),
-            alignItems: 'flex-start',
+            height: h(112),
+            alignItems: 'center',
             justifyContent:'center',
-
+            backgroundColor: '#795394'
+        },
+        triviaAwardContainerTrivia:{
+            backgroundColor: '#cc366b'
         },
         triviaAwardText:{
             width: '100%',
             textAlign:'center',
             fontFamily: 'OpenSansCondensed_bold',
-            fontSize: h(40),
-            transform: [{ rotate: '-15deg'}]
+            fontSize: s(35),
+            //transform: [{ rotate: '-15deg'}]
     
         },
         next:{
@@ -1792,7 +1817,7 @@ export default {
       },
       "SuperLiga.AppHeader":{
         header: {
-            paddingTop: Layout.isIphoneX ? 5 : Layout.isIphoneXR ? 29 : Layout.isAndroid ? 23 : 0,
+            paddingTop: Layout.isIphoneX ? 5 : Layout.isIphoneXR ? 35 : Layout.isAndroid ? 23 : 0,
             paddingBottom: Layout.isAndroid ? 20 : 0,
             zIndex: 1,
             justifyContent: 'flex-start',
@@ -1815,8 +1840,8 @@ export default {
             
         },
         superligaAppImg: {
-            width: s(181),
-            height: s(133),
+            width: s(158),
+            height: s(147),
             marginLeft: Layout.platform == 'ios' ? 2 : 0, // por alguna razon en IOS no se centra la imagen
          },
         menuImg:{

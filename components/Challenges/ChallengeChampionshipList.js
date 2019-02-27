@@ -6,7 +6,7 @@ import {Linking} from 'expo'
 
 
 import Title from '../Title';
-import { ChampionshipsStore, ChampionshipsActions } from '../../store/ChampionshipsStore';
+import { AllChampionshipsStore, AllChampionshipsActions } from '../../store/AllChampionshipsStore';
 import Notice from '../Notice';
 import { UsersStore } from '../../store/UserStore';
 
@@ -15,18 +15,18 @@ const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.
 
 
 
-class ChampionshipList extends Reflux.Component {
+class ChallengeChampionshipList extends Reflux.Component {
  state = {
 
  }
   constructor(props) {
     super(props);
-    this.stores = [ChampionshipsStore,UsersStore];
+    this.stores = [AllChampionshipsStore,UsersStore];
 
   }
 
   componentDidMount(){
-    ChampionshipsActions.list()
+    AllChampionshipsActions.list()
   }
   onShare(c){
     const shareUrl = Linking.makeUrl('championships/' + c.id)
@@ -51,9 +51,9 @@ class ChampionshipList extends Reflux.Component {
   }
   renderItems(){
     const styles = this.props.style;
-    if(this.state.Championships.data.length == 0){
+    if(this.state.AllChampionships.data.length == 0){
       return (
-        <Notice text="No estás inscripto a ningún torneo." />
+        <Notice text="Ups no encontramos ningún torneo." />
       )
     }
 
@@ -79,16 +79,16 @@ class ChampionshipList extends Reflux.Component {
       );
     }
     let isFirst = true;
-    return this.state.Championships.data.map((championshipUsers)=>{
-      const championship = championshipUsers.championship
+    return this.state.AllChampionships.data.map((championship)=>{
+      
       const button = () => {
         return (
-          <Button transparent onPress={()=>actionSheets(championship)}>
-            <Icon name="gear" style={styles.icon} type="FontAwesome"/>
+          <Button icon onPress={()=>actionSheets(championship)}>
+            <Icon name="handshake-o" style={styles.icon} type="FontAwesome"/>
           </Button>
         )
       };
-      const buttonRender = (championship.user_id == this.state.user.id) ? button() : null;
+      const buttonRender = (championship.user_id != this.state.user.id) ? button() : null;
       const itemStyle = isFirst ? {...styles.listItemFirst,...styles.listItem} : styles.listItem;
       isFirst = false;
       return (
@@ -103,6 +103,7 @@ class ChampionshipList extends Reflux.Component {
             <Text style={styles.championshipName}>{championship.name}</Text>
             <Text style={styles.text}>Organizado por {championship.user.first_name} {championship.user.last_name}{'\n'}
             finaliza el {this.formatDate(championship.end_date)}
+            <Text>{championship.points} puntos</Text>
             </Text>
           </Body>
           <Right>
@@ -117,7 +118,7 @@ class ChampionshipList extends Reflux.Component {
     const styles = this.props.style;
     return (
       <Content style={styles.container}>
-        <Title text={'TORNEOS \n SUPERLIGA'}></Title>
+        <Title text={'DESAFIOS \n SUPERLIGA'}></Title>
         <List style={styles.list}>
           {this.renderItems()}
         </List>
@@ -127,4 +128,4 @@ class ChampionshipList extends Reflux.Component {
 }
 
 
-export default connectStyle('SuperLiga.ChampionshipList')(ChampionshipList);
+export default connectStyle('SuperLiga.ChallengeChampionshipList')(ChallengeChampionshipList);

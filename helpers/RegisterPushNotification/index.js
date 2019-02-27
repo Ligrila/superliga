@@ -7,6 +7,7 @@ import Api from '../../api/Api';
   );
   let finalStatus = existingStatus;
 
+
   // only ask if permissions have not already been determined, because
   // iOS won't necessarily prompt the user a second time.
   if (existingStatus !== 'granted') {
@@ -22,10 +23,16 @@ import Api from '../../api/Api';
   }
 
   // Get the token that uniquely identifies this device
-  let token = await Notifications.getExpoPushTokenAsync();
-
+  let token = ''
+  try{
+    token = await Notifications.getExpoPushTokenAsync();
+  } catch(e){
+    console.log({e})
+    return Promise.reject();
+  }
   const api = new Api;
   const ret = await api.pushNotificationsRegister(token);
+  console.log({ret})
   return ret;
 
 }

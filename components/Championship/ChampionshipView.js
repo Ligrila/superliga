@@ -35,7 +35,7 @@ class ChampionshipView extends Reflux.Component {
     this.store = ChampionshipViewStore
   }
 
-  onShare(){
+  onShare = () => {
     const c = this.championship
     const shareUrl = Linking.makeUrl('championships/' + c.id)
     Share.share(
@@ -198,7 +198,7 @@ class ChampionshipView extends Reflux.Component {
         <List style={styles.list}>
           {this.renderItems()}
         </List>
-        <Button style={styles.shareButton} onPress={this.onCreatePress}>
+        <Button style={styles.shareButton} onPress={this.onShare}>
             <Icon name="user-plus" type="FontAwesome" style={styles.shareButtonIcon} />
         </Button>
       </Content>

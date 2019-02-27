@@ -141,6 +141,15 @@ export default class Api extends RestClient {
   championshipList(){
     return this.GET('/championships/index');
   }
+  
+  allChampionshipList(q){
+    let search = '';
+    if(q){
+      search = '?q='+q;
+    }
+    return this.GET('/championships/all'+search);
+  }
+
   championshipRanking(id,type){
     return this.GET('/championships/ranking/'+id+'?type='+type);
   }
@@ -156,6 +165,11 @@ export default class Api extends RestClient {
   subscribeChampionship(id){
     return this.POST('/championships/subscribe/'+id,{
     });
+  }
+
+
+  notificationsList(){
+    return this.GET('/notifications/index');
   }
 
 };

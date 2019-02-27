@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {connectStyle,Container, Content } from 'native-base'
+import {connectStyle,Container, Content, Button, Icon } from 'native-base'
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 
@@ -11,11 +11,14 @@ import CreateChampionship from '../components/Championship/CreateChampionship';
 
 class ChampionshipCreateScreen extends React.Component {
   render() {
+    const returnButton = (<Button transparent onPress={()=>{
+      this.props.navigation.navigate("ChampionshipHome")
+    }}><Icon name='ios-arrow-back' /></Button>)
     const styles = this.props.style;
     return (
       <Container>
         <Wallpaper source={bgSrc}>
-        <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
+        <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} return={returnButton} />
         <Content contentContainerStyle={styles.game} padder>
           <CreateChampionship navigation={this.props.navigation}></CreateChampionship>
         </Content>

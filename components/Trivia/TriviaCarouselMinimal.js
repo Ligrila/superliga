@@ -141,8 +141,19 @@ _renderItem = ({item, index}) => {
     if(!this.state.Trivia.hasData){
       return;
     }
-    const winnerText = item.award.length > 0 ? item.award  : ''
+    const renderAward = () => {
+      if(item.award.length <= 0){
+        return null;
+      }
+      const winnerText = item.award.length > 0 ? item.award  : ''
+      return (
+        <View style={awardContainerStyle}>
+          <Text style={styles.triviaAwardText}> {winnerText}</Text>
+        </View>
+      )
+    }
     
+    const awardContainerStyle = item.type=='trivia' ? {...styles.triviaAwardContainer,...styles.triviaAwardContainerTrivia} : styles.triviaAwardContainer;
     return (
         <View style={styles.slide}>
           <TriviaMinimal trivia={item} />
@@ -152,9 +163,8 @@ _renderItem = ({item, index}) => {
             <Text style={styles.triviaDateText}>{item.start_datetime_local.format('HH:mm')}hs</Text>
             {this.getNotice(item)}
           </View>
-          <View style={styles.triviaAwardContainer}>
-            <Text style={styles.triviaAwardText}> {winnerText}</Text>
-          </View>
+          {renderAward()}
+
         </View>
     );
 }

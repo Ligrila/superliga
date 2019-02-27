@@ -49,8 +49,36 @@ export default class App extends React.Component {
     return (userToken && (tokenExpire !== null && notExpired));
   }
 
+  _handleNotification = (notification) => {
+    console.log({notification})
+    const appInactive = this.state.appState.match(/inactive|background/)
+    const hasRedirectData = notification.data.navigate || false
+    if(appInactive){
+      if(hasRedirectData){
+        const params = notification.data.params || null
+        this.navigate(notification.data.navigate,params)
+      }
+    } else{
+      if(!notification.data.title){
+        return;
+      }
+      Toast.show({
+        text: notification.data.title,
+        duration: 4000,
+      })
+    }
+  };
+
   handleNavigatorEvents = () =>{
     this._addLinkingListener();
+    
+    // Handle notifications that are received or selected while the app
+    // is open. If the app was closed and then opened by tapping the
+    // notification (rather than just tapping the app icon to open it),
+    // this function will fire on the next tick after the app starts
+    // with the notification data.
+
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
 
   _handleRedirect = async (event,initialUrl=false) => {
@@ -58,6 +86,7 @@ export default class App extends React.Component {
     const {path} = Linking.parse(event.url);
     if(path){
       const parts = path.split('/')
+      console.log({parts})
       if(parts[0]=='championships' && parts[1]){
         const championshipId = parts[1]
         if(isLogin){
@@ -124,19 +153,12 @@ export default class App extends React.Component {
     
     this.initNetwork();
 
-    // Handle notifications that are received or selected while the app
-    // is open. If the app was closed and then opened by tapping the
-    // notification (rather than just tapping the app icon to open it),
-    // this function will fire on the next tick after the app starts
-    // with the notification data.
-
-    this._notificationSubscription = Notifications.addListener(this._handleNotification);
 
 
     TriviaQuestionActions.onNewQuestion.listen((question)=>{
         // send local push notification is app is in background
         if(this.state.appState.match(/inactive|background/) ){
-          console.log(question);
+          //console.log(question);
           const localNotification = {
             title: question.title,
             body: 'Responde ahora la pregunta'
@@ -145,11 +167,17 @@ export default class App extends React.Component {
         }
     })
 
+    Notifications.createCategoryAsync('ChampionshipView', 
+    [{
+      actionId: 'ChampionshipView',
+      buttonTitle: 'Ver',
+    }
+    ]
+    )
 
+    
   }
-  _handleNotification = (notification) => {
-    console.log("NOTIFICATION", notification);
-  };
+
   componentWillUmount(){
     this.socket.close();
     AppState.removeEventListener('change', this._handleAppStateChange);

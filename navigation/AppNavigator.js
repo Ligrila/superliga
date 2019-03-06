@@ -118,6 +118,59 @@ var Main = createDrawerNavigator({
       }
     }
   },
+  Championship:{
+    screen: ChampionshipNavigator,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Torneo amigos"} icon="trophy"  />
+        )
+      }
+    }
+  },
+  LivePacks: {
+    screen: LivePacksScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Comprar"} icon="shopping-cart" />
+        )
+      },
+      mode: 'modal',
+      headerMode: 'none',
+    }
+  },
+  Calendar: {
+    screen: CalendarScreen,
+    navigationOptions: {
+        drawerLabel: () =>{
+          return (
+            <SidebarItem label={"Fixture"} icon="calendar" />
+          )
+        }
+      }
+  },
+
+  Awards:{
+    screen: AwardsScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Premios"} icon="gift" />
+        )
+      }
+    }
+  },
+  Statistics:{
+    screen: StatisticsScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Estadisticas"} icon="bar-chart" />
+        )
+      }
+    }
+  },
   Tutorial: {
     screen: TutorialScreen,
     navigationOptions: {
@@ -125,17 +178,7 @@ var Main = createDrawerNavigator({
       drawerLabel: () => null
     }
   },
-  Rules: {
-    screen: GameRulesScreen,
-    navigationOptions: {
-      title: "Reglas",
-      drawerLabel: () =>{
-        return (
-          <SidebarItem label={"Reglas del juego"} icon="legal" />
-        )
-      }
-    }
-  },
+
   TriviasScreen:{
     screen: TriviasScreen,
     navigationOptions: {
@@ -150,78 +193,6 @@ var Main = createDrawerNavigator({
     }
   },
 
-  Profile: {
-    screen: ProfileScreen,
-    navigationOptions: {
-      drawerLabel: () =>{
-        return (
-          <SidebarItem label={"Mi perfil"} icon="user" />
-        )
-      }
-    }
-  },
-  Calendar: {
-    screen: CalendarScreen,
-    navigationOptions: {
-        drawerLabel: () =>{
-          return (
-            <SidebarItem label={"Fixture"} icon="calendar" />
-          )
-        }
-      }
-  },
-  LivePacks: {
-    screen: LivePacksScreen,
-    navigationOptions: {
-      drawerLabel: () =>{
-        return (
-          <SidebarItem label={"Comprar"} icon="shopping-cart" />
-        )
-      },
-      mode: 'modal',
-      headerMode: 'none',
-    }
-  },
-  Championship:{
-    screen: ChampionshipNavigator,
-    navigationOptions: {
-      drawerLabel: () =>{
-        return (
-          <SidebarItem label={"Torneo amigos"} icon="trophy"  />
-        )
-      }
-    }
-  },
-  Awards:{
-    screen: AwardsScreen,
-    navigationOptions: {
-      drawerLabel: () =>{
-        return (
-          <SidebarItem label={"Premios"} icon="gift" />
-        )
-      }
-    }
-  },
-  /*Buy:{
-    screen: BuyScreen,
-    navigationOptions: {
-      drawerLabel: () =>{
-        return (
-          <SidebarItem label={"Comprar"} source={require('../assets/images/menu/buy.png')}/>
-        )
-      }
-    }
-  },*/
-  Statistics:{
-    screen: StatisticsScreen,
-    navigationOptions: {
-      drawerLabel: () =>{
-        return (
-          <SidebarItem label={"Estadisticas"} icon="bar-chart" />
-        )
-      }
-    }
-  },
   Ranking:{
     screen: RankingScreen,
     navigationOptions: {
@@ -232,6 +203,40 @@ var Main = createDrawerNavigator({
       }
     }
   },
+
+  Profile: {
+    screen: ProfileScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Mi perfil"} icon="user" />
+        )
+      }
+    }
+  },
+
+  Rules: {
+    screen: GameRulesScreen,
+    navigationOptions: {
+      title: "Reglas",
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Reglas del juego"} icon="legal" />
+        )
+      }
+    }
+  },
+
+  /*Buy:{
+    screen: BuyScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Comprar"} source={require('../assets/images/menu/buy.png')}/>
+        )
+      }
+    }
+  },*/
 
 
   About:{

@@ -16,7 +16,70 @@ const FooterStyle ={
 };
 
 
-export default {
+const styles =   {
+    'SuperLiga.CreateChallenge':{
+        text:{
+            color: '#fff',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize:s(30),
+            textAlign: 'center'
+        },
+        buttonText:{
+            color: '#fff',
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize:s(25)
+
+        },
+        row:{
+            flexDirection: 'row',
+            flex:1,
+            marginTop: h(10),
+        },
+        colh1:{
+            flex:0.3,
+        },
+        colh2:{
+            flex:0.2,
+        },
+        colh3:{
+            flex:0.2,
+        },
+        col1:{
+            flexDirection: 'column',
+            flex:0.3,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            padding: s(20),
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        col2:{
+            flexDirection: 'column',
+            flex:0.2,
+            backgroundColor: '#264870',
+            padding: s(20),
+            alignItems: 'center',
+            justifyContent: 'center',
+            
+            
+        },
+        col3:{
+            marginLeft: s(5),
+            flexDirection: 'column',
+            flex:0.2,
+            backgroundColor: '#153f72',
+            padding: s(20),
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        col4:{
+            flexDirection: 'column',
+            flex:0.3,
+            backgroundColor: '#539ecd',
+            padding: s(20),
+            alignItems: 'center',
+            justifyContent: 'center'
+        }
+    },
     'SuperLiga.NotificationItem':{
         container:{
             backgroundColor: '#fff',
@@ -323,6 +386,19 @@ export default {
 
         icon:{
             color: '#fff',
+        },
+        statisticsContainer:{
+            flexDirection: 'row'
+        },
+        statisticsText:{
+            color: '#fff',
+            fontFamily: 'OpenSansCondensed_light',
+            fontSize: s(25),
+            paddingLeft: s(5)
+        },
+        statisticsIcon:{
+            color: '#fff',
+            fontSize: s(25),
         }
 
     },
@@ -1854,3 +1930,6 @@ export default {
         },
       }
   };
+
+
+export default styles

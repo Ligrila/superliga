@@ -142,12 +142,19 @@ export default class Api extends RestClient {
     return this.GET('/championships/index');
   }
   
-  allChampionshipList(q){
-    let search = '';
+  allChampionshipList(q,notMy=false){
+    let search = ignoreMy = '';
+    let startQ = '?'
     if(q){
-      search = '?q='+q;
+      search = startQ + 'q='+q;
+      startQ='&';
     }
-    return this.GET('/championships/all'+search);
+    if(notMy){
+      ignoreMy = startQ+'not_my';
+      startQ='&';
+    }
+
+    return this.GET('/championships/all'+search+ignoreMy);
   }
 
   championshipRanking(id,type){
@@ -166,7 +173,9 @@ export default class Api extends RestClient {
     return this.POST('/championships/subscribe/'+id,{
     });
   }
-
+  challengesList(){
+    return this.GET('/challenges/index');
+  }
 
   notificationsList(){
     return this.GET('/notifications/index');

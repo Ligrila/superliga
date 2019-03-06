@@ -6,7 +6,7 @@ import {Linking} from 'expo'
 
 
 import Title from '../Title';
-import { AllChampionshipsStore, AllChampionshipsActions } from '../../store/AllChampionshipsStore';
+import { ChallengesStore, ChallengesActions } from '../../store/ChallengesStore';
 import Notice from '../Notice';
 import { UsersStore } from '../../store/UserStore';
 
@@ -15,18 +15,18 @@ const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.
 
 
 
-class ChallengeChampionshipList extends Reflux.Component {
+class ChallengeList extends Reflux.Component {
  state = {
 
  }
   constructor(props) {
     super(props);
-    this.stores = [AllChampionshipsStore,UsersStore];
+    this.stores = [ChallengesStore,UsersStore];
 
   }
 
   componentDidMount(){
-    AllChampionshipsActions.list()
+    ChallengesActions.list()
   }
   onShare(c){
     const shareUrl = Linking.makeUrl('championships/' + c.id)
@@ -51,14 +51,17 @@ class ChallengeChampionshipList extends Reflux.Component {
   }
   renderItems(){
     const styles = this.props.style;
-    if(this.state.AllChampionships.data.length == 0){
+    if(this.state.Challenges.data.length == 0){
       return (
-        <Notice text="Ups no encontramos ningún torneo." />
+        <Notice text="Todavía no has desafiado a un torneo." />
       )
+    }
+    onChallenge = (championship) => {
+      
     }
 
     actionSheets = (championship) =>{      
-      const BUTTONS = ["Invitar", "Cancelar"];
+      const BUTTONS = ["Invitar",'Desafiar', "Cancelar"];
       const DESTRUCTIVE_INDEX = 1;
       const CANCEL_INDEX = 2;
       ActionSheet.show(
@@ -72,14 +75,17 @@ class ChallengeChampionshipList extends Reflux.Component {
 
           switch(buttonIndex){
             case 0: this.onShare(championship);break;
+            case 1: this.onChallenge(championship);break;
             default: break;
+
+
           }
           
         }
       );
     }
     let isFirst = true;
-    return this.state.AllChampionships.data.map((championship)=>{
+    return this.state.Challenges.data.map((championship)=>{
       
       const button = () => {
         return (
@@ -128,4 +134,4 @@ class ChallengeChampionshipList extends Reflux.Component {
 }
 
 
-export default connectStyle('SuperLiga.ChallengeChampionshipList')(ChallengeChampionshipList);
+export default connectStyle('SuperLiga.ChallengeList')(ChallengeList);

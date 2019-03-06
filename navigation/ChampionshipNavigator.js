@@ -12,7 +12,8 @@ import ChampionshipCreateScreen from '../screens/ChampionshipCreateScreen';
 import ChampionshipSubscribeScreen from '../screens/ChampionshipSubscribeScreen';
 
 import Layout from '../constants/Layout';
-import ChallengesScreen from '../screens/ChallengesScreen';
+import ChallengeScreen from '../screens/ChallengeScreen';
+import ChallengeCreateScreen from '../screens/ChallengeCreateScreen';
 
 const ChampionshipStack = createStackNavigator(
     {
@@ -41,7 +42,9 @@ ChampionshipStack.navigationOptions = {
 };
 
 const ChallengesStack = createStackNavigator({
-    ChampionshipChallenges: ChallengesScreen,
+    ChallengeHome: ChallengeScreen,
+    ChallengeCreate: ChallengeCreateScreen
+
 },
 {
   headerMode: 'none',
@@ -58,29 +61,13 @@ ChallengesStack.navigationOptions = {
   ),
 };
 
-const NotificationsStack = createStackNavigator({
-    ChampionshipNotifications: ChampionshipScreen,
-  },
-  {
-    headerMode: 'none',
-  });
-  
-  NotificationsStack.navigationOptions = {
-    tabBarLabel: 'Notificaciones',
-    tabBarIcon: ({ focused }) => (
-      <TabBarIcon
-        focused={focused}
-        name="comment-o"
-      />
-    ),
-  };
+
 
 
 
 export default createBottomTabNavigator({
     ChampionshipStack,
     ChallengesStack,
-    NotificationsStack
 
 },
 {
@@ -102,7 +89,7 @@ export default createBottomTabNavigator({
         bottom: 0,
         left: 0,
         right:0,
-      backgroundColor: 'rgba(28, 28, 28, 0.3)',
+      backgroundColor: 'rgba(28, 28, 28, 0.8)',
     },
   }
 }

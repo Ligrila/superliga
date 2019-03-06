@@ -7,9 +7,9 @@ import {connectStyle, Icon, Button} from 'native-base'
 
 
 
-import ChallengeChampionshipList from './ChallengeChampionshipList';
+import ChallengeList from './ChallengeList';
 
-import { AllChampionshipsActions } from '../../store/AllChampionshipsStore';
+
 
 
 class Challenges extends React.Component {
@@ -27,7 +27,7 @@ class Challenges extends React.Component {
 
   
   renderWidget(){
-    return (<ChallengeChampionshipList navigation={this.props.navigation}/>)
+    return (<ChallengeList navigation={this.props.navigation}/>)
 
   }
 

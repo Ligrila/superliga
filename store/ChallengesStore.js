@@ -2,26 +2,26 @@ import Reflux from 'reflux';
 import CacheStore from './CacheStore'
 import Api from '../api/Api';
 
-export const AllChampionshipsActions = Reflux.createActions(['list','reset']);
+export const ChallengesActions = Reflux.createActions(['list','reset']);
 
 
 
-export class AllChampionshipsStore extends CacheStore
+export class ChallengesStore extends CacheStore
 {
     
     api = new Api;
 
     constructor()
     {
-        super('Store.AllChampionships');
-        this.listenables = AllChampionshipsActions;
+        super('Store.Challenges');
+        this.listenables = ChallengesActions;
     }
 
     
 
     getInititalState(){
         return {
-            AllChampionships:{
+            Challenges:{
                 hasData: false,
                 data: []
             }
@@ -34,10 +34,10 @@ export class AllChampionshipsStore extends CacheStore
 
 
  
-    async list(q=null,notMy=false){
-        let response = await this.api.allChampionshipList(q,notMy);
+    async list(q=null){
+        let response = await this.api.challengesList();
         const state = {
-            AllChampionships:{
+            Challenges:{
                 hasData: true,
                 data: response.data
             }

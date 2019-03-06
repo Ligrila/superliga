@@ -49,6 +49,9 @@ class ChampionshipList extends Reflux.Component {
   viewItem(championship){
     this.props.navigation.navigate("ChampionshipView",{championship})
   }
+  onChallenge(championship){
+    this.props.navigation.navigate("ChallengeCreate",{championship})
+  }
   renderItems(){
     const styles = this.props.style;
     if(this.state.Championships.data.length == 0){
@@ -58,9 +61,9 @@ class ChampionshipList extends Reflux.Component {
     }
 
     actionSheets = (championship) =>{      
-      const BUTTONS = ["Invitar", "Cancelar"];
-      const DESTRUCTIVE_INDEX = 1;
-      const CANCEL_INDEX = 2;
+      const BUTTONS = ["Invitar", "Desafiar con este torneo","Cancelar"];
+      const DESTRUCTIVE_INDEX = 2;
+      const CANCEL_INDEX = 3;
       ActionSheet.show(
         {
           options: BUTTONS,
@@ -72,6 +75,7 @@ class ChampionshipList extends Reflux.Component {
 
           switch(buttonIndex){
             case 0: this.onShare(championship);break;
+            case 1: this.onChallenge(championship);break;
             default: break;
           }
           

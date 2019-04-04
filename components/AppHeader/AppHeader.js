@@ -21,6 +21,7 @@ import menuImg from '../../assets/images/menu.png';
 
 
 import OfflineNotice from '../OfflineNotice';
+import NotificationBullet from "../Notification/NotificationBullet";
 
 
 
@@ -52,6 +53,9 @@ class AppHeader extends Component {
                     <Button transparent onPress={() => {this.props.drawerOpen()}}>
                         <Image source={menuImg} style={styles.menuImg}   resizeMode="contain"/>
                     </Button>
+                    <View style={styles.notificationBullet}>
+                        <NotificationBullet />
+                    </View>
                 </Right>
             </Header>
         );

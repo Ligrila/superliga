@@ -7,7 +7,6 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import BigTitle from '../Title/BigTitle';
 import TriviaMinimal from '../Trivia/TriviaMinimal';
 
-import { TriviaStore, TriviaActions } from '../../store/TriviaStore';
 
 import Notice from '../Notice';
 
@@ -20,6 +19,7 @@ import carouselPrev from '../../assets/images/trivia-carousel-minimal-prev.png';
 
 
 import Layout from '../../constants/Layout';
+import { HomeBannerStore, HomeBannerActions } from '../../store/BannersStore';
 
 function wp (percentage) {
   const value = (percentage * Layout.window.width) / 100;
@@ -40,13 +40,13 @@ class TriviaCarouselMinimal extends Reflux.Component {
    constructor(props){
       super(props);
       this.state = { loading:true,title:'',subtitle:'',activeSlide: 0,didMount: false };
-      this.store = TriviaStore;
+      this.stores = [HomeBannerStore];
    
   }
 
   componentDidMount(){
-    TriviaActions.index();
-    this.completedUnsuscribe = TriviaActions.index.completed.listen((trivias)=>{
+    HomeBannerActions.index()
+    this.completedUnsuscribe = HomeBannerActions.index.completed.listen((trivias)=>{
       this.setTitle(trivias.data[0]);
       this.props.onItem(trivias.data[0]);
 
@@ -67,11 +67,17 @@ class TriviaCarouselMinimal extends Reflux.Component {
 
   }
   setTitle(item){
+    if(item.type=='banner'){
+      this.setState({ title:  ''});
+      this.setState({ subtitle:  ''});      
+      return;
+    }
+    
     this.setState({ title:  item.date.name});
     this.setState({ subtitle:  item.start_datetime_local.format('LL')});
   }
   onSnapToItem = (index)=>{
-    const item = this.state.Trivia.Trivias[index];
+    const item = this.state.HomeBanner.data[index];
     this.props.onItem(item)
     this.setTitle(item);
     this.setState({ activeSlide: index });
@@ -83,10 +89,10 @@ class TriviaCarouselMinimal extends Reflux.Component {
     if(loading){
       return;
     }
-    if(!this.state.Trivia.Trivias){
+    if(!this.state.HomeBanner.data){
       return;
     }
-    const maxSlide = this.state.Trivia.Trivias.length;
+    const maxSlide = this.state.HomeBanner.data.length;
     if(maxSlide<=0){
       return;
     }
@@ -136,10 +142,25 @@ getNotice = (item) => {
 
     return null;
   }
+  onBannerPress = (item) => {
+    if(item.action == 'navigate'){
+      this.props.navigation.navigate(item.action_target,{});
+      return;
+    }
+
+    if(item.action == 'link'){
+      this.props.navigation.navigate('InAppBrowser',{url:item.action_target_url,return:'Home'});
+    }
+
+    
+  }
 _renderItem = ({item, index}) => {
     const styles = this.props.style;
-    if(!this.state.Trivia.hasData){
+    if(!this.state.HomeBanner.hasData){
       return;
+    }
+    if(item.type=='banner'){
+      return <TouchableOpacity style={styles.banner} onPress={()=>this.onBannerPress(item)} />;
     }
     const renderAward = () => {
       if(item.award.length <= 0){
@@ -184,7 +205,7 @@ renderCarousel(){
   return (
     <Carousel
             ref={(c) => { this._carousel = c; }}
-            data={this.state.Trivia.Trivias}
+            data={this.state.HomeBanner.data}
             renderItem={this._renderItem}
             sliderWidth={sliderWidth}
             itemWidth={itemWidth}
@@ -195,11 +216,11 @@ renderCarousel(){
   
   render() {
     const styles = this.props.style;
-    if(!this.state.Trivia.hasData){
+    if(!this.state.HomeBanner.hasData){
       return <Spinner />;
     }
 
-    if(this.state.Trivia.Trivias.length==0){
+    if(this.state.HomeBanner.data.length==0){
       return (
         <BigTitle 
         text='Próximas' 

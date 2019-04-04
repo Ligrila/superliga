@@ -17,7 +17,7 @@ export class UsersStore extends CacheStore
 
 
     getInititalState(){
-        return {user:null,hasInformation:false};
+        return {user:{},hasInformation:false};
     }
 
     onNoLife(lives){

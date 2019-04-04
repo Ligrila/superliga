@@ -38,13 +38,12 @@ class ChampionshipList extends Reflux.Component {
     );
   }
 
-  formatDate(s){
-    const pad = function(num) { return ('00'+num).slice(-2) };
-    const d = new Date(s.split(" ")[0]);
-    const day = pad(d.getDate());
-    const month = pad(d.getMonth() + 1);
-    const year = d.getFullYear();
-    return `${day}/${month}/${year}`;
+
+  onEdit(championship){
+    this.props.navigation.navigate("ChampionshipEdit",{championship})
+  }
+  onEditUsers(championship){
+    this.props.navigation.navigate("ChampionshipEditUsers",{championship})
   }
   viewItem(championship){
     this.props.navigation.navigate("ChampionshipView",{championship})
@@ -61,9 +60,9 @@ class ChampionshipList extends Reflux.Component {
     }
 
     actionSheets = (championship) =>{      
-      const BUTTONS = ["Invitar", "Desafiar con este torneo","Cancelar"];
-      const DESTRUCTIVE_INDEX = 2;
-      const CANCEL_INDEX = 3;
+      const BUTTONS = ["Editar","Participantes","Invitar", "Desafiar con este torneo","Cancelar"];
+      const DESTRUCTIVE_INDEX = 4;
+      const CANCEL_INDEX = 5;
       ActionSheet.show(
         {
           options: BUTTONS,
@@ -74,8 +73,10 @@ class ChampionshipList extends Reflux.Component {
         buttonIndex => {
 
           switch(buttonIndex){
-            case 0: this.onShare(championship);break;
-            case 1: this.onChallenge(championship);break;
+            case 0: this.onEdit(championship);break;
+            case 1: this.onEditUsers(championship);break;
+            case 2: this.onShare(championship);break;
+            case 3: this.onChallenge(championship);break;
             default: break;
           }
           
@@ -95,18 +96,24 @@ class ChampionshipList extends Reflux.Component {
       const buttonRender = (championship.user_id == this.state.user.id) ? button() : null;
       const itemStyle = isFirst ? {...styles.listItemFirst,...styles.listItem} : styles.listItem;
       isFirst = false;
+      let avatar = trophyAvatarSrc;
+      if(championship.avatar){
+        avatar = {uri: championship.avatar};
+      }
       return (
 
         <ListItem avatar button style={itemStyle} key={championship.id} onPress={()=>this.viewItem(championship)}>
           <Left>
             <View  style={styles.thumbnail } >
-            <Image source={trophyAvatarSrc}  style={styles.thumbnailImg } />
+            <Image source={avatar}  style={styles.thumbnailImg } />
             </View>
           </Left>
           <Body>
             <Text style={styles.championshipName}>{championship.name}</Text>
             <Text style={styles.text}>Organizado por {championship.user.first_name} {championship.user.last_name}{'\n'}
-            finaliza el {this.formatDate(championship.end_date)}
+            {championship.users_count} particpantes{'\n'}
+            {championship.championships_ranking.position} en el ranking general
+            
             </Text>
           </Body>
           <Right>

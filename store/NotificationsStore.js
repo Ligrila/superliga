@@ -2,7 +2,7 @@ import Reflux from 'reflux';
 import CacheStore from './CacheStore'
 import Api from '../api/Api';
 
-export const NotificationsActions = Reflux.createActions(['list','reset']);
+export const NotificationsActions = Reflux.createActions(['list','notificationsLoaded','reset']);
 
 
 
@@ -32,6 +32,9 @@ export class NotificationsStore extends CacheStore
         this.setState(this.getInititalState());
     }
 
+    notificationsLoaded(){
+
+    }
 
  
     async list(q=null){
@@ -43,6 +46,7 @@ export class NotificationsStore extends CacheStore
             }
         }
         this.setStateCache(state)
+        NotificationsActions.notificationsLoaded()
     }
 }
 

@@ -10,119 +10,98 @@ import { NavigationActions } from 'react-navigation'
 import Title from '../Title';
 import { CreateChampionshipStore,CreateChampionshipActions } from '../../store/CreateChampionshipStore';
 import Loader from '../Loader';
+import Avatar from '../Avatar';
+import ChangeAvatar from '../Avatar/ChangeAvatar';
+import { ChampionshipsActions } from '../../store/ChampionshipsStore';
+
+const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.png')
+
 
 class CreateChampionship extends Reflux.Component {
  state = {
+     id: null,
      name: null,
-     fromDate: null,
-     toDate: null,
+     picture: null,
+     pictureChanged: false,
  }
+  editMode = false;
   constructor(props) {
     super(props);
+    this.editMode = this.props.editMode || false
+    if(props.championship){
+      this.state = props.championship;
+      this.state.picture  = props.championship.avatar
+    }
     this.store = CreateChampionshipStore;
 
   }
 
   componentDidMount(){
-    CreateChampionshipActions.created.listen(async (championship)=>{
-      this.props.navigation.navigate('ChampionshipView',{championship:championship,created:true})
-    })
+    if(this.editMode){
+      CreateChampionshipActions.edited.listen(async (championship)=>{
+        ChampionshipsActions.list();
+        this.props.navigation.navigate('ChampionshipHome')
+      })
+    } else{
+      CreateChampionshipActions.created.listen(async (championship)=>{
+        this.props.navigation.navigate('ChampionshipView',{championship:championship,created:true})
+      })
+    }
   }
   setName = (name) =>{
     this.setState({name})
   }
-  setFromDate = async (_fromDate) =>{
-      const pad = function(num) { return ('00'+num).slice(-2) };
-      const day = pad(_fromDate.getDate());
-      const month = pad(_fromDate.getMonth() + 1);
-      const year = _fromDate.getFullYear();
-      const fromDate = `${year}-${month}-${day}`
-      this.setState({fromDate})
+  setPicture = (picture) =>{
+    const pictureChanged = true
+    this.setState({picture})
+    this.setState({pictureChanged})
+    
   }
-  setToDate = async (_toDate) =>{
-    const pad = function(num) { return ('00'+num).slice(-2) };
-
-    const day = pad(_toDate.getDate());
-    const month = pad(_toDate.getMonth() + 1);
-    const year = _toDate.getFullYear();
-    const toDate = `${year}-${month}-${day}`
-    await this.setFromDate(new Date())
-    await this.setState({toDate})
-  }
+  
   onNextClick = () =>{
-    if(!this.state.name || !this.state.fromDate || !this.state.toDate){
+    if(!this.state.name){
       Toast.show({
-        text: 'Por favor rellena todos los campos',
+        text: 'Por favor escribe un nombre',
         position: "bottom",
         type: 'danger',
         buttonText: 'Aceptar'
       });
       return;
     }
-    if(this.state.fromDate >= this.state.toDate){
-      Toast.show({
-        text: 'La fecha de fin del torneo debe ser mayor a la de comienzo',
-        position: "bottom",
-        type: 'danger',
-        buttonText: 'Aceptar'
-      });
-      return;
+    if(this.editMode){
+      CreateChampionshipActions.edit(this.state.id,this.state.name,this.state.pictureChanged ? this.state.picture : null )
+    } else{
+      CreateChampionshipActions.create(this.state.name,this.state.picture)
     }
-    CreateChampionshipActions.create(this.state.name,this.state.fromDate,this.state.toDate)
   }
-/*<View style={styles.calendarContainer}>
-                <View style={styles.calendar}>
-                    <Icon name="calendar" type="FontAwesome" style={styles.calendarIcon} />
-                    <DatePicker
-                                defaultDate={new Date()}
-                                minimumDate={new Date()}
-                                locale={"es"}
-                                timeZoneOffsetInMinutes={undefined}
-                                modalTransparent={false}
-                                animationType={"fade"}
-                                androidMode={"default"}
-                                placeHolderText="Desde"
-                                textStyle={styles.label}
-                                placeHolderTextStyle={styles.label}
-                                onDateChange={this.setFromDate}
-                                disabled={false}
-                        />
-                </View>
-               </View>*/
+
+  
+  
   render() {
     const styles = this.props.style;
+    let avatar = trophyAvatarSrc
+    if(this.state.picture){
+      avatar = {uri: this.state.picture}
+    }
+
+    const title = this.editMode ? 'EDITAR \n TORNEO' : 'CREA TU TORNEO \n SUPERLIGA'
     return (
       <View style={styles.container} >
-        <Title text={'CREA TU TORNEO \n SUPERLIGA'}></Title>
+        <Title text={title}></Title>
         <Loader loading={this.state.CreateChampionship.loading}/>
         <Form>
+              <Avatar avatar={avatar}></Avatar>
+              <ChangeAvatar onChange={this.setPicture}></ChangeAvatar>
               <Input placeholder='Nombre del Torneo'
                 style={styles.input}
                 placeHolderTextStyle={styles.placeholder}
                  placeholderTextColor={styles.placeholder.color}
                  onChangeText={this.setName}
+                 value={this.state.name}
                  />
               
 
-               <View style={styles.calendarContainer}>
-                <View style={styles.calendar}>
-                    <Icon name="calendar" type="FontAwesome" style={styles.calendarIcon} />
-                    <DatePicker
-                                defaultDate={new Date()}
-                                minimumDate={new Date()}
-                                locale={"es"}
-                                timeZoneOffsetInMinutes={undefined}
-                                modalTransparent={false}
-                                animationType={"fade"}
-                                androidMode={"default"}
-                                placeHolderText="Hasta"
-                                textStyle={styles.label}
-                                placeHolderTextStyle={styles.label}
-                                onDateChange={this.setToDate}
-                                disabled={false}
-                        />
-                </View>
-               </View>
+
                <View style={styles.buttonContainer}>
                     <Button 
                       style={styles.button} onPress={this.onNextClick}

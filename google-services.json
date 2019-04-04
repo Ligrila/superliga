@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "301551386444",
+    "firebase_url": "https://jugada-superliga-1baf6.firebaseio.com",
+    "project_id": "jugada-superliga-1baf6",
+    "storage_bucket": "jugada-superliga-1baf6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301551386444:android:3bb0dd03b803c7b4",
+        "android_client_info": {
+          "package_name": "com.balltoball.jugadasuperliga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301551386444-tpc00937oiosar0qt7strs0iih3fi0v2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLlhYn5oUYW1muKd-cSOeQbvFYix_yOiQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -73,7 +73,7 @@ class Sidebar extends Reflux.Component {
       return <View />;
     }
     let points = 0;
-    if(this.state.user.point){
+    if(this.state.user&&this.state.user.point){
       points = this.state.user.point.points;
     }
     return (

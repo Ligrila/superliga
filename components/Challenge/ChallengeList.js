@@ -9,9 +9,10 @@ import Title from '../Title';
 import { ChallengesStore, ChallengesActions } from '../../store/ChallengesStore';
 import Notice from '../Notice';
 import { UsersStore } from '../../store/UserStore';
+import ChallengeItem from './ChallengeItem';
 
 
-const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.png')
+
 
 
 
@@ -38,84 +39,24 @@ class ChallengeList extends Reflux.Component {
     );
   }
 
-  formatDate(s){
-    const pad = function(num) { return ('00'+num).slice(-2) };
-    const d = new Date(s.split(" ")[0]);
-    const day = pad(d.getDate());
-    const month = pad(d.getMonth() + 1);
-    const year = d.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-  viewItem(championship){
-    this.props.navigation.navigate("ChampionshipView",{championship})
-  }
+  
+
   renderItems(){
     const styles = this.props.style;
-    if(this.state.Challenges.data.length == 0){
+    if(!this.state.Challenges.hasData){
       return (
         <Notice text="Todavía no has desafiado a un torneo." />
       )
     }
-    onChallenge = (championship) => {
-      
-    }
 
-    actionSheets = (championship) =>{      
-      const BUTTONS = ["Invitar",'Desafiar', "Cancelar"];
-      const DESTRUCTIVE_INDEX = 1;
-      const CANCEL_INDEX = 2;
-      ActionSheet.show(
-        {
-          options: BUTTONS,
-          cancelButtonIndex: CANCEL_INDEX,
-          destructiveButtonIndex: DESTRUCTIVE_INDEX,
-          title: "Opciones"
-        },
-        buttonIndex => {
-
-          switch(buttonIndex){
-            case 0: this.onShare(championship);break;
-            case 1: this.onChallenge(championship);break;
-            default: break;
-
-
-          }
-          
-        }
-      );
-    }
     let isFirst = true;
-    return this.state.Challenges.data.map((championship)=>{
+    return this.state.Challenges.data.map((challenge)=>{
       
-      const button = () => {
-        return (
-          <Button icon onPress={()=>actionSheets(championship)}>
-            <Icon name="handshake-o" style={styles.icon} type="FontAwesome"/>
-          </Button>
-        )
-      };
-      const buttonRender = (championship.user_id != this.state.user.id) ? button() : null;
-      const itemStyle = isFirst ? {...styles.listItemFirst,...styles.listItem} : styles.listItem;
-      isFirst = false;
-      return (
 
-        <ListItem avatar button style={itemStyle} key={championship.id} onPress={()=>this.viewItem(championship)}>
-          <Left>
-            <View  style={styles.thumbnail } >
-            <Image source={trophyAvatarSrc}  style={styles.thumbnailImg } />
-            </View>
-          </Left>
-          <Body>
-            <Text style={styles.championshipName}>{championship.name}</Text>
-            <Text style={styles.text}>Organizado por {championship.user.first_name} {championship.user.last_name}{'\n'}
-            finaliza el {this.formatDate(championship.end_date)}
-            <Text>{championship.points} puntos</Text>
-            </Text>
-          </Body>
-          <Right>
-            {buttonRender}
-          </Right>
-        </ListItem>
+      const itemStyle = isFirst ? {...styles.listItemFirst,...styles.listItem} : styles.listItem;
+
+      return (
+        <ChallengeItem key={challenge.id} navigation={this.props.navigation} challenge={challenge} />
       )
     })
   }
@@ -124,7 +65,7 @@ class ChallengeList extends Reflux.Component {
     const styles = this.props.style;
     return (
       <Content style={styles.container}>
-        <Title text={'DESAFIOS \n SUPERLIGA'}></Title>
+        <Title text={'TUS \n DESAFIOS'}></Title>
         <List style={styles.list}>
           {this.renderItems()}
         </List>
@@ -134,4 +75,4 @@ class ChallengeList extends Reflux.Component {
 }
 
 
-export default connectStyle('SuperLiga.ChallengeList')(ChallengeList);
+export default connectStyle('SuperLiga.ChampionshipList')(ChallengeList);

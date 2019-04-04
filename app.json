@@ -26,8 +26,9 @@
 
     "android":{
       "package": "com.balltoball.jugadasuperliga",
-      "versionCode": 38,
+      "versionCode": 46,
       "permissions": ["VIBRATE"],
+      "googleServicesFile": "./google-services.json",
       "config":{
         "googleSignIn":
           {

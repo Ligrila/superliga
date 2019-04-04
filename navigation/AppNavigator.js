@@ -42,6 +42,8 @@ import AboutScreen from '../screens/AboutScreen';
 
 import ChampionshipNavigator from './ChampionshipNavigator'
 import NotificationScreen from '../screens/NotificationScreen';
+import ContactScreen from '../screens/ContactScreen';
+import InAppBrowserScreen from '../screens/InAppBrowserScreen';
 
 
 
@@ -150,7 +152,12 @@ var Main = createDrawerNavigator({
         }
       }
   },
-
+  InAppBrowser: {
+    screen: InAppBrowserScreen,
+    navigationOptions: {
+      drawerLabel: () => null
+    }
+  },
   Awards:{
     screen: AwardsScreen,
     navigationOptions: {
@@ -199,6 +206,18 @@ var Main = createDrawerNavigator({
       drawerLabel: () =>{
         return (
           <SidebarItem label={"Ranking"} icon="list-ol" />
+        )
+      }
+    }
+  },
+
+
+  Contact: {
+    screen: ContactScreen,
+    navigationOptions: {
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Contacto"} icon="send" />
         )
       }
     }

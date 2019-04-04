@@ -5,11 +5,11 @@ import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 
 import bgSrc from '../assets/images/championship/bg2.png';
-import Notification from '../components/Notification';
+import AllChampionship from '../components/Championship/AllChampionship';
 
 
 
-class NotificationScreen extends React.Component {
+class AllChampionshipScreen extends React.Component {
   render() {
     const styles = this.props.style;
     return (
@@ -17,7 +17,7 @@ class NotificationScreen extends React.Component {
         <Wallpaper source={bgSrc}>
         <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
         <Content contentContainerStyle={styles.content}>
-          <Notification navigation={this.props.navigation}/>
+          <AllChampionship navigation={this.props.navigation}/>
         </Content>
         </Wallpaper>
       </Container>
@@ -25,4 +25,4 @@ class NotificationScreen extends React.Component {
   }
 }
 
-export default connectStyle('SuperLiga.NotificationScreen')(NotificationScreen);
+export default connectStyle('SuperLiga.ChampionshipScreen')(AllChampionshipScreen);

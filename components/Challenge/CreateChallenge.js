@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Reflux from 'reflux';
-import {  View } from 'react-native';
-import {connectStyle,List,  Text,Button, Content} from 'native-base'
+import {  View, Alert } from 'react-native';
+import {connectStyle,Toast,  Text,Button, Content} from 'native-base'
 
 
 
@@ -11,6 +11,7 @@ import { AllChampionshipsStore,AllChampionshipsActions } from '../../store/AllCh
 
 import Notice from '../Notice';
 import { UsersStore } from '../../store/UserStore';
+import Loader from '../Loader';
 
 
 
@@ -42,30 +43,76 @@ class CreateChallenge extends Reflux.Component {
     return `${day}/${month}/${year}`;
   }
 
-  renderItems(){
+  onCreateChallenge(response){
+      console.log({response})
+      if(response.success){
+        Toast.show({
+          text: "La invitación fue enviada correctamente.",
+          duration: 5000,
+          type: "success"
+        })
+    
+      } else{
+        Toast.show({
+          text: "No se pudo enviar la invitación a este torneo.",
+          duration: 5000,
+          type: "danger"
+        })
+      }
+      if(typeof(this.createdUnsubscribe)=='function'){
+        this.createdUnsubscribe();
+      }
+  }
+  createChallenge = async (championship) => {
+    await CreateChallengeActions.reset()
+    CreateChallengeActions.create(championship.id,this.championship.id /* quien desafia */)
+    this.createdUnsubscribe = CreateChallengeActions.response.listen(this.onCreateChallenge)
+
+    
+
+  }
+
+  onChallenge = (championship) => {
+    const self = this
+    Alert.alert(
+      'Desafiar torneo',
+      '¿Estás seguro de desafiar este torneo?',
+      [
+        {
+          text: 'Cancelar',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {text: '¡Si, desafiar!', onPress: () => this.createChallenge(championship) },
+      ],
+      {cancelable: false},
+    );
+  }
+
+  renderItems = () => {
     const styles = this.props.style;
     if(this.state.AllChampionships.data.length == 0){
       return (
         <Notice text="No hemos encontrado ningun torneo" />
       )
     }
-    onChallenge = (championship) => {
-      
-    }
 
 
-    let isFirst = true;
-    return this.state.AllChampionships.data.map((championship)=>{
+
+
+
+    return this.state.AllChampionships.data.map((ranking)=>{
       
       const button = (styles) => {
         return (
-          <Button transparent style={styles.button} onPress={()=>onChallenge(championship)}>
+          <Button transparent style={styles.button} onPress={()=>this.onChallenge(championship)}>
             <Text style={styles.buttonText}>DESAFIAR ></Text>
           </Button>
         )
       };
-      const buttonRender = (championship.user_id != this.state.user.id) ? button(styles) : null;
 
+      const championship = ranking.championship
+      const buttonRender = (championship.user_id != this.state.user.id) ? button(styles) : null;
       championship.user = {
         first_name: championship.first_name,
         last_name: championship.last_name,
@@ -81,7 +128,7 @@ class CreateChallenge extends Reflux.Component {
             <Text style={styles.text}>{championship.users_count}</Text>
           </View>
           <View style={styles.col3}>
-            <Text style={styles.text}>{championship.points}</Text>
+            <Text style={styles.text}>{ranking.points}</Text>
           </View>
           <View style={styles.col4}>
             {buttonRender}
@@ -96,6 +143,7 @@ class CreateChallenge extends Reflux.Component {
     const styles = this.props.style;
     return (
       <Content style={styles.container}>
+      <Loader loading={this.state.CreateChallenge.loading} />
         <Title text={'DESAFIA \n OTROS EQUIPOS'}></Title>
         <View style={styles.list}>
           <View style={styles.row}>

@@ -1,11 +1,11 @@
 import Reflux from 'reflux';
 import Api from '../api/Api';
 
-export const CreateChallengeActions = Reflux.createActions(['create','response','reset']);
+export const EditChampionshipUsersActions = Reflux.createActions(['toggle','reset']);
 
 
 
-export class CreateChallengeStore extends Reflux.Store
+export class EditChampionshipUsersStore extends Reflux.Store
 {
     
     api = new Api;
@@ -13,17 +13,17 @@ export class CreateChallengeStore extends Reflux.Store
     constructor()
     {
         super();
-        this.listenables = CreateChallengeActions;
+        this.listenables = EditChampionshipUsersActions;
         this.state = this.getInititalState();
     }
 
 
     getInititalState(){
         return {
-            CreateChallenge:{
+            EditChampionshipUsers:{
                 loading: false,
                 hasData: false,
-                data: {}
+                data: []
             }
         };
     }
@@ -32,15 +32,14 @@ export class CreateChallengeStore extends Reflux.Store
         this.setState(this.getInititalState());
     }
 
-    onResponse(Challenge){
 
-    }
-    async create(championship_id,challenge_championship_id){
+    async toggle(user_id,championship_id,value){
         this.setState({loading:true})
-        let response = await this.api.createChallenge(championship_id,challenge_championship_id);
+        let response = await this.api.toggleChampionshipUser(user_id,championship_id,value);
+
 
         const state = {
-            CreateChallenge:{
+            EditChampionshipUsers:{
                 loading:false,
                 hasData: true,
                 data: response
@@ -48,8 +47,6 @@ export class CreateChallengeStore extends Reflux.Store
         }
         this.setState(state)
 
-        CreateChallengeActions.response(response)
-        
     }
 }
 

@@ -64,7 +64,7 @@ export default class RestClient {
         headers: this.headers
       };
       if (body) {
-        if(body.constructor.name!='FormData'){
+        if(body.constructor.name!='FormData' && !options.isUpload){
           Object.assign(opts, { body: JSON.stringify(body) });
         } else{
           Object.assign(opts, { body: body });
@@ -92,8 +92,8 @@ export default class RestClient {
         };
 
       const manageError = async response => {
-        //console.log('reject url', this.url)
-        //console.log('reject',await response);
+        console.log('reject url', this.url)
+        console.log('reject',await response);
         
         try{
           if(typeof(response.text)!=='function'){

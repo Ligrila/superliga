@@ -4,7 +4,7 @@ import {connectStyle,Container, Content } from 'native-base'
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 
-import bgSrc from '../assets/images/championship/bg.png';
+import bgSrc from '../assets/images/championship/bg2.png';
 import Challenge from '../components/Challenge';
 
 

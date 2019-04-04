@@ -67,12 +67,16 @@ class HomeScreen2 extends Reflux.Component {
       this.setState({screenBg: triviaBgSrc})
       return;
     }
+    if(item.type=='banner'){
+      this.setState({screenBg: {uri:item.banner}})
+      return;
+    }
     
     this.setState({screenBg: bgSrc})
   }
   renderNextTrivia(){
     if(!this.state.NextTrivia.hasData) return <Spinner />;
-    return (<TriviaCarouselMinimal onItem={this.carouselChange}></TriviaCarouselMinimal>)
+    return (<TriviaCarouselMinimal navigation={this.props.navigation} onItem={this.carouselChange}></TriviaCarouselMinimal>)
     return (
       <NextTrivia2 trivia={this.state.NextTrivia.Trivia}/>
     );

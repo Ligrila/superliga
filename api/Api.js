@@ -93,7 +93,7 @@ export default class Api extends RestClient {
       type: `image/${fileType}`,
     });
 
-    return this.POST('/users/edit',formData);
+    return this.POST('/users/edit',formData,{isUpload:true});
   }
 
   // premios
@@ -154,7 +154,10 @@ export default class Api extends RestClient {
       startQ='&';
     }
 
-    return this.GET('/championships/all'+search+ignoreMy);
+    return this.GET('/championships/all');
+
+
+//    return this.GET('/championships/all'+search+ignoreMy);
   }
 
   championshipRanking(id,type){
@@ -162,11 +165,44 @@ export default class Api extends RestClient {
   }
 
 
-  createChampionship(name,startDate,endDate){
+  createChampionship(name,picture=null){
+    
+      if(picture){
+        let formData = new FormData();
+        let uriParts = picture.split('.');
+        let fileType = uriParts[uriParts.length - 1];
+        const photorand = Math.floor(Math.random()* 1000000);
+        formData.append('name',name)
+        formData.append('picture', {
+          uri: picture,
+          name: `photo_${photorand}.${fileType}`,
+          type: `image/${fileType}`,
+        });
+    
+        return this.POST('/championships/add',formData,{isUpload:true});
+      }
+    
     return this.POST('/championships/add',{
-      name: name,
-      start_date: startDate,
-      end_date: endDate
+      name
+    });
+  }
+  editChampionship(id,name,picture=null){
+      if(picture){
+        let formData = new FormData();
+        let uriParts = picture.split('.');
+        let fileType = uriParts[uriParts.length - 1];
+        const photorand = Math.floor(Math.random()* 1000000);
+        formData.append('name',name)
+        formData.append('picture', {
+          uri: picture,
+          name: `photo_${photorand}.${fileType}`,
+          type: `image/${fileType}`,
+        });
+    
+        return this.POST('/championships/edit/'+id,formData,{isUpload:true});
+      }
+    return this.POST('/championships/edit/'+id,{
+      name
     });
   }
   subscribeChampionship(id){
@@ -181,4 +217,44 @@ export default class Api extends RestClient {
     return this.GET('/notifications/index');
   }
 
+  createChallenge(championship_id,challenge_championship_id){
+    return this.POST('/challenges/add-request',{
+      championship_id,
+      challenge_championship_id
+    });
+  }
+
+  challengeResponse(id,accepted){
+    return this.POST('/challenges/response-request',{
+      id,
+      accepted
+    });
+
+  }
+
+  challengeRanking(id,type){
+    return this.GET('/challenges/ranking/'+id+'?type='+type);
+  }
+
+  championshipUsers(id){
+    return this.GET('/championship-users/index/'+id);
+  }
+  toggleChampionshipUser(user_id,championship_id,value){
+    const action = value ? 'enable' : 'disable'
+    return this.GET('/championship-users/'+action+'/'+user_id+'/'+championship_id);
+  }
+
+  contactTopics(){
+    return this.GET('/contacts/topics/');
+  }
+  contact(contact_topic_id,body){
+    return this.POST('/contacts/add',{
+      contact_topic_id,
+      body
+    });
+  }
+
+  homeBanners(){
+    return this.GET('/trivias/index-banners');
+  }
 };

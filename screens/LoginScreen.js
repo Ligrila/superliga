@@ -3,7 +3,8 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage,
+    Platform
   } from 'react-native';
 
 import Expo from 'expo';
@@ -21,6 +22,7 @@ import Enviroment from '../constants/Enviroment';
 
 import { UsersActions } from '../store/UserStore';
 import { LoginScreenActions } from '../store/LoginScreenStore';
+
 
 
 class LoginScreen extends React.Component {
@@ -165,6 +167,7 @@ class LoginScreen extends React.Component {
     async googleLogin() {
       try {
         const result = await Google.logInAsync({
+          clientId: Platform.OS === 'android' ? Enviroment.androidStandaloneAppClientId : Enviroment.iosStandaloneAppClientId,
           androidClientId: Enviroment.androidClientId,
           androidStandaloneAppClientId: Enviroment.androidStandaloneAppClientId,
           iosClientId: Enviroment.iosClientId,

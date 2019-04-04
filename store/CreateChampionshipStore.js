@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 import Api from '../api/Api';
 
-export const CreateChampionshipActions = Reflux.createActions(['create','created','reset']);
+export const CreateChampionshipActions = Reflux.createActions(['create','created','edit','edited','reset']);
 
 
 
@@ -35,10 +35,13 @@ export class CreateChampionshipStore extends Reflux.Store
     onCreated(championship){
 
     }
-    async create(name,startDate,endDate){
+    onEdited(championship){
+
+    }
+    async create(name,picture=null){
         this.setState({loading:true})
-        let response = await this.api.createChampionship(name,startDate,endDate);
-        console.log(response);
+        let response = await this.api.createChampionship(name,picture);
+        console.log({response})
 
         const state = {
             CreateChampionship:{
@@ -50,6 +53,24 @@ export class CreateChampionshipStore extends Reflux.Store
         this.setState(state)
         if(response.success){
             CreateChampionshipActions.created(response.data)
+        }
+    }
+
+    async edit(id,name,picture=null){
+        this.setState({loading:true})
+        let response = await this.api.editChampionship(id,name,picture);
+        console.log({response})
+
+        const state = {
+            CreateChampionship:{
+                loading:false,
+                hasData: true,
+                data: response
+            }
+        }
+        this.setState(state)
+        if(response.success){
+            CreateChampionshipActions.edited(response.data)
         }
     }
 }

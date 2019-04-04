@@ -14,12 +14,19 @@ import ChampionshipSubscribeScreen from '../screens/ChampionshipSubscribeScreen'
 import Layout from '../constants/Layout';
 import ChallengeScreen from '../screens/ChallengeScreen';
 import ChallengeCreateScreen from '../screens/ChallengeCreateScreen';
+import ChallengeRequestScreen from '../screens/ChallengeRequestScreen';
+import ChallengeViewScreen from '../screens/ChallengeViewScreen';
+import AllChampionshipScreen from '../screens/AllChampionshipScreen';
+import ChampionshipEditScreen from '../screens/ChampionshipEditScreen';
+import ChampionshipEditUsersScreen from '../screens/ChampionshipEditUsersScreen';
 
 const ChampionshipStack = createStackNavigator(
     {
       ChampionshipHome: ChampionshipScreen,
       ChampionshipView: ChampionshipViewScreen,
       ChampionshipCreate: ChampionshipCreateScreen,
+      ChampionshipEdit:ChampionshipEditScreen,
+      ChampionshipEditUsers:ChampionshipEditUsersScreen,
       ChampionshipSubscribe: ChampionshipSubscribeScreen
   
   
@@ -43,7 +50,9 @@ ChampionshipStack.navigationOptions = {
 
 const ChallengesStack = createStackNavigator({
     ChallengeHome: ChallengeScreen,
-    ChallengeCreate: ChallengeCreateScreen
+    ChallengeCreate: ChallengeCreateScreen,
+    ChallengeRequest: ChallengeRequestScreen,
+    ChallengeView: ChallengeViewScreen
 
 },
 {
@@ -63,11 +72,31 @@ ChallengesStack.navigationOptions = {
 
 
 
+const AllChallengesStack = createStackNavigator({
+  AllChampionships: AllChampionshipScreen,
+
+
+},
+{
+headerMode: 'none',
+});
+
+AllChallengesStack.navigationOptions = {
+tabBarLabel: 'General',
+tabBarIcon: ({ focused }) => (
+  <TabBarIcon
+    focused={focused}
+    name="group"
+
+  />
+),
+};
 
 
 export default createBottomTabNavigator({
     ChampionshipStack,
     ChallengesStack,
+    AllChallengesStack
 
 },
 {

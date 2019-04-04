@@ -1,5 +1,6 @@
 import Layout from '../constants/Layout';
 
+
 //size ratio
 const s = (size) => {
     return size * Layout.window.ratio;
@@ -7,6 +8,7 @@ const s = (size) => {
 const h = (size) => {
      return size * Layout.window.heightRatio;
 }
+
 const FooterStyle ={
     borderTopWidth:0,
     elevation:0
@@ -16,7 +18,124 @@ const FooterStyle ={
 };
 
 
+import SuperLiga from './SuperLiga'
+console.log({SuperLiga})
+
 const styles =   {
+    //'SuperLiga.NotificationBullet': require('./SuperLiga/NotificationBullet')(Layout),
+    //'SuperLiga.NotificationBullet': SuperLiga.NotificationBullet,
+    'SuperLiga.EditChampionshipUsers':{
+        icon:{
+            color: '#fe6c61'
+        }
+    },
+    'SuperLiga.ChangeAvatar':{
+        changeAvatarButton:{
+            alignItems:'center',
+            justifyContent: 'center'
+        },
+        changeAvatarButtonText:{
+            fontFamily: 'OpenSansCondensed_light',
+            textDecorationColor: '#fff',
+            textDecorationStyle: 'dotted',
+            textDecorationLine: 'underline',
+            fontSize: s(40)
+        },
+    },
+    'SuperLiga.Avatar':{
+        container:{
+            alignItems:'center',
+            justifyContent: 'center',
+        },
+
+        avatarContainer:{
+            borderColor: '#b3a0c6',
+            borderWidth: 4,
+            borderRadius: Math.floor(s(231)),
+            overflow: 'hidden'
+          },
+          avatar: {
+            height: Math.floor(s(231)),
+            width: Math.floor(s(231)),
+            resizeMode: 'cover'
+          },
+          avatarMiniContainer:{
+            borderRadius: Math.floor(s(66)),
+            overflow: 'hidden',
+            backgroundColor: '#fff',
+          },
+          avatarMini:{
+            height: Math.floor(s(66)),
+            width: Math.floor(s(66)),
+            resizeMode: 'cover'              
+          },
+          avatarMediumContainer:{
+            backgroundColor: '#fff',
+            borderColor: '#9458cb',
+            borderWidth: 4,
+            borderRadius: Math.floor(s(148)),
+            overflow: 'hidden',
+          },
+          avatarMedium:{
+            height: Math.floor(s(148)),
+            width: Math.floor(s(148)),
+            resizeMode: 'cover'              
+          },
+
+          alternateBorder:{
+            borderColor: '#89aed9',
+          },
+    },
+    'SuperLiga.ChallengeRequestScreen':{
+        content:{
+            marginTop: h(50),
+            alignItems:'center',
+            justifyContent:'center'
+        },
+        bg:{
+            width: s(575),
+            height: s(828)
+        },
+        close:{
+            position:'absolute',
+            top: 10,
+            right: 10,
+            zIndex:22,
+        },
+        closeTouchable:{
+        },
+        closeText:{
+            fontFamily: 'Roboto',
+            fontSize: s(44),
+        },
+
+        messageContainer:{
+            paddingTop: s(100),
+            paddingHorizontal: s(40),
+            alignItems:'center',
+            justifyContent:'center'
+        },
+        title:{
+            fontFamily: 'edosz',
+            fontSize: s(127),
+        },
+        buttonContainer:{
+            marginTop: s(30),
+            flexDirection: 'row'
+        },
+        lastButton:{
+            marginLeft:s(20)
+        },
+        buttonText:{
+            color: '#fff'
+        },
+        text:{
+            fontFamily: 'OpenSansCondensed_bold',
+            fontSize:s(40),
+            textAlign: 'center'
+        },
+
+    },
     'SuperLiga.CreateChallenge':{
         text:{
             color: '#fff',
@@ -83,24 +202,32 @@ const styles =   {
     'SuperLiga.NotificationItem':{
         container:{
             backgroundColor: '#fff',
-            borderRadius: s(20),
-            marginTop: s(10),
-            paddingVertical: s(20),
-            paddingHorizontal: s(20),
+            marginTop: 0,
+            paddingVertical: h(40),
+            paddingHorizontal: s(120),
             flexDirection: 'row'
         },
+        colors:[
+            
+            'rgb(40,162,211)',
+            'rgb(184,129,194)',
+            'rgb(183,70,113)',
+
+        ],
         dateText:{
-            textAlign: 'right',
-            fontFamily: 'OpenSansCondensed_bold',
-            color: '#282828'
+            marginTop: h(20),
+            textAlign: 'left',
+            fontFamily: 'OpenSansCondensed_light',
+            color: '#fff'
         },
         body:{
             flexDirection: 'column',
             width: '100%'
         },
         text: {
-            fontFamily: 'OpenSansCondensed_light',
-            color: '#282828'
+            fontSize: s(36),
+            fontFamily: 'OpenSansCondensed_bold',
+            color: '#fff'
         }
     },
     'SuperLiga.AboutScreen':{
@@ -592,6 +719,18 @@ const styles =   {
             justifyContent: 'center'
         },
     },
+    'SuperLiga.InBrowserScreen':{
+        webview:{
+            paddingHorizontal:20,
+        },
+
+        container:{
+            backgroundColor: '#282828',
+        },
+        footer:{
+            ...FooterStyle
+        }
+    },
     'SuperLiga.BrowserScreen':{
         webview:{
             paddingHorizontal:20
@@ -889,6 +1028,10 @@ const styles =   {
         },
         slide:{
             flex:1,
+        },
+        banner:{
+            flex: 1,
+          
         },
         triviaDateTextContainer:{
             alignItems: 'center'
@@ -1891,45 +2034,7 @@ const styles =   {
             textAlign:'center'
           }
       },
-      "SuperLiga.AppHeader":{
-        header: {
-            paddingTop: Layout.isIphoneX ? 5 : Layout.isIphoneXR ? 35 : Layout.isAndroid ? 23 : 0,
-            paddingBottom: Layout.isAndroid ? 20 : 0,
-            zIndex: 1,
-            justifyContent: 'flex-start',
-            height: 'auto'        
-        },
-        left:{
-          flex:1,
-          paddingTop: Layout.isIphoneX ? 40 : Layout.isPhoneXR ? 60: 10,
-        },
-        body:{
-            flex:1,
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            height: '100%',
-        },
-        right:{
-            flex:1,
-        },
-        title:{
-            
-        },
-        superligaAppImg: {
-            width: s(158),
-            height: s(147),
-            marginLeft: Layout.platform == 'ios' ? 2 : 0, // por alguna razon en IOS no se centra la imagen
-         },
-        menuImg:{
-            width: s(61),
-            height: s(26),
-        },
-        superligaImg: {
-            width: s(65),
-            height: s(65),
-        },
-      }
   };
 
 
-export default styles
+export default {...styles,...SuperLiga}

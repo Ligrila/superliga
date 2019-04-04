@@ -5,6 +5,7 @@ import {connectStyle, Icon, Button} from 'native-base'
 import { NotificationsStore, NotificationsActions } from '../../store/NotificationsStore';
 import NotificationItem from './NotificationItem';
 import Title from '../Title';
+import { UsersActions } from '../../store/UserStore';
 
 
 
@@ -18,11 +19,15 @@ class Notification extends Reflux.Component {
 
   componentDidMount(){
     NotificationsActions.list()
+    NotificationsActions.notificationsLoaded.listen(()=>{
+      UsersActions.update()
+    })
   }
 
   renderItems  = () => {
-    return this.state.Notifications.data.map((notification)=>{
-        return (<NotificationItem notification={notification} key={notification.id} navigation={this.props.navigation}/>)
+    return this.state.Notifications.data.map((notification,index)=>{
+        const colorIndex = (index+1)%3
+        return (<NotificationItem colorIndex={colorIndex} notification={notification} key={notification.id} navigation={this.props.navigation}/>)
     })
   }
   
@@ -31,7 +36,7 @@ class Notification extends Reflux.Component {
     const styles = this.props.style;
     return (
       <View style={styles.container} >
-        <Title text={'NOTIFICATIONES'}></Title>
+        <Title text={'MIS \n NOTIFICACIONES'}></Title>
         {this.renderItems()}
       </View>
     );

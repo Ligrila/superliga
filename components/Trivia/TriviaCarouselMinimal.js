@@ -209,6 +209,8 @@ renderCarousel(){
             renderItem={this._renderItem}
             sliderWidth={sliderWidth}
             itemWidth={itemWidth}
+            autoplay={true}
+            autoplayInterval={4000}
             onSnapToItem={this.onSnapToItem}
             />
   )
@@ -229,18 +231,30 @@ renderCarousel(){
       )
     }
 
-    return(
-      <View style={styles.container}>
+    renderPrev=()=>{
+      return (
         <View style={styles.prev}>
           <TouchableOpacity onPress={this.prevItem}>
             <Image source={carouselPrev} style={styles.prevImage} />
             </TouchableOpacity>
         </View>
+      )
+    }
+
+    renderNext=()=>{
+      return (
         <View style={styles.next}>
-          <TouchableOpacity onPress={this.nextItem}>
-            <Image source={carouselNext} style={styles.nextImage} />
-            </TouchableOpacity>
+        <TouchableOpacity onPress={this.nextItem}>
+          <Image source={carouselNext} style={styles.nextImage} />
+          </TouchableOpacity>
         </View>
+      )
+    }
+
+    return(
+      <View style={styles.container}>
+
+
             {this.renderCarousel()}
         
       </View>

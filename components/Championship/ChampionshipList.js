@@ -29,7 +29,10 @@ class ChampionshipList extends Reflux.Component {
     ChampionshipsActions.list()
   }
   onShare(c){
-    const shareUrl = Linking.makeUrl('championships/' + c.id)
+    let shareUrl = Linking.makeUrl('championships/' + c.id)
+    if(shareUrl.startsWith("jugadasuperliga://")){
+      shareUrl = shareUrl.replace("jugadasuperliga://",'https://www.jugadasuperliga.com/')
+    }
     Share.share(
       {
         title: 'Jugada Super Liga',
@@ -97,6 +100,7 @@ class ChampionshipList extends Reflux.Component {
       const itemStyle = isFirst ? {...styles.listItemFirst,...styles.listItem} : styles.listItem;
       isFirst = false;
       let avatar = trophyAvatarSrc;
+      const ranking = championship.championships_ranking ? championship.championships_ranking.position : 'Sin puntos '
       if(championship.avatar){
         avatar = {uri: championship.avatar};
       }
@@ -112,7 +116,7 @@ class ChampionshipList extends Reflux.Component {
             <Text style={styles.championshipName}>{championship.name}</Text>
             <Text style={styles.text}>Organizado por {championship.user.first_name} {championship.user.last_name}{'\n'}
             {championship.users_count} particpantes{'\n'}
-            {championship.championships_ranking.position} en el ranking general
+            {ranking} en el ranking general
             
             </Text>
           </Body>

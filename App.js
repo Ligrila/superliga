@@ -1,5 +1,5 @@
 import React from 'react';
-import {  AppState, Image,AsyncStorage, NetInfo } from 'react-native';
+import {  AppState, Image,AsyncStorage, NetInfo,Alert } from 'react-native';
 import { AppLoading, Asset, Font, Icon, Linking } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { Root,  Text, Button, Container, Content, Toast } from "native-base";
@@ -22,6 +22,7 @@ import { Localization } from 'expo-localization';
 import { NavigationActions } from 'react-navigation';
 import { LoginScreenActions } from './store/LoginScreenStore';
 import { TriviaQuestionActions } from './store/TriviaQuestion';
+import { NavigatorActions } from './store/NavigatorStore';
 
 
 
@@ -83,7 +84,29 @@ export default class App extends React.Component {
 
   _handleRedirect = async (event,initialUrl=false) => {
     const isLogin = await this.isLogin();
-    const {path} = Linking.parse(event.url);
+    let urlToParse = event.url
+    if(
+      urlToParse.startsWith('www.jugadasuperliga.com') ||
+      urlToParse.startsWith('jugadasuperliga.com') ||
+      urlToParse.startsWith('exps://www.jugadasuperliga.com') ||
+      urlToParse.startsWith('exps://jugadasuperliga.com') ||
+      urlToParse.startsWith('https://www.jugadasuperliga.com') ||
+      urlToParse.startsWith('https://jugadasuperliga.com') ||
+      urlToParse.startsWith('http://www.jugadasuperliga.com') ||
+      urlToParse.startsWith('http://jugadasuperliga.com') 
+    ){
+      urlToParse = urlToParse.replace('exps://www.jugadasuperliga.com/','jugadasuperliga://')
+      urlToParse = urlToParse.replace('exps://jugadasuperliga.com/','jugadasuperliga://')
+      urlToParse = urlToParse.replace('https://www.jugadasuperliga.com/','jugadasuperliga://')
+      urlToParse = urlToParse.replace('https://jugadasuperliga.com/','jugadasuperliga://')
+      urlToParse = urlToParse.replace('http://www.jugadasuperliga.com/','jugadasuperliga://')
+      urlToParse = urlToParse.replace('http://jugadasuperliga.com/','jugadasuperliga://')
+      urlToParse = urlToParse.replace('jugadasuperliga.com/','jugadasuperliga://')
+      urlToParse = urlToParse.replace('www.jugadasuperliga.com/','jugadasuperliga://')
+    }
+    //Alert.alert("URL TO PARSE: " + urlToParse)
+    const {path} = Linking.parse(urlToParse);
+
     if(path){
       const parts = path.split('/')
       console.log({parts})
@@ -232,6 +255,7 @@ export default class App extends React.Component {
                       (navigatorRef) =>{
                         this.AppNavigator = navigatorRef
                         this.handleNavigatorEvents()
+                        NavigatorActions.setNavigator(navigatorRef)
                         //console.log(navigatorRef.dispatch)
                       }
                     }

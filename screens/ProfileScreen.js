@@ -32,6 +32,9 @@ class ProfileScreen extends Reflux.Component {
   closeSession = () => {
     this.props.navigation.navigate('Logout');
   }
+  edit = () => {
+    this.props.navigation.navigate('EditProfile');
+  }
   share = () =>{
     Share.share(
       {
@@ -70,7 +73,11 @@ class ProfileScreen extends Reflux.Component {
           <Wallpaper source={sidebarBgSrc} style={styles.profileWallpaper}>
           <View style={styles.profileContainer}>
               <UserAvatar avatar={this.state.user.avatar} />
-              <Text style={styles.userTitle}>{(this.state.user.first_name + " " + this.state.user.last_name).toUpperCase()}</Text>
+              <Text style={styles.userTitle}>
+                {(this.state.user.first_name + " " + this.state.user.last_name).toUpperCase()}
+                <Text style={styles.text}>{"\n"}{this.state.user.email}</Text>
+              </Text>
+
               <Text style={styles.text}>
                 <Text style={styles.bold}>Puntos:</Text> {points} {"\n"}
                 <Text style={styles.bold}>Vidas disponibles:</Text> {lives} {"\n"}
@@ -88,6 +95,7 @@ class ProfileScreen extends Reflux.Component {
               
               <View style={styles.buttonsContainer}>
                 <Button info onPress={this.share}><Text>Invitar</Text></Button>
+                <Button danger onPress={this.edit}><Text>Editar</Text></Button>
                 <Button light onPress={this.closeSession}><Text>Cerrar sesión</Text></Button>
               </View>
           </View>

@@ -16,6 +16,7 @@ export default {
     title:{
         fontFamily: 'OpenSansCondensed_bold',
         fontSize: Layout.s(40),
+        textAlign: 'center',
         marginTop: Layout.h(50)
     },
     form:{

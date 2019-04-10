@@ -3,6 +3,7 @@ import Reflux from 'reflux'
 import {
     View,
     StyleSheet,
+    KeyboardAvoidingView,
     AsyncStorage
   } from 'react-native';
 
@@ -108,7 +109,7 @@ class ContactScreen extends Reflux.Component {
         <Wallpaper source={bgSrc}>
           <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
           <Content contentContainerStyle={styles.content}>
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container}>
                 <Text style={styles.title}>Por favor, completa el{"\n"} formulario, en breve nos{"\n"} comunicamos con vos:</Text>
                 <Form style={styles.form}>
                 <Item style={styles.item} picker>
@@ -126,7 +127,7 @@ class ContactScreen extends Reflux.Component {
                 {this.renderSubmit()}
 
 
-              </View>
+              </KeyboardAvoidingView>
           </Content>
          </Wallpaper>
         </Container>
@@ -170,6 +171,7 @@ class ContactScreen extends Reflux.Component {
           });
           const submitActive = false
           this.setState({submitActive})
+          this.props.navigation.navigate('Home')
         } else{
           Toast.show({
             text: 'No se pudo enviar el formulario. Por favor, intenta nuevamente',

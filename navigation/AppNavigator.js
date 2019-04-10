@@ -44,6 +44,7 @@ import ChampionshipNavigator from './ChampionshipNavigator'
 import NotificationScreen from '../screens/NotificationScreen';
 import ContactScreen from '../screens/ContactScreen';
 import InAppBrowserScreen from '../screens/InAppBrowserScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
 
 
 
@@ -158,7 +159,13 @@ var Main = createDrawerNavigator({
       drawerLabel: () => null
     }
   },
-  Awards:{
+  EditProfile: {
+    screen: EditProfileScreen,
+    navigationOptions: {
+      drawerLabel: () => null
+    }
+  },
+  /*Awards:{
     screen: AwardsScreen,
     navigationOptions: {
       drawerLabel: () =>{
@@ -167,7 +174,7 @@ var Main = createDrawerNavigator({
         )
       }
     }
-  },
+  },*/
   Statistics:{
     screen: StatisticsScreen,
     navigationOptions: {

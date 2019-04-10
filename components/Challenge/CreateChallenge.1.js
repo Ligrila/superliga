@@ -12,7 +12,6 @@ import { AllChampionshipsStore,AllChampionshipsActions } from '../../store/AllCh
 import Notice from '../Notice';
 import { UsersStore } from '../../store/UserStore';
 import Loader from '../Loader';
-import ChampionshipItem from '../Championship/ChampionshipItem';
 
 
 
@@ -102,12 +101,40 @@ class CreateChallenge extends Reflux.Component {
 
 
 
-    return this.state.AllChampionships.data.map((ranking,index)=>{
-      const championship = {...ranking.championship,position:ranking.position,points:ranking.points}
-      const altrow = index % 2 === 0
+    return this.state.AllChampionships.data.map((ranking)=>{
+      
+      const button = (styles) => {
+        return (
+          <Button transparent style={styles.button} onPress={()=>this.onChallenge(championship)}>
+            <Text style={styles.buttonText}>DESAFIAR ></Text>
+          </Button>
+        )
+      };
+
+      const championship = ranking.championship
+      const buttonRender = (championship.user_id != this.state.user.id) ? button(styles) : null;
+      championship.user = {
+        first_name: championship.first_name,
+        last_name: championship.last_name,
+      }
+      isFirst = false;
       return (
 
-       <ChampionshipItem key={championship.id} altrow={altrow} championship={championship} onChallenge={this.onChallenge} />
+        <View style={styles.row} key={championship.id}>
+          <View style={styles.col1}>
+            <Text style={styles.text}>{championship.name}</Text>
+          </View>
+          <View style={styles.col2}>
+            <Text style={styles.text}>{championship.users_count}</Text>
+          </View>
+          <View style={styles.col3}>
+            <Text style={styles.text}>{ranking.points}</Text>
+          </View>
+          <View style={styles.col4}>
+            {buttonRender}
+          </View>
+
+        </View>
       )
     })
   }

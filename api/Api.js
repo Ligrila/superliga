@@ -31,11 +31,11 @@ export default class Api extends RestClient {
     // Returns a Promise with the response.
     return this.POST('/users/login', { email, password },{authorizationHeader:false});
   }
-  register (first_name,last_name,email, password,referral_username) {
+  register (first_name,last_name,email, password,referral_username,document,mobile_number) {
     const sha1 = require('js-sha1');
     // Returns a Promise with the response.
     const hash = sha1( 'wt1U5MACWJFTXGenFoZoiLwQGrLgdbHA' + email.toUpperCase() + 'wt1U5MACWJFTXGenFoZoiLwQGrLgdbHA');
-    return this.POST('/users/add', { first_name,last_name,email, password, referral_username, hash },{authorizationHeader:false});
+    return this.POST('/users/add', { first_name,last_name,email, password, referral_username, hash,document,mobile_number },{authorizationHeader:false});
   }
   token (refresh_token) {
     // Returns a Promise with the response.
@@ -94,6 +94,9 @@ export default class Api extends RestClient {
     });
 
     return this.POST('/users/edit',formData,{isUpload:true});
+  }
+  editUser(user){
+    return this.POST('/users/edit',user);
   }
 
   // premios

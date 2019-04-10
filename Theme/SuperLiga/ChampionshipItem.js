@@ -52,10 +52,24 @@ export default {
     points:{
         flex: .2
     },
+    challenge:{
+        flex: .2,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     avatar:{
         position: 'absolute',
         left: Layout.s(110),
         top: Layout.s(20)
-    }
+    },
+    flagButton:{
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    flag:{
+        width: Layout.s(40),
+        height: Layout.s(38)
+    },
 
 }

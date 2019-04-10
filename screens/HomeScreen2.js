@@ -30,7 +30,7 @@ import NextTrivia2 from '../components/NextTrivia2';
 import { UsersStore } from '../store/UserStore';
 import { StatisticsStore, StatisticsActions } from '../store/StatisticsStore';
 import TriviaCarouselMinimal from '../components/Trivia/TriviaCarouselMinimal';
-
+import CheckDocument from '../components/CheckDocument';
 
 
 class HomeScreen2 extends Reflux.Component {
@@ -126,6 +126,7 @@ class HomeScreen2 extends Reflux.Component {
 
     return (
           <Container>
+            <CheckDocument navigation={this.props.navigation} />
             <Wallpaper source={homeBg}>
             <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
             <Content>

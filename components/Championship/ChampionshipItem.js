@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Reflux from 'reflux';
-import {  View, Alert } from 'react-native';
-import {connectStyle,Toast,  Text,Button, Content} from 'native-base'
+import {  View, Image } from 'react-native';
+import {connectStyle,  Text,Button} from 'native-base'
 
 
 
 import Avatar from '../Avatar';
 const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.png')
+const flagSrc = require('../../assets/images/flag.png')
 
 
 
@@ -39,7 +40,15 @@ class ChampionshipItem extends React.Component {
   }
 
   
-
+  renderChallege = () =>{
+    if(this.props.onChallenge){
+     const styles = this.props.style
+     return (
+     <Button transparent onPress={this.props.onChallenge} style={styles.flagButton}>
+        <Image source={flagSrc} style={styles.flag}></Image>
+     </Button>) 
+    }
+  }
   
 
   render() {
@@ -64,7 +73,7 @@ class ChampionshipItem extends React.Component {
                     
                 </View>
                 <View style={styles.challenge}>
-
+                    {this.renderChallege()}
                 </View>
 
             </View>

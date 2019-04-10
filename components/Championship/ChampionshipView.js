@@ -37,7 +37,10 @@ class ChampionshipView extends Reflux.Component {
 
   onShare = () => {
     const c = this.championship
-    const shareUrl = Linking.makeUrl('championships/' + c.id)
+    let shareUrl = Linking.makeUrl('championships/' + c.id)
+    if(shareUrl.startsWith("jugadasuperliga://")){
+      shareUrl = shareUrl.replace("jugadasuperliga://",'https://www.jugadasuperliga.com/')
+    }
     Share.share(
       {
         title: 'Jugada Super Liga',

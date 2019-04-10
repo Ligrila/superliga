@@ -45,6 +45,14 @@ class RegisterScreen extends React.Component {
       await  this.setState({email});
 
     }
+    onMobileChange = async (mobile_number)=>{
+      await  this.setState({mobile_number});
+
+    }
+    onDocumentChange = async (document)=>{
+      await  this.setState({document});
+
+    }
     onPasswordChange = async (password)=>{
       await this.setState({password});
 
@@ -72,6 +80,18 @@ class RegisterScreen extends React.Component {
                   <Item style={styles.item}>
                     <Input style={styles.input} placeholder="Apellido"
                       onChangeText={this.onLastNameChange}
+                    />
+                  </Item>
+                  <Item style={styles.item}>
+                    <Input style={styles.input} placeholder="Documento de identidad"
+                      onChangeText={this.onDocumentChange}
+                      keyboardType='number-pad'
+                    />
+                  </Item>
+                  <Item style={styles.item}>
+                    <Input style={styles.input} placeholder="Número de teléfono"
+                      onChangeText={this.onMobileChange}
+                      keyboardType='phone-pad'
                     />
                   </Item>
                   <Item style={styles.item}>
@@ -111,8 +131,8 @@ class RegisterScreen extends React.Component {
     this.props.navigation.navigate('Login');
    }
     async _onSubmit (){
-        let {first_name, last_name, email,password,referral_username} = this.state;
-        var user = await this.api.register(first_name,last_name,email,password,referral_username).catch(e=>{
+        let {first_name, last_name, email,password,referral_username,document,mobile_number} = this.state;
+        var user = await this.api.register(first_name,last_name,email,password,referral_username,document,mobile_number).catch(e=>{
           console.log(e);
         });
         console.log(user);
@@ -131,6 +151,15 @@ class RegisterScreen extends React.Component {
           });
           this.props.navigation.navigate('Login');
         } else{
+          if(user.data && user.data.user && user.data.user.document){
+            Toast.show({
+              text: 'Documento ya registrado o inválido',
+              position: "top",
+              type: 'danger',
+              buttonText: 'Aceptar'
+            });   
+            return
+          }
           Toast.show({
             text: 'Datos inválidos o email ya registrado',
             position: "top",

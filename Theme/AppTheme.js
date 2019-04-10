@@ -621,6 +621,7 @@ const styles =   {
     'SuperLiga.ChampionshipScreen':{
         content:{
             flex: 1,
+            marginBottom: Layout.h(110)
         },
 
     },

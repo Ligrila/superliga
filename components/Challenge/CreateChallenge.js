@@ -45,7 +45,7 @@ class CreateChallenge extends Reflux.Component {
   }
 
   onCreateChallenge(response){
-      console.log({response})
+      //console.log({response})
       if(response.success){
         Toast.show({
           text: "La invitación fue enviada correctamente.",
@@ -74,7 +74,7 @@ class CreateChallenge extends Reflux.Component {
   }
 
   onChallenge = (championship) => {
-    const self = this
+
     Alert.alert(
       'Desafiar torneo',
       '¿Estás seguro de desafiar este torneo?',
@@ -107,7 +107,7 @@ class CreateChallenge extends Reflux.Component {
       const altrow = index % 2 === 0
       return (
 
-       <ChampionshipItem key={championship.id} altrow={altrow} championship={championship} onChallenge={this.onChallenge} />
+       <ChampionshipItem key={championship.id} altrow={altrow} championship={championship} onChallenge={()=>this.onChallenge(championship)} />
       )
     })
   }

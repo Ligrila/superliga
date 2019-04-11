@@ -67,6 +67,9 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
     },
+    flagIcon:{
+        color: '#fff'
+    },
     flag:{
         width: Layout.s(40),
         height: Layout.s(38)

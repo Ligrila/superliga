@@ -10,6 +10,7 @@ import Loader from '../components/Loader';
 
 
 import { ChallengeRequestStore, ChallengeRequestActions } from '../store/ChallengeRequestStore';
+import { ChallengesActions } from '../store/ChallengesStore';
 
 
 const challengeAcceptBg = require('../assets/images/championship/challenge_accept_bg.png')
@@ -41,11 +42,16 @@ class ChallengeRequestScreen extends Reflux.Component {
 
     ChallengeRequestActions.response.listen((response)=>{
       if(response.success){
+        const message = response.data.accepted ? '¡Has aceptado el desafío!' : 'El desafío fue rechazado correctamente'
+        if(response.data.accepted){
+          ChallengesActions.list()
+        }
         Toast.show({
-          text: 'Desafio aceptado',
+          text: message,
           type: 'success',
 
         });
+        this.props.navigation.navigate("ChallengeHome");
       } else{
         Toast.show({
           text: 'Ocurrió un erro al intentar guardar el desafio',

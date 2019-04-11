@@ -14,6 +14,7 @@ import { connectStyle,Text,Container,Content, Spinner, Footer, Icon } from 'nati
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 
+import {CacheManager} from "react-native-expo-image-cache";
 
 
 import {NextTriviaStore,NextTriviaActions} from '../store/NextTriviaStore';
@@ -59,7 +60,7 @@ class HomeScreen2 extends Reflux.Component {
 
   }
 
-  carouselChange = (item) => {
+  carouselChange = async (item) => {
     if(!this.state.didMount){
       return;
     }
@@ -68,7 +69,8 @@ class HomeScreen2 extends Reflux.Component {
       return;
     }
     if(item.type=='banner'){
-      this.setState({screenBg: {uri:item.banner}})
+      const path = await CacheManager.get(item.banner).getPath();
+      this.setState({screenBg: {uri:path}})
       return;
     }
     

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Reflux from 'reflux';
 import {  View, Image } from 'react-native';
-import {connectStyle,  Text,Button} from 'native-base'
+import {connectStyle,  Text,Button, Icon} from 'native-base'
 
 
 
@@ -45,7 +45,7 @@ class ChampionshipItem extends React.Component {
      const styles = this.props.style
      return (
      <Button transparent onPress={this.props.onChallenge} style={styles.flagButton}>
-        <Image source={flagSrc} style={styles.flag}></Image>
+        <Icon name="handshake-o" type='FontAwesome' style={styles.flagIcon}></Icon>
      </Button>) 
     }
   }

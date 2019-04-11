@@ -22,6 +22,7 @@ import bgSrc from '../../assets/images/sidebar_bg.png';
 import Wallpaper from '../Wallpaper';
 import { UsersStore } from '../../store/UserStore';
 import UserAvatar from '../UserAvatar';
+import Layout from '../../constants/Layout';
 
 
 class _SidebarItem extends React.Component{
@@ -30,10 +31,19 @@ class _SidebarItem extends React.Component{
     const icon = this.props.icon;
     //<Image source={source} style={styles.sidebarItemImage}></Image>
     if(icon){
+      let itemBullet = null
+      if(this.props.bullet){
+        itemBullet = (
+          <View style={{position: 'absolute',top: Layout.s(36),right: Layout.s(60)}}>
+            {this.props.bullet}
+          </View>
+        )
+      }
       return(
           <View style={styles.sidebarItemStyle}>
               <Icon type="FontAwesome" name={icon}  style={styles.sidebarItemIcon}/>
               <Text style={styles.sidebarItemLabel}>{this.props.label.toUpperCase()}</Text>
+              {itemBullet}
           </View>
         ); 
     }

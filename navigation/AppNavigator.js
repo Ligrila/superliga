@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { createSwitchNavigator,createDrawerNavigator, createStackNavigator } from 'react-navigation';
 
 
@@ -45,6 +46,7 @@ import NotificationScreen from '../screens/NotificationScreen';
 import ContactScreen from '../screens/ContactScreen';
 import InAppBrowserScreen from '../screens/InAppBrowserScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
+import NotificationBullet from '../components/Notification/NotificationBullet';
 
 
 
@@ -116,7 +118,8 @@ var Main = createDrawerNavigator({
       title: "Notificaciones",
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Notificaciones"} icon="comment" />
+          <SidebarItem label={"Notificaciones"} icon="comment" bullet={<NotificationBullet />}/>
+
         )
       }
     }
@@ -148,7 +151,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
         drawerLabel: () =>{
           return (
-            <SidebarItem label={"Fixture"} icon="calendar" />
+            <SidebarItem label={"Copa Superliga"} icon="calendar" />
           )
         }
       }

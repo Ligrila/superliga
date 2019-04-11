@@ -20,6 +20,8 @@ import carouselPrev from '../../assets/images/trivia-carousel-minimal-prev.png';
 
 import Layout from '../../constants/Layout';
 import { HomeBannerStore, HomeBannerActions } from '../../store/BannersStore';
+import {  Asset } from 'expo';
+
 
 function wp (percentage) {
   const value = (percentage * Layout.window.width) / 100;
@@ -35,11 +37,25 @@ const itemWidth = slideWidth;
 
 
 
+function cacheImages(images) {
+  const serverAssets =  images.map(image => {
+      if(typeof image =='string'){
+        return Image.prefetch(image);
+      }
+      
+  });
+
+  Promise.all(serverAssets);
+
+}
+
+
 class TriviaCarouselMinimal extends Reflux.Component {
    completedUnsuscribe = null;
+
    constructor(props){
       super(props);
-      this.state = { loading:true,title:'',subtitle:'',activeSlide: 0,didMount: false };
+      this.state = { loading:true,title:'',subtitle:'',activeSlide: 0,didMount: false,assetsLoaded:false };
       this.stores = [HomeBannerStore];
    
   }
@@ -198,7 +214,28 @@ prevItem = () =>{
   this._carousel.snapToPrev(); 
 }
 
+ 
+async loadAssets(){
+  if(this.state.assetsLoaded){
+    return;
+  }
+  await this.setState({assetsLoaded:true})
+  const serverImages = this.state.HomeBanner.data.map(
+    (item) => {
+      if(item.type=='banner'){
+ //       console.log(Image.queryCache(item.banner).then((data)=>console.log(data))
+        return item.banner
+      }
+      return false
+    }
+  )
+  
+  cacheImages(serverImages)
+
+}
+
 renderCarousel(){
+  
   if(!this.state.didMount){
     return;
   }
@@ -209,6 +246,7 @@ renderCarousel(){
             renderItem={this._renderItem}
             sliderWidth={sliderWidth}
             itemWidth={itemWidth}
+            loop={true}
             autoplay={true}
             autoplayInterval={4000}
             onSnapToItem={this.onSnapToItem}
@@ -221,6 +259,7 @@ renderCarousel(){
     if(!this.state.HomeBanner.hasData){
       return <Spinner />;
     }
+    this.loadAssets()
 
     if(this.state.HomeBanner.data.length==0){
       return (

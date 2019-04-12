@@ -134,7 +134,7 @@ var Main = createDrawerNavigator({
       }
     }
   },
-  LivePacks: {
+  /*LivePacks: {
     screen: LivePacksScreen,
     navigationOptions: {
       drawerLabel: () =>{
@@ -145,7 +145,7 @@ var Main = createDrawerNavigator({
       mode: 'modal',
       headerMode: 'none',
     }
-  },
+  },*/
   Calendar: {
     screen: CalendarScreen,
     navigationOptions: {

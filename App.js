@@ -51,8 +51,11 @@ export default class App extends React.Component {
   }
 
   _handleNotification = (notification) => {
-    console.log({notification})
+    //console.log({notification})
     const appInactive = this.state.appState.match(/inactive|background/)
+    if(!notification.data){
+      notification.data = {}
+    }
     const hasRedirectData = notification.data.navigate || false
     if(appInactive){
       if(hasRedirectData){

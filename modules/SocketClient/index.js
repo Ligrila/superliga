@@ -22,10 +22,11 @@ export default class SocketClient{
     constructor(){
         //WebSockHop.logger = this.logger;
         try{
-            WebSockHop.log = () => {};
+            //WebSockHop.log = () => {};
             this.actionDispatcher = new ActionDispatcher;
             this.socket = new WebSockHop(Enviroment.socketUrl, {
               createSocket: function (url) {
+                console.log(url)
                 return new WebSocket(url);
               }
             });
@@ -34,7 +35,7 @@ export default class SocketClient{
 
             this.socket.on('opened', function () {
               //ConnectionStatusActions.set(true);
-              //console.log('a');
+              //console.log('Init Websocket connection');
               this.connected = true;
             });
             this.socket.on('message', (message) => {
@@ -45,10 +46,12 @@ export default class SocketClient{
             });
       
             this.socket.on('error', function (v,c) {
+              console.log("error",v)
               this.connected = false;
             });
       
             this.socket.on('closed', function() {
+              //console.log('closed Websocket');
               this.socket = null;
               this.connected = false;
             });

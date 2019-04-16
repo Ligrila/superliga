@@ -5,6 +5,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
+
 export default class RestClient {
     constructor (baseUrl = '', { headers = {}, devMode = false, simulatedDelay = 0 } = {}) {
       if (!baseUrl) throw new Error('missing baseUrl');
@@ -50,7 +51,6 @@ export default class RestClient {
         fullRoute = `${fullRoute}?${query}`;
         body = undefined;
       }
-
       if(options.authorizationHeader){
         //add user token if it exists
         const userToken = await AsyncStorage.getItem('token');

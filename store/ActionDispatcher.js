@@ -20,7 +20,44 @@ export default class ActionDispatcher{
 
         
     }
+    onUpdateConnectedUsers(message){
+        ConnectedUsersActions.updateConnectedUsers(message.payload)
+    }
+    onNewQuestion(message){
+        TriviaQuestionActions.add(message.payload);
+    }
     
+    onFinishHalfTime(message){
+        NextTriviaActions.finishHalfTime(message.payload);
+    }
+    onStartHalfTimePlay(message){
+        NextTriviaActions.startHalfTimePlay(message.payload);
+    }
+    onStartExtraPlay(message){
+        NextTriviaActions.startExtraPlay(message.payload);   
+    }
+    onStartHalfTime(message){
+        NextTriviaActions.startHalfTime(message.payload);
+    }
+    onFinishGame(message){
+        NextTriviaActions.finishGame(message.payload);
+    }
+
+    onFinishTrivia(message){
+        NextTriviaActions.finish(message.payload);
+        NextTriviaActions.get();
+    }
+    onStartTrivia(message){
+        NextTriviaActions.current(message.payload);
+        CurrentTriviaStatisticsActions.reset();
+    }
+
+    onFinishedQuestion(message){
+        TriviaQuestionActions.finishedQuestion(message.payload);
+        UsersActions.update();
+    }
+
+
     dispatch(message){
         switch(message.eventName){
             case 'updateConnectedUsers':

@@ -21,7 +21,8 @@
     "react-native-progress-bar": "^0.1.2",
     "react-native-snap-carousel": "^3.7.2",
     "react-navigation": "^2.9.3",
-    "reflux": "^6.4.1"
+    "reflux": "^6.4.1",
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

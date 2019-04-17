@@ -27,6 +27,7 @@ import Purchase from '../components/Purchase';
 import { PurchaseModalStore } from '../store/PurchaseModalStore';
 import { TriviaQuestionActions,TriviaQuestion } from '../store/TriviaQuestion';
 import MakeItRain from '../components/MakeItRain';
+import Chat from '../components/Chat';
 
 class GameScreen extends Reflux.Component {
   api = new Api;
@@ -189,6 +190,7 @@ class GameScreen extends Reflux.Component {
           {this.renderModal()}
           {this.renderGame()}
         </Content>
+        <Chat></Chat>
         <Footer style={styles.footer} transparent>
           {this.renderFooter()}
         </Footer>

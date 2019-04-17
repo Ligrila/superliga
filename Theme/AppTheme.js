@@ -611,7 +611,7 @@ const styles =   {
             alignItems: "center",
             shadowRadius: 2,
             position: "absolute",
-            bottom: h(130),
+            bottom: h(30),
             right: 0,
         },
         createButtonIcon:{

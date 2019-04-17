@@ -21,11 +21,8 @@ export default class LogoutScreen extends React.Component {
     }
   
     render() {
-      return (
-        <View style={styles.container}>
-
-        </View>
-      );
+      return null;
+      
     }
   
   }

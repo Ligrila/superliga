@@ -43,4 +43,4 @@ class Challenges extends React.Component {
 }
 
 
-export default connectStyle('SuperLiga.Challenges')(Challenges);
+export default connectStyle('SuperLiga.Championship')(Challenges);

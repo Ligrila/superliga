@@ -4,6 +4,7 @@ import ChampionshipItem from './ChampionshipItem'
 
 import Challenges from './Challenges'
 import Contact from './Contact';
+import Chat from './Chat';
 
 
 
@@ -13,6 +14,7 @@ export default {
     'SuperLiga.NotificationBullet':NotificationBullet,
     'SuperLiga.ChampionshipItem':ChampionshipItem,
     'SuperLiga.ContactScreen':Contact,
+    ...Chat,
     ...Challenges,
 
 }

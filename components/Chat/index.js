@@ -60,6 +60,7 @@ class Chat extends Reflux.Component {
             <Input
                 onBlur={this.hideForm}
                 autoFocus={true}
+                maxLength={100}
                 returnKeyType='send'
                 onSubmitEditing={this.sendMessage}
             ></Input>

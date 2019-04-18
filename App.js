@@ -153,7 +153,9 @@ export default class App extends React.Component {
     if(!token){
       return;
     }
-    this.socket = new SocketClient(token);
+    const user = JSON.parse(await AsyncStorage.getItem('user'));
+
+    this.socket = new SocketClient(token,user);
   }
 
   async initNetwork(){
@@ -245,9 +247,9 @@ export default class App extends React.Component {
 
   _handleAppStateChange = (nextAppState) => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      if(!this.socket.connected){
+      //if(!this.socket.connected){
         //this.navigate('HomeSwitcher'); // en test, error solamente llamar si estas en home
-      }
+      //}
       //console.log('App has come to the foreground!')
     }
     this.setState({appState: nextAppState});

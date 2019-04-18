@@ -11,7 +11,7 @@ import Enviroment from '../../constants/Enviroment';
 
 export default class SocketClient{
 
-    constructor(USER_TOKEN){
+    constructor(USER_TOKEN,user){
         // TODO: send user data to socket we only need avatar and first_name
         this.dispatcher = new ActionDispatcher
         this.client = new io(
@@ -20,11 +20,12 @@ export default class SocketClient{
                 transports:['websocket'],
                 query: {token: USER_TOKEN}
             })
+
         this.chatClient = new io(
             Enviroment.chatSocketUrl,
             {
                 transports:['websocket'],
-                query: {token: USER_TOKEN},
+                query: {token: USER_TOKEN,name:user.first_name},
             })
         this.client.on('connect',()=>{
             console.log('socket connected')

@@ -13,7 +13,7 @@ class Message extends Component {
       <View style={styles.container}>
         <Image
             style={styles.avatar} source={{uri:avatarUri+this.props.message.user_id}}></Image>
-        <Text style={styles.message}> {this.props.message.message} </Text>
+        <Text style={styles.message}> {this.props.message.name}:  {this.props.message.message} </Text>
       </View>
     )
   }

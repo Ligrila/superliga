@@ -1735,9 +1735,7 @@ const styles =   {
     },
     'SuperLiga.GameScreen':{
         game:{
-            flex:1,
-
-            zIndex:10,
+            flex:.7,
 
         },
         footer:{
@@ -1905,6 +1903,9 @@ const styles =   {
         },
     },
     'SuperLiga.GameQuestion': {
+        container:{
+
+        },
         text: {
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: h(60),
@@ -1917,7 +1918,7 @@ const styles =   {
           },
         button:{
             marginTop: h(25),
-            height: h(115),
+            height: h(105),
             alignItems:'center',
             justifyContent: 'center',
             position:'relative',

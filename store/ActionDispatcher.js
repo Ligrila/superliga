@@ -8,6 +8,7 @@ import { NextTriviaActions } from './NextTriviaStore';
 import { ConnectionStatusStore } from './ConnectionStatusStore';
 import { StatisticsStore } from './StatisticsStore';
 import { CurrentTriviaStatisticsStore, CurrentTriviaStatisticsActions } from './CurrentTriviaStatisticsStore';
+import { ChatActions, ChatStore } from './ChatStore';
 
 
 export default class ActionDispatcher{
@@ -17,6 +18,7 @@ export default class ActionDispatcher{
         Reflux.initStore(ConnectionStatusStore);
         Reflux.initStore(StatisticsStore);
         Reflux.initStore(CurrentTriviaStatisticsStore);
+        Reflux.initStore(ChatStore);
 
         
     }
@@ -57,6 +59,18 @@ export default class ActionDispatcher{
         UsersActions.update();
     }
 
+
+    // chat
+    onChatBroadcast(message){
+        ChatActions.appendMessage(message)
+    }
+    onChatConnect(socket){
+        ChatActions.reset()
+        ChatActions.setSocket(socket)
+    }
+    onChatDisconnect(){
+
+    }
 
     dispatch(message){
         switch(message.eventName){

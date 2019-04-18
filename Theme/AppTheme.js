@@ -1742,7 +1742,6 @@ const styles =   {
         },
         footer:{
             ...FooterStyle,
-
         },
         noLifeText:{
             fontFamily: 'OpenSansCondensed_bold',

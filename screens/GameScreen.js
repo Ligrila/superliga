@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableHighlight, TouchableOpacity,Modal,View } from 'react-native';
+import { KeyboardAvoidingView, TouchableOpacity,Modal,View,Keyboard } from 'react-native';
 import { connectStyle,Container, Content, Footer,Text,Spinner } from 'native-base'
 import { StackActions,NavigationActions } from 'react-navigation';
 
@@ -34,7 +34,8 @@ class GameScreen extends Reflux.Component {
   static modalVisible = false;
   state = {
     modalVisible : false,
-    genericQuestion: false
+    genericQuestion: false,
+    keyboardVisible:false
   }
   constructor(props){
     super(props);
@@ -51,6 +52,22 @@ class GameScreen extends Reflux.Component {
   }
 
 
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  _keyboardDidShow = ()=> {
+    const keyboardVisible = true
+    this.setState({keyboardVisible})
+  }
+
+  _keyboardDidHide = ()=> {
+    const keyboardVisible = false
+    this.setState({keyboardVisible})
+  }
+
+
   async componentDidMount() {
     if(!this.state.hasData){
       NextTriviaActions.current();
@@ -58,6 +75,15 @@ class GameScreen extends Reflux.Component {
     if(!this.state.hasInformation){
       UsersActions.update();
     }
+
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardWillShow',
+      this._keyboardDidShow,
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardWillHide',
+      this._keyboardDidHide,
+    );
     /*TriviaQuestionActions.onNewQuestion.listen((q)=>{
       if(q.model=='GenericQuestions'){
         this.setState({genericQuestion:true});
@@ -126,6 +152,9 @@ class GameScreen extends Reflux.Component {
     )
   }
   renderFooter(){
+    if(this.state.keyboardVisible){
+      return null
+    }
     if(this.state.hasInformation){
       const hasLives =  this.state.user.lives >= 1;
       if(hasLives){
@@ -190,10 +219,14 @@ class GameScreen extends Reflux.Component {
           {this.renderModal()}
           {this.renderGame()}
         </Content>
-        <Chat></Chat>
+        <KeyboardAvoidingView behavior='position' enabled>        
         <Footer style={styles.footer} transparent>
+
+          <Chat></Chat> 
           {this.renderFooter()}
+
         </Footer>
+        </KeyboardAvoidingView>
         </Wallpaper>
       </Container>
     );

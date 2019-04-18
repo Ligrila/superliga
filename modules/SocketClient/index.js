@@ -12,6 +12,8 @@ import Enviroment from '../../constants/Enviroment';
 export default class SocketClient{
 
     constructor(USER_TOKEN){
+        // TODO: send user data to socket we only need avatar and first_name
+        this.dispatcher = new ActionDispatcher
         this.client = new io(
             Enviroment.socketUrl,
             {
@@ -22,12 +24,12 @@ export default class SocketClient{
             Enviroment.chatSocketUrl,
             {
                 transports:['websocket'],
-                query: {token: USER_TOKEN}
+                query: {token: USER_TOKEN},
             })
         this.client.on('connect',()=>{
             console.log('socket connected')
         })
-        this.dispatcher = new ActionDispatcher
+
         this.bindEvents()
 
     }
@@ -44,6 +46,9 @@ export default class SocketClient{
         this.client.on('finishTrivia',this.dispatcher.onFinishTrivia)
         this.client.on('startTrivia',this.dispatcher.onStartTrivia)
         this.client.on('finishedQuestion',this.dispatcher.onFinishedQuestion)
+        this.chatClient.on('broadcast',this.dispatcher.onChatBroadcast)
+        this.chatClient.on('connect',()=>this.dispatcher.onChatConnect(this.chatClient))
+        this.chatClient.on('disconnect',this.dispatcher.onChatDisconnect)
     }
 }
 

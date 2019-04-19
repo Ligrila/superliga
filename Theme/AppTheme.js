@@ -1742,7 +1742,6 @@ const styles =   {
             ...FooterStyle,
         },
         connectedUsers:{
-            flex:1,
             flexDirection: 'row',
             alignItems: 'flex-end',
             justifyContent: 'center',

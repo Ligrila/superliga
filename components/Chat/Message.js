@@ -4,7 +4,6 @@ import {connectStyle,Text} from 'native-base'
 import Enviroment from '../../constants/Enviroment';
 
 
-const avatarUri = Enviroment.apiUrl + '/users/avatar/'
 
 class Message extends Component {
   render() {
@@ -12,7 +11,7 @@ class Message extends Component {
     return (
       <View style={styles.container}>
         <Image
-            style={styles.avatar} source={{uri:avatarUri+this.props.message.user_id}}></Image>
+            style={styles.avatar} source={{uri:this.props.message.avatar}}></Image>
         <Text style={styles.message}> {this.props.message.name}:  {this.props.message.message} </Text>
       </View>
     )

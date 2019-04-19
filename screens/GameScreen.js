@@ -223,7 +223,9 @@ class GameScreen extends Reflux.Component {
         <Footer style={styles.footer} transparent>
 
           <Chat></Chat> 
+          <View style={styles.connectedUsers}>
           {this.renderFooter()}
+          </View>
 
         </Footer>
         </KeyboardAvoidingView>

@@ -25,10 +25,13 @@ export default class SocketClient{
             Enviroment.chatSocketUrl,
             {
                 transports:['websocket'],
-                query: {token: USER_TOKEN,name:user.first_name},
+                query: {token: USER_TOKEN,name:user.first_name,avatar: user.avatar},
             })
         this.client.on('connect',()=>{
             console.log('socket connected')
+        })
+        this.client.on('error',(e)=>{
+            console.log('error',e)
         })
 
         this.bindEvents()

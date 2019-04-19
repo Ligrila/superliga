@@ -1741,6 +1741,14 @@ const styles =   {
         footer:{
             ...FooterStyle,
         },
+        connectedUsers:{
+            flex:1,
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+            paddingBottom: Layout.s(20),
+
+        },
         noLifeText:{
             fontFamily: 'OpenSansCondensed_bold',
             color: '#2cd6f5',

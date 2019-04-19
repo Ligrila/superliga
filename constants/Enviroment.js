@@ -16,7 +16,8 @@ const ENV = {
     ...localEnviroment
   },
   staging: {
-    socketUrl: 'http://stageprod.jugadasuperliga.mocla.us/wss',
+    socketUrl: 'http://stageprod.jugadasuperliga.mocla.us',
+    chatSocketUrl: 'http://stageprod.jugadasuperliga.mocla.us/chat',
     apiUrl: 'http://stageprod.jugadasuperliga.mocla.us/api',
     androidClientId: '190225167822-hvfad06m4etnniv5n24s2mebab3o3o8d.apps.googleusercontent.com',
     androidStandaloneAppClientId: '190225167822-mr7k6a28m4u8va61l8q7i3l56bbju50j.apps.googleusercontent.com',
@@ -24,7 +25,8 @@ const ENV = {
     iosStandaloneAppClientId: '190225167822-3he321e8jqcbfbdprv2u81cbu9jmfkvj.apps.googleusercontent.com',
   },
   stagingprod: {
-    socketUrl: 'http://stageprod.jugadasuperliga.mocla.us/wss',
+    socketUrl: 'http://stageprod.jugadasuperliga.mocla.us',
+    chatSocketUrl: 'http://stageprod.jugadasuperliga.mocla.us/chat',
     apiUrl: 'http://stageprod.jugadasuperliga.mocla.us/api',
     androidClientId: '190225167822-hvfad06m4etnniv5n24s2mebab3o3o8d.apps.googleusercontent.com',
     androidStandaloneAppClientId: '190225167822-mr7k6a28m4u8va61l8q7i3l56bbju50j.apps.googleusercontent.com',
@@ -32,7 +34,8 @@ const ENV = {
     iosStandaloneAppClientId: '190225167822-3he321e8jqcbfbdprv2u81cbu9jmfkvj.apps.googleusercontent.com',
   },
   prod: {
-    socketUrl: 'https://www.jugadasuperliga.com/wss',
+    socketUrl: 'https://www.jugadasuperliga.com',
+    chatSocketUrl: 'https://www.jugadasuperliga.com/chat',
     apiUrl: 'https://www.jugadasuperliga.com/api',
     androidClientId: '190225167822-hvfad06m4etnniv5n24s2mebab3o3o8d.apps.googleusercontent.com',
     androidStandaloneAppClientId: '190225167822-mr7k6a28m4u8va61l8q7i3l56bbju50j.apps.googleusercontent.com',

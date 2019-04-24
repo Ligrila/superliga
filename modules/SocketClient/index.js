@@ -14,6 +14,7 @@ export default class SocketClient{
     constructor(USER_TOKEN,user){
         // TODO: send user data to socket we only need avatar and first_name
         this.dispatcher = new ActionDispatcher
+
         this.client = new io(
             Enviroment.socketUrl,
             {

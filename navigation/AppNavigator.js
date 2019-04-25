@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createSwitchNavigator,createDrawerNavigator, createStackNavigator } from 'react-navigation';
+import { createAppContainer,createSwitchNavigator,createDrawerNavigator, createStackNavigator } from 'react-navigation';
 
 
 import HomeScreen from '../screens/HomeScreen';
@@ -47,6 +47,7 @@ import ContactScreen from '../screens/ContactScreen';
 import InAppBrowserScreen from '../screens/InAppBrowserScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import NotificationBullet from '../components/Notification/NotificationBullet';
+import BannerScreen from '../screens/BannerScreen';
 
 
 
@@ -76,6 +77,7 @@ const GameStack = createStackNavigator(
     StartFirstTime: GameStartScreen,
     HalfTime: GameHalfTimeEndScreen,
     HalfTimeStart: GameHalfTimeStartScreen,
+    Banner: BannerScreen,
     GameHalfTimePlay: GameHalfTimePlayScreen,
     GameExtraPlay: GameExtraPlayScreen,
     GameLoading: GameLoadingScreen,
@@ -134,7 +136,8 @@ var Main = createDrawerNavigator({
       }
     }
   },
-  /*LivePacks: {
+  /**/
+  LivePacks: {
     screen: LivePacksScreen,
     navigationOptions: {
       drawerLabel: () =>{
@@ -145,7 +148,7 @@ var Main = createDrawerNavigator({
       mode: 'modal',
       headerMode: 'none',
     }
-  },*/
+  },
   Calendar: {
     screen: CalendarScreen,
     navigationOptions: {
@@ -302,7 +305,7 @@ var Main = createDrawerNavigator({
 );
 
 
-export default createSwitchNavigator({
+const AppNavigator =  createSwitchNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   AuthLoading: AuthLoadingScreen,
@@ -314,3 +317,5 @@ export default createSwitchNavigator({
   initialRouteName: 'AuthLoading'
 });
 
+
+export default createAppContainer(AppNavigator);

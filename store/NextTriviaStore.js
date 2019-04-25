@@ -3,6 +3,7 @@ import Reflux from 'reflux';
 import Api from '../api/Api';
 import DateTimeHelper from '../helpers/DateTimeHelper';
 
+
 export const NextTriviaActions = Reflux.createActions(
     [
         'get',
@@ -13,6 +14,8 @@ export const NextTriviaActions = Reflux.createActions(
         'halfTime',
         'startHalfTime',
         'halfTimeStarted',
+        'showBanner',
+        'showBannerStarted',
         'startHalfTimePlay',
         'halfTimePlay',
         'finishGame',
@@ -94,6 +97,21 @@ export class NextTriviaStore extends Reflux.Store
         }
         if(this.state.CurrentTrivia.Trivia.id == payload.id ){
             NextTriviaActions.halfTimePlay();
+        }
+    }
+
+    showBannerStarted(payload){
+
+    }
+
+    showBanner(payload){
+        console.log("showBanner")
+        if(!this.state.CurrentTrivia.hasData){
+            console.warn("No trivia data")
+            return;
+        }
+        if(this.state.CurrentTrivia.Trivia.id == payload.trivia_id ){
+            NextTriviaActions.showBannerStarted(payload);
         }
     }
     

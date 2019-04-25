@@ -38,6 +38,9 @@ export default class ActionDispatcher{
             case 'startExtraPlay':
                 NextTriviaActions.startExtraPlay(message.payload);
                 break;
+            case 'showBanner':
+                NextTriviaActions.showBanner(message.payload);
+                break;
             case 'startHalfTime':
                 NextTriviaActions.startHalfTime(message.payload);
                 break;

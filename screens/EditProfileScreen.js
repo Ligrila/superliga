@@ -168,7 +168,13 @@ class EditProfileScreen extends Reflux.Component {
             this.error('Debes completar el documento')
             return
           }
+        } else{
+          if(document.length < 8){
+            this.error('El documento debe ser de al menos 8 digitos')
+            return
+          }
         }
+
         if(!mobile_number){
           if(this.state.user.mobile_number){
             this.error('Debes completar tu número de teléfono')

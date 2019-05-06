@@ -19,6 +19,8 @@ getAdMobID = ()=>{
 }
 
 
+
+
 export default class AdBanner extends Component {
   bannerError=(e)=>{
     console.log(e);
@@ -30,14 +32,16 @@ export default class AdBanner extends Component {
       </Image>
     )
   }
+
+
   renderBanner(){
-    console.log(this.props.item)
     if(this.props.item.bannerType=='admod'){
       return (
         <AdMobBanner
-        bannerSize="fullBanner"
+        bannerSize="smartBannerPortrait"
         adUnitID={getAdMobID()}
-        testDevices={[AdMobBanner.simulatorId]}
+        testDeviceID="EMULATOR"
+
         onDidFailToReceiveAdWithError={this.bannerError} />
       )
     }

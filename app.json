@@ -63,7 +63,7 @@
     "ios": {
       "bundleIdentifier": "com.balltoball.jugadasuperliga",
       "supportsTablet": true,
-      "buildNumber":"2.7.1",
+      "buildNumber":"2.7.8",
       "icon": "./assets/images/icon_ios.png",
       "associatedDomains": ["applinks:www.jugadasuperliga.com"],
       "config": {

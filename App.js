@@ -51,13 +51,12 @@ export default class App extends React.Component {
   }
 
   _handleNotification = (notification) => {
-    //console.log({notification})
-    const appInactive = this.state.appState.match(/inactive|background/)
+    const isSelected = notification.origin == 'selected'
     if(!notification.data){
       notification.data = {}
     }
     const hasRedirectData = notification.data.navigate || false
-    if(appInactive){
+    if(isSelected){
       if(hasRedirectData){
         const params = notification.data.params || null
         this.navigate(notification.data.navigate,params)

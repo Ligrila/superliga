@@ -92,7 +92,7 @@ class Sidebar extends Reflux.Component {
       <ScrollView style={styles.scrollContainer}>
       <Header transparent style={styles.header}>
         <Body style={styles.headerBody}>
-          <Text style={styles.userText}>{this.state.user.first_name} {this.state.user.last_name}</Text>
+          <Text style={styles.userText}>{this.state.user.username}</Text>
           <Text style={styles.userPoints}>{points} Puntos</Text>
           <View  style={styles.userAvatar}>
             <UserAvatar avatar={this.state.user.avatar}/>

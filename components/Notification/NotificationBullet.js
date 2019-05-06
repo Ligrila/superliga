@@ -14,7 +14,6 @@ class NotificationBullet extends Reflux.Component {
         return null;
     }
     const styles = this.props.style
-    console.log({styles})
 
     return (
       <View style={styles.container}>

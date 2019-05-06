@@ -28,6 +28,27 @@ import { PurchaseModalStore } from '../store/PurchaseModalStore';
 import { TriviaQuestionActions,TriviaQuestion } from '../store/TriviaQuestion';
 import MakeItRain from '../components/MakeItRain';
 
+
+import {
+  AdMobInterstitial,
+  Constants
+} from 'expo';
+
+import Layout from '../constants/Layout';
+
+
+
+getAdMobInterstitialID = ()=>{
+  const isAndroid = Layout.isAndroid
+  if(Constants.appOwnership=='expo'){
+      return isAndroid ? "ca-app-pub-4248217184030056/6826064667": "ca-app-pub-4248217184030056/4404927217"
+  }
+
+  return isAndroid ? "ca-app-pub-4248217184030056/9594987792": "ca-app-pub-4248217184030056/1391751063"
+
+}
+
+
 class GameScreen extends Reflux.Component {
   api = new Api;
   static modalVisible = false;
@@ -47,6 +68,13 @@ class GameScreen extends Reflux.Component {
 
   _bootstrap(){
 
+  }
+
+  async renderInterstitial(){
+    AdMobInterstitial.setAdUnitID(getAdMobInterstitialID());
+    AdMobInterstitial.setTestDeviceID('EMULATOR');
+    await AdMobInterstitial.requestAdAsync();
+    await AdMobInterstitial.showAdAsync();
   }
 
 
@@ -92,7 +120,12 @@ class GameScreen extends Reflux.Component {
       this.props.navigation.navigate('GameHalfTimePlay')
     })
     NextTriviaActions.showBannerStarted.listen((payload)=>{
-      this.props.navigation.navigate('Banner',{payload})
+
+      if(payload.bannerType=='admob'){
+        this.renderInterstitial()
+      } else{
+        this.props.navigation.navigate('Banner',{payload})
+      }
     })
     NextTriviaActions.extraPlay.listen(()=>{
       this.props.navigation.navigate('GameExtraPlay')

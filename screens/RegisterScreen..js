@@ -145,7 +145,7 @@ class RegisterScreen extends React.Component {
             //console.log(e);
           }
           Toast.show({
-            text: 'Ya puedes ingresar. Usa tus datos proporcionados anteriormente',
+            text: 'Te hemos enviado un email para confirmar tu correo. Una vez confirmado, usa tus datos proporcionados anteriormente para ingresar',
             type: 'success',
             buttonText: 'Aceptar'
           });

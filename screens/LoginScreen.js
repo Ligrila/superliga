@@ -185,6 +185,7 @@ class LoginScreen extends React.Component {
               await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
               await AsyncStorage.setItem('token', user.data.access_token);
               await AsyncStorage.setItem('refreshToken', user.data.refresh_token);
+              await AsyncStorage.setItem('user', JSON.stringify(user.data.user));
             } catch(e){
               console.log(e);
             }
@@ -223,6 +224,7 @@ class LoginScreen extends React.Component {
             await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
             await AsyncStorage.setItem('token', user.data.access_token);
             await AsyncStorage.setItem('refreshToken', user.data.refresh_token);
+            await AsyncStorage.setItem('user', JSON.stringify(user.data.user));
           } catch(e){
             console.log(e);
           }
@@ -248,6 +250,7 @@ class LoginScreen extends React.Component {
             await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
             await AsyncStorage.setItem('token', user.data.access_token);
             await AsyncStorage.setItem('refreshToken', user.data.refresh_token);
+            await AsyncStorage.setItem('user', JSON.stringify(user.data.user));
           } catch(e){
             console.log(e);
           }

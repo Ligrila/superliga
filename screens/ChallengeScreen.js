@@ -38,4 +38,4 @@ class ChallengeScreen extends React.Component {
   }
 }
 
-export default connectStyle('SuperLiga.ChallengeScreen')(ChallengeScreen);
+export default connectStyle('SuperLiga.ChampionshipScreen')(ChallengeScreen);

@@ -68,7 +68,6 @@ export class TriviaQuestion extends Reflux.Store
         if(this.state.currentQuestion.id == question.id){
             if(this.state.answeredServerResponse){
                 this.state.answeredServerResponse.then((data)=>{
-                    //console.log(data);
                     this.setState({
                         hasQuestion: false,
                         currentQuestion: question,
@@ -76,6 +75,16 @@ export class TriviaQuestion extends Reflux.Store
                         hasResult: true,
                         serverSuccess: data.success,
                         win: data.success && (question.correct_option == this.state.answeredOption)
+                    });
+                }).catch(e=>{
+                    console.log(e)
+                    this.setState({
+                        hasQuestion: false,
+                        currentQuestion: question,
+                        correctOption: question.correct_option,
+                        hasResult: true,
+                        serverSuccess: false,
+                        win: false
                     });
                 });
             } else{

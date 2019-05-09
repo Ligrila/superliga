@@ -8,6 +8,7 @@ import { NextTriviaActions } from './NextTriviaStore';
 import { ConnectionStatusStore } from './ConnectionStatusStore';
 import { StatisticsStore } from './StatisticsStore';
 import { CurrentTriviaStatisticsStore, CurrentTriviaStatisticsActions } from './CurrentTriviaStatisticsStore';
+import { ChatActions, ChatStore } from './ChatStore';
 
 
 export default class ActionDispatcher{
@@ -17,10 +18,60 @@ export default class ActionDispatcher{
         Reflux.initStore(ConnectionStatusStore);
         Reflux.initStore(StatisticsStore);
         Reflux.initStore(CurrentTriviaStatisticsStore);
+        Reflux.initStore(ChatStore);
 
         
     }
+    onUpdateConnectedUsers(message){
+        ConnectedUsersActions.updateConnectedUsers(message.payload)
+    }
+    onNewQuestion(message){
+        TriviaQuestionActions.add(message.payload);
+    }
     
+    onFinishHalfTime(message){
+        NextTriviaActions.finishHalfTime(message.payload);
+    }
+    onStartHalfTimePlay(message){
+        NextTriviaActions.startHalfTimePlay(message.payload);
+    }
+    onStartExtraPlay(message){
+        NextTriviaActions.startExtraPlay(message.payload);   
+    }
+    onStartHalfTime(message){
+        NextTriviaActions.startHalfTime(message.payload);
+    }
+    onFinishGame(message){
+        NextTriviaActions.finishGame(message.payload);
+    }
+
+    onFinishTrivia(message){
+        NextTriviaActions.finish(message.payload);
+        NextTriviaActions.get();
+    }
+    onStartTrivia(message){
+        NextTriviaActions.current(message.payload);
+        CurrentTriviaStatisticsActions.reset();
+    }
+
+    onFinishedQuestion(message){
+        TriviaQuestionActions.finishedQuestion(message.payload);
+        UsersActions.update();
+    }
+
+
+    // chat
+    onChatBroadcast(message){
+        ChatActions.appendMessage(message)
+    }
+    onChatConnect(socket){
+        ChatActions.reset()
+        ChatActions.setSocket(socket)
+    }
+    onChatDisconnect(){
+
+    }
+
     dispatch(message){
         switch(message.eventName){
             case 'updateConnectedUsers':

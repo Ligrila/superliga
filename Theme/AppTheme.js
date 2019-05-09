@@ -611,7 +611,7 @@ const styles =   {
             alignItems: "center",
             shadowRadius: 2,
             position: "absolute",
-            bottom: h(130),
+            bottom: h(30),
             right: 0,
         },
         createButtonIcon:{
@@ -1735,13 +1735,17 @@ const styles =   {
     },
     'SuperLiga.GameScreen':{
         game:{
-            flex:1,
-
-            zIndex:10,
+            flex:.7,
 
         },
         footer:{
             ...FooterStyle,
+        },
+        connectedUsers:{
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+            paddingBottom: Layout.s(20),
 
         },
         noLifeText:{
@@ -1906,6 +1910,9 @@ const styles =   {
         },
     },
     'SuperLiga.GameQuestion': {
+        container:{
+
+        },
         text: {
             fontFamily: 'OpenSansCondensed_bold',
             fontSize: h(60),
@@ -1918,7 +1925,7 @@ const styles =   {
           },
         button:{
             marginTop: h(25),
-            height: h(115),
+            height: h(105),
             alignItems:'center',
             justifyContent: 'center',
             position:'relative',

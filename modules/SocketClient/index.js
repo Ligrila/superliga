@@ -1,12 +1,6 @@
-/*
-  Si hay problemas en IOS de user agent undefined cambiar
-  vendor websockhop el archivo browserDetection.js al principio con
-  esto:
-    if(typeof(ua)=='undefined'){
-        ua = 'react-native';
-    }
-*/
-import WebSockHop from 'websockhop/src/';
+var io = require('socket.io-client');
+
+import io from 'socket.io-client'
 
 
 
@@ -14,59 +8,52 @@ import ActionDispatcher from '../../store/ActionDispatcher';
 import Enviroment from '../../constants/Enviroment';
 
 
-import {Toast} from 'native-base'
-import { ConnectionStatusActions } from '../../store/ConnectionStatusStore';
 
 export default class SocketClient{
-    connected = false;
-    constructor(){
-        //WebSockHop.logger = this.logger;
-        try{
-            //WebSockHop.log = () => {};
-            this.actionDispatcher = new ActionDispatcher;
-            this.socket = new WebSockHop(Enviroment.socketUrl, {
-              createSocket: function (url) {
-                console.log(url)
-                return new WebSocket(url);
-              }
-            });
-      
-            this.socket.formatter = new WebSockHop.JsonFormatter();
 
-            this.socket.on('opened', function () {
-              //ConnectionStatusActions.set(true);
-              //console.log('Init Websocket connection');
-              this.connected = true;
-            });
-            this.socket.on('message', (message) => {
-              //console.log({message});
-              if(typeof(message.eventName)=='string'){
-                this.actionDispatcher.dispatch(message);
-              }
-            });
-      
-            this.socket.on('error', function (v,c) {
-              console.log("error",v)
-              this.connected = false;
-            });
-      
-            this.socket.on('closed', function() {
-              //console.log('closed Websocket');
-              this.socket = null;
-              this.connected = false;
-            });
-        } catch(e){
-          console.log(e);
-        }
+    constructor(USER_TOKEN,user){
+        // TODO: send user data to socket we only need avatar and first_name
+        this.dispatcher = new ActionDispatcher
+
+        this.client = new io(
+            Enviroment.socketUrl,
+            {
+                transports:['websocket'],
+                query: {token: USER_TOKEN}
+            })
+
+        this.chatClient = new io(
+            Enviroment.chatSocketUrl,
+            {
+                transports:['websocket'],
+                query: {token: USER_TOKEN,name:user.first_name,avatar: user.avatar},
+            })
+        this.client.on('connect',()=>{
+            console.log('socket connected')
+        })
+        this.client.on('error',(e)=>{
+            console.log('error',e)
+        })
+
+        this.bindEvents()
 
     }
-
-    close(){
-      this.socket.close();
-    }
-
-    logger(type, message){
-        if(__DEV__)
-            console.log("Socket: " + type + "-" + message);
+    
+    bindEvents(){
+        //ActionDispatcher.onUpdateConnectedUsers({});
+        this.client.on('updateConnectedUsers',this.dispatcher.onUpdateConnectedUsers)
+        this.client.on('newQuestion',this.dispatcher.onNewQuestion)
+        this.client.on('finishHalfTime',this.dispatcher.onFinishHalfTime)
+        this.client.on('startHalfTimePlay',this.dispatcher.onStartHalfTimePlay)
+        this.client.on('startExtraPlay',this.dispatcher.onStartExtraPlay)
+        this.client.on('startHalfTime',this.dispatcher.onStartHalfTime)
+        this.client.on('finishGame',this.dispatcher.onFinishGame)
+        this.client.on('finishTrivia',this.dispatcher.onFinishTrivia)
+        this.client.on('startTrivia',this.dispatcher.onStartTrivia)
+        this.client.on('finishedQuestion',this.dispatcher.onFinishedQuestion)
+        this.chatClient.on('broadcast',this.dispatcher.onChatBroadcast)
+        this.chatClient.on('connect',()=>this.dispatcher.onChatConnect(this.chatClient))
+        this.chatClient.on('disconnect',this.dispatcher.onChatDisconnect)
     }
 }
+

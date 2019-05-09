@@ -137,14 +137,33 @@ export default class App extends React.Component {
   _removeLinkingListener = () => {
     Linking.removeEventListener('url', this._handleRedirect);
   };
+  closeSocket(){
+    if(!this.socket){
+      return;
+    }
+    this.socket.close();
+    this.socket = null;
+  }
+  async initSocket(){
+    const token = await AsyncStorage.getItem('token');
+    if(this.socket){
+      this.closeSocket();
+    }
+    if(!token){
+      return;
+    }
+    const user = JSON.parse(await AsyncStorage.getItem('user'));
+
+    this.socket = new SocketClient(token,user);
+  }
 
   async initNetwork(){
       /*console.ignoredYellowBox = [
         'Setting a timer'
       ];*/
-      this.socket = new SocketClient;
       const token = await AsyncStorage.getItem('token');
       if(token){
+        this.initSocket()
         UsersActions.update();
       }
       NetInfo.getConnectionInfo().then((connectionInfo) => {
@@ -166,6 +185,13 @@ export default class App extends React.Component {
 
     UsersActions.isLoggedIn.listen(
       (b) => {
+        console.log({b});
+        if(b){
+            this.initSocket()
+        } else{
+          this.closeSocket();
+        }
+
         registerPushNotifications().then((data)=>console.log('PushNotificationsRegister',data))
         .catch(function(e) {
           //rejected
@@ -220,9 +246,9 @@ export default class App extends React.Component {
 
   _handleAppStateChange = (nextAppState) => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      if(!this.socket.connected){
+      //if(!this.socket.connected){
         //this.navigate('HomeSwitcher'); // en test, error solamente llamar si estas en home
-      }
+      //}
       //console.log('App has come to the foreground!')
     }
     this.setState({appState: nextAppState});

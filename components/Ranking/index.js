@@ -6,11 +6,12 @@ import { DatesListStore, DatesListActions } from '../../store/DatesListStore';
 import RankingItem from './RankingItem';
 import { RankingStore, RankingActions } from '../../store/RankingStore';
 
+
 class Ranking extends Reflux.Component {
   constructor(props){
     super(props)
     this.state = {
-        dateSelected: 0,
+        dateSelected: 'general',
         Ranking: {hasData:false}
       };
     this.stores = [DatesListStore,RankingStore]
@@ -18,23 +19,41 @@ class Ranking extends Reflux.Component {
 
   componentDidMount(){
       DatesListActions.index();
-      RankingActions.forDay("");
+      RankingActions.general();
   }
 
   onValueChange = function(value){
+    console.log({value})
     this.setState({
-        dateSelected: value
-      })
-      RankingActions.forDay(value);
+      dateSelected: value
+    })
+    switch(value){
+      case 'general':
+        RankingActions.general();  
+        break;
+      case 'week':
+        RankingActions.week();  
+        break;
+      default:
+        RankingActions.forDay(value);
+    }
+    
 
   }
   getPickerItems(){
-    let datesItems = null;
+    let datesItems = [];
+    datesItems.push(
+      <Picker.Item  key="general" label="Ranking General" value="general" />
+    )
+    datesItems.push(
+      <Picker.Item  key="week" label="Ranking Semanal" value="week" />
+    )
+
     if(typeof this.state.DatesList.data == 'object'){
-        datesItems = this.state.DatesList.data.map(item => (
+        datesItems.push( this.state.DatesList.data.map(item => (
                 <Picker.Item key={item.id} label={item.name} value={item.id} />
              )
-            );
+            ));
         }
     return datesItems  
     }
@@ -56,7 +75,7 @@ class Ranking extends Reflux.Component {
     }
   render() {
     const styles = this.props.style
-    const currentDay = this.state.Ranking.hasData ? this.state.Ranking.data.date.id : null
+    //const currentDay = this.state.Ranking.hasData ? this.state.Ranking.data.date.id : null
     return (
       <View>
         <Form style={styles.pickerContainer}>
@@ -71,14 +90,14 @@ class Ranking extends Reflux.Component {
 
                 textStyle={styles.pickerText}
                 itemTextStyle={styles.pickerItemText}
-                selectedValue={currentDay|this.state.dateSelected}
+                selectedValue={this.state.dateSelected}
                 onValueChange={this.onValueChange.bind(this)}
             >
                  {this.getPickerItems()}
             </Picker>
    
         </Form>
-        <Text style={styles.bold}>TOP 10</Text>
+        <Text style={styles.bold}>Ranking</Text>
         <Text style={styles.light}>Ganadores</Text>
         <View>
             {this.getTopTen()}

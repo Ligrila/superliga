@@ -5,6 +5,7 @@ import {
 
 import { connectStyle, Text, Spinner } from 'native-base'
 
+import Reflux from 'reflux'
 
 import Layout from '../../constants/Layout';
 
@@ -12,15 +13,17 @@ import TeamAvatar from '../TeamAvatar'
 
 
 import GamePlay from './GamePlay';
+import { TriviaQuestion } from "../../store/TriviaQuestion";
 
 
 /**
  * 
  */
 
-class Game extends Component {
+class Game extends Reflux.Component {
     constructor(props){
         super(props);
+        this.store = TriviaQuestion
     }
 
     renderGamePlay(){
@@ -32,6 +35,9 @@ class Game extends Component {
     }
 
     renderTeams = () => {
+        if(this.state.hasQuestion || this.state.hasResult ){
+            return null
+        }
         const styles = this.props.style;
         if(this.props.currentTrivia.type=='trivia'){
             const title1 = this.props.currentTrivia.title1 ? this.props.currentTrivia.title1.toUpperCase() : 'TRIVIA';

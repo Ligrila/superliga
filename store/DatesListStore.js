@@ -34,7 +34,7 @@ export class DatesListStore extends CacheStore
 
  
     async index(){
-        let response = await this.api.GET('/dates/index');
+        let response = await this.api.GET('/dates/index?recent');
   
         const state = {
             DatesList:{

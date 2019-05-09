@@ -23,6 +23,7 @@ export default  class AuthLoadingScreen extends React.Component {
     let isLogin = false;
     try{
       const userToken = await AsyncStorage.getItem('token');
+      console.log({userToken})
       const tokenExpire = await AsyncStorage.getItem('tokenExpire');
       let timestamp = new Date().getTime();
       let notExpired = tokenExpire > timestamp;

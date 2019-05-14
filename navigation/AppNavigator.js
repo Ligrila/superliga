@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createAppContainer,createSwitchNavigator,createDrawerNavigator, createStackNavigator } from 'react-navigation';
+import { createAppContainer,createSwitchNavigator,createDrawerNavigator, createStackNavigator, DrawerActions } from 'react-navigation';
 
 
 import HomeScreen from '../screens/HomeScreen';
@@ -48,6 +48,7 @@ import InAppBrowserScreen from '../screens/InAppBrowserScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import NotificationBullet from '../components/Notification/NotificationBullet';
 import BannerScreen from '../screens/BannerScreen';
+import { ChatSidebarDrawerContentComponent } from '../components/SidebarDrawerContentComponent/ChatSidebarDrawerContentComponent';
 
 
 
@@ -68,6 +69,36 @@ const AuthStack = createStackNavigator(
     initialRouteName: 'Login'
   }
 );
+
+/* const GamePlayDrawer = createDrawerNavigator({
+  GamePlay:{
+    screen: GameScreen,
+    navigationOptions: {
+      title: "Game",
+      drawerLabel: () =>{
+        return (
+          <SidebarItem label={"Notificaciones"} icon="comment" bullet={<NotificationBullet />}/>
+
+        )
+      }
+    }
+  },
+  },{
+  drawerPosition: 'right',
+  drawerWidth: Layout.window.width - 70,
+  drawerOpenRoute: 'ChatDrawerOpen',
+  contentComponent:ChatSidebarDrawerContentComponent,
+  drawerCloseRoute: 'ChatDrawerClose',
+  drawerToggleRoute: 'ChatDrawerToggle',
+  getCustomActionCreators: (route, stateKey) => {
+    return {
+      openChatDrawer: () => DrawerActions.openDrawer({ key: stateKey }),
+    };
+  },
+
+
+
+}) */
 
 const GameStack = createStackNavigator(
   {
@@ -300,7 +331,12 @@ var Main = createDrawerNavigator({
     drawerOpenRoute: 'DrawerOpen',
     drawerWidth: Layout.window.width - 70,
     drawerCloseRoute: 'DrawerClose',
-    drawerToggleRoute: 'DrawerToggle'
+    drawerToggleRoute: 'DrawerToggle',
+    getCustomActionCreators: (route, stateKey) => {
+      return {
+        openMainDrawer: () => DrawerActions.openDrawer({ key: stateKey }),
+      }
+    }
   }
 );
 

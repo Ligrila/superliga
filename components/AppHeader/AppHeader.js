@@ -22,6 +22,7 @@ import menuImg from '../../assets/images/menu.png';
 
 import OfflineNotice from '../OfflineNotice';
 import NotificationBullet from "../Notification/NotificationBullet";
+import { DrawerActions } from "react-navigation";
 
 
 
@@ -36,11 +37,20 @@ class AppHeader extends Component {
         //return (<Image source={superligaImg} style={styles.superligaImg} resizeMode="contain" />);
         return null;
     }
+    openMainDrawer(){
+        if(this.props.navigation){
+            this.props.navigation.openMainDrawer()
+            return
+        }
+        if(this.props.drawerOpen){
+            this.props.drawerOpen()
+        }
+    }
     render() {
         const styles  = this.props.style;
         const heightRatio = Layout.window.heightRatio;
         const marginBottom = this.props.game ? -50 * heightRatio : 5;
-        
+        console.log(DrawerActions)
         return (
             <Header transparent style={{marginBottom:marginBottom,...styles.header}}>
                 <Left style={styles.left}>
@@ -50,7 +60,7 @@ class AppHeader extends Component {
                         <Image style={styles.superligaAppImg} source={superligaAppImg} resizeMode="contain"  />
                 </Body>
                 <Right style={styles.right}>
-                    <Button transparent onPress={() => {this.props.drawerOpen()}}>
+                    <Button transparent onPress={() => {this.openMainDrawer()}}>
                         <Image source={menuImg} style={styles.menuImg}   resizeMode="contain"/>
                     </Button>
                     <View style={styles.notificationBullet}>

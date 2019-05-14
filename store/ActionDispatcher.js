@@ -9,6 +9,8 @@ import { ConnectionStatusStore } from './ConnectionStatusStore';
 import { StatisticsStore } from './StatisticsStore';
 import { CurrentTriviaStatisticsStore, CurrentTriviaStatisticsActions } from './CurrentTriviaStatisticsStore';
 import { ChatActions, ChatStore } from './ChatStore';
+import Api from '../api/Api';
+import { NavigatorStore , NavigatorActions} from './NavigatorStore';
 
 
 export default class ActionDispatcher{
@@ -19,8 +21,46 @@ export default class ActionDispatcher{
         Reflux.initStore(StatisticsStore);
         Reflux.initStore(CurrentTriviaStatisticsStore);
         Reflux.initStore(ChatStore);
+        Reflux.initStore(NavigatorStore);
+        
+        this.api = new Api;
 
         
+    }
+    async onConnect(isReconnected=false){
+        if(isReconnected){
+            // call trivia actions
+            const canHandle = (routeName=='GamePlay' || routeName=='Home')
+            if(!canHandle) return
+            const canRedirect = ( NavigatorStore.state 
+                                    &&  NavigatorStore.state.Navigator 
+                                    &&  NavigatorStore.state.Navigator.instance 
+                                    &&  NavigatorStore.state.Navigator.instance.state
+                                    &&  NavigatorStore.state.Navigator.instance.state.nav
+                                )
+            if(!canRedirect) return
+                                   
+            let ct = await this.api.getCurrentTrivia();
+            if(!ct){
+              ct = {success: false};
+            }
+        
+            let gameInProgress = ct.success;
+            const getActiveRouteState = function (route) {
+                if (!route.routes || route.routes.length === 0 || route.index >= route.routes.length) {
+                    return route;
+                }
+            
+                const childActiveRoute = route.routes[route.index];
+                return getActiveRouteState(childActiveRoute);
+            }
+            const navigatorState = NavigatorStore.state.Navigator.instance.state.nav
+            const {routeName} = getActiveRouteState(navigatorState)
+            const redirectTo = gameInProgress ? 'GamePlay' : 'Home'
+            NavigatorActions.navigate(redirectTo)
+
+        }
+
     }
     onUpdateConnectedUsers(message){
         ConnectedUsersActions.updateConnectedUsers(message.payload)

@@ -24,6 +24,7 @@ import { LoginScreenActions } from './store/LoginScreenStore';
 import { TriviaQuestionActions } from './store/TriviaQuestion';
 import { NavigatorActions } from './store/NavigatorStore';
 
+import { YellowBox } from 'react-native';
 
 
 export default class App extends React.Component {
@@ -38,6 +39,11 @@ export default class App extends React.Component {
   socket = null;
   constructor(props){
     super(props)
+    //console.ignoredYellowBox = ['Remote debugger'];
+    YellowBox.ignoreWarnings([
+        'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
+    ]);
+
   }
 
   
@@ -141,10 +147,12 @@ export default class App extends React.Component {
     if(!this.socket){
       return;
     }
+    console.log("Closing socket...",this.socket)
     this.socket.close();
     this.socket = null;
   }
   async initSocket(){
+    console.log("Init Socket")
     const token = await AsyncStorage.getItem('token');
     if(this.socket){
       this.closeSocket();

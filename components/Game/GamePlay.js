@@ -20,6 +20,7 @@ import GameAnswerResult from './GameAnswerResult';
 // store
 import {TriviaQuestion,TriviaQuestionActions} from '../../store/TriviaQuestion';
 import { UsersStore } from "../../store/UserStore";
+import BottomBanner from "../Adds/BottomBanner";
 
 /**
  * 
@@ -90,7 +91,12 @@ class GamePlay extends Reflux.Component {
         if(this.state.hasQuestion || this.state.hasResult ){
             return (<GameQuestion question={this.state.currentQuestion} onNoLife={this.props.onNoLife} />);
         } else{
-            return (<GameWait text={'ESPERANDO \n JUGADA'} />);
+            return (
+            <View>
+            <GameWait text={'ESPERANDO \n JUGADA'} />
+            <BottomBanner></BottomBanner>
+            </View>
+            );
         }
     }
     render(){

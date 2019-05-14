@@ -35,7 +35,51 @@ const Chat = {
         left:Layout.s(20),
         right:Layout.s(20)
     }
+    
+}
 
+const FullChat = {
+    container:{
+        flex:1,
+        width: Layout.window.width -70,
+        height: Layout.window.height
+    },
+    gradient:{
+         width: Layout.window.width -70,
+         height: Layout.window.height
+     },
+     padder:{
+         paddingHorizontal:20,
+         width: Layout.window.width -70,
+         height: Layout.window.height
+     },
+     messageContainer:{
+        flex:1,
+        height: Layout.window.height,
+        paddingHorizontal:Layout.s(20),
+        marginBottom: Layout.s(80)
+    },
+    formTrigger:{
+        position: 'absolute',
+        bottom:Layout.s(20),
+        right:Layout.s(20), 
+        zIndex:1000
+    },
+    formMessageTriggerIcon:{
+        color: '#fff'
+    },
+    form:{
+        paddingBottom: Layout.s(10),
+
+    },
+    formInput:{
+        backgroundColor: '#fff',
+        color: "#282828",
+        
+    },
+    formInputText:{
+        color: "#282828"
+    }
 }
 
 const Message ={
@@ -53,6 +97,7 @@ const Message ={
 }
 export default {
     'SuperLiga.Chat':Chat,
+    'SuperLiga.FullChat':FullChat,
     'SuperLiga.ChatMessage': Message
     
 }

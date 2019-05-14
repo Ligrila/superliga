@@ -41,7 +41,7 @@ export default  class AuthLoadingScreen extends React.Component {
     } catch(e){
       //console.log(e);
     }
-    UsersActions.isLoggedIn(isLogin);
+    //UsersActions.isLoggedIn(isLogin);
 
     this.props.navigation.navigate(isLogin ? 'Main' : 'Auth');
   };

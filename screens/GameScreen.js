@@ -27,7 +27,8 @@ import Purchase from '../components/Purchase';
 import { PurchaseModalStore } from '../store/PurchaseModalStore';
 import { TriviaQuestionActions,TriviaQuestion } from '../store/TriviaQuestion';
 import MakeItRain from '../components/MakeItRain';
-import Chat from '../components/Chat';
+
+
 
 
 import {
@@ -36,6 +37,7 @@ import {
 } from 'expo';
 
 import Layout from '../constants/Layout';
+import Chat from '../components/Chat';
 
 
 
@@ -250,20 +252,19 @@ class GameScreen extends Reflux.Component {
       <Container>
         <Wallpaper source={bgSrc}>
         {this.makeItRain()}
-        <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
+        <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
         <Content padder contentContainerStyle={styles.game}>
           {this.renderModal()}
           {this.renderGame()}
         </Content>
         <KeyboardAvoidingView behavior='position' enabled>        
-        <Footer style={styles.footer} transparent>
+          <Footer style={styles.footer} transparent>
+            <Chat></Chat>
+            <View style={styles.connectedUsers}>
+            {this.renderFooter()}
+            </View>
 
-          <Chat></Chat> 
-          <View style={styles.connectedUsers}>
-          {this.renderFooter()}
-          </View>
-
-        </Footer>
+          </Footer>
         </KeyboardAvoidingView>
         </Wallpaper>
       </Container>

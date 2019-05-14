@@ -14,7 +14,8 @@ export default class SocketClient{
     constructor(USER_TOKEN,user){
         // TODO: send user data to socket we only need avatar and first_name
         this.dispatcher = new ActionDispatcher
-
+        this.firstConnect = true;
+        this.isReconnected = false;
         this.client = new io(
             Enviroment.socketUrl,
             {
@@ -29,7 +30,16 @@ export default class SocketClient{
                 query: {token: USER_TOKEN,name:user.first_name,avatar: user.avatar},
             })
         this.client.on('connect',()=>{
-            console.log('socket connected')
+            if(this.firstConnect){
+                this.firstConnect = false;
+            } else {
+                this.isReconnected = true
+            }
+            console.log("reconnected")
+            this.dispatcher.onConnect(this.isReconnected)
+
+            
+
         })
         this.client.on('error',(e)=>{
             console.log('error',e)

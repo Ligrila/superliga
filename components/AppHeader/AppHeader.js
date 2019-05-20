@@ -50,7 +50,6 @@ class AppHeader extends Component {
         const styles  = this.props.style;
         const heightRatio = Layout.window.heightRatio;
         const marginBottom = this.props.game ? -50 * heightRatio : 5;
-        console.log(DrawerActions)
         return (
             <Header transparent style={{marginBottom:marginBottom,...styles.header}}>
                 <Left style={styles.left}>

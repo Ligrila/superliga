@@ -99,6 +99,10 @@ export default class ActionDispatcher{
         UsersActions.update();
     }
 
+    onShowBanner(message){
+        NextTriviaActions.showBanner(message.payload);
+    }
+
 
     // chat
     onChatBroadcast(message){

@@ -60,10 +60,12 @@ export default class SocketClient{
         this.client.on('finishGame',this.dispatcher.onFinishGame)
         this.client.on('finishTrivia',this.dispatcher.onFinishTrivia)
         this.client.on('startTrivia',this.dispatcher.onStartTrivia)
+        this.client.on('showBanner',this.dispatcher.onShowBanner)
         this.client.on('finishedQuestion',this.dispatcher.onFinishedQuestion)
         this.chatClient.on('broadcast',this.dispatcher.onChatBroadcast)
         this.chatClient.on('connect',()=>this.dispatcher.onChatConnect(this.chatClient))
         this.chatClient.on('disconnect',this.dispatcher.onChatDisconnect)
+
     }
 }
 

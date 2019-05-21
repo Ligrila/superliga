@@ -117,7 +117,7 @@ export default class App extends React.Component {
 
     if(path){
       const parts = path.split('/')
-      console.log({parts})
+      //console.log({parts})
       if(parts[0]=='championships' && parts[1]){
         const championshipId = parts[1]
         if(isLogin){
@@ -193,7 +193,7 @@ export default class App extends React.Component {
 
     UsersActions.isLoggedIn.listen(
       (b) => {
-        console.log({b});
+        //console.log({b});
         if(b){
             this.initSocket()
         } else{

@@ -60,6 +60,11 @@ class TriviaCarouselMinimal extends Reflux.Component {
    
   }
 
+  componentWillMount(){
+    this.loadAssets()
+    super.componentWillMount();
+  }
+
   componentDidMount(){
     HomeBannerActions.index()
     this.completedUnsuscribe = HomeBannerActions.index.completed.listen((trivias)=>{
@@ -259,7 +264,7 @@ renderCarousel(){
     if(!this.state.HomeBanner.hasData){
       return <Spinner />;
     }
-    this.loadAssets()
+
 
     if(this.state.HomeBanner.data.length==0){
       return (

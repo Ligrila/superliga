@@ -16,7 +16,7 @@ const IOS_ID='ca-app-pub-4248217184030056/9160086527'
 export default class BottomBanner extends Component {
   bannerError(error){
     console.log({error},"banner Error")
-    Alert.alert("banner",error)
+    //Alert.alert("banner",error)
 
 
   }

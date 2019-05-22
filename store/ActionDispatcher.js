@@ -28,7 +28,19 @@ export default class ActionDispatcher{
         
     }
     async onConnect(isReconnected=false){
+        try{
         if(isReconnected){
+            const getActiveRouteState = function (route) {
+                if (!route.routes || route.routes.length === 0 || route.index >= route.routes.length) {
+                    return route;
+                }
+            
+                const childActiveRoute = route.routes[route.index];
+                return getActiveRouteState(childActiveRoute);
+            }
+            const navigatorState = NavigatorStore.state.Navigator.instance.state.nav
+            const {routeName} = getActiveRouteState(navigatorState)
+
             // call trivia actions
             const canHandle = (routeName=='GamePlay' || routeName=='Home')
             if(!canHandle) return
@@ -46,19 +58,13 @@ export default class ActionDispatcher{
             }
         
             let gameInProgress = ct.success;
-            const getActiveRouteState = function (route) {
-                if (!route.routes || route.routes.length === 0 || route.index >= route.routes.length) {
-                    return route;
-                }
-            
-                const childActiveRoute = route.routes[route.index];
-                return getActiveRouteState(childActiveRoute);
-            }
-            const navigatorState = NavigatorStore.state.Navigator.instance.state.nav
-            const {routeName} = getActiveRouteState(navigatorState)
+
             const redirectTo = gameInProgress ? 'GamePlay' : 'Home'
             NavigatorActions.navigate(redirectTo)
 
+        }
+        }catch(e){
+            console.log("error onConnect",e)
         }
 
     }

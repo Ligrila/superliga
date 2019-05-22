@@ -16,41 +16,64 @@ export default class SocketClient{
         this.dispatcher = new ActionDispatcher
         this.firstConnect = true;
         this.isReconnected = false;
+        console.log("Socket.io start");
         this.client = new io(
             Enviroment.socketUrl,
             {
-                transports:['websocket'],
+                //transports:['websocket'],
                 query: {token: USER_TOKEN}
             })
 
-        this.chatClient = new io(
-            Enviroment.chatSocketUrl,
-            {
-                transports:['websocket'],
-                query: {token: USER_TOKEN,name:user.first_name,avatar: user.avatar},
-            })
+        console.log("Socket.io on connect");
         this.client.on('connect',()=>{
             if(this.firstConnect){
                 this.firstConnect = false;
             } else {
                 this.isReconnected = true
             }
-            console.log("reconnected")
+            console.log("connected")
             this.dispatcher.onConnect(this.isReconnected)
+            this.bindEvents()
 
             
 
         })
+        console.log("Socket.io on error");
         this.client.on('error',(e)=>{
             console.log('error',e)
         })
+        console.log("Socket.io bind");
 
-        this.bindEvents()
+        console.log("Socket.io end");
+
+        console.log("Socket.io start chat");
+        /*this.chatClient = new io(
+            Enviroment.chatSocketUrl,
+            {
+                //transports:['websocket'],
+                query: {token: USER_TOKEN,name:user.first_name,avatar: user.avatar},
+            })
+        console.log("Socket.io start chat connect");
+        this.chatClient.on('connect',()=>{
+            console.log("Socket.io start chat bindings");
+            this.chatClient.on('broadcast',this.dispatcher.onChatBroadcast)
+            this.chatClient.on('connect',()=>this.dispatcher.onChatConnect(this.chatClient))
+            this.chatClient.on('disconnect',this.dispatcher.onChatDisconnect)
+            console.log("chat connected")
+
+        })
+        console.log("Socket.io start chat error");
+        this.chatClient.on('error',(e)=>{
+
+            console.log("chat connected error",e)
+
+        })*/
 
     }
     
     bindEvents(){
         //ActionDispatcher.onUpdateConnectedUsers({});
+        this.client.on('startTrivia',this.dispatcher.onStartTrivia)
         this.client.on('updateConnectedUsers',this.dispatcher.onUpdateConnectedUsers)
         this.client.on('newQuestion',this.dispatcher.onNewQuestion)
         this.client.on('finishHalfTime',this.dispatcher.onFinishHalfTime)
@@ -59,12 +82,10 @@ export default class SocketClient{
         this.client.on('startHalfTime',this.dispatcher.onStartHalfTime)
         this.client.on('finishGame',this.dispatcher.onFinishGame)
         this.client.on('finishTrivia',this.dispatcher.onFinishTrivia)
-        this.client.on('startTrivia',this.dispatcher.onStartTrivia)
+
         this.client.on('showBanner',this.dispatcher.onShowBanner)
         this.client.on('finishedQuestion',this.dispatcher.onFinishedQuestion)
-        this.chatClient.on('broadcast',this.dispatcher.onChatBroadcast)
-        this.chatClient.on('connect',()=>this.dispatcher.onChatConnect(this.chatClient))
-        this.chatClient.on('disconnect',this.dispatcher.onChatDisconnect)
+
 
     }
 }

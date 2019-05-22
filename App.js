@@ -39,6 +39,7 @@ export default class App extends React.Component {
   socket = null;
   constructor(props){
     super(props)
+
     //console.ignoredYellowBox = ['Remote debugger'];
     YellowBox.ignoreWarnings([
         'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
@@ -144,11 +145,17 @@ export default class App extends React.Component {
     Linking.removeEventListener('url', this._handleRedirect);
   };
   closeSocket(){
-    if(!this.socket){
+    console.log("App::closeSocket")
+    if(!this.socket || !this.socket.client || !this.socket.chatClient){
       return;
     }
     console.log("Closing socket...",this.socket)
-    this.socket.close();
+    if(typeof(this.socket.client.close) == 'function'){
+      this.socket.client.close();
+    }
+    if(typeof(this.socket.chatClient.close) == 'function'){
+      this.socket.chatClient.close();
+    }
     this.socket = null;
   }
   async initSocket(){
@@ -169,11 +176,11 @@ export default class App extends React.Component {
       /*console.ignoredYellowBox = [
         'Setting a timer'
       ];*/
-      const token = await AsyncStorage.getItem('token');
-      if(token){
+      //const token = await AsyncStorage.getItem('token');
+      //if(token){
         this.initSocket()
         UsersActions.update();
-      }
+      //}
       NetInfo.getConnectionInfo().then((connectionInfo) => {
         handleConnectivityChange(connectionInfo);
       });
@@ -189,15 +196,16 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    try{
     AppState.addEventListener('change', this._handleAppStateChange);
 
     UsersActions.isLoggedIn.listen(
       (b) => {
         //console.log({b});
         if(b){
-            this.initSocket()
+            //this.initSocket()
         } else{
-          this.closeSocket();
+          //this.closeSocket();
         }
 
         registerPushNotifications().then((data)=>console.log('PushNotificationsRegister',data))
@@ -234,7 +242,9 @@ export default class App extends React.Component {
     ]
     )
 
-    
+    } catch(e){
+      console.log("App::componentDidMount",e)
+    }
   }
 
   componentWillUmount(){

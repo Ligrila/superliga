@@ -42,7 +42,7 @@ export default class Api extends RestClient {
     return this.POST('/users/token', { refresh_token },{authorizationHeader:false});
   }
   getTeams(){
-    return this.GET('/teams/index',{authorizationHeader:false});
+    return this.GET('/teams/index',{authorizationHeader:false},{retries:3});
   }
   googleLogin (access_token) {
     // Returns a Promise with the response.
@@ -77,6 +77,8 @@ export default class Api extends RestClient {
     return this.POST('/answers/add',{
       question_id: question_id,
       selected_option: "option_" + option
+    },{
+      retries: 3
     });
   }
 
@@ -162,7 +164,10 @@ export default class Api extends RestClient {
 
 //    return this.GET('/championships/all'+search+ignoreMy);
   }
+  allChampionshipListForDate(date_id){
 
+    return this.GET('/championships/all_for_date/'+date_id);
+  }
   championshipRanking(id,type){
     return this.GET('/championships/ranking/'+id+'?type='+type);
   }

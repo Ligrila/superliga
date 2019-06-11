@@ -41,6 +41,7 @@ import Chat from '../components/Chat';
 
 
 
+
 getAdMobInterstitialID = ()=>{
   const isAndroid = Layout.isAndroid
   if(Constants.appOwnership=='expo'){
@@ -55,6 +56,7 @@ getAdMobInterstitialID = ()=>{
 class GameScreen extends Reflux.Component {
   api = new Api;
   static modalVisible = false;
+  listenActions = []
   state = {
     modalVisible : false,
     genericQuestion: false,
@@ -85,6 +87,16 @@ class GameScreen extends Reflux.Component {
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
+    this.listenActions.forEach(listenable => {
+      if(typeof listenable == 'function'){
+        listenable()
+      }
+    });
+
+    this.listenActions = []
+    super.componentWillUnmount();
+
+
   }
 
   _keyboardDidShow = ()=> {
@@ -128,7 +140,7 @@ class GameScreen extends Reflux.Component {
    
 
 
-    NextTriviaActions.finish.listen((trivia)=>{
+    this.listenActions.push(NextTriviaActions.finish.listen((trivia)=>{
       const currentTriviaId = trivia.id;
       const resetAction = StackActions.reset({
         index: 0,
@@ -136,37 +148,41 @@ class GameScreen extends Reflux.Component {
       });
       this.props.navigation.dispatch(resetAction);
 
-   });
+   }));
 
-    NextTriviaActions.halfTime.listen((b)=>{
+   this.listenActions.push(NextTriviaActions.halfTime.listen((b)=>{
       this.props.navigation.navigate('HalfTime')
-    })
-    NextTriviaActions.halfTimeStarted.listen((b)=>{
+    }))
+    
+    this.listenActions.push(NextTriviaActions.halfTimeStarted.listen((b)=>{
       this.props.navigation.navigate('HalfTimeStart')
-    })
+    }))
 
-    NextTriviaActions.halfTimePlay.listen(()=>{
+    this.listenActions.push(NextTriviaActions.halfTimePlay.listen(()=>{
       this.props.navigation.navigate('GameHalfTimePlay')
-    })
-    NextTriviaActions.showBannerStarted.listen((payload)=>{
+    }))
+
+    this.listenActions.push(NextTriviaActions.showBannerStarted.listen((payload)=>{
 
       if(payload.bannerType=='admob'){
         this.renderInterstitial()
       } else{
         this.props.navigation.navigate('Banner',{payload})
       }
-    })
-    NextTriviaActions.extraPlay.listen(()=>{
+    }))
+    
+    this.listenActions.push(NextTriviaActions.extraPlay.listen(()=>{
       this.props.navigation.navigate('GameExtraPlay')
-    })
+    }))
 
-    NextTriviaActions.halfTimeStarted.listen((b)=>{
+    this.listenActions.push(NextTriviaActions.halfTimeStarted.listen((b)=>{
       this.props.navigation.navigate('HalfTimeStart')
-    })
-    UsersActions.me.listen(()=>{
+    }))
+
+    this.listenActions.push(UsersActions.me.listen(()=>{
       if(this.state.user.lives <= 0 ){
       }
-    });
+    }));
     if(this.state.PurchaseModal.visible){
       this.setModalVisible(true);
     }
@@ -259,7 +275,7 @@ class GameScreen extends Reflux.Component {
         </Content>
         <KeyboardAvoidingView behavior='position' enabled>        
           <Footer style={styles.footer} transparent>
-
+            <Chat></Chat>
             <View style={styles.connectedUsers}>
             {this.renderFooter()}
             </View>

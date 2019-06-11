@@ -14,11 +14,22 @@ import Loader from '../components/Loader';
 
 class AboutScreen extends React.Component {
   state = {
-    loading : false
+    loading : false,
+    updateAvailable: false,
   }
   constructor(){
     super();
 
+  }
+  async componentDidMount(){
+    try {
+      const update = await Expo.Updates.checkForUpdateAsync();
+      this.setState({updateAvailable:update.isAvailable})
+    } catch (e) {
+      // handle or log error
+      console.log(e)
+      
+    }
   }
   checkForUpdates = async () => {
     try {
@@ -48,6 +59,7 @@ class AboutScreen extends React.Component {
           <Image style={styles.icon} source={iconSrc}></Image>
           <Text>Version: {Constants.manifest.version}</Text>
           <Text>Fecha: {Constants.manifest.publishedTime}</Text>
+          <Text>{this.state.updateAvailable ? 'Hay una versión nueva disponible':'Tienes la útlima versión'}</Text>
           <Text />
           <Button primary block onPress={this.checkForUpdates}>
             <Text style={styles.buttonText}>Buscar actualizaciones</Text>

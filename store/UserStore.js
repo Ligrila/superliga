@@ -1,6 +1,7 @@
 import Reflux from 'reflux';
 import Api from '../api/Api';
 import CacheStore from './CacheStore'
+import {AsyncStorage} from 'react-native'
 
 export const UsersActions = Reflux.createActions(['me','update','noLife','isLoggedIn','reset']);
 
@@ -26,7 +27,7 @@ export class UsersStore extends CacheStore
     }
     reset(){
         this.setState(this.getInititalState());
-        this.onIsLoggedIn(false);
+        UsersActions.isLoggedIn(false);
     }
     onIsLoggedIn(b){
         // simplemente lo usamos para listen desde fuera
@@ -37,6 +38,7 @@ export class UsersStore extends CacheStore
     }
     async onMe(user){
         await this.setStateCache({user: user,hasInformation:true});
+        AsyncStorage.setItem('user',JSON.stringify(user))
     }
 
     async onUpdate(){

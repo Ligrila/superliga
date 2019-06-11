@@ -19,7 +19,6 @@ const FooterStyle ={
 
 
 import SuperLiga from './SuperLiga'
-console.log({SuperLiga})
 
 const styles =   {
     //'SuperLiga.NotificationBullet': require('./SuperLiga/NotificationBullet')(Layout),
@@ -137,6 +136,37 @@ const styles =   {
 
     },
     'SuperLiga.CreateChallenge':{
+        pickerContainer:{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        picker:{
+            width: s(547),
+            backgroundColor: '#fff',
+            marginBottom: h(95),
+            marginTop: h(95),
+            justifyContent:'center',
+            height:40
+        },
+        pickerIcon: {
+            color: '#282828',
+            position: 'absolute',
+            top: 5,
+            right: 0,
+            justifyContent: 'center',
+            alignItems: 'center'
+        },
+        pickerText:{
+            color: '#353535',
+            fontFamily: 'OpenSansCondensed_bold',
+            textAlign:'center',
+            //width: '100%',
+            fontSize: s(31)
+        },
+        pickerItemText:{
+            color: '#000'
+        },
         text:{
             color: '#fff',
             fontFamily: 'OpenSansCondensed_bold',

@@ -9,7 +9,6 @@ import { Platform } from 'react-native'
 
 export default class TabBarIcon extends React.Component {
   render() {
-    console.log(this.props.type)
     return (
       <Icon.FontAwesome
         name={this.props.name}

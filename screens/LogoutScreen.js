@@ -6,6 +6,8 @@ import {
     Button
   } from 'react-native';
 import { UsersActions } from '../store/UserStore';
+import { ChatActions } from '../store/ChatStore';
+
 
 export default class LogoutScreen extends React.Component {
     static navigationOptions = {

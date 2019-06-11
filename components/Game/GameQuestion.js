@@ -5,7 +5,7 @@ import {
     Vibration
 } from "react-native";
 
-import { Text, Button, Icon } from 'native-base'
+import { Text, Button, Icon, Toast } from 'native-base'
 import { connectStyle } from 'native-base';
 
 import Api from '../../api/Api';
@@ -38,28 +38,39 @@ class GameQuestion extends Reflux.Component {
         super(props);
         this._optionButton1 = this._optionButton2 = this._optionButton3= null;
 
-        this.onButton1Press = this.onButton1Press.bind(this);
-        this.onButton2Press = this.onButton2Press.bind(this);
-        this.onButton3Press = this.onButton3Press.bind(this);
+        
+        
 
         this.stores = [TriviaQuestion, UsersStore, NextTriviaStore];
     }
-    async _sendAnswer(option){
-        let response = this.api.sendAnswer(this.props.question.id,option);
+    _sendAnswer = async(option) => {
+        let response = this.api.sendAnswer(this.props.question.id,option).catch((e)=>{
+            Toast.show({
+                text: 'Ocurrió un error al enviar la respuesta. Por favor, intenta nuevamente.',
+                position: "bottom",
+                type: 'danger',
+                buttonText: 'Aceptar'
+              })
+              TriviaQuestionActions.resetOnNetworkFail()
+              this.setState({button1Pressed:false,disabled:false});
+              this.setState({button2Pressed:false});
+              this.setState({button3Pressed:false});
+
+        })
         //if(response.success){
             TriviaQuestionActions.answerQuestion(this.props.question.id,option,response);
         //1}
         
     }
-    onButton1Press(){
+    onButton1Press = () => {
         this.setState({button1Pressed:true,disabled:true});
         this._sendAnswer(1);
     }
-    onButton2Press(){
+    onButton2Press= () =>{
         this.setState({button2Pressed:true,disabled:true});
         this._sendAnswer(2);
     }
-    onButton3Press(){
+    onButton3Press= () =>{
         this.setState({button3Pressed:true,disabled:true});
         this._sendAnswer(3);
     }

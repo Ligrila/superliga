@@ -57,7 +57,7 @@ class BrowserScreen extends React.Component {
         return;
       }
       const styles = this.props.style;
-      console.log(styles);
+
       return (
         <Container>
             <WebView

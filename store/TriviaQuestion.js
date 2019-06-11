@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 
-export const TriviaQuestionActions = Reflux.createActions(['add','onNewQuestion','onFinishQuestion','timeout','answerQuestion','finishedQuestion','reset']);
+export const TriviaQuestionActions = Reflux.createActions(['add','onNewQuestion','onFinishQuestion','timeout','answerQuestion','finishedQuestion','reset','resetOnNetworkFail']);
 
 export class TriviaQuestion extends Reflux.Store
 {
@@ -28,9 +28,17 @@ export class TriviaQuestion extends Reflux.Store
             win:false,
         };
     }
+    resetOnNetworkFail(){
+        this.setState({
+            answered: false,
+            answeredOption: null,
+            answeredServerResponse: null
+        })
+    }
     onReset(){
         this.setState(this.getInititalState());
     }
+
 
     async onAdd(q){
         if(this.timer){
@@ -42,6 +50,7 @@ export class TriviaQuestion extends Reflux.Store
         },timeout);
         this.setState(this.getInititalState());
         //console.log(this.timer);
+        console.log("quesetion",q)
         await this.setState({
             hasQuestion: true,
             currentQuestion: q,
@@ -77,7 +86,7 @@ export class TriviaQuestion extends Reflux.Store
                         win: data.success && (question.correct_option == this.state.answeredOption)
                     });
                 }).catch(e=>{
-                    console.log(e)
+                    console.log("error enviando respuesta",e)
                     this.setState({
                         hasQuestion: false,
                         currentQuestion: question,

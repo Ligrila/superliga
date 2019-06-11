@@ -8,7 +8,6 @@ import Enviroment from '../../constants/Enviroment';
 
 class Message extends Component {
   render() {
-    console.log(this.props.message.avatar)
     const styles = this.props.style
     return (
       <View style={styles.container}>

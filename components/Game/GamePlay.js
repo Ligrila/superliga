@@ -58,6 +58,7 @@ class GamePlay extends Reflux.Component {
     resetTimeOut = null;
     componentWillUnmount(){
         clearTimeout(this.resetTimeOut);
+        super.componentWillUnmount();
     }
     componentDidUpdate(){
         clearTimeout(this.resetTimeOut);

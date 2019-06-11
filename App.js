@@ -146,16 +146,15 @@ export default class App extends React.Component {
   };
   closeSocket(){
     console.log("App::closeSocket")
-    if(!this.socket || !this.socket.client || !this.socket.chatClient){
+    if(!this.socket || !this.socket.client ){
       return;
     }
-    console.log("Closing socket...",this.socket)
+
     if(typeof(this.socket.client.close) == 'function'){
+      console.log("Closing socket...")
       this.socket.client.close();
     }
-    if(typeof(this.socket.chatClient.close) == 'function'){
-      this.socket.chatClient.close();
-    }
+
     this.socket = null;
   }
   async initSocket(){
@@ -165,6 +164,7 @@ export default class App extends React.Component {
       this.closeSocket();
     }
     if(!token){
+      console.log("No token")
       return;
     }
     const user = JSON.parse(await AsyncStorage.getItem('user'));
@@ -178,8 +178,8 @@ export default class App extends React.Component {
       ];*/
       //const token = await AsyncStorage.getItem('token');
       //if(token){
-        this.initSocket()
         UsersActions.update();
+        this.initSocket()
       //}
       NetInfo.getConnectionInfo().then((connectionInfo) => {
         handleConnectivityChange(connectionInfo);
@@ -203,9 +203,9 @@ export default class App extends React.Component {
       (b) => {
         //console.log({b});
         if(b){
-            //this.initSocket()
+            this.initSocket()
         } else{
-          //this.closeSocket();
+           this.closeSocket();
         }
 
         registerPushNotifications().then((data)=>console.log('PushNotificationsRegister',data))

@@ -35,6 +35,16 @@ export default class RestClient {
     _fullRoute (url) {
       return `${this.baseUrl}${url}`;
     }
+
+    _fetch_retry = async (url, options, n) => {
+      try {
+          console.log("retry fetch " , url )
+          return await fetch(url, options)
+      } catch(err) {
+          if (n <= 1) throw err;
+          return await this._fetch_retry(url, options, n - 1);
+      }
+    };
   
     async _fetch (route, method, body, isQuery = false,options={}) {
       const defaultOptions = {
@@ -73,7 +83,14 @@ export default class RestClient {
 
         }
       }
-      const fetchPromise = () => fetch(fullRoute, opts);
+      let fetchPromise = null
+
+      if(options.retries > 1){
+        fetchPromise = () => this._fetch_retry(fullRoute, opts,options.retries);
+      } else{
+        fetchPromise = () => fetch(fullRoute, opts);
+      }
+
 
       
       const extractResponse = response => {
@@ -92,6 +109,10 @@ export default class RestClient {
         };
 
       const manageError = async response => {
+
+        if(response instanceof TypeError){
+          throw new Error(response)
+        }
         console.log('reject url', this.url)
         console.log('reject',await response);
         

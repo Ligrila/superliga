@@ -119,7 +119,8 @@ export default class ActionDispatcher{
         ChatActions.setSocket(socket)
     }
     onChatDisconnect(){
-
+        console.log("disconnected")
+        ChatActions.reset()
     }
 
     dispatch(message){

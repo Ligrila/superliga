@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Reflux from 'reflux';
 import {  View, Alert } from 'react-native';
-import {connectStyle,Toast,  Text,Button, Content} from 'native-base'
+import {connectStyle,Form, Picker, Icon, Content} from 'native-base'
 
 
 
@@ -12,26 +12,27 @@ import Notice from '../Notice';
 import { UsersStore } from '../../store/UserStore';
 import Loader from '../Loader';
 import ChampionshipItem from './ChampionshipItem';
-
+import { DatesListStore, DatesListActions } from '../../store/DatesListStore';
 
 
 
 
 
 class AllChampionshipList extends Reflux.Component {
- state = {
-
- }
+  state = {
+    dateSelected: 'general'
+  }
   constructor(props) {
     super(props);
-    this.stores = [AllChampionshipsStore,UsersStore];
+    this.stores = [AllChampionshipsStore,UsersStore,DatesListStore];
     this.championship = this.props.championship;
 
   }
 
   componentDidMount(){
     AllChampionshipsActions.list(null,true)
-
+    DatesListActions.index();
+  
   }
 
   
@@ -49,11 +50,12 @@ class AllChampionshipList extends Reflux.Component {
 
 
 
+    let position = 0
 
     return this.state.AllChampionships.data.map((ranking,index)=>{
-      
+      ranking.position = ranking.position || ++position
+      position = ranking.position
       const championship = {...ranking.championship,position:ranking.position,points:ranking.points}
-      
 
       const altrow = index % 2 === 0
       return (
@@ -62,12 +64,61 @@ class AllChampionshipList extends Reflux.Component {
       )
     })
   }
+
+  onValueChange = function(value){
+    this.setState({
+      dateSelected: value
+    })
+    switch(value){
+      case 'general':
+          AllChampionshipsActions.list(null,true)
+        break;
+      default:
+          AllChampionshipsActions.listForDate(value,true)
+        break;
+    }
+    
+
+  }
+  getPickerItems(){
+    let datesItems = [];
+    datesItems.push(
+      <Picker.Item  key="general" label="Ranking General" value="general" />
+    )
+
+    if(typeof this.state.DatesList.data == 'object'){
+        datesItems.push( this.state.DatesList.data.map(item => (
+                <Picker.Item key={item.id} label={item.name} value={item.id} />
+             )
+            ));
+        }
+    return datesItems  
+    }
   
   render() {
     const styles = this.props.style;
     return (
       <Content style={styles.container}>
-        <Title text={'RANKING \n GENERAL'}></Title>
+        <Title text={'RANKING'}></Title>
+        <Form style={styles.pickerContainer}>
+            <Picker   
+                note
+                mode="dropdown"
+                placeholder='Seleccionar fecha...'
+                iosHeader="Seleccionar una fecha"
+                Header="Seleccionar una fecha"
+                style={styles.picker}
+                iosIcon={<Icon style={styles.pickerIcon} name="ios-arrow-dropdown" />}
+
+                textStyle={styles.pickerText}
+                itemTextStyle={styles.pickerItemText}
+                selectedValue={this.state.dateSelected}
+                onValueChange={this.onValueChange.bind(this)}
+            >
+                 {this.getPickerItems()}
+            </Picker>
+   
+        </Form>
         <View style={styles.list}>
           {this.renderItems()}
         </View>

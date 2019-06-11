@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import Api from '../api/Api';
-import { UsersActions } from '../store/UserStore';
+import { UsersActions, UsersStore } from '../store/UserStore';
 
 export default  class AuthLoadingScreen extends React.Component {
   api = new Api();
@@ -30,11 +30,15 @@ export default  class AuthLoadingScreen extends React.Component {
       isLogin = userToken && (tokenExpire !== null && notExpired);
       if(isLogin){
         // TODO: reveer esto, buscar una forma de detectar logouts en los request
-        const user  = await this.api.getUserInformation();
+        await UsersActions.update();
+
+        const user  = UsersStore.state.user;
+        const hasInformation = UsersStore.state.hasInformation;
+
         if(!user){
           isLogin = false;
         }
-        if(!user.success){
+        if(!hasInformation){
           isLogin = false;
         }
       }

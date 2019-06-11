@@ -38,6 +38,10 @@ export class ChatStore extends Reflux.Store
             },
         };
     }
+    reset(){
+        console.log("ChatActions::reset")
+        this.state = this.getInititalState()
+    }
     setSocket(socket){
         this.socket = socket
     }

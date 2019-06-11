@@ -13,6 +13,16 @@ export default class SocketClient{
 
     constructor(USER_TOKEN,user){
         // TODO: send user data to socket we only need avatar and first_name
+        if(!user){
+            user = {avatar:null, first_name: 'Usuario'}
+        }
+        if(typeof(user.avatar)=='undefined'){
+            user.avatar = null
+        }
+        if(typeof(user.first_name)=='undefined'){
+            user.first_name = 'Usuario'
+        }
+        console.log("current storage user", user)
         this.dispatcher = new ActionDispatcher
         this.firstConnect = true;
         this.isReconnected = false;
@@ -21,7 +31,7 @@ export default class SocketClient{
             Enviroment.socketUrl,
             {
                 //transports:['websocket'],
-                query: {token: USER_TOKEN}
+                query: {token: USER_TOKEN,name:user.first_name,avatar: user.avatar},
             })
 
         console.log("Socket.io on connect");
@@ -33,11 +43,14 @@ export default class SocketClient{
             }
             console.log("connected")
             this.dispatcher.onConnect(this.isReconnected)
-            this.bindEvents()
+            this.dispatcher.onChatConnect(this.client)
 
             
 
         })
+        
+        this.client.on('disconnect',this.dispatcher.onChatDisconnect)
+
         console.log("Socket.io on error");
         this.client.on('error',(e)=>{
             console.log('error',e)
@@ -54,21 +67,24 @@ export default class SocketClient{
                 query: {token: USER_TOKEN,name:user.first_name,avatar: user.avatar},
             })
         console.log("Socket.io start chat connect");
-        this.chatClient.on('connect',()=>{
+        
+        this.client.of('/Chat').on('connect',()=>{
             console.log("Socket.io start chat bindings");
-            this.chatClient.on('broadcast',this.dispatcher.onChatBroadcast)
-            this.chatClient.on('connect',()=>this.dispatcher.onChatConnect(this.chatClient))
-            this.chatClient.on('disconnect',this.dispatcher.onChatDisconnect)
+            this.client.of('/Chat').on('broadcast',this.dispatcher.onChatBroadcast)
+            this.client.of('/Chat').on('connect',()=>this.dispatcher.onChatConnect(this.chatClient))
+            this.client.of('/Chat').on('disconnect',this.dispatcher.onChatDisconnect)
             console.log("chat connected")
 
         })
         console.log("Socket.io start chat error");
-        this.chatClient.on('error',(e)=>{
+        this.client.of('/Chat').on('error',(e)=>{
 
             console.log("chat connected error",e)
 
-        })*/
+        })
+            */
 
+        this.bindEvents()
     }
     
     bindEvents(){
@@ -85,6 +101,7 @@ export default class SocketClient{
 
         this.client.on('showBanner',this.dispatcher.onShowBanner)
         this.client.on('finishedQuestion',this.dispatcher.onFinishedQuestion)
+        this.client.on('broadcast',this.dispatcher.onChatBroadcast)
 
 
     }

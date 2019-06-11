@@ -8,7 +8,7 @@ import {connectStyle,Header,Container,Content,Text, Icon, Toast, Button, ActionS
 import { ImagePicker } from 'expo';
 
 import Wallpaper from '../components/Wallpaper';
-import { UsersStore } from '../store/UserStore';
+import { UsersStore, UsersActions } from '../store/UserStore';
 
 import sidebarBgSrc from '../assets/images/sidebar_bg.png';
 import bgSrc from '../assets/images/bg.png';
@@ -161,6 +161,7 @@ class ProfileScreen extends Reflux.Component {
         let user = this.state.user;
         user.avatar = result.uri;
         this.setState(user);
+        UsersActions.update()
       } else{
         Toast.show({
           text: 'No se pudo cambiar tu imagen de perfil. Por favor, intenta nuevamente',
@@ -187,6 +188,7 @@ class ProfileScreen extends Reflux.Component {
           let user = this.state.user;
           user.avatar = result.uri;
           this.setState(user);
+          UsersActions.update()
         } else{
           Toast.show({
             text: 'No se pudo cambiar tu imagen de perfil. Por favor, intenta nuevamente',

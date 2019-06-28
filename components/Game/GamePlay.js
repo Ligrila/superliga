@@ -32,7 +32,7 @@ class GamePlay extends Reflux.Component {
         this.stores = [TriviaQuestion,UsersStore];
     }
     onQuestionTimeout(){
-        console.log("Question ball timedout " + new Date());
+        //console.log("Question ball timedout " + new Date());
     }
     _renderBall(){
         if(this.state.hasResult){

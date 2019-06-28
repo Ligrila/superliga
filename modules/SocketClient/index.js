@@ -22,11 +22,11 @@ export default class SocketClient{
         if(typeof(user.first_name)=='undefined'){
             user.first_name = 'Usuario'
         }
-        console.log("current storage user", user)
+        //console.log("current storage user", user)
         this.dispatcher = new ActionDispatcher
         this.firstConnect = true;
         this.isReconnected = false;
-        console.log("Socket.io start");
+        //console.log("Socket.io start");
         this.client = new io(
             Enviroment.socketUrl,
             {
@@ -34,14 +34,14 @@ export default class SocketClient{
                 query: {token: USER_TOKEN,name:user.first_name,avatar: user.avatar},
             })
 
-        console.log("Socket.io on connect");
+        //console.log("Socket.io on connect");
         this.client.on('connect',()=>{
             if(this.firstConnect){
                 this.firstConnect = false;
             } else {
                 this.isReconnected = true
             }
-            console.log("connected")
+            //console.log("connected")
             this.dispatcher.onConnect(this.isReconnected)
             this.dispatcher.onChatConnect(this.client)
 
@@ -51,15 +51,15 @@ export default class SocketClient{
         
         this.client.on('disconnect',this.dispatcher.onChatDisconnect)
 
-        console.log("Socket.io on error");
+        //console.log("Socket.io on error");
         this.client.on('error',(e)=>{
             console.log('error',e)
         })
-        console.log("Socket.io bind");
+        //console.log("Socket.io bind");
 
-        console.log("Socket.io end");
+        //console.log("Socket.io end");
 
-        console.log("Socket.io start chat");
+       // console.log("Socket.io start chat");
         /*this.chatClient = new io(
             Enviroment.chatSocketUrl,
             {

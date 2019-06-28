@@ -70,7 +70,7 @@ class GameBall extends Reflux.Component {
                 <View style={styles.container}>
                     <GameBallCircularProgress
                             ref={(ref) => this.circularProgress = ref}
-                            size={175 * Layout.window.ratio}
+                            size={165 * Layout.window.ratio}
                             width={20 * Layout.window.ratio}
                             duration={duration}
                             fill={fill}

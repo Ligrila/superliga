@@ -1926,8 +1926,8 @@ const styles =   {
             alignItems: 'center'
         },
         ballImg:{
-            width: s(150),
-            height: s(150),
+            width: s(140),
+            height: s(140),
     
         },
     },
@@ -1945,7 +1945,7 @@ const styles =   {
         },
         text: {
             fontFamily: 'OpenSansCondensed_bold',
-            fontSize: h(60),
+            fontSize: h(45),
             textAlign:'center'
           },
           subtitle: {

@@ -198,7 +198,7 @@ class GameQuestion extends Reflux.Component {
         let title = this.props.question.question.toUpperCase();
         const renderDisabled = this.state.timedOut || this.state.disabled || lives <= 0;
         if(this.state.timedOut && !this.state.answered){
-            title= "SE ACABO\n EL TIEMPO";
+            title= "SE ACABO EL TIEMPO";
             subtitle = 'JUGADA ANULADA';
         }
         if(this.state.answered){
@@ -206,7 +206,7 @@ class GameQuestion extends Reflux.Component {
         }
         const Trivia = this.state.CurrentTrivia.Trivia
         const genericQuestionsCount = Trivia.generic_questions_count
-        const currentCuestionPosition = this.state.currentQuestion.position
+        const currentCuestionPosition = this.state.currentQuestion.position > genericQuestionsCount ? genericQuestionsCount : this.state.currentQuestion.position
         const showQuestionPosition = Trivia.type=='trivia'
         let questionPositionMarkup = null
         if(showQuestionPosition){

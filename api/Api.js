@@ -166,7 +166,7 @@ export default class Api extends RestClient {
   }
   allChampionshipListForDate(date_id){
 
-    return this.GET('/championships/all_for_date/'+date_id);
+    return this.GET('/championships/all_for_championship_date/'+date_id);
   }
   championshipRanking(id,type){
     return this.GET('/championships/ranking/'+id+'?type='+type);

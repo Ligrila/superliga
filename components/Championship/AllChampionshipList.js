@@ -12,7 +12,7 @@ import Notice from '../Notice';
 import { UsersStore } from '../../store/UserStore';
 import Loader from '../Loader';
 import ChampionshipItem from './ChampionshipItem';
-import { DatesListStore, DatesListActions } from '../../store/DatesListStore';
+import { ChampionshipDatesStore, ChampionshipDatesActions } from '../../store/ChampionshipDatesStore';
 
 
 
@@ -24,14 +24,14 @@ class AllChampionshipList extends Reflux.Component {
   }
   constructor(props) {
     super(props);
-    this.stores = [AllChampionshipsStore,UsersStore,DatesListStore];
+    this.stores = [AllChampionshipsStore,UsersStore,ChampionshipDatesStore];
     this.championship = this.props.championship;
 
   }
 
   componentDidMount(){
     AllChampionshipsActions.list(null,true)
-    DatesListActions.index();
+    ChampionshipDatesActions.index();
   
   }
 
@@ -86,8 +86,8 @@ class AllChampionshipList extends Reflux.Component {
       <Picker.Item  key="general" label="Ranking General" value="general" />
     )
 
-    if(typeof this.state.DatesList.data == 'object'){
-        datesItems.push( this.state.DatesList.data.map(item => (
+    if(typeof this.state.ChampionshipDates.data == 'object'){
+        datesItems.push( this.state.ChampionshipDates.data.map(item => (
                 <Picker.Item key={item.id} label={item.name} value={item.id} />
              )
             ));

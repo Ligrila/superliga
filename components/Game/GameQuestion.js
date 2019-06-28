@@ -204,6 +204,14 @@ class GameQuestion extends Reflux.Component {
         if(this.state.answered){
             title= "ESPERANDO RESPUESTA";
         }
+        const Trivia = this.state.CurrentTrivia.Trivia
+        const genericQuestionsCount = Trivia.generic_questions_count
+        const currentCuestionPosition = this.state.currentQuestion.position
+        const showQuestionPosition = Trivia.type=='trivia'
+        let questionPositionMarkup = null
+        if(showQuestionPosition){
+            subtitle  = subtitle + "\n" + currentCuestionPosition +  " de " + genericQuestionsCount
+        }
        
         const titleLength = title.length;
         //const cpl = Math.round((Layout.window.width - 40 ) / (styles.text.fontSize / 2.15))

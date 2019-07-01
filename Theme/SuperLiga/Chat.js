@@ -40,37 +40,33 @@ const Chat = {
 
 const FullChat = {
     container:{
-        flex:1,
+        position: 'relative',
         width: Layout.window.width -70,
         height: Layout.window.height
     },
     gradient:{
+
          width: Layout.window.width -70,
          height: Layout.window.height
      },
-     padder:{
-         paddingHorizontal:20,
-         width: Layout.window.width -70,
-         height: Layout.window.height
-     },
+
      messageContainer:{
         flex:1,
-        height: Layout.window.height,
         paddingHorizontal:Layout.s(20),
-        marginBottom: Layout.s(80)
+        marginBottom: Layout.s(120),
+        backgroundColor: 'gray',
     },
-    formTrigger:{
-        position: 'absolute',
-        bottom:Layout.s(20),
-        right:Layout.s(20), 
-        zIndex:1000
-    },
+
     formMessageTriggerIcon:{
         color: '#fff'
     },
     form:{
         paddingBottom: Layout.s(10),
-
+        position:'absolute',
+        bottom:Layout.s(0),
+        left:Layout.s(20),
+        right:Layout.s(20),
+      
     },
     formInput:{
         backgroundColor: '#fff',

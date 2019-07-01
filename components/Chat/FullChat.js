@@ -31,20 +31,7 @@ class FullChat extends Reflux.Component {
       showForm = true
       this.setState({showForm})
   }
-  renderFormTrigger(){
-      if(this.state.showForm){
-          return null
-      }
 
-      const styles = this.props.style
-      return(
-        <View style={styles.formTrigger}>
-            <Button transparent onPress={this.showForm}>
-                <Icon type='MaterialIcons' name='message' style={styles.formMessageTriggerIcon}></Icon>
-            </Button>
-        </View>
-      )
-  }
   sendMessage = (e)=>{
     ChatActions.sendMessage(e.nativeEvent.text)
   }
@@ -54,10 +41,8 @@ class FullChat extends Reflux.Component {
     }
     const styles = this.props.style
 
-    const b = "position"
     return(
-        <SafeAreaView>
-        <KeyboardAvoidingView behavior={b} enabled={false}>
+
         <Form style={styles.form}>
             <Item rounded style={styles.formInput}>
             <Input
@@ -70,8 +55,6 @@ class FullChat extends Reflux.Component {
             ></Input>
             </Item>
         </Form>
-        </KeyboardAvoidingView>
-        </SafeAreaView>
 
     )
   }
@@ -91,13 +74,13 @@ class FullChat extends Reflux.Component {
 
     return (
 
-        <View style={styles.container}>
+
+        <KeyboardAvoidingView behavior={b} enabled style={styles.container}>
         <LinearGradient 
         start={[0,0]}
         end={[0,0.8]}
         colors={['#371655','#552a7d']} style={styles.gradient}>
-        <SafeAreaView>
-            <KeyboardAvoidingView behavior={b} enabled style={styles.padder}>
+
             <H1>Chat</H1>
             <ScrollView style={styles.messageContainer}
                 ref={ref => this.scrollView = ref}
@@ -105,16 +88,16 @@ class FullChat extends Reflux.Component {
                     this.scrollView.scrollToEnd({animated: true});
                 }}
             >
+
                 {this.renderMessages()}
             </ScrollView>
             {this.renderForm()}
-            </KeyboardAvoidingView>
-        </SafeAreaView>
         </LinearGradient>
+        </KeyboardAvoidingView>
         
-        {this.renderFormTrigger()}
+        
 
-        </View>
+
 
     )
   }

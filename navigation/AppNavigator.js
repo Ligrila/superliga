@@ -54,6 +54,7 @@ import { ChatSidebarDrawerContentComponent } from '../components/SidebarDrawerCo
 
 
 
+
 const AuthStack = createStackNavigator(
   { 
     Login: LoginScreen,
@@ -70,35 +71,7 @@ const AuthStack = createStackNavigator(
   }
 );
 
-/* const GamePlayDrawer = createDrawerNavigator({
-  GamePlay:{
-    screen: GameScreen,
-    navigationOptions: {
-      title: "Game",
-      drawerLabel: () =>{
-        return (
-          <SidebarItem label={"Notificaciones"} icon="comment" bullet={<NotificationBullet />}/>
 
-        )
-      }
-    }
-  },
-  },{
-  drawerPosition: 'right',
-  drawerWidth: Layout.window.width - 70,
-  drawerOpenRoute: 'ChatDrawerOpen',
-  contentComponent:ChatSidebarDrawerContentComponent,
-  drawerCloseRoute: 'ChatDrawerClose',
-  drawerToggleRoute: 'ChatDrawerToggle',
-  getCustomActionCreators: (route, stateKey) => {
-    return {
-      openChatDrawer: () => DrawerActions.openDrawer({ key: stateKey }),
-    };
-  },
-
-
-
-}) */
 
 const GameStack = createStackNavigator(
   {
@@ -341,11 +314,61 @@ var Main = createDrawerNavigator({
 );
 
 
+
+const hiddenDrawerItems = [
+  'GamePlay',
+  'Profile',
+]
+
+const getActiveRouteState = function (route) {
+  if (!route.routes || route.routes.length === 0 || route.index >= route.routes.length) {
+      return route;
+  }
+
+  const childActiveRoute = route.routes[route.index];
+  return getActiveRouteState(childActiveRoute);
+}
+ const MainWrapper = createDrawerNavigator({
+  MainWrapper:{
+    screen: Main,
+    navigationOptions: ({ navigation }) => {
+    const activeRouteState = getActiveRouteState(navigation.state)
+    return (
+      {
+      drawerLockMode: activeRouteState.params ? activeRouteState.params.drawerLockMode : undefined
+      //this.props.navigation.setParams({ drawerLockMode: locked-closed });
+
+    }
+     )
+     },
+  },
+  },{
+  drawerPosition: 'right',
+  drawerWidth: Layout.window.width - 70,
+  drawerOpenRoute: 'ChatDrawerOpen',
+  contentComponent:
+  (props) => {
+
+    return <ChatSidebarDrawerContentComponent {...props} />
+  },
+  
+  
+  drawerCloseRoute: 'ChatDrawerClose',
+  drawerToggleRoute: 'ChatDrawerToggle',
+  getCustomActionCreators: (route, stateKey) => {
+    return {
+      openChatDrawer: () => DrawerActions.openDrawer({ key: stateKey }),
+    };
+  },
+
+
+
+}) 
 const AppNavigator =  createSwitchNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   AuthLoading: AuthLoadingScreen,
-  Main: Main,
+  Main: MainWrapper,
   Auth: AuthStack
 
 },

@@ -52,7 +52,7 @@ class GameHalfTimePlayScreen extends React.Component {
       <Wallpaper source={bgSrc}>
 
 
-      <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} />
+      <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} />
         <Content padder contentContainerStyle={styles.statistics}>
           <View style={styles.textContainer}>
             <Text style={styles.textLine1}>JUGADA</Text>

@@ -65,7 +65,7 @@ class ProfileScreen extends Reflux.Component {
     return (
       <Container>
       <Wallpaper source={bgSrc}>
-      <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} style={styles.header} />
+      <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} style={styles.header} />
         <Content contentContainerStyle={styles.profile}>
           <View style={styles.bigTitle}>
                 <BigTitle text="MI PERFIL"></BigTitle>

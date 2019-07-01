@@ -5,16 +5,14 @@ import FullChat from '../Chat/FullChat'
 
 
 
-export default class Sidebar extends Component {
+export class ChatSidebarDrawerContentComponent extends Component {
+  componentWillMount(){
+    this.setState({drawerLockMode:'locked-open'});
+  }
   render() {
+
     return (
         <FullChat />
     )
   }
 }
-
-
-export const ChatSidebarDrawerContentComponent = (props) => (
-    <Sidebar />
-  );
-  

@@ -18,8 +18,8 @@ export default  class GameLoadingScreen extends Reflux.Component {
   constructor(props) {
     super(props);
     this.store = NextTriviaStore; // cambiar por GameStore y chequear ahi
-
     this._bootstrapAsync();
+    
   }
 
   // Fetch the token from storage then navigate to our appropriate place

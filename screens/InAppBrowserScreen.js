@@ -69,7 +69,7 @@ class InAppBrowserScreen extends React.Component {
       return (
         <Container style={styles.container} contentContainerStyle={styles.container}>
             <Wallpaper source={bgSrc}>
-            <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} return={returnButton} />
+            <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} return={returnButton} />
             <WebView
              ref={component => this.webView = component}
               source={{uri: url}}

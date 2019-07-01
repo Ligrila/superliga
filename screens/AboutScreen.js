@@ -52,7 +52,7 @@ class AboutScreen extends React.Component {
     return (
       <Container>
         <Wallpaper source={bgSrc}>
-        <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
+        <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} />
         <Content contentContainerStyle={styles.content} padder>
           <Loader loading={this.state.loading}></Loader>
           <Title text={"ACERCA DE \n JUGADA SUPERLIGA"} />

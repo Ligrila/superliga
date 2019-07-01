@@ -68,7 +68,7 @@ class GameRulesScreen extends React.Component {
                       
             <Wallpaper source={bgSrc}>
 
-            <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
+            <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} />
 
             <WebView
              ref={component => this.webView = component}

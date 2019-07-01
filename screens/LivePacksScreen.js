@@ -24,7 +24,7 @@ class LivePacksScreen extends React.Component {
     return (
       <Container>
       <Wallpaper source={gameDisabledBgSrc}>
-      <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} style={styles.header} />
+      <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} style={styles.header} />
         <Content contentContainerStyle={styles.container}>
           <Purchase 
             onHidePress={this.onHide}

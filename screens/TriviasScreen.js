@@ -50,7 +50,7 @@ class TriviasScreen extends Reflux.Component {
     return (
           <Container style={styles.content}>
             <Wallpaper source={bgSrc}>
-            <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
+            <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} />
             <Content style={styles.content}>
                  {this.renderTrivias()}
             </Content>

@@ -91,7 +91,7 @@ class EditProfileScreen extends Reflux.Component {
       return (
         <Container>
         <Wallpaper source={bgSrc}>
-          <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
+          <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} />
           <Content contentContainerStyle={styles.content}>
             <KeyboardAvoidingView style={styles.container} behavior={Layout.isAndroid ? null : 'padding'}>
                 <Text style={styles.title}>{title}</Text>

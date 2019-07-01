@@ -36,7 +36,7 @@ class ChampionshipViewScreen extends React.Component {
     return (
       <Container>
         <Wallpaper source={bgSrc}>
-        <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} return={returnButton} />
+        <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} return={returnButton} />
         <Content contentContainerStyle={styles.content} >
           <ChampionshipView championship={this.championship} created={this.created}/>
         </Content>

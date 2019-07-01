@@ -62,7 +62,7 @@ class GameResultScreen extends React.Component {
       <Container>
         <Wallpaper source={renderBg}>
         {rain}
-        <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
+        <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
         <Content padder contentContainerStyle={styles.game}>
           {this.renderResult()}
         </Content>

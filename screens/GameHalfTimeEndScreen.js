@@ -59,7 +59,7 @@ class GameHalfTimeEndScreen extends React.Component {
 
 
       {this.renderRain()}
-      <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} />
+      <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} />
         <Content padder contentContainerStyle={styles.statistics}>
           {this.renderMessage()}
         </Content>

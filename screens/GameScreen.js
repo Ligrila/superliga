@@ -73,7 +73,7 @@ class GameScreen extends Reflux.Component {
   }
 
   _bootstrap(){
-
+    this.props.navigation.setParams({ drawerLockMode: "locked-closed" });
   }
 
   async renderInterstitial(){
@@ -268,7 +268,7 @@ class GameScreen extends Reflux.Component {
       <Container>
         <Wallpaper source={bgSrc}>
         {this.makeItRain()}
-        <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
+        <AppHeader hideChat={true} navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} game={true} />
         <Content padder contentContainerStyle={styles.game}>
           {this.renderModal()}
           {this.renderGame()}

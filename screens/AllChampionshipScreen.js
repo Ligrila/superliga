@@ -23,7 +23,7 @@ class AllChampionshipScreen extends React.Component {
       <Container
       >
         <Wallpaper source={bgSrc}>
-        <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
+        <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} />
         <Content contentContainerStyle={styles.content}
                         refreshControl={
                           <RefreshControl

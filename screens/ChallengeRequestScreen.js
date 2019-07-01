@@ -121,7 +121,7 @@ class ChallengeRequestScreen extends Reflux.Component {
     return (
       <Container>
         <Wallpaper source={bgSrc}>
-        <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
+        <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} />
         <Content contentContainerStyle={styles.content} padder>
           <Loader loading={this.state.ChallengeRequest.loading} />
             {this.renderMessage()}

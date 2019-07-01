@@ -54,7 +54,7 @@ class HomeScreen extends Reflux.Component {
     return (
           <Container>
             <Wallpaper source={bgSrc}>
-            <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} />
+            <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} />
             <Content>
                  {this.renderNextTrivia()}
             </Content>

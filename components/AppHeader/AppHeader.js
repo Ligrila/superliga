@@ -26,6 +26,7 @@ import { DrawerActions } from "react-navigation";
 
 
 
+
 class AppHeader extends Component {
     renderLeft(){
         if(this.props.game){
@@ -46,6 +47,26 @@ class AppHeader extends Component {
             this.props.drawerOpen()
         }
     }
+    openChatDrawer(){
+        if(this.props.navigation && this.props.navigation.openChatDrawer){
+            this.props.navigation.openChatDrawer()
+            return
+        }
+    }
+    renderChatButton(){
+
+        if(this.props.hideChat){
+            return null
+        }
+        if(!this.props.navigation){
+            return null;
+        }
+        return (
+        <Button transparent onPress={() => {this.openChatDrawer()}}>
+            <Icon type="Ionicons" name="ios-chatboxes" />
+        </Button>
+        )
+    }
     render() {
         const styles  = this.props.style;
         const heightRatio = Layout.window.heightRatio;
@@ -59,6 +80,7 @@ class AppHeader extends Component {
                         <Image style={styles.superligaAppImg} source={superligaAppImg} resizeMode="contain"  />
                 </Body>
                 <Right style={styles.right}>
+                    {this.renderChatButton()}
                     <Button transparent onPress={() => {this.openMainDrawer()}}>
                         <Image source={menuImg} style={styles.menuImg}   resizeMode="contain"/>
                     </Button>

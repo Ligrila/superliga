@@ -19,7 +19,7 @@ class ChampionshipEditUsersScreen extends React.Component {
     return (
       <Container>
         <Wallpaper source={bgSrc}>
-        <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} return={returnButton} />
+        <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} return={returnButton} />
         <Content contentContainerStyle={styles.game} padder>
           <EditChampionshipUsers championship={this.props.navigation.getParam('championship',{})} navigation={this.props.navigation} />
         </Content>

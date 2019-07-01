@@ -30,7 +30,7 @@ class StatisticsScreen extends Reflux.Component {
     return (
       <Container>
       <Wallpaper source={bgSrc}>
-      <AppHeader drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} />
+      <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} />
         <Content padder contentContainerStyle={styles.statistics}>
           <BigTitle text={"ESTADISTICAS DE JUEGO"}></BigTitle>
           <View style={styles.container}>

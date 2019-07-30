@@ -3,12 +3,12 @@ import Reflux from 'reflux';
 import {
   Image,
   TouchableOpacity,
-  ActivityIndicator,
+
   View,
   Share
 } from 'react-native';
 
-import { connectStyle,Text,Container,Content, Spinner, Footer, Icon } from 'native-base';
+import { connectStyle,Text,Container,Content, Spinner } from 'native-base';
 
 
 import Wallpaper from '../components/Wallpaper';

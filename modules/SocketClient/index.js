@@ -1,5 +1,3 @@
-var io = require('socket.io-client');
-
 import io from 'socket.io-client'
 
 
@@ -98,10 +96,12 @@ export default class SocketClient{
         this.client.on('startHalfTime',this.dispatcher.onStartHalfTime)
         this.client.on('finishGame',this.dispatcher.onFinishGame)
         this.client.on('finishTrivia',this.dispatcher.onFinishTrivia)
+        this.client.on('updateUserData',this.dispatcher.onUpdateUserData)
 
         this.client.on('showBanner',this.dispatcher.onShowBanner)
         this.client.on('finishedQuestion',this.dispatcher.onFinishedQuestion)
         this.client.on('broadcast',this.dispatcher.onChatBroadcast)
+
 
 
     }

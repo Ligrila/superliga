@@ -2,9 +2,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import {
   Image,
-  TouchableOpacity,
-  ActivityIndicator,
-  View,
+  TouchableOpacity
 } from 'react-native';
 
 import { connectStyle,Text,Container,Content, Spinner, Footer } from 'native-base';

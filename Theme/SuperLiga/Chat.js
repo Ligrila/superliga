@@ -49,12 +49,23 @@ const FullChat = {
          width: Layout.window.width -70,
          height: Layout.window.height
      },
+     title:{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: Layout.s(10),
+        paddingHorizontal: Layout.s(20),
+        backgroundColor: '#371655'
+     },
+     iconTitle:{
+        color: '#fff',
 
+     },
      messageContainer:{
         flex:1,
         paddingHorizontal:Layout.s(20),
         marginBottom: Layout.s(120),
-        backgroundColor: 'gray',
     },
 
     formMessageTriggerIcon:{
@@ -66,15 +77,31 @@ const FullChat = {
         bottom:Layout.s(0),
         left:Layout.s(20),
         right:Layout.s(20),
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
       
     },
     formInput:{
-        backgroundColor: '#fff',
-        color: "#282828",
+        //backgroundColor: '#fff',
+        color: '#282828',
+        flex: .8
         
     },
+    formSend:{
+        flex: .2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'transparent',
+        border:0
+    },
+    formSendIcon:{
+        fontSize: Layout.s(70),
+        color: '#fff',
+    },
     formInputText:{
-        color: "#282828"
+        color: "#fff"
     }
 }
 

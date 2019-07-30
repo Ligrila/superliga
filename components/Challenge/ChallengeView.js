@@ -5,7 +5,6 @@ import {connectStyle,List, ListItem, Left, Body, Icon, Text, Right,Button, Conte
 
 import Title from '../Title';
 import { ChallengeViewStore, ChallengeViewActions } from '../../store/ChallengeViewStore';
-import { Linking } from 'expo';
 
 const trophyImage = require('../../assets/images/championship/trophy.png')
 const medalImage = require('../../assets/images/championship/medal.png')

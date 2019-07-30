@@ -1,12 +1,9 @@
 import React from 'react';
 import {
-    View,
-    StyleSheet,
     AsyncStorage,
-    Button
   } from 'react-native';
 import { UsersActions } from '../store/UserStore';
-import { ChatActions } from '../store/ChatStore';
+
 
 
 export default class LogoutScreen extends React.Component {
@@ -30,10 +27,3 @@ export default class LogoutScreen extends React.Component {
   
   }
 
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-    }
-  });

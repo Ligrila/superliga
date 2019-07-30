@@ -1,7 +1,6 @@
 import React from 'react';
 import {
-    WebView,
-    View
+    WebView
   } from 'react-native';
 
 import { Container,connectStyle, Button, Header, Body, Left, Title, Icon, Content } from 'native-base';

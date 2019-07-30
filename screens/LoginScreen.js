@@ -1,14 +1,16 @@
 import React from 'react';
 import {
     View,
-    StyleSheet,
+
     TouchableOpacity,
     AsyncStorage,
     Platform
   } from 'react-native';
 
-import Expo from 'expo';
-import { Facebook, Google } from 'expo';
+import { Google } from 'expo';
+import { logInWithReadPermissionsAsync } from 'expo-facebook';
+import * as GoogleSignIn from 'expo-google-sign-in';
+
 
 import {connectStyle,Header,Container,Content,Button,Form, Item, Input,Text,Icon,Toast, Footer} from 'native-base';
 
@@ -166,15 +168,34 @@ class LoginScreen extends React.Component {
 
 
     async googleLogin() {
+      let result = {}
       try {
-        const result = await Google.logInAsync({
-          clientId: Platform.OS === 'android' ? Enviroment.androidStandaloneAppClientId : Enviroment.iosStandaloneAppClientId,
-          androidClientId: Enviroment.androidClientId,
-          androidStandaloneAppClientId: Enviroment.androidStandaloneAppClientId,
-          iosClientId: Enviroment.iosClientId,
-          iosStandaloneAppClientId: Enviroment.iosStandaloneAppClientId,
-          scopes: ['profile', 'email'],
-        });
+        if(Platform.OS=='android'){
+          try {
+            console.log("Init GoogleSignIn");
+            await GoogleSignIn.initAsync({clientId: Enviroment.androidStandaloneAppClientId});
+          } catch ({ message }) {
+            console.log('GoogleSignIn.initAsync(): ',message);
+          }
+
+          await GoogleSignIn.askForPlayServicesAsync();
+          result = await GoogleSignIn.signInAsync();
+          if(result.type==='success'){
+            result.accessToken = result.user.auth.accessToken;
+          }
+          console.log(result.user.auth)
+
+        } else{
+           result = await Google.logInAsync({
+            clientId: Platform.OS === 'android' ? Enviroment.androidStandaloneAppClientId : Enviroment.iosStandaloneAppClientId,
+            androidClientId: Enviroment.androidClientId,
+            androidStandaloneAppClientId: Enviroment.androidStandaloneAppClientId,
+            iosClientId: Enviroment.iosClientId,
+            iosStandaloneAppClientId: Enviroment.iosStandaloneAppClientId,
+            scopes: ['profile', 'email'],
+          });
+        }
+
 
         if (result.type === 'success') {
           this.setState({loading:true});
@@ -206,7 +227,7 @@ class LoginScreen extends React.Component {
     }
 
     async facebookLogin() {
-      const { type, token } = await Facebook.logInWithReadPermissionsAsync('882017118635234', {
+      const { type, token } = await logInWithReadPermissionsAsync('882017118635234', {
           permissions: ['email'],
           //behavior: 'web'
         });

@@ -3,13 +3,12 @@ import React from 'react';
 import {Image,View} from 'react-native'
 
 import {connectStyle,Container, Content,Header,Button,Icon,Left,Body,Title,Right } from 'native-base'
-import Wallpaper from '../components/Wallpaper';
-import AppHeader from '../components/AppHeader/AppHeader';
+
 
 import tutorialImg from '../assets/images/tutorial1.png';
 import tutorialImg2 from '../assets/images/tutorial2.png';
 import tutorialImg3 from '../assets/images/tutorial3.png';
-import Layout from '../constants/Layout';
+
 
 
 

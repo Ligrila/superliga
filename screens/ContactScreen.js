@@ -9,7 +9,7 @@ import {
 
 
 import {connectStyle,Header,Container,Content,Button,Form, Item, Picker,Text,Icon,Toast,Textarea} from 'native-base';
-import Expo from 'expo';
+
 
 import Wallpaper from '../components/Wallpaper';
 const bgSrc = require('../assets/images/contactBg.png');

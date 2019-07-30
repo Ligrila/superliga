@@ -102,6 +102,9 @@ export default class ActionDispatcher{
 
     onFinishedQuestion(message){
         TriviaQuestionActions.finishedQuestion(message.payload);
+    }
+
+    onUpdateUserData(message){
         UsersActions.update();
     }
 
@@ -124,10 +127,15 @@ export default class ActionDispatcher{
     }
 
     dispatch(message){
+
         switch(message.eventName){
             case 'updateConnectedUsers':
                 ConnectedUsersActions.updateConnectedUsers(message.payload)
                 break;
+            case 'updateUserData':
+                    console.log('updateUserData');
+                    UsersActions.update();
+                    break;
             case 'newQuestion':
                 TriviaQuestionActions.add(message.payload);
                 break;
@@ -159,7 +167,6 @@ export default class ActionDispatcher{
                 break;
             case 'finishedQuestion':
                 TriviaQuestionActions.finishedQuestion(message.payload);
-                UsersActions.update();
                 break;
             default:
                 console.warn("Unknow action name : " + message.eventName);

@@ -2,13 +2,11 @@
 import React from 'react';
 import Reflux from 'reflux';
 import {
-  Image,
-  TouchableOpacity,
   ActivityIndicator,
   View,
 } from 'react-native';
 
-import { connectStyle,Text,Container,Content, Footer } from 'native-base';
+import { connectStyle,Container,Content } from 'native-base';
 
 
 import Wallpaper from '../components/Wallpaper';
@@ -21,7 +19,6 @@ import {NextTriviaStore,NextTriviaActions} from '../store/NextTriviaStore';
 
 
 import bgSrc from '../assets/images/bg.png';
-import NextTrivia from '../components/NextTrivia';
 import TriviaCarousel from '../components/Trivia/TriviaCarousel';
 
 

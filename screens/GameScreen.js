@@ -25,7 +25,7 @@ import { NextTriviaStore,NextTriviaActions } from '../store/NextTriviaStore';
 import { UsersStore, UsersActions } from '../store/UserStore';
 import Purchase from '../components/Purchase';
 import { PurchaseModalStore } from '../store/PurchaseModalStore';
-import { TriviaQuestionActions,TriviaQuestion } from '../store/TriviaQuestion';
+import { TriviaQuestion } from '../store/TriviaQuestion';
 import MakeItRain from '../components/MakeItRain';
 
 

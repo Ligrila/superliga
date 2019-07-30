@@ -2,11 +2,8 @@ import React, { Component } from 'react'
 import { Text, View,Alert } from 'react-native'
 import Layout from '../../constants/Layout';
 
-
-import {
-  AdMobBanner,
-  Constants
-} from 'expo';
+import { AdMobBanner } from 'expo-ads-admob'
+import Constants from 'expo-constants'
 
 const IOS_EXPO_ID='ca-app-pub-4248217184030056/2469387806'
 const ANDROID_EXPO_ID='ca-app-pub-4248217184030056/5871933425'

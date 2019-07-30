@@ -8,7 +8,6 @@ import BigTitle from '../Title/BigTitle';
 import TriviaMinimal from '../Trivia/TriviaMinimal';
 
 
-import Notice from '../Notice';
 
 
 import AnimatedProgressBar from '../AnimatedProgressBar';
@@ -20,7 +19,7 @@ import carouselPrev from '../../assets/images/trivia-carousel-minimal-prev.png';
 
 import Layout from '../../constants/Layout';
 import { HomeBannerStore, HomeBannerActions } from '../../store/BannersStore';
-import {  Asset } from 'expo';
+
 
 
 function wp (percentage) {

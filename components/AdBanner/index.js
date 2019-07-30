@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { Image, View } from 'react-native'
-import {
-    AdMobBanner,
-  } from 'expo';
+import { AdMobBanner } from 'expo-ads-admob'
 import Layout from '../../constants/Layout';
-import { Constants } from 'expo';
+import Constants from 'expo-constants'
 
 
 

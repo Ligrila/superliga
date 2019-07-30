@@ -17,9 +17,7 @@ import Layout from '../../constants/Layout';
 import Reflux from 'reflux';
 import { TriviaQuestion, TriviaQuestionActions } from "../../store/TriviaQuestion";
 import { UsersStore } from "../../store/UserStore";
-import Segment from "../../Theme/components/Segment";
 import { NextTriviaStore } from "../../store/NextTriviaStore";
-import { ACTION_VOICE_CONTROL_BATTERY_SAVER_MODE } from "expo/build/IntentLauncherAndroid/IntentLauncherAndroid";
 
 
 /**

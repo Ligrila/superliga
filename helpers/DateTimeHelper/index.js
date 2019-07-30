@@ -3,8 +3,7 @@ import 'moment/locale/es'
 import "moment-timezone";
 
 
-import { DangerZone } from 'expo';
-import { Localization } from 'expo-localization';
+import * as Localization from 'expo-localization';
 
 
 class DateTimeHelper{

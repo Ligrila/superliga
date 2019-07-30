@@ -4,7 +4,7 @@ import { View,KeyboardAvoidingView } from 'react-native'
 
 
 import {connectStyle,Text, Form, Input, Item, Icon,Button} from 'native-base'
-import { LinearGradient } from 'expo';
+import { LinearGradient } from 'expo-linear-gradient'
 import { ScrollView } from 'react-native-gesture-handler';
 import Layout from '../../constants/Layout';
 import { ChatStore, ChatActions } from '../../store/ChatStore';

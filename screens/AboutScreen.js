@@ -6,7 +6,7 @@ import AppHeader from '../components/AppHeader/AppHeader';
 
 import bgSrc from '../assets/images/championship/bg.png';
 import iconSrc from '../assets/images/icon.png';
-import { Constants } from 'expo';
+import Constants from 'expo-constants'
 import Title from '../components/Title';
 
 import {Updates} from 'expo'

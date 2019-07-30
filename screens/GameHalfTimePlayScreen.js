@@ -6,7 +6,6 @@ import {View} from 'react-native'
 
 import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
-import GameMessage from '../components/Game/GameMessage';
 import MakeItRain from '../components/MakeItRain';
 
 const bgSrc = require('../assets/images/halfTimePlayBg.png');

@@ -1,15 +1,13 @@
 import React from 'react';
 import Reflux from 'reflux'
 import {
-    View,
-    KeyboardAvoidingView,
-    StyleSheet,
-    AsyncStorage
+
+    KeyboardAvoidingView
+
   } from 'react-native';
 
 
 import {connectStyle,Header,Container,Content,Button,Form, Item, Picker,Text,Icon,Toast,Textarea, Input, Spinner} from 'native-base';
-import Expo from 'expo';
 
 import Wallpaper from '../components/Wallpaper';
 const bgSrc = require('../assets/images/contactBg.png');

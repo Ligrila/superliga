@@ -1,6 +1,12 @@
 import React from 'react';
 import {  AppState, Image,AsyncStorage, NetInfo,Alert } from 'react-native';
-import { AppLoading, Asset, Font, Icon, Linking } from 'expo';
+
+import { AppLoading, Linking } from 'expo';
+
+import * as Font from 'expo-font'
+import { Asset } from 'expo-asset'
+import * as Icon from '@expo/vector-icons'
+
 import AppNavigator from './navigation/AppNavigator';
 import { Root,  Text, Button, Container, Content, Toast } from "native-base";
 
@@ -15,9 +21,12 @@ import { UsersActions } from './store/UserStore';
 
 import './helpers/RegisterPushNotification';
 
-import {  Notifications, Util, KeepAwake } from 'expo';
+import {  Notifications, Updates } from 'expo';
+
+import {activateKeepAwake} from 'expo-keep-awake'
+
 import { ConnectionStatusActions } from './store/ConnectionStatusStore';
-import { Localization } from 'expo-localization';
+import * as Localization from 'expo-localization';
 
 import { NavigationActions } from 'react-navigation';
 import { LoginScreenActions } from './store/LoginScreenStore';
@@ -215,7 +224,7 @@ export default class App extends React.Component {
       }
     )
 
-    KeepAwake.activate();
+    activateKeepAwake();
 
     
     this.initNetwork();
@@ -280,7 +289,7 @@ export default class App extends React.Component {
             <Header />
             <Content>
             <Text>Se produjo un error iniciando la red. Por favor, salga de la aplicación e intente nuevamente cuando estes conectado a internet</Text>
-            <Button onPress={Util.reload}><Text>Cerrar aplicacion</Text></Button>
+            <Button onPress={Updates.reload}><Text>Cerrar aplicacion</Text></Button>
             </Content>
           </Container>
         );
@@ -351,17 +360,27 @@ export default class App extends React.Component {
         'AbadiMTCondensedExtraBold': require('./assets/fonts/AbadiMTCondensedExtraBold.ttf'),
       }),
       Asset.loadAsync([
+        require ('./assets/images/blackBg.orig.png'),
+        require ('./assets/images/carousel-prev.orig.png'),
         require ('./assets/images/home/shop.png'),
+        require ('./assets/images/home/share.orig.png'),
+        require ('./assets/images/home/help.orig.png'),
         require ('./assets/images/home/help.png'),
         require ('./assets/images/home/home_bg.png'),
         require ('./assets/images/home/share.png'),
+        require ('./assets/images/home/shop.orig.png'),
         require ('./assets/images/halfTimePlayBg.png'),
+        require ('./assets/images/icon.orig.png'),
+        require ('./assets/images/icon_ios.orig.png'),
         require ('./assets/images/icon.png'),
+        require ('./assets/images/tutorial1.orig.png'),
+        require ('./assets/images/flag.png'),
         require ('./assets/images/home_trivia_bg.png'),
         require ('./assets/images/form/left-arrow.png'),
         require ('./assets/images/form/wallpaper.png'),
         require ('./assets/images/form/username.png'),
         require ('./assets/images/form/loading.gif'),
+        require ('./assets/images/form/logo.orig.png'),
         require ('./assets/images/form/password.png'),
         require ('./assets/images/form/logo.png'),
         require ('./assets/images/form/eye_black.png'),
@@ -370,49 +389,83 @@ export default class App extends React.Component {
         require ('./assets/images/championship/trophy.png'),
         require ('./assets/images/championship/trophy-created.png'),
         require ('./assets/images/championship/challenge_accept_bg.png'),
+        require ('./assets/images/championship/trophy.orig.png'),
+        require ('./assets/images/championship/medal.orig.png'),
+        require ('./assets/images/championship/trophy-created.orig.png'),
         require ('./assets/images/championship/medal.png'),
         require ('./assets/images/championship/bg2.png'),
         require ('./assets/images/championship/trophy-avatar.png'),
+        require ('./assets/images/championship/challenge_accept_bg.orig.png'),
         require ('./assets/images/championship/bg.png'),
         require ('./assets/images/result/wrong_bg.png'),
+        require ('./assets/images/robot-prod.orig.png'),
+        require ('./assets/images/sidebar_bg.orig.png'),
         require ('./assets/images/trivia-carousel-minimal-next.png'),
         require ('./assets/images/purchase-modal.png'),
         require ('./assets/images/whistle.png'),
         require ('./assets/images/ball_old.png'),
+        require ('./assets/images/trivia-carousel-minimal-prev.orig.png'),
+        require ('./assets/images/trivia-carousel-minimal-next.orig.png'),
         require ('./assets/images/bgOld.png'),
+        require ('./assets/images/purchase-modal.orig.png'),
         require ('./assets/images/blackBg.png'),
+        require ('./assets/images/noticeBg.orig.png'),
+        require ('./assets/images/chat-bg.png'),
         require ('./assets/images/robot-prod.png'),
         require ('./assets/images/contactBg.png'),
+        require ('./assets/images/carousel-next.orig.png'),
         require ('./assets/images/icon_ios.png'),
         require ('./assets/images/game/bgOld.png'),
         require ('./assets/images/game/genericQuestionBg.png'),
+        require ('./assets/images/game/bgOld.orig.png'),
         require ('./assets/images/game/bg2.png'),
         require ('./assets/images/game/bg.png'),
+        require ('./assets/images/flag.orig.png'),
         require ('./assets/images/asplash.png'),
+        require ('./assets/images/logo.orig.png'),
         require ('./assets/images/robot-dev.png'),
         require ('./assets/images/nextArrow.png'),
+        require ('./assets/images/share.orig.png'),
         require ('./assets/images/splash.png'),
         require ('./assets/images/extraPlayBg.png'),
         require ('./assets/images/menu.png'),
         require ('./assets/images/whistle2.png'),
         require ('./assets/images/sidebar_bg.png'),
         require ('./assets/images/carousel-next.png'),
+        require ('./assets/images/app_logo.orig.png'),
         require ('./assets/images/home_bg.png'),
         require ('./assets/images/logo.png'),
         require ('./assets/images/carousel-prev.png'),
+        require ('./assets/images/tutorial2.orig.png'),
+        require ('./assets/images/tutorial3.orig.png'),
+        require ('./assets/images/rain_back.orig.png'),
         require ('./assets/images/share.png'),
+        require ('./assets/images/teams/colon.orig.png'),
         require ('./assets/images/teams/colon.png'),
         require ('./assets/images/teams/patronato.png'),
+        require ('./assets/images/teams/patronato.orig.png'),
+        require ('./assets/images/ball_old.orig.png'),
         require ('./assets/images/programmed-trivia-bg.png'),
+        require ('./assets/images/robot-dev.orig.png'),
         require ('./assets/images/awards/bg2.png'),
         require ('./assets/images/awards/bg.png'),
         require ('./assets/images/app_logo.png'),
         require ('./assets/images/rain_back.png'),
         require ('./assets/images/home_bg_demo.png'),
+        require ('./assets/images/whistle.orig.png'),
+        require ('./assets/images/asplash.orig.png'),
+        require ('./assets/images/programmed-trivia-bg.orig.png'),
+        require ('./assets/images/extraPlayBg.orig.png'),
+        require ('./assets/images/nextArrow.orig.png'),
         require ('./assets/images/tutorial1.png'),
+        require ('./assets/images/contactBg.orig.png'),
+        require ('./assets/images/whistle2.orig.png'),
+        require ('./assets/images/rain.orig.png'),
         require ('./assets/images/login/bg.png'),
+        require ('./assets/images/ball.orig.png'),
         require ('./assets/images/noticeBg.png'),
         require ('./assets/images/tutorial2.png'),
+        require ('./assets/images/menu.orig.png'),
         require ('./assets/images/rain.png'),
         require ('./assets/images/tutorial3.png'),
         require ('./assets/images/bg.png'),

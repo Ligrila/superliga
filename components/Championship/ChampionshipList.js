@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Reflux from 'reflux';
 import { Share, Image, View } from 'react-native';
 import {connectStyle,List, ListItem, Left, Body, Text, Right,Button,Icon, Content, ActionSheet} from 'native-base'
-import {Linking} from 'expo'
+import { Linking } from 'expo';
+
 
 
 import Title from '../Title';

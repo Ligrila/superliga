@@ -50,7 +50,6 @@ export class TriviaQuestion extends Reflux.Store
         },timeout);
         this.setState(this.getInititalState());
         //console.log(this.timer);
-        console.log("quesetion",q)
         await this.setState({
             hasQuestion: true,
             currentQuestion: q,

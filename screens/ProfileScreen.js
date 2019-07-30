@@ -5,7 +5,7 @@ import {Permissions} from 'expo'
 
 import {connectStyle,Header,Container,Content,Text, Icon, Toast, Button, ActionSheet} from 'native-base';
 
-import { ImagePicker } from 'expo';
+import * as ImagePicker from 'expo-image-picker';
 
 import Wallpaper from '../components/Wallpaper';
 import { UsersStore, UsersActions } from '../store/UserStore';
@@ -66,7 +66,7 @@ class ProfileScreen extends Reflux.Component {
       <Container>
       <Wallpaper source={bgSrc}>
       <AppHeader navigation={this.props.navigation} drawerOpen={() => {this.props.navigation.openDrawer()}} game={false} style={styles.header} />
-        <Content contentContainerStyle={styles.profile}>
+        <Content contentContainerStyle={styles.profile} scrollEnabled={true}>
           <View style={styles.bigTitle}>
                 <BigTitle text="MI PERFIL"></BigTitle>
             </View>

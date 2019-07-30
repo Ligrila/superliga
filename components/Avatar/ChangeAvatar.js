@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import {TouchableOpacity} from 'react-native'
 import { connectStyle,Text,ActionSheet } from 'native-base'
-import {Permissions,ImagePicker} from 'expo'
+import * as Permissions from 'expo-permissions';
+
+import * as ImagePicker from 'expo-image-picker';
+
 
 
 class ChangeAvatar extends Component {
     onChangeImage = (avatar) =>{
-        console.log({avatar})
         if(this.props.onChange){
             this.props.onChange(avatar.uri)
         }

@@ -4,10 +4,9 @@ import { TouchableOpacity, Image, Share } from 'react-native';
 import {connectStyle,Container,Content} from 'native-base'
 
 import Wallpaper from '../components/Wallpaper';
-import StatisticItem from '../components/StatisticItem';
+
 import AppHeader from '../components/AppHeader/AppHeader';
-import { CurrentTriviaStatisticsStore, CurrentTriviaStatisticsActions } from '../store/CurrentTriviaStatisticsStore';
-import BigTitle from '../components/Title/BigTitle';
+
 import GameMessage from '../components/Game/GameMessage';
 import GameStatistics from '../components/Game/GameStatistics';
 import MakeItRain from '../components/MakeItRain';

@@ -7,6 +7,7 @@ import Title from '../Title';
 import { ChampionshipViewStore, ChampionshipViewActions } from '../../store/ChampionshipViewStore';
 import { Linking } from 'expo';
 
+
 const trophyImage = require('../../assets/images/championship/trophy.png')
 const medalImage = require('../../assets/images/championship/medal.png')
 const trophyCreatedImage = require('../../assets/images/championship/trophy-created.png')

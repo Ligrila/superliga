@@ -1,13 +1,11 @@
 import React from 'react';
 import {
-    View,
-    StyleSheet,
-    AsyncStorage
+    View
   } from 'react-native';
 
 
 import {connectStyle,Header,Container,Content,Button,Form, Item, Input,Text,Icon,Toast} from 'native-base';
-import Expo from 'expo';
+
 
 import Wallpaper from '../components/Wallpaper';
 const bgSrc = require('../assets/images/login/bg.png');

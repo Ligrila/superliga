@@ -146,7 +146,8 @@ var Main = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Comprar"} icon="shopping-cart" />
+          null
+          //<SidebarItem label={"Comprar"} icon="shopping-cart" />
         )
       },
       mode: 'modal',
@@ -263,16 +264,16 @@ var Main = createDrawerNavigator({
     }
   },
 
-  /*Buy:{
+  Buy:{
     screen: BuyScreen,
     navigationOptions: {
       drawerLabel: () =>{
         return (
-          <SidebarItem label={"Comprar"} source={require('../assets/images/menu/buy.png')}/>
+          <SidebarItem label={"Comprar"} icon="shopping-cart" />
         )
       }
     }
-  },*/
+  },
 
 
   About:{
@@ -349,7 +350,7 @@ const getActiveRouteState = function (route) {
   contentComponent:
   (props) => {
 
-    return <ChatSidebarDrawerContentComponent {...props} />
+    return <ChatSidebarDrawerContentComponent  navigation={props.navigation} />
   },
   
   
@@ -358,6 +359,7 @@ const getActiveRouteState = function (route) {
   getCustomActionCreators: (route, stateKey) => {
     return {
       openChatDrawer: () => DrawerActions.openDrawer({ key: stateKey }),
+      closeChatDrawer: () => DrawerActions.closeDrawer({ key: stateKey }),
     };
   },
 

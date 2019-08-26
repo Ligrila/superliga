@@ -7,7 +7,7 @@
     "privacy": "unlisted",
     "sdkVersion": "33.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.4",
+    "version": "1.4.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "notification": {
@@ -27,7 +27,7 @@
 
     "android":{
       "package": "com.balltoball.jugadasuperliga",
-      "versionCode": 56,
+      "versionCode": 58,
       "permissions": ["VIBRATE"],
       "googleServicesFile": "./google-services.json",
       "intentFilters": [
@@ -56,7 +56,7 @@
     "ios": {
       "bundleIdentifier": "com.balltoball.jugadasuperliga",
       "supportsTablet": true,
-      "buildNumber":"2.8.2",
+      "buildNumber":"2.8.3",
       "icon": "./assets/images/icon_ios.png",
       "associatedDomains": ["applinks:www.jugadasuperliga.com"],
       "config": {

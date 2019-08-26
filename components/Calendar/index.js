@@ -32,7 +32,7 @@ class Calendar extends Reflux.Component {
     const styles = this.props.style;
     return (
       <View style={styles.container}>
-        <Title text={'COPA DE \n LA SUPERLIGA'}></Title>
+        <Title text={'FIXTURE'}></Title>
         {datesItems}
       </View>
     );

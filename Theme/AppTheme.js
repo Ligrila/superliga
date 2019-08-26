@@ -1217,7 +1217,7 @@ const styles =   {
         programmedTriviaText1:{
             fontFamily: 'AbadiMTCondensedExtraBold',
             fontSize: h(60),
-            lineHeight: h(60),
+            lineHeight: h(68),
             color: '#fff',
             textAlign:'center',
         },
@@ -1225,7 +1225,7 @@ const styles =   {
             fontFamily: 'AbadiMTCondensedExtraBold',
             color: '#fff',
             fontSize: h(100),
-            lineHeight: h(100),
+            lineHeight: h(120),
             textAlign:'center',
             marginBottom: h(-20)
 

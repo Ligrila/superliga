@@ -8,6 +8,7 @@ import Layout from '../../constants/Layout';
 
 
 
+
 class TriviaMinimal extends Component {
    constructor(props){
       super(props);

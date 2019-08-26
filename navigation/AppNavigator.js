@@ -159,7 +159,7 @@ var Main = createDrawerNavigator({
     navigationOptions: {
         drawerLabel: () =>{
           return (
-            <SidebarItem label={"Copa Superliga"} icon="calendar" />
+            <SidebarItem label={"Fixture"} icon="calendar" />
           )
         }
       }
@@ -263,7 +263,7 @@ var Main = createDrawerNavigator({
       }
     }
   },
-
+/*
   Buy:{
     screen: BuyScreen,
     navigationOptions: {
@@ -273,7 +273,7 @@ var Main = createDrawerNavigator({
         )
       }
     }
-  },
+  }, */
 
 
   About:{

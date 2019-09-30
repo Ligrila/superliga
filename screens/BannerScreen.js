@@ -31,7 +31,7 @@ class BannerScreen extends React.Component {
     this.timer = setTimeout( () => {
       this.props.navigation.goBack()
     },  
-    6000 
+    6000 // TODO: 7s alex 
     );
   }
  

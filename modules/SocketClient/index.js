@@ -39,7 +39,7 @@ export default class SocketClient{
             } else {
                 this.isReconnected = true
             }
-            //console.log("connected")
+            console.log("connected")
             this.dispatcher.onConnect(this.isReconnected)
             this.dispatcher.onChatConnect(this.client)
 

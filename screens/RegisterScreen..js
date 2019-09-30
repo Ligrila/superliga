@@ -80,7 +80,7 @@ class RegisterScreen extends React.Component {
                       onChangeText={this.onLastNameChange}
                     />
                   </Item>
-                  <Item style={styles.item}>
+                  <Item style={[styles.item,{display:"none"}]}>
                     <Input style={styles.input} placeholder="Documento de identidad"
                       onChangeText={this.onDocumentChange}
                       keyboardType='number-pad'

@@ -105,7 +105,7 @@ export class NextTriviaStore extends Reflux.Store
     }
 
     showBanner(payload){
-        console.log("showBanner")
+        console.log("showBanner",payload)
         if(!this.state.CurrentTrivia.hasData){
             console.warn("No trivia data")
             return;

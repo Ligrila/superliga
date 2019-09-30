@@ -22,7 +22,8 @@ const bgSrc = require('../assets/images/login/bg.png');
 import Api from '../api/Api';
 import Enviroment from '../constants/Enviroment';
 
-import { UsersActions } from '../store/UserStore';
+import { UsersActions, UsersStore } from '../store/UserStore';
+import Reflux from 'reflux';
 import { LoginScreenActions } from '../store/LoginScreenStore';
 import AdBanner from '../components/AdBanner';
 
@@ -43,6 +44,7 @@ class LoginScreen extends React.Component {
       super(props);
       this._onSubmit = this._onSubmit.bind(this);
       this.facebookLogin = this.facebookLogin.bind(this);
+      Reflux.initStore(UsersStore);
       this.googleLogin = this.googleLogin.bind(this);
     }
     onForgotPassword = ()=>{
@@ -241,6 +243,7 @@ class LoginScreen extends React.Component {
         console.log(user);*/
         var user = await this.api.facebookLogin(token);
         if(user.success){
+
           try{
             await AsyncStorage.setItem('tokenExpire', `${user.data.expire}`);
             await AsyncStorage.setItem('token', user.data.access_token);
@@ -249,7 +252,7 @@ class LoginScreen extends React.Component {
           } catch(e){
             console.log(e);
           }
-          UsersActions.update();
+          await UsersActions.update();
           UsersActions.isLoggedIn(true);
           this.setState({loading:false});
           this.afterLogin();

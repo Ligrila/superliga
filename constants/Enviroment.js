@@ -16,9 +16,9 @@ const ENV = {
     ...localEnviroment
   },
   staging: {
-    socketUrl: 'http://stageprod.jugadasuperliga.mocla.us',
-    chatSocketUrl: 'http://stageprod.jugadasuperliga.mocla.us/chat',
-    apiUrl: 'http://stageprod.jugadasuperliga.mocla.us/api',
+    socketUrl: 'http://stage.jugadasuperliga.com',
+    chatSocketUrl: 'http://stage.jugadasuperliga.com/chat',
+    apiUrl: 'http://stage.jugadasuperliga.com/api',
     androidClientId: '190225167822-hvfad06m4etnniv5n24s2mebab3o3o8d.apps.googleusercontent.com',
     androidStandaloneAppClientId: '976909370664-ekingj0102s5adll3tmatufutjgrqq12.apps.googleusercontent.com',
     iosClientId: '190225167822-57soj7t03jk5tvpp37b07gtar5itr4jd.apps.googleusercontent.com',

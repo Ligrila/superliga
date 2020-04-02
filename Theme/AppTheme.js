@@ -532,7 +532,7 @@ const styles =   {
         },
         text:{
             color: '#fff',
-            fontFamily: 'OpenSans',
+            //fontFamily: 'OpenSans',
             fontSize: s(25),
         },
         championshipName:{
@@ -1604,7 +1604,7 @@ const styles =   {
             textAlign:'center',
         },
         text:{
-            fontFamily: 'OpenSans',
+            //fontFamily: 'OpenSans',
             fontSize: s(20),
             marginTop: s(10),
             textAlign:'center',

@@ -114,7 +114,7 @@ export default class RestClient {
           throw new Error(response)
         }
         console.log('reject url', this.url)
-        console.log('reject',await response);
+        //console.log('reject',await response);
         
         try{
           if(typeof(response.text)!=='function'){

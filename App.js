@@ -282,7 +282,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+    if (!this.state.isLoadingComplete) {
       if(this.state.isLoadingError){
         return (
           <Container>
@@ -344,21 +344,22 @@ export default class App extends React.Component {
     const serverAssets = this.cacheImages(teamImages);
     const deviceTimezone = await Localization.getLocalizationAsync();
     await AsyncStorage.setItem('deviceTimezone', `${deviceTimezone.timezone}`);
+
     return Promise.all([
-      Font.loadAsync({
-        // This is the font that we are using for our tab bar
-        ...Icon.Ionicons.font,
-        // We include SpaceMono because we use it in HomeScreen.js. Feel free
-        // to remove this if you are not using it in your app
-        'Roboto': require("native-base/Fonts/Roboto.ttf"),
-        'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
-        'edosz': require('./assets/fonts/edosz.ttf'),
-        'OpenSans': require('./assets/fonts/OpenSans-Regular.ttf'),
-        'OpenSans_bold': require('./assets/fonts/OpenSans-Bold.ttf'),
-        'OpenSansCondensed_light': require('./assets/fonts/OpenSansCondensed-Light.ttf'),
-        'OpenSansCondensed_bold': require('./assets/fonts/OpenSansCondensed-Bold.ttf'),
-        'AbadiMTCondensedExtraBold': require('./assets/fonts/AbadiMTCondensedExtraBold.ttf'),
-      }),
+        Font.loadAsync({
+          // This is the font that we are using for our tab bar
+          ...Icon.Ionicons.font,
+          // We include SpaceMono because we use it in HomeScreen.js. Feel free
+          // to remove this if you are not using it in your app
+          'Roboto': require("native-base/Fonts/Roboto.ttf"),
+          'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
+          'edosz': require('./assets/fonts/edosz.ttf'),
+          'OpenSans': require('./assets/fonts/OpenSans-Regular.ttf'),
+          'OpenSans_bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+          'OpenSansCondensed_light': require('./assets/fonts/OpenSansCondensed-Light.ttf'),
+          'OpenSansCondensed_bold': require('./assets/fonts/OpenSansCondensed-Bold.ttf'),
+          'AbadiMTCondensedExtraBold': require('./assets/fonts/AbadiMTCondensedExtraBold.ttf'),
+        }),
       Asset.loadAsync([
         require ('./assets/images/blackBg.orig.png'),
         require ('./assets/images/carousel-prev.orig.png'),
@@ -478,7 +479,8 @@ export default class App extends React.Component {
   _handleLoadingError = error => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
-    console.warn(error);
+    //console.warn(error);
+    console.warn("_handleLoadingError")
 //    async () => await this.setState({ isLoadingError: true });
     this.setState({ isLoadingError: true });
   };

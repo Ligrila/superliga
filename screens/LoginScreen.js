@@ -7,8 +7,9 @@ import {
     Platform
   } from 'react-native';
 
-import { Google } from 'expo';
-import { logInWithReadPermissionsAsync } from 'expo-facebook';
+
+import * as Facebook from 'expo-facebook';
+
 import * as GoogleSignIn from 'expo-google-sign-in';
 
 
@@ -172,10 +173,11 @@ class LoginScreen extends React.Component {
     async googleLogin() {
       let result = {}
       try {
-        if(Platform.OS=='android'){
+        const clientId = Platform.OS === 'android' ? Enviroment.androidStandaloneAppClientId : Enviroment.iosStandaloneAppClientId
+        
           try {
             console.log("Init GoogleSignIn");
-            await GoogleSignIn.initAsync({clientId: Enviroment.androidStandaloneAppClientId});
+            await GoogleSignIn.initAsync({clientId: clientId});
           } catch ({ message }) {
             console.log('GoogleSignIn.initAsync(): ',message);
           }
@@ -185,18 +187,8 @@ class LoginScreen extends React.Component {
           if(result.type==='success'){
             result.accessToken = result.user.auth.accessToken;
           }
-          console.log(result.user.auth)
 
-        } else{
-           result = await Google.logInAsync({
-            clientId: Platform.OS === 'android' ? Enviroment.androidStandaloneAppClientId : Enviroment.iosStandaloneAppClientId,
-            androidClientId: Enviroment.androidClientId,
-            androidStandaloneAppClientId: Enviroment.androidStandaloneAppClientId,
-            iosClientId: Enviroment.iosClientId,
-            iosStandaloneAppClientId: Enviroment.iosStandaloneAppClientId,
-            scopes: ['profile', 'email'],
-          });
-        }
+
 
 
         if (result.type === 'success') {
@@ -229,7 +221,9 @@ class LoginScreen extends React.Component {
     }
 
     async facebookLogin() {
-      const { type, token } = await logInWithReadPermissionsAsync('882017118635234', {
+      await Facebook.initializeAsync('882017118635234')
+
+      const { type, token } = await Facebook.logInWithReadPermissionsAsync({
           permissions: ['email'],
           //behavior: 'web'
         });

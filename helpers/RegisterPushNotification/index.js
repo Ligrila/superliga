@@ -1,18 +1,17 @@
-import { Notifications } from 'expo';
-import * as Permissions from 'expo-permissions';
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
 
-import Api from '../../api/Api';
+import Api from "../../api/Api";
 
- registerPushNotifications = async () => {
+registerPushNotifications = async () => {
   const { status: existingStatus } = await Permissions.getAsync(
     Permissions.NOTIFICATIONS
   );
   let finalStatus = existingStatus;
 
-
   // only ask if permissions have not already been determined, because
   // iOS won't necessarily prompt the user a second time.
-  if (existingStatus !== 'granted') {
+  if (existingStatus !== "granted") {
     // Android remote notification permissions are granted during the app
     // install, so this will only ask on iOS
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
@@ -20,24 +19,22 @@ import Api from '../../api/Api';
   }
 
   // Stop here if the user did not grant permissions
-  if (finalStatus !== 'granted') {
+  if (finalStatus !== "granted") {
     return Promise.reject();
   }
 
   // Get the token that uniquely identifies this device
-  let token = ''
-  try{
+  let token = "";
+  try {
     token = await Notifications.getExpoPushTokenAsync();
-  } catch(e){
-    console.log({e})
+  } catch (e) {
+    console.log({ e });
     return Promise.reject();
   }
-  const api = new Api;
+  const api = new Api();
   const ret = await api.pushNotificationsRegister(token);
-  console.log({ret})
+  console.log({ ret });
   return ret;
-
-}
-
+};
 
 export default registerPushNotifications;

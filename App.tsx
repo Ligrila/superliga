@@ -4,7 +4,6 @@ import { BackHandler } from "react-native";
 import { AppState, Image } from "react-native";
 // Async Storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 // Loading
 import AppLoading from "expo-app-loading";
 // Linking

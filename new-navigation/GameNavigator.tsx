@@ -25,10 +25,7 @@ const GamePlayNavigator = () => {
     return (
         <Stack.Navigator initialRouteName="GamePlay"
             headerMode="none"
-            screenOptions={{
-                gestureEnabled: true,
-                ...TransitionPresets.SlideFromRightIOS
-            }}
+            
         >
             {/* GamePlay: GameScreen,
 GameResult: GameResultScreen,
@@ -58,12 +55,10 @@ GameResult: GameResultScreen,
 
 const GameNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName="GameLoading"
+        <Stack.Navigator 
+        initialRouteName="GameLoading"
             headerMode="none"
-            screenOptions={{
-                gestureEnabled: true,
-                ...TransitionPresets.SlideFromRightIOS
-            }}
+            screenOptions={{gestureEnabled: false}}
         >
             <Stack.Screen name="GameLoading" component={GameLoadingScreen} />
             <Stack.Screen name="HomeOld" component={HomeScreen} />

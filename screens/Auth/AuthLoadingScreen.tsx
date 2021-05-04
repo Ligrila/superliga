@@ -14,43 +14,45 @@ import Api from '../../api/Api';
 import { UsersActions, UsersStore } from '../../store/UserStore';
 // Navigation
 import { useNavigation } from '@react-navigation/native';
+// Utilities
+import AuthUtility from '../../utilities/Auth/Auth.utility';
+// Helpers
+import AuthHelper from '../../helpers/Auth/Auth.helper';
+// Recpil
+import { useSetRecoilState } from 'recoil';
+import { authUserAtom, authUserLivesAtom } from '../../recoil/atoms/Auth.atom';
 
 const AuthLoadingScreen = () => {
+    // Recoil
+    const setAuthUser = useSetRecoilState(authUserAtom);
+    const setAuthUserLives = useSetRecoilState(authUserLivesAtom);
     // Api
     const api = new Api();
-    // Navigatio
+    // Navigation
     const navigation = useNavigation();
-
+    // Helper
+    const authHelper = new AuthHelper();
     // Fetch the token from storage then navigate to our appropriate place
     const fnCheckIfLoggedIn = useCallback(async () => {
         console.log('fnCheckIfLoggedIn');
         let isLogin = false;
         try {
-            const userToken = await AsyncStorage.getItem('token');
-            console.log({ userToken })
-            const tokenExpire = await AsyncStorage.getItem('tokenExpire') || 0;
-            let timestamp = new Date().getTime();
-            let notExpired = tokenExpire > timestamp;
-            isLogin = (userToken && (tokenExpire !== null && notExpired)) ? true : false;
-            if (isLogin) {
-                // TODO: reveer esto, buscar una forma de detectar logouts en los request
-                await UsersActions.update();
-
-                const user = UsersStore.state.user;
-                const hasInformation = UsersStore.state.hasInformation;
-
-                if (!user) {
-                    isLogin = false;
+            if (await AuthUtility.checkIfLoggedIn()) {
+                isLogin = true;
+                const response = await api.getUserInformation();
+                if (!response.success) {
+                    throw new Error('Response Api');
                 }
-                if (!hasInformation) {
-                    isLogin = false;
-                }
-            }
+                const authUserFormatted = authHelper.formatAuthUser(response);
+                // Set Atom User
+                setAuthUser(authUserFormatted);
+                // Set Atom User Lives
+                setAuthUserLives(authUserFormatted.lives);            
+            }          
         } catch (e) {
-            //console.log(e);
+            console.log(e);
         }
-        //UsersActions.isLoggedIn(isLogin);
-
+        console.log('isLogin', isLogin)
         if (isLogin) {
             navigation.reset({
                 index: 0,
@@ -59,7 +61,7 @@ const AuthLoadingScreen = () => {
         } else {
             navigation.navigate('Auth')
         }
-        
+
     }, []);
 
     useEffect(() => {

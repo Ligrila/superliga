@@ -12,12 +12,8 @@ const h = (size) => {
 export const FooterStyle ={
     borderTopWidth:0,
     elevation:0
-
     //height: Layout.isIphoneX ? null: 'auto',
-
 };
-
-
 
 const styles =   {
     //'SuperLiga.NotificationBullet': require('./SuperLiga/NotificationBullet')(Layout),

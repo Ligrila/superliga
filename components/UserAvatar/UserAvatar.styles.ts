@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
 import ThemeUtility from '../../Theme/utilities/ThemeUtility';
+import Variables from '../../styles/Variables';
 
 export default StyleSheet.create({
     avatarContainer: {
-        borderColor: '#b3a0c6',
+        borderColor: Variables.green,
         borderWidth: 4,
         borderRadius: ThemeUtility.s(231),
         overflow: 'hidden'

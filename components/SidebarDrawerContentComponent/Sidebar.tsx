@@ -21,6 +21,8 @@ const bgSrc = require("../../assets/images/sidebar_bg.png");
 // Styles 
 import styles from './Sidebar.styles';
 import Layout from '../../constants/Layout';
+import { useRecoilValue } from "recoil";
+import { authUserAtom } from "../../recoil/atoms/Auth.atom";
 // Item
 export const SidebarItem = (props) => {
   const styles = props.style;
@@ -59,9 +61,10 @@ export const SidebarItem = (props) => {
 
 // Sidebar
 const Sidebar = (props) => {
+  // Recoil
+  const authUser = useRecoilValue(authUserAtom);
   // Navigation
   const navigation = useNavigation();
-
   // States of routes
   const stateRoutes: any = useNavigationState(state => state)
   // Get Active route state :P a travel (un viaje fue jaja)
@@ -94,37 +97,49 @@ const Sidebar = (props) => {
 
     return active;
   }
-
-
+  let points = 0;
+  if (authUser && authUser.point) {
+    points = authUser.point.points;
+  }
+  const onPressLogout = () => {
+    navigation.navigate('Auth', {
+      screen: 'Logout'
+    });
+  }
   return (
     <Container style={styles.container}>
-      <Wallpaper source={bgSrc} styles={{ width: '100%', height: '100%' }}>
-        <ScrollView style={styles.scrollContainer}>
-          <Header transparent style={styles.header}>
-            <Body style={styles.headerBody}>
-              <Text style={styles.userText}>{`Ariel Lopez`}</Text>
-              <Text style={styles.userPoints}>{0} Puntos</Text>
-              <View style={styles.userAvatar}>
-                  <UserAvatar avatar={''}/>
-              </View>
-            </Body>
-          </Header>
-          <Content padder style={styles.content}>
-            <DrawerContentScrollView {...props}>
-         
-              <DrawerItemList
-                {...props}
-                style={styles.drawerItems}
-                activeBackgroundColor="transparent"
-                itemStyle={styles.sidebarItemStyle}
-                labelStyle={styles.sidebarItemLabel}
-                activeTintColor={'#fff'}
-                inactiveTintColor={'#fff'}
-              />
-            </DrawerContentScrollView>
-          </Content>
-        </ScrollView>
-      </Wallpaper>
+      <ScrollView style={styles.scrollContainer}>
+        {authUser && <Header transparent style={styles.header}>
+          <Body style={styles.headerBody}>
+            <Text style={styles.userText}>{authUser.username}</Text>
+            <Text style={styles.userPoints}>{points} Puntos</Text>
+            <View style={styles.userAvatar}>
+              <UserAvatar avatar={authUser.avatar} />
+            </View>
+          </Body>
+        </Header>}
+        <Content padder style={styles.content}>
+          <DrawerContentScrollView {...props}>
+            <DrawerItemList
+              {...props}
+              style={styles.drawerItems}
+              activeBackgroundColor="transparent"
+              itemStyle={styles.sidebarItemStyle}
+              labelStyle={styles.sidebarItemLabel}
+              activeTintColor={'#fff'}
+              inactiveTintColor={'#fff'}
+            />
+            <DrawerItem
+              activeTintColor={'#fff'}
+              inactiveTintColor={'#fff'}
+              activeBackgroundColor="transparent"
+              // focused={isActive('Profile', activeRoute)}
+              label="Salir"
+              onPress={onPressLogout}
+            />
+          </DrawerContentScrollView>
+        </Content>
+      </ScrollView>
     </Container>
   );
 };

@@ -62,7 +62,7 @@ export default class Api extends RestClient {
   getUserInformation(){
     return this.GET('/users/me');
   }
-
+  
   getTrivias(){
     return this.GET('/trivias/index');
   }

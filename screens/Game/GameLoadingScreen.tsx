@@ -18,11 +18,19 @@ const GameLoadingScreen = () => {
     const navigation = useNavigation();
 
     // Render any loading content that you like here
-    const fetchTrivia = useCallback( async ()=>{
-        let ct = await api.getCurrentTrivia();
-        const gameInProgress = ct.success;
-        navigation.navigate(gameInProgress ? 'GamePlay' : 'Home');
-    },[api])
+    const fetchTrivia = useCallback(async () => {
+        try {
+            let ct = await api.getCurrentTrivia();
+            if (ct) {
+                const gameInProgress = ct.success;
+                console.log('gameInProgress')
+                navigation.navigate(gameInProgress ? 'GamePlay' : 'Home');
+            }
+            navigation.navigate('Home');
+        } catch (e) {
+            console.log('fetchTrivia', e);
+        }
+    }, [api])
     useEffect(() => {
         fetchTrivia();
     }, [])

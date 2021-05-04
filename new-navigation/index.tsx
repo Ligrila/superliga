@@ -26,8 +26,10 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator(props) {
   // const initialRouteName = props.isLoggedIn ? 'Main' : 'Auth'
   return (
-    <Stack.Navigator initialRouteName={'AuthLoading'}
-      screenOptions={{ headerShown: false, }}>
+    <Stack.Navigator 
+      initialRouteName={'AuthLoading'}
+      screenOptions={{ headerShown: false, gestureEnabled: false}}
+      >
 
       <Stack.Screen name="AuthLoading" component={AuthLoadingScreen} />
       <Stack.Screen name="Auth" component={AuthNavigator} />

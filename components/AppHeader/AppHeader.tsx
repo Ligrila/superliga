@@ -83,10 +83,10 @@ const AppHeader = (props: AppHeaderProps) => {
                 {renderLeft()}
             </Left>
             <Body style={styles.body}>
-                <Image style={styles.superligaAppImg} source={superligaAppImg} resizeMode="contain" />
+                
             </Body>
             <Right style={styles.right}>
-                {renderChatButton()}
+                {/* {renderChatButton()} */}
                 <Button transparent onPress={() => { openMainDrawer() }}>
                     <Image source={menuImg} style={styles.menuImg} resizeMode="contain" />
                 </Button>

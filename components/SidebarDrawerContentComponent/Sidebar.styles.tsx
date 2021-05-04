@@ -1,17 +1,19 @@
 import { StyleSheet } from 'react-native';
 import ThemeUtility from '../../Theme/utilities/ThemeUtility';
-import  Layout  from '../../constants/Layout';
+import Layout from '../../constants/Layout';
+import Variables from '../../styles/Variables';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        justifyContent: "center",        
+        justifyContent: "center",
+        backgroundColor: Variables.blue,
     },
     scrollContainer: {
         flex: 1,
         width: '100%',
-        
+
     },
     text: {
         color: "#fff",

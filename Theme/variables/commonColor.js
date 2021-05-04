@@ -107,7 +107,7 @@ export default {
 
   // Color
   //brandPrimary: platform === "ios" ? "#50aedf" : "#50aedf",
-  brandPrimary: "#7b4295",
+  brandPrimary: "#ae966f",
   //brandInfo: "#84edf8",
   brandInfo: "#50aedf",
   brandSuccess: "#5cb85c",

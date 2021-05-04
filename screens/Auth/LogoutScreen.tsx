@@ -1,48 +1,29 @@
-import React, { FunctionComponent, useEffect } from 'react';
-import {
-  StyleSheet, View, Text, AsyncStorage,
-} from 'react-native';
+import React, { useCallback, useEffect } from 'react';
+// Async Storage
+import { useNavigation } from '@react-navigation/native';
+import AuthUtility from '../../utilities/Auth/Auth.utility';
+import { useSetRecoilState } from 'recoil';
+import { authUserAtom, authUserLivesAtom } from '../../recoil/atoms/Auth.atom';
 
-// Logout Screen
-const LogoutScreen: React.FC = () => {
-  const loggedOut = async () => {
-    await AsyncStorage.removeItem('token');
-  };
 
+
+const LogoutScreen = () => {
+  // Recoil
+  const setAuthUser = useSetRecoilState(authUserAtom);
+  const setAuthUserLives = useSetRecoilState(authUserLivesAtom);
+  // Navigation
+  const navigation = useNavigation();
+  const resetData = useCallback(async () => {
+    await AuthUtility.removeToken();
+    setAuthUser(null);
+    setAuthUserLives(0);
+    navigation.navigate('Login');
+  }, [])
   useEffect(() => {
-    // Create an scoped async function in the hook
-    async function fnLoggedOut() {
-      await loggedOut();
-      navigation.navigate('Login');
-    }
-    // Execute the created function directly
-    fnLoggedOut();
-  }, [navigation]);
+    resetData();
+  }, [resetData])
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Loading Auth</Text>
-      </View>
-    </View>
-  );
-};
+  return null;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    paddingVertical: 20,
-  },
-  titleContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-  },
-  title: {
-    fontSize: 20,
-  },
-});
-
+}
 export default LogoutScreen;

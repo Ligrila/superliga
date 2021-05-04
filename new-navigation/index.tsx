@@ -5,6 +5,7 @@ import { RootStackParamList } from './types';
 import MainNavigator from './MainNavigator';
 // import LinkingConfiguration from './LinkingConfiguration';
 import AuthNavigator from './AuthNavigator';
+import AuthLoadingScreen from '../screens/Auth/AuthLoadingScreen';
 // import BottomTabNavigator from './BottomTabNavigator';
 
 
@@ -23,12 +24,14 @@ export default function Navigation(props) {
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator(props) {
-  const initialRouteName = props.isLoggedIn ? 'Main' : 'Auth'
+  // const initialRouteName = props.isLoggedIn ? 'Main' : 'Auth'
   return (
-    <Stack.Navigator initialRouteName={initialRouteName}
-      screenOptions={{ headerShown: false,}}>
+    <Stack.Navigator initialRouteName={'AuthLoading'}
+      screenOptions={{ headerShown: false, }}>
+
+      <Stack.Screen name="AuthLoading" component={AuthLoadingScreen} />
       <Stack.Screen name="Auth" component={AuthNavigator} />
-      {props.isLoggedIn && <Stack.Screen name="Main" component={MainNavigator} />}
+      <Stack.Screen name="Main" component={MainNavigator} />
     </Stack.Navigator>
   );
 }

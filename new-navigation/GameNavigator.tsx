@@ -6,7 +6,6 @@ import { TransitionPresets } from '@react-navigation/stack';
 // Screens
 import HomeScreen from '../screens/HomeScreen';
 import HomeScreen2 from '../screens/HomeScreen2';
-import GameStack from '../screens/HomeScreen2';
 import GameScreen from '../screens/GameScreen';
 import GameResultScreen from '../screens/GameScreen';
 import GameEndScreen from '../screens/GameEndScreen';
@@ -16,7 +15,8 @@ import GameHalfTimeStartScreen from '../screens/GameHalfTimeStartScreen';
 import BannerScreen from '../screens/BannerScreen';
 import GameHalfTimePlayScreen from '../screens/GameHalfTimePlayScreen';
 import GameExtraPlayScreen from '../screens/GameExtraPlayScreen';
-import GameLoadingScreen from '../screens/GameLoadingScreen';
+// Game 
+import GameLoadingScreen from '../screens/Game/GameLoadingScreen';
 // Create
 const Stack = createStackNavigator();
 
@@ -30,11 +30,21 @@ const GamePlayNavigator = () => {
                 ...TransitionPresets.SlideFromRightIOS
             }}
         >
+            {/* GamePlay: GameScreen,
+GameResult: GameResultScreen,
+    GameEnd: GameEndScreen,
+    StartFirstTime: GameStartScreen,
+    HalfTime: GameHalfTimeEndScreen,
+    HalfTimeStart: GameHalfTimeStartScreen,
+    Banner: BannerScreen,
+    GameHalfTimePlay: GameHalfTimePlayScreen,
+    GameExtraPlay: GameExtraPlayScreen,
+    GameLoading: GameLoadingScreen, */}
             <Stack.Screen name="GamePlay" component={GameScreen} />
             <Stack.Screen name="GameResult" component={GameResultScreen} />
             <Stack.Screen name="GameEnd" component={GameEndScreen} />
             <Stack.Screen name="StartFirstTime" component={GameStartScreen} />
-            <Stack.Screen name="HalfTime" component={GameStartScreen} />
+            <Stack.Screen name="HalfTime" component={GameHalfTimeEndScreen} />
             <Stack.Screen name="HalfTimeStart" component={GameHalfTimeStartScreen} />
             <Stack.Screen name="Banner" component={BannerScreen} />
             <Stack.Screen name="GameHalfTimePlay" component={GameHalfTimePlayScreen} />
@@ -49,6 +59,7 @@ const GamePlayNavigator = () => {
 const GameNavigator = () => {
     return (
         <Stack.Navigator initialRouteName="GameLoading"
+            headerMode="none"
             screenOptions={{
                 gestureEnabled: true,
                 ...TransitionPresets.SlideFromRightIOS

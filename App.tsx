@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { BackHandler, Alert } from 'react-native';
+import React, { useCallback, useEffect, useState } from "react";
+import { BackHandler } from "react-native";
 // React Native
 import { AppState, Image } from "react-native";
 // Async Storage
-import AsyncStorage from '@react-native-async-storage/async-storage';
-// Icons
-import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 // Loading
 import AppLoading from "expo-app-loading";
 // Linking
@@ -13,14 +12,14 @@ import * as Linking from "expo-linking";
 // Notifications
 import * as Notifications from "expo-notifications";
 // Updates
-import * as Updates from 'expo-updates';
+import * as Updates from "expo-updates";
 // Localization
 import * as Localization from "expo-localization";
 // Expo Keep Awake
 import { activateKeepAwake } from "expo-keep-awake";
 // App Navigator
-import AppNavigator from "./navigation/AppNavigator";
-import { NavigationActions } from "react-navigation";
+import Navigation from "./new-navigation";
+// import { NavigationActions } from "react-navigation";
 // Socket
 import SocketClient from "./modules/SocketClient";
 // Api
@@ -32,13 +31,17 @@ import { Root, Text, Button, Container, Content, Header, StyleProvider } from "n
 // Assets
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
-import * as Icon from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 // Helper
 import "./helpers/RegisterPushNotification";
+// Recoil
+import {
+  RecoilRoot
+} from 'recoil';
 // Store
 import { UsersActions } from "./store/UserStore";
 import { ConnectionStatusActions } from "./store/ConnectionStatusStore";
-import { LoginScreenActions } from "./store/LoginScreenStore";
+import { LoginScreenActions } from "./store/LoginScreenStore"
 import { TriviaQuestionActions } from "./store/TriviaQuestion";
 import { NavigatorActions } from "./store/NavigatorStore";
 
@@ -53,7 +56,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const App: React.FC = (props) => {
+const App: React.FC = () => {
   // Api
   const api = new Api();
   const socket = null;
@@ -65,8 +68,8 @@ const App: React.FC = (props) => {
 
   // Handle On Reload
   const handleOnReload = () => {
-    BackHandler.exitApp()
-  }
+    BackHandler.exitApp();
+  };
   // Cache Images
   const cacheImages = (images) => {
     return images.map((image) => {
@@ -76,15 +79,17 @@ const App: React.FC = (props) => {
         return Asset.fromModule(image).downloadAsync();
       }
     });
-  }
+  };
   // Load assets
   const loadResourcesAsync = useCallback(async () => {
     const teams = await api.getTeams();
     const teamImages: any = [];
-    if (teams.data) {
-      teams.data.map((team: any) => {
-        teamImages.push(team.avatar);
-      });
+    if (teams) {
+      if (teams.data) {
+        teams.data.map((team: any) => {
+          teamImages.push(team.avatar);
+        });
+      }
     }
     const serverAssets = cacheImages(teamImages);
     const deviceTimezone = await Localization.getLocalizationAsync();
@@ -92,7 +97,7 @@ const App: React.FC = (props) => {
     return Promise.all([
       Font.loadAsync({
         // This is the font that we are using for our tab bar
-        ...Icon.Ionicons.font,
+        ...Ionicons.font,
         // We include SpaceMono because we use it in HomeScreen.js. Feel free
         // to remove this if you are not using it in your app
         Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -218,27 +223,27 @@ const App: React.FC = (props) => {
       ...serverAssets,
     ]);
 
-  }, [Font])
+  }, [Font]);
 
   // Bootstrap Async
   const bootstrapAsync = useCallback(async () => {
     await loadResourcesAsync();
     let userToken;
     try {
-      setIsLoadingComplete(true)
+      setIsLoadingComplete(true);
     } catch (e) {
-      console.log('bootstrapAsync', e);
-      setIsLoadingComplete(true)
-      setIsLoadingError(true)
+      console.log(`bootstrapAsync`, e);
+      setIsLoadingComplete(true);
+      setIsLoadingError(true);
     }
   }, [loadResourcesAsync]);
   // Mount
   useEffect(() => {
     bootstrapAsync();
-  }, [bootstrapAsync])
+  }, [bootstrapAsync]);
 
   if (!isLoadingComplete) {
-    return <AppLoading />
+    return <AppLoading />;
   }
   if (isLoadingError) {
     return (
@@ -259,32 +264,18 @@ const App: React.FC = (props) => {
           </Container>
         </StyleProvider>
       </Root>
-    )
+    );
   }
   return (
     <Root>
       <StyleProvider style={AppTheme}>
-        {/* <AppNavigator
-          // ref={(navigatorRef) => {
-          //   this.AppNavigator = navigatorRef;
-          //   this.handleNavigatorEvents();
-          //   NavigatorActions.setNavigator(navigatorRef);
-            //console.log(navigatorRef.dispatch)
-          }}
-        /> */}
-
-        <Container>
-          <Header />
-          <Content>
-            <Text style={{ color: 'red' }}>
-              Cargo
-            </Text>
-          </Content>
-        </Container>
+        <RecoilRoot>
+          <Navigation isLoggedIn={false} />
+        </RecoilRoot>
       </StyleProvider>
     </Root>
   );
 
-}
+};
 
 export default App;

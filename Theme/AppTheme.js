@@ -1,5 +1,5 @@
 import Layout from '../constants/Layout';
-
+import SuperLiga from './SuperLiga'
 
 //size ratio
 const s = (size) => {
@@ -9,7 +9,7 @@ const h = (size) => {
      return size * Layout.window.heightRatio;
 }
 
-const FooterStyle ={
+export const FooterStyle ={
     borderTopWidth:0,
     elevation:0
 
@@ -18,7 +18,6 @@ const FooterStyle ={
 };
 
 
-import SuperLiga from './SuperLiga'
 
 const styles =   {
     //'SuperLiga.NotificationBullet': require('./SuperLiga/NotificationBullet')(Layout),

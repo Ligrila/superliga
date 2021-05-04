@@ -7,6 +7,7 @@ import { TransitionPresets } from '@react-navigation/stack';
 import  Sidebar from '../components/SidebarDrawerContentComponent/Sidebar';
 // Navigator
 import GameNavigator from './GameNavigator';
+
 // Drawer
 const Drawer = createDrawerNavigator();  
 // MainNavigator
@@ -15,17 +16,17 @@ const MainNavigator = () => {
         <Drawer.Navigator
             screenOptions={{
                 gestureEnabled: true,
-                ...TransitionPresets.SlideFromRightIOS,
+                // ...TransitionPresets.SlideFromRightIOS,
             }}
+            drawerPosition={'right'}
             drawerContent={(props) => <Sidebar {...props} />} 
+            initialRouteName="GameLoadingStack"
             >
-            <Drawer.Navigator initialRouteName="GameLoading">
                 <Drawer.Screen 
-                    name="GameLoading" 
+                    name="GameLoadingStack" 
                     component={GameNavigator} 
                     options={{ drawerLabel: 'Inicio' }}
                 />
-            </Drawer.Navigator>
         </Drawer.Navigator>
     );
 }

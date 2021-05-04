@@ -8,7 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@expo/vector-icons": "^12.0.0",
+    "@expo/vector-icons": "^12.0.4",
     "@react-native-async-storage/async-storage": "^1.15.4",
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "^5.9.4",
@@ -45,10 +45,12 @@
     "react-native-expo-image-cache": "^4.0.4",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-progress-bar": "^0.1.2",
+    "react-native-reanimated": "^2.0.0",
     "react-native-screens": "~3.0.0",
     "react-native-snap-carousel": "^3.7.2",
     "react-native-svg": "12.1.0",
     "react-navigation": "^3.11.0",
+    "recoil": "^0.2.0",
     "reflux": "^6.4.1",
     "socket.io": "^2.2.0"
   },

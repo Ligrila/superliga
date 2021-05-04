@@ -1,54 +1,84 @@
-import React, { useEffect } from 'react'
-// React Native
-import { StyleSheet, View, Text} from 'react-native'
-// Navigation
-import { useNavigation } from '@react-navigation/native';
+
+import React, { useCallback, useEffect } from 'react';
+import {
+    ActivityIndicator,
+    StatusBar,
+    StyleSheet,
+    View,
+} from 'react-native';
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// Api
+import Api from '../../api/Api';
+// Store To Remove :p
+import { UsersActions, UsersStore } from '../../store/UserStore';
+// Navigation
+import { useNavigation } from '@react-navigation/native';
 
-// Auth Loading Screen
 const AuthLoadingScreen = () => {
+    // Api
+    const api = new Api();
+    // Navigatio
     const navigation = useNavigation();
-    const checkIfLoggedIn = async () => {
-        const isLoggedIn = await AsyncStorage.getItem("token");
-        return isLoggedIn;
-    };
+
+    // Fetch the token from storage then navigate to our appropriate place
+    const fnCheckIfLoggedIn = useCallback(async () => {
+        console.log('fnCheckIfLoggedIn');
+        let isLogin = false;
+        try {
+            const userToken = await AsyncStorage.getItem('token');
+            console.log({ userToken })
+            const tokenExpire = await AsyncStorage.getItem('tokenExpire') || 0;
+            let timestamp = new Date().getTime();
+            let notExpired = tokenExpire > timestamp;
+            isLogin = (userToken && (tokenExpire !== null && notExpired)) ? true : false;
+            if (isLogin) {
+                // TODO: reveer esto, buscar una forma de detectar logouts en los request
+                await UsersActions.update();
+
+                const user = UsersStore.state.user;
+                const hasInformation = UsersStore.state.hasInformation;
+
+                if (!user) {
+                    isLogin = false;
+                }
+                if (!hasInformation) {
+                    isLogin = false;
+                }
+            }
+        } catch (e) {
+            //console.log(e);
+        }
+        //UsersActions.isLoggedIn(isLogin);
+
+        if (isLogin) {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Main' }],
+            });
+        } else {
+            navigation.navigate('Auth')
+        }
+        
+    }, []);
 
     useEffect(() => {
         // Create an scoped async function in the hook
-        async function fnCheckIfLoggedIn() {
-            const isLoggedIn = await checkIfLoggedIn();
-            //@Todo
-            navigation.navigate('Auth');
-        }
         // Execute the created function directly
         fnCheckIfLoggedIn();
-    }, [navigation]);
-
+    }, []);
     return (
         <View style={styles.container}>
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>Loading Auth</Text>
-            </View>
+            <ActivityIndicator />
+            <StatusBar barStyle="default" />
         </View>
-    )
+    );
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        paddingHorizontal: 10,
-        paddingVertical: 20
-    },
-    titleContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1
-    },
-    title: {
-        fontSize: 20
     }
-})
+});
 
-export default AuthLoadingScreen
+export default AuthLoadingScreen;

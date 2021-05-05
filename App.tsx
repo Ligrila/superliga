@@ -58,7 +58,7 @@ Notifications.setNotificationHandler({
 const App: React.FC = () => {
   // Api
   const api = new Api();
-  const socket = null;
+  let socket = null;
   // States
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
@@ -234,6 +234,33 @@ const App: React.FC = () => {
 
   }, [Font]);
 
+  const closeSocket = useCallback(()=>{
+    console.log("App::closeSocket")
+    if(!socket || !socket.client ){
+      return;
+    }
+
+    if(typeof(socket.client.close) == 'function'){
+      console.log("Closing socket...")
+      socket.client.close();
+    }
+
+    socket = null;
+  },[]);
+  const initSocket = useCallback(async ()=>{
+    const token = await AsyncStorage.getItem('token');
+    if(socket){
+      closeSocket();
+    }
+    if(!token){
+      console.log("No token")
+      return;
+    }
+    const user = JSON.parse(await AsyncStorage.getItem('user'));
+
+    socket = new SocketClient(token,user);
+  },[closeSocket])
+
   // Bootstrap Async
   const bootstrapAsync = useCallback(async () => {
     await loadResourcesAsync();
@@ -249,7 +276,8 @@ const App: React.FC = () => {
   // Mount
   useEffect(() => {
     bootstrapAsync();
-  }, [bootstrapAsync]);
+    initSocket();
+  }, [bootstrapAsync,initSocket]);
 
   if (!isLoadingComplete) {
     return <AppLoading />;

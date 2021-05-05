@@ -1758,28 +1758,6 @@ const styles =   {
             fontSize: s(85),
         }
     },
-    'SuperLiga.GameScreen':{
-        game:{
-            flex:.7,
-
-        },
-        footer:{
-            ...FooterStyle,
-        },
-        connectedUsers:{
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-            justifyContent: 'center',
-            paddingBottom: Layout.s(20),
-
-        },
-        noLifeText:{
-            fontFamily: 'OpenSansCondensed_bold',
-            color: '#2cd6f5',
-            fontSize: s(35),
-        }
-        
-    },
     'SuperLiga.LoginScreen':{
         login:{
             flex:1,

@@ -6,8 +6,8 @@ export default {
         // conviene usar nombres de dominios
         // para poder probar correctamente mercadopago
         // internos y externos
-        socketUrl: isAndroid ? 'http://10.0.2.2:8889': "http://localhost:8889",
-        apiUrl: isAndroid ? 'http://10.0.2.2/superliga/api' : 'http://localhost/superliga/api',
+        socketUrl: isAndroid ? 'http://10.0.2.2:3000': "http://localhost:3000",
+        apiUrl: isAndroid ? 'http://10.0.2.2:8080/api' : 'http://localhost:8080/api',
         chatSocketUrl: isAndroid ? 'http://10.0.2.2:3000/chat': "http://localhost:3000/chat",
         androidClientId: '190225167822-hvfad06m4etnniv5n24s2mebab3o3o8d.apps.googleusercontent.com',
         androidStandaloneAppClientId: '190225167822-mr7k6a28m4u8va61l8q7i3l56bbju50j.apps.googleusercontent.com',

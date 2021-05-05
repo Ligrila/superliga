@@ -1,5 +1,5 @@
 import React from 'react';
-import { KeyboardAvoidingView, TouchableOpacity,Modal,View,Keyboard } from 'react-native';
+import { KeyboardAvoidingView, TouchableOpacity,Modal,View,Keyboard, StyleSheet } from 'react-native';
 import { connectStyle,Container, Content, Footer,Text,Spinner } from 'native-base'
 import { StackActions,NavigationActions } from 'react-navigation';
 
@@ -38,6 +38,32 @@ import {
 
 import Layout from '../constants/Layout';
 import Chat from '../components/Chat';
+
+
+
+const styles = StyleSheet.create({
+  game:{
+      flex:.7,
+
+  },
+  footer:{
+    borderTopWidth:0,
+    elevation:0
+  },
+  connectedUsers:{
+      flexDirection: 'row',
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+      paddingBottom: Layout.s(20),
+
+  },
+  noLifeText:{
+      fontFamily: 'OpenSansCondensed_bold',
+      color: '#2cd6f5',
+      fontSize: Layout.s(35),
+  }
+  
+});
 
 
 
@@ -214,7 +240,6 @@ class GameScreen extends Reflux.Component {
       if(hasLives){
         return (<GameConnectedUsers />);
       } else{
-        const styles = this.props.style;
         return(
           <TouchableOpacity
           onPress={() => {
@@ -248,7 +273,6 @@ class GameScreen extends Reflux.Component {
     }
   }
   render() {
-    const styles = this.props.style;
     let bgSrc = gameBgSrc;
     if(this.state.hasInformation){
       bgSrc =  this.state.user.lives <= 0 ? gameDisabledBgSrc : gameBgSrc
@@ -291,4 +315,5 @@ class GameScreen extends Reflux.Component {
 
 
 
-export default connectStyle('SuperLiga.GameScreen')(GameScreen);
+//export default connectStyle('SuperLiga.GameScreen')(GameScreen);
+export default GameScreen;

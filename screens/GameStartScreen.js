@@ -5,11 +5,44 @@ import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 import GameMessage from '../components/Game/GameMessage';
 import MakeItRain from '../components/MakeItRain';
+import { StyleSheet } from 'react-native';
 
 const bgSrc = require('../assets/images/bg.png');
 const bgProgrammedTriviaSrc = require('../assets/images/programmed-trivia-bg.png');
+import Layout from '../constants/Layout';
 
 
+
+const styles = StyleSheet.create(
+
+  {
+    statistics:{
+      flex: 1,
+    },
+    container:{
+        flex:1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    rowContainer:{
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+    },
+    statisticsItem:{
+    },
+    shareContainer:{
+        position: 'absolute',
+        bottom:0,
+        right:0
+    },
+    shareImg:{
+        width: Layout.s(159),
+        height: Layout.s(149)
+    },
+}
+);
 
 class GameStartScreen extends React.Component {
   static navigationOptions = {
@@ -41,7 +74,7 @@ class GameStartScreen extends React.Component {
  
 
   renderMessage = () => {
-    const trivia = this.props.navigation.getParam("trivia",false);
+    const {trivia} = this.props.route.params;
     if(trivia && trivia.type=='trivia'){
       return (
         <GameMessage title="Arranca la" bigText='trivia!' award={trivia.award} whistle2={true}></GameMessage>
@@ -57,12 +90,11 @@ class GameStartScreen extends React.Component {
   }
   
   render() {
-    const styles = this.props.style
 
     const rain =  <MakeItRain />
 
     let currentBg = bgSrc;
-    const trivia = this.props.navigation.getParam("trivia",false);
+    const {trivia} = this.props.route.params;
     if(trivia && trivia.type=='trivia'){
       currentBg = bgProgrammedTriviaSrc;
     }
@@ -85,4 +117,5 @@ class GameStartScreen extends React.Component {
 
 }
 
-export default connectStyle('SuperLiga.StatisticsScreen')(GameStartScreen);
+//export default connectStyle('SuperLiga.StatisticsScreen')(GameStartScreen);
+export default GameStartScreen;

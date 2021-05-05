@@ -172,9 +172,9 @@ const LoginScreen = () => {
     }
   }
   // Twitter Login
-  const twitterLogin = async () => {
-    Alert.alert('No implementado')
-  }
+  // const twitterLogin = async () => {
+  //   Alert.alert('No implementado')
+  // }
   // On Register
   const _onRegister = () => {
     navigation.navigate('Register');
@@ -282,10 +282,10 @@ const LoginScreen = () => {
                   <Icon name='facebook-f' type='FontAwesome' style={styles.socialButtonIcon} />
                 </Button>
                 <View style={styles.socialIconSeparator}></View>
-                <Button rounded light onPress={twitterLogin} style={styles.socialButton}>
+                {/* <Button rounded light onPress={twitterLogin} style={styles.socialButton}>
                   <Icon name='twitter' type='FontAwesome' style={styles.socialButtonIcon} />
-                </Button>
-                <View style={styles.socialIconSeparator}></View>
+                </Button> */}
+                {/* <View style={styles.socialIconSeparator}></View> */}
                 <Button rounded light onPress={googleLogin} style={styles.socialButton}>
                   <Icon name='google-' type='Entypo' style={styles.socialButtonIcon} />
                 </Button>

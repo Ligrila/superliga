@@ -150,14 +150,14 @@ const Sidebar = (props) => {
                 />
               ))}
               {/* Logout */}
-              <DrawerItem
+              {/* <DrawerItem
                 activeTintColor={'#fff'}
                 inactiveTintColor={'#fff'}
                 activeBackgroundColor="transparent"
                 // focused={isActive('Profile', activeRoute)}
                 label="Salir"
                 onPress={onPressLogout}
-              />
+              /> */}
             </ScrollView>
           </Content>
         </View>

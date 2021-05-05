@@ -13,6 +13,7 @@ import GameLoadingScreen from '../screens/Game/GameLoadingScreen';
 import HomeScreen from '../screens/Home/HomeScreen';
 import ProfileScreen from '../screens/User/ProfileScreen';
 import EditProfileScreen from '../screens/User/EditProfileScreen';
+import CalendarScreen from '../screens/Calendar/CalendarScreen';
 
 // Drawer
 const Drawer = createDrawerNavigator();
@@ -31,6 +32,8 @@ const MainNavigator = () => {
             {/* Profile */}
             <Drawer.Screen name="Profile" component={ProfileScreen} />
             <Drawer.Screen name="EditProfile" component={EditProfileScreen} />
+            {/* Fixture */}
+            <Drawer.Screen name="Fixture" component={CalendarScreen} />
         </Drawer.Navigator>
     );
 }

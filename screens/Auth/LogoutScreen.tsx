@@ -15,7 +15,7 @@ const LogoutScreen = () => {
   const navigation = useNavigation();
   const resetData = useCallback(async () => {
     await AuthUtility.removeToken();
-    setAuthUser(null);
+    setAuthUser({});
     setAuthUserLives(0);
     navigation.navigate('Login');
   }, [])

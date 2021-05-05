@@ -77,12 +77,15 @@ const EditProfileScreen = () => {
                 const userResponse = await api.editUser({ first_name, last_name, document, mobile_number });
 
                 if (userResponse && userResponse.success) {
+
+                    const response = await api.getUserInformation();
+
                     Toast.show({
                         text: 'Tu perfil se editó correctamente',
                         type: 'success',
                         buttonText: 'Aceptar'
                     });
-                    const user = authHelper.formatAuthUser(userResponse);
+                    const user = authHelper.formatAuthUser(response);
                     setAuthUser(user);
                     navigateBack();
                 } else {

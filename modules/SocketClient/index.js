@@ -24,7 +24,7 @@ export default class SocketClient{
         this.dispatcher = new ActionDispatcher
         this.firstConnect = true;
         this.isReconnected = false;
-        //console.log("Socket.io start");
+        console.log("Socket.io start");
         this.client = new io(
             Enviroment.socketUrl,
             {
@@ -32,7 +32,7 @@ export default class SocketClient{
                 query: {token: USER_TOKEN,name:user.first_name,avatar: user.avatar},
             })
 
-        //console.log("Socket.io on connect");
+        console.log("Socket.io on connect");
         this.client.on('connect',()=>{
             if(this.firstConnect){
                 this.firstConnect = false;

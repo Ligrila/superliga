@@ -41,6 +41,7 @@ export default class RestClient {
           console.log("retry fetch " , url )
           return await fetch(url, options)
       } catch(err) {
+        console.log({err})
           if (n <= 1) throw err;
           return await this._fetch_retry(url, options, n - 1);
       }

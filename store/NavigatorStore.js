@@ -1,7 +1,8 @@
 import Reflux from 'reflux';
 
 import { NavigationActions as ReactNavigationActions } from 'react-navigation';
-import { DrawerActions } from 'react-navigation-drawer';
+import { DrawerActions } from '@react-navigation/native';
+
 
 
 export const NavigatorActions = Reflux.createActions(['setNavigator','navigate','drawerOpen']);

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import ThemeUtility from '../../Theme/utilities/ThemeUtility';
 import Variables from '../../styles/Variables';
+import ThemeUtility from '../../utilities/Theme/Theme.utility';
 
 
 export default StyleSheet.create({

@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
-import ThemeUtility from '../../Theme/utilities/ThemeUtility';
+import ThemeUtility from '../../utilities/Theme/Theme.utility';
 import Layout from '../../constants/Layout';
 import Variables from '../../styles/Variables';
+import { Left } from 'native-base';
 
 export default StyleSheet.create({
     container: {
@@ -10,10 +11,9 @@ export default StyleSheet.create({
         justifyContent: "center",
         backgroundColor: Variables.blue,
     },
-    scrollContainer: {
+    mainContainer: {
         flex: 1,
         width: '100%',
-
     },
     text: {
         color: "#fff",
@@ -42,34 +42,30 @@ export default StyleSheet.create({
     userAvatar: {
         marginTop: ThemeUtility.h(20),
     },
-    itemsContainer: {
+    scrollContainer: {
         flex: 1,
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-        paddingTop: 0,
-        marginTop: 0,
-    },
-    drawerItems: {
-        marginTop: 0,
-
+        width: '65%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
     sidebarItem: {
-        width: "100%",
+        borderBottomColor: '#fff',
+        borderBottomWidth: 1,        
         alignItems: 'center',
-        justifyContent: 'center'
-    },
-    sidebarItemStyle: {
-        borderBottomColor: '#d4ccde',
-        borderBottomWidth: 1,
-        width: "85%",
-        // alignItems: 'center',
         flexDirection: 'column',
-        // justifyContent: 'flex-start',
-        padding: ThemeUtility.h(35),
+        justifyContent: 'flex-start',
+        padding: 20,
+    },
+    sidebarItemContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+
+        width: '85%',
+        paddingLeft: 50,
+        position: 'relative'
     },
     sidebarItemLabel: {
-        textAlign: 'left',
         fontSize: ThemeUtility.s(35),
         fontFamily: 'OpenSansCondensed_light',
     },
@@ -79,11 +75,21 @@ export default StyleSheet.create({
         color: '#fff',
         fontSize: ThemeUtility.s(45)
     },
+    sidebarItemImageContainer: {
+        width: 20,
+        height: 20,
+        position: 'absolute',
+        left: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     sidebarItemImage: {
-        marginLeft: ThemeUtility.s(80),
-        width: ThemeUtility.s(35),
-        height: ThemeUtility.s(35),
-        marginRight: ThemeUtility.s(40)
+        flex: 1,
+        width: 20,
+        height: 20,
+        resizeMode: 'contain'
+    
     }
 
 });
+

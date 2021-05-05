@@ -218,6 +218,16 @@ const App: React.FC = () => {
         require("./assets/images/rain.png"),
         require("./assets/images/tutorial3.png"),
         require("./assets/images/bg.png"),
+        // Menu
+        require("./assets/images/menu/menu_awards.png"),
+        require("./assets/images/menu/menu_buys.png"),
+        require("./assets/images/menu/menu_fixture.png"),
+        require("./assets/images/menu/menu_goals.png"),
+        require("./assets/images/menu/menu_profile.png"),
+        require("./assets/images/menu/menu_settings.png"),
+        require("./assets/images/menu/menu_statistics.png")
+      
+        
       ]),
       ...serverAssets,
     ]);

@@ -2,12 +2,12 @@
 import React from 'react';
 // Stack
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { TransitionPresets } from '@react-navigation/stack';
 // Sidebar 
 import Sidebar from '../components/SidebarDrawerContentComponent/Sidebar';
 // Navigator
 import GameNavigator from './GameNavigator';
-import LogoutScreen from '../screens/Auth/LogoutScreen';
+// Layout
+import Layout from '../constants/Layout'
 // Drawer
 const Drawer = createDrawerNavigator();
 // MainNavigator
@@ -17,6 +17,7 @@ const MainNavigator = () => {
             drawerPosition={'left'}
             drawerContent={(props) => <Sidebar {...props} />}
             initialRouteName="GameLoadingStack"
+            drawerStyle={{ width: Layout.window.width - 70 }}
          
         >
             <Drawer.Screen

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import ThemeUtility from '../../Theme/utilities/ThemeUtility';
+import ThemeUtility from '../../utilities/Theme/Theme.utility';
 import { FooterStyle } from '../../Theme/AppTheme';
 import Layout from '../../constants/Layout';
 

@@ -1,6 +1,6 @@
 import React from "react";
 // React Native
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, Image} from "react-native";
 // Native Base
 import {
   Container,
@@ -8,119 +8,120 @@ import {
   Header,
   Text,
   Body,
-  Icon
+
 } from "native-base";
 // Navigation
-import { DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
+import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { useNavigation, useNavigationState, } from "@react-navigation/native";
 // Components
-import Wallpaper from "../Wallpaper/Wallpaper";
 import UserAvatar from "../UserAvatar/UserAvatar";
 // Assets
 const bgSrc = require("../../assets/images/sidebar_bg.png");
 // Styles 
 import styles from './Sidebar.styles';
-import Layout from '../../constants/Layout';
+// Recoil
 import { useRecoilValue } from "recoil";
 import { authUserAtom } from "../../recoil/atoms/Auth.atom";
-// Item
-export const SidebarItem = (props) => {
-  const styles = props.style;
-  const icon = props.icon;
-  //<Image source={source} style={styles.sidebarItemImage}></Image>
-  if (icon) {
-    let itemBullet: any = null;
-    if (props.bullet) {
-      itemBullet = (
-        <View
-          style={{
-            position: "absolute",
-            top: Layout.s(36),
-            right: Layout.s(60),
-          }}
-        >
-          {props.bullet}
-        </View>
-      );
-    }
-    return (
-      <View style={styles.sidebarItemStyle}>
-        <Icon type="FontAwesome" name={icon} style={styles.sidebarItemIcon} />
-        <Text style={styles.sidebarItemLabel}>{props.label.toUpperCase()}</Text>
-        {itemBullet}
-      </View>
-    );
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+const menuItems = [
+  {
+    text: 'MI PERFIL',
+    route: 'Profile',
+    image: require('../../assets/images/menu/menu_profile.png')
+  },
+  {
+    text: 'FIXTURE',
+    route: 'Fixture',
+    image: require('../../assets/images/menu/menu_fixture.png')
+  },
+  {
+    text: 'ESTADISTICAS',
+    route: 'Statistics',
+    image: require('../../assets/images/menu/menu_statistics.png')
+  },
+  {
+    text: 'PREMIOS',
+    route: 'Awards',
+    image: require('../../assets/images/menu/menu_awards.png')
+  },
+  {
+    text: 'METAS',
+    route: 'Goals',
+    image: require('../../assets/images/menu/menu_goals.png')
+  },
+  {
+    text: 'COMPRAR',
+    route: 'Buy',
+    image: require('../../assets/images/menu/menu_buys.png')
+  },
+  {
+    text: 'AJUSTES',
+    route: 'Settings',
+    image: require('../../assets/images/menu/menu_settings.png')
+  },
+]
+
+// Sidebar Item
+const SidebarItem = ({ menu, navigateTo, last }) => {
+  const handleOnPress = () => {
+    navigateTo(menu.route);
   }
   return (
-    <View>
-      <Text style={styles.sidebarItemLabel}>{props.label}</Text>
-    </View>
-  );
-};
-
-
+    <TouchableOpacity onPress={handleOnPress}
+      style={[styles.sidebarItem, last ? { borderBottomWidth: 0 } : null]}>
+      <View style={styles.sidebarItemContainer}>
+        <View style={styles.sidebarItemImageContainer}>
+          <Image source={menu.image} 
+            style={styles.sidebarItemImage}
+            />
+        </View>
+        <Text style={styles.sidebarItemLabel}>{menu.text}</Text>
+      </View>
+    </TouchableOpacity>
+  )
+}
 // Sidebar
 const Sidebar = (props) => {
   // Recoil
   const authUser = useRecoilValue(authUserAtom);
   // Navigation
   const navigation = useNavigation();
-  // States of routes
-  const stateRoutes: any = useNavigationState(state => state)
-  // Get Active route state :P a travel (un viaje fue jaja)
-  const getActiveRouteState = (route: any) => {
-    if (route) {
-      let routes = [];
-      let index = 0
-      if (route.state) {
-        routes = route.state.routes ? route.state.routes : [];
-        index = route.state.index ? route.state.index : 0;
-      } else {
-        routes = route.routes ? route.routes : [];
-        index = route.index ? route.index : 0;
-      }
 
-      if (!routes || routes.length === 0 || index >= routes.length) {
-        return route;
-      }
-      const childActiveRoute = routes[index];
-      return getActiveRouteState(childActiveRoute);
-    }
-  }
-  const activeRoute = getActiveRouteState(stateRoutes)
-  // Is active
-  const isActive = (key, activeRoute) => {
-    let active = false;
-    if (activeRoute) {
-      active = activeRoute.name.includes(key);
-    }
-
-    return active;
-  }
-  let points = 0;
-  if (authUser && authUser.point) {
-    points = authUser.point.points;
-  }
+  // Logout
   const onPressLogout = () => {
     navigation.navigate('Auth', {
       screen: 'Logout'
     });
   }
+  // Navigate
+  const onPressNavigate = (route) => {
+    navigation.navigate(route);
+  }
+  const username = authUser.first_name && authUser.last_name ? `${authUser.first_name} ${authUser.last_name}` : authUser.username
+
+  let points = 0;
+
+  if (authUser && authUser.point) {
+    points = authUser.point.points;
+  }
   return (
     <Container style={styles.container}>
-      <ScrollView style={styles.scrollContainer}>
-        {authUser && <Header transparent style={styles.header}>
-          <Body style={styles.headerBody}>
-            <Text style={styles.userText}>{authUser.username}</Text>
-            <Text style={styles.userPoints}>{points} Puntos</Text>
-            <View style={styles.userAvatar}>
-              <UserAvatar avatar={authUser.avatar} />
-            </View>
-          </Body>
-        </Header>}
-        <Content padder style={styles.content}>
-          <DrawerContentScrollView {...props}>
-            <DrawerItemList
+      <View style={styles.mainContainer}>
+        {/* Header */}
+        {authUser &&
+          <Header transparent style={styles.header}>
+            <Body style={styles.headerBody}>
+              <Text style={styles.userText}>{username}</Text>
+              <Text style={styles.userPoints}>{points} Puntos</Text>
+              <View style={styles.userAvatar}>
+                <UserAvatar avatar={authUser.avatar} />
+              </View>
+            </Body>
+          </Header>}
+        <Content style={styles.content}>
+          <ScrollView style={styles.scrollContainer}>
+            {/* <DrawerItemList
               {...props}
               style={styles.drawerItems}
               activeBackgroundColor="transparent"
@@ -128,7 +129,16 @@ const Sidebar = (props) => {
               labelStyle={styles.sidebarItemLabel}
               activeTintColor={'#fff'}
               inactiveTintColor={'#fff'}
-            />
+            /> */}
+            {menuItems.map((menu, index) => (
+              <SidebarItem
+                key={index}
+                menu={menu}
+                last={index === menuItems.length - 1}
+                navigateTo={onPressNavigate}
+              />
+            ))}
+            {/* Logout */}
             <DrawerItem
               activeTintColor={'#fff'}
               inactiveTintColor={'#fff'}
@@ -137,9 +147,9 @@ const Sidebar = (props) => {
               label="Salir"
               onPress={onPressLogout}
             />
-          </DrawerContentScrollView>
+          </ScrollView>
         </Content>
-      </ScrollView>
+      </View>
     </Container>
   );
 };

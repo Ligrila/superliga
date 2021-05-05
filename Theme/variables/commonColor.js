@@ -109,7 +109,7 @@ export default {
   //brandPrimary: platform === "ios" ? "#50aedf" : "#50aedf",
   brandPrimary: "#ae966f",
   //brandInfo: "#84edf8",
-  brandInfo: "#50aedf",
+  brandInfo: "#84edf8",
   brandSuccess: "#5cb85c",
   brandDanger: "#d9534f",
   brandWarning: "#84edf8", // usado en game result

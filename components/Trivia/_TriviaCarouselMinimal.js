@@ -5,7 +5,7 @@ import {connectStyle,Text, Spinner} from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import BigTitle from '../Title/BigTitle';
-import TriviaMinimal from '../Trivia/TriviaMinimal';
+import TriviaMinimal from './TriviaMinimal';
 
 
 

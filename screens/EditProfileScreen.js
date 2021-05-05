@@ -1,10 +1,6 @@
 import React from 'react';
 import Reflux from 'reflux'
-import {
-
-    KeyboardAvoidingView
-
-  } from 'react-native';
+import { KeyboardAvoidingView} from 'react-native';
 
 
 import {connectStyle,Header,Container,Content,Button,Form, Item, Picker,Text,Icon,Toast,Textarea, Input, Spinner} from 'native-base';

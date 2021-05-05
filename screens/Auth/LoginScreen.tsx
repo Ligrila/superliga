@@ -97,6 +97,7 @@ const LoginScreen = () => {
       navigation.navigate('ChampionshipSubscribe', { championship: { id: championshipId } })
       return;
     }
+
     navigation.navigate('Main');
   }
   // Render Footer

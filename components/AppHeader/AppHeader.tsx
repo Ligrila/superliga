@@ -91,7 +91,7 @@ const AppHeader = (props: AppHeaderProps) => {
                     <Image source={menuImg} style={styles.menuImg} resizeMode="contain" />
                 </Button>
                 <View style={styles.notificationBullet}>
-                    <NotificationBullet />
+                    {/* <NotificationBullet /> */}
                 </View>
             </Right>
         </Header>

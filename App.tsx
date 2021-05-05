@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState,  } from "react";
 import { BackHandler } from "react-native";
 // React Native
 import { AppState, Image } from "react-native";
@@ -35,7 +35,8 @@ import { Ionicons } from "@expo/vector-icons";
 import "./helpers/RegisterPushNotification";
 // Recoil
 import {
-  RecoilRoot
+  RecoilRoot,
+  
 } from 'recoil';
 // Store
 import { UsersActions } from "./store/UserStore";
@@ -58,7 +59,7 @@ Notifications.setNotificationHandler({
 const App: React.FC = () => {
   // Api
   const api = new Api();
-  let socket = null;
+  let socket: any = null;
   // States
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
@@ -148,7 +149,6 @@ const App: React.FC = () => {
         require("./assets/images/championship/bg.png"),
         require("./assets/images/result/wrong_bg.png"),
         require("./assets/images/robot-prod.orig.png"),
-        require("./assets/images/sidebar_bg.orig.png"),
         require("./assets/images/trivia-carousel-minimal-next.png"),
         require("./assets/images/purchase-modal.png"),
         require("./assets/images/whistle.png"),
@@ -179,9 +179,7 @@ const App: React.FC = () => {
         require("./assets/images/extraPlayBg.png"),
         require("./assets/images/menu.png"),
         require("./assets/images/whistle2.png"),
-        require("./assets/images/sidebar_bg.png"),
         require("./assets/images/carousel-next.png"),
-        require("./assets/images/app_logo.orig.png"),
         require("./assets/images/home_bg.png"),
         require("./assets/images/logo.png"),
         require("./assets/images/carousel-prev.png"),
@@ -225,59 +223,68 @@ const App: React.FC = () => {
         require("./assets/images/menu/menu_goals.png"),
         require("./assets/images/menu/menu_profile.png"),
         require("./assets/images/menu/menu_settings.png"),
-        require("./assets/images/menu/menu_statistics.png")
-      
-        
+        require("./assets/images/menu/menu_statistics.png"),
+        require("./assets/images/menu/menu_home.png"),
+        // Logo
+        require("./assets/images/app_logo.orig.png"),
+        require("./assets/images/app_logo.png"),
+        // Blue Bg
+        require("./assets/images/bg-blue.png"),
       ]),
       ...serverAssets,
     ]);
 
   }, [Font]);
 
-  const closeSocket = useCallback(()=>{
+  const closeSocket = useCallback(() => {
     console.log("App::closeSocket")
-    if(!socket || !socket.client ){
+    if (!socket || !socket.client) {
       return;
     }
 
-    if(typeof(socket.client.close) == 'function'){
+    if (typeof (socket.client.close) == 'function') {
       console.log("Closing socket...")
       socket.client.close();
     }
 
     socket = null;
-  },[]);
-  const initSocket = useCallback(async ()=>{
+  }, []);
+  const initSocket = useCallback(async () => {
     const token = await AsyncStorage.getItem('token');
-    if(socket){
+    if (socket) {
       closeSocket();
     }
-    if(!token){
+    if (!token) {
       console.log("No token")
       return;
     }
-    const user = JSON.parse(await AsyncStorage.getItem('user'));
+    const userLocalStorage = await AsyncStorage.getItem('user') || '';
+    const user = JSON.parse(userLocalStorage);
 
-    socket = new SocketClient(token,user);
-  },[closeSocket])
+    socket = new SocketClient(token, user);
+  }, [closeSocket])
 
   // Bootstrap Async
   const bootstrapAsync = useCallback(async () => {
-    await loadResourcesAsync();
-    let userToken;
     try {
-      setIsLoadingComplete(true);
+      await loadResourcesAsync();
+      await initSocket();
     } catch (e) {
       console.log(`bootstrapAsync`, e);
-      setIsLoadingComplete(true);
       setIsLoadingError(true);
+    } finally {
+      setIsLoadingComplete(true);
     }
-  }, [loadResourcesAsync]);
+  }, [loadResourcesAsync, initSocket]);
   // Mount
   useEffect(() => {
+    // Init All Async
     bootstrapAsync();
-    initSocket();
-  }, [bootstrapAsync,initSocket]);
+    return () => {
+      // Close Socket When Unmount
+      closeSocket()
+    };
+  }, [bootstrapAsync, closeSocket]);
 
   if (!isLoadingComplete) {
     return <AppLoading />;
@@ -307,7 +314,9 @@ const App: React.FC = () => {
     <Root>
       <StyleProvider style={AppTheme}>
         <RecoilRoot>
-          <Navigation isLoggedIn={false} />
+            <React.Suspense fallback={<Text>Loading...</Text>}>
+              <Navigation isLoggedIn={false} />
+            </React.Suspense>
         </RecoilRoot>
       </StyleProvider>
     </Root>

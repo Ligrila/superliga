@@ -42,9 +42,6 @@ export default class SocketClient{
             console.log("connected")
             this.dispatcher.onConnect(this.isReconnected)
             this.dispatcher.onChatConnect(this.client)
-
-            
-
         })
         
         this.client.on('disconnect',this.dispatcher.onChatDisconnect)

@@ -2,14 +2,12 @@ import { StyleSheet } from 'react-native';
 import ThemeUtility from '../../utilities/Theme/Theme.utility';
 import Layout from '../../constants/Layout';
 import Variables from '../../styles/Variables';
-import { Left } from 'native-base';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: Variables.blue,
+        width: '100%'
+        // backgroundColor: Variables.blue,
     },
     mainContainer: {
         flex: 1,

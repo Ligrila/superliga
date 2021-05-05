@@ -45,8 +45,6 @@ const RegisterScreen = () => {
     }
     const _onSubmit = async () => {
         await trigger();
-        console.log('errors', Object.keys(errors))
-        console.log(getValues());
         if (Object.keys(errors).length === 0) {
             try {
                 setLoading(true);
@@ -158,13 +156,13 @@ const RegisterScreen = () => {
                                         control={control}
                                         render={({ field: { onChange } }) => (
                                             <Input style={styles.input}
-                                                placeholder="Número de teléfono *"
+                                                placeholder="Número de teléfono"
                                                 keyboardType='phone-pad'
                                                 onChangeText={onChange}
                                             />
                                         )}
                                         name="mobile_number"
-                                        rules={{ required: 'El teléfono es requerido' }}
+                                        // rules={{ required: 'El teléfono es requerido' }}
                                         defaultValue="" />
                                 </Item>
                                 {errors && errors.mobile_number && <Text style={globalStyles.textError}>{errors.mobile_number.message}</Text>}

@@ -30,10 +30,8 @@ const itemHorizontalMargin = wp(2);
 const sliderWidth = Layout.window.width;
 const itemWidth = slideWidth;
 
-
-
+// Trivia Carousel
 class TriviaCarousel extends Reflux.Component {
-
    constructor(props){
       super(props);
       this.state = { loading:true,title:'',subtitle:'',activeSlide: 0 };

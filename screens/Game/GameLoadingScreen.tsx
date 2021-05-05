@@ -1,50 +1,70 @@
 
-import React, { useCallback, useEffect } from 'react';
-import Reflux from 'reflux';
-import {
-    ActivityIndicator,
-    StatusBar,
-    StyleSheet,
-    View,
-} from 'react-native';
-
+import React, { useCallback, useState } from 'react';
+import { StyleSheet, } from 'react-native';
 import Api from '../../api/Api';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { Container, Content } from 'native-base';
+// Components
+import Wallpaper from '../../components/Wallpaper/Wallpaper';
+import AppHeader from '../../components/AppHeader/AppHeader';
+import Logo from '../../components/Logo/Logo';
 
-import { NextTriviaStore } from '../../store/NextTriviaStore'
-import { useNavigation } from '@react-navigation/native';
+const homeBg = require('../../assets/images/home_bg.png');
+
 
 const GameLoadingScreen = () => {
     const api = new Api();
     const navigation = useNavigation();
-
+    const useForceUpdate = () => useState()[1];
+    useForceUpdate()
     // Render any loading content that you like here
     const fetchTrivia = useCallback(async () => {
         try {
             let ct = await api.getCurrentTrivia();
+            console.log('fetchTrivia', ct)
             if (ct) {
                 const gameInProgress = ct.success;
-                console.log('gameInProgress')
-                navigation.navigate(gameInProgress ? 'GamePlay' : 'Home');
+                const route = gameInProgress ? 'GamePlay' : 'Home'
+                navigation.navigate(route);
             }
             navigation.navigate('Home');
         } catch (e) {
-            console.log('fetchTrivia', e);
+            console.log('fetchTrivia error', e);
+            navigation.navigate('Home');
         }
-    }, [api])
-    useEffect(() => {
-        fetchTrivia();
     }, [])
+
+    // https://reactnavigation.org/docs/use-focus-effect/
+    /**
+     * Sometimes we want to run side-effects when a screen is focused. 
+     * A side effect may involve things like adding an event listener, 
+     * fetching data, updating document title, etc. 
+     * While this can be achieved using focus and blur events, 
+     * it's not very ergonomic.
+     */
+    useFocusEffect(
+        useCallback(() => {
+            fetchTrivia();
+            return () => { };
+        }, []))
     return (
-        <View style={styles.container}>
-            <ActivityIndicator />
-            <StatusBar barStyle="default" />
-        </View>
+        <Container>
+            {/* <CheckDocument navigation={this.props.navigation} /> */}
+            <Wallpaper source={homeBg}>
+                {/* Header */}
+                <AppHeader />
+                {/* Main Content */}
+                <Content>
+                    {/* Logo */}
+                    <Logo />
+                </Content>
+            </Wallpaper>
+        </Container>
     );
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#000',
+        flex: 1
     }
 });
 

@@ -31,12 +31,18 @@ const shopSrc = require('../../assets/images/home/shop.png');
 
 // Styles
 import styles from './HomeScreen.styles'
+import Logo from '../../components/Logo/Logo';
+// Recoil
+import { useRecoilValue } from 'recoil';
+import { nextTriviaSelector } from '../../recoil/selectors/NextTrivia.selector';
 
 
 const HomeScreen = () => {
     // States 
     const [screenBg, setScreenBg] = useState(bgSrc);
     const [didMount, setDidMount] = useState(false);
+    // Recoil
+    const nextTrivia = useRecoilValue(nextTriviaSelector)
     // Navigation
     const navigation = useNavigation();
     // constructor(props) {
@@ -75,13 +81,9 @@ const HomeScreen = () => {
         setScreenBg(bgSrc)
     }
     const renderNextTrivia = () => {
-        // if (!this.state.NextTrivia.hasData) return <Spinner />;
-        // return (<TriviaCarouselMinimal navigation={this.props.navigation} onItem={this.carouselChange}></TriviaCarouselMinimal>)
-        // return (
-        //     <NextTrivia2 trivia={this.state.NextTrivia.Trivia} />
-        // );
-
-        return null;
+        if (!nextTrivia.hasData) return <Spinner />;
+        return (<TriviaCarouselMinimal 
+                 onItem={carouselChange} />)
     }
     const _showTriviasScreen = () => {
         navigation.navigate('TriviasScreen');
@@ -132,60 +134,16 @@ const HomeScreen = () => {
         <Container>
             {/* <CheckDocument navigation={this.props.navigation} /> */}
             <Wallpaper source={homeBg}>
-                {/* <AppHeader navigation={this.props.navigation} drawerOpen={() => { this.props.navigation.openDrawer() }} /> */}
+                {/* Header */}
+                <AppHeader />
+                {/* Main Content */}
                 <Content>
+                    {/* Logo */}
+                    <Logo />
                     <View style={styles.nextTriviaIconsContainer}>
                         {renderNextTrivia()}
                     </View>
-                    <View style={styles.userStatisticsContainer}>
-                        <View style={styles.userStatisticsItem}>
-                            <Text style={styles.userStatisticsItemValue}>{points}</Text>
-                            <Text style={styles.userStatisticsItemText}>PUNTOS</Text>
-                        </View>
-                        <View style={styles.userStatisticsItem}>
-                            <View style={styles.userStatisticsSeparator}></View>
-                        </View>
-                        <View style={styles.userStatisticsItem}>
-                            <Text style={styles.userStatisticsItemValue}>{ranking}</Text>
-                            {/* <Text style={styles.userStatisticsItemValue}>{this.state.Statistics.ranking}</Text> */}
-                            <Text style={styles.userStatisticsItemText}>RANKING</Text>
-                        </View>
-                        <View style={styles.userStatisticsItem}>
-                            <View style={styles.userStatisticsSeparator}></View>
-                        </View>
-                        <View style={styles.userStatisticsItem}>
-                            <Text style={styles.userStatisticsItemValue}>{lives}</Text>
-                            <Text style={styles.userStatisticsItemText}>VIDAS</Text>
-                        </View>
-                    </View>
-                    <View style={styles.actionsContainer}>
-                        <View style={styles.actionsItem}>
-                            <TouchableOpacity
-                                onPress={goToTutorial}
-                            >
-                                <Image source={helpSrc} style={styles.actionsIcon} />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.actionsItem}>
-                            <TouchableOpacity
-                                onPress={goToPurchase}
-
-                            >
-                                <Image source={shopSrc} style={styles.actionsIcon} />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.actionsItem}>
-                            <TouchableOpacity
-                                onPress={share}
-
-                            >
-                                <Image source={shareSrc} style={styles.actionsIcon} />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-
                 </Content>
-
             </Wallpaper>
         </Container>
     );

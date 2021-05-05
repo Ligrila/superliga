@@ -4,8 +4,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TransitionPresets } from '@react-navigation/stack';
 // Screens
-import HomeScreen from '../screens/HomeScreen';
-import HomeScreen2 from '../screens/HomeScreen2';
+import HomeScreen from '../screens/Home/HomeScreen';
 import GameScreen from '../screens/GameScreen';
 import GameResultScreen from '../screens/GameScreen';
 import GameEndScreen from '../screens/GameEndScreen';
@@ -21,7 +20,7 @@ import GameLoadingScreen from '../screens/Game/GameLoadingScreen';
 const Stack = createStackNavigator();
 
 
-const GamePlayNavigator = () => {
+const GameNavigator = () => {
     return (
         <Stack.Navigator initialRouteName="GamePlay"
             headerMode="none"
@@ -53,19 +52,17 @@ GameResult: GameResultScreen,
 
 
 
-const GameNavigator = () => {
-    return (
-        <Stack.Navigator 
-        initialRouteName="GameLoading"
-            headerMode="none"
-            screenOptions={{gestureEnabled: false}}
-        >
-            <Stack.Screen name="GameLoading" component={GameLoadingScreen} />
-            <Stack.Screen name="HomeOld" component={HomeScreen} />
-            <Stack.Screen name="Home" component={HomeScreen2} />
-            <Stack.Screen name="GamePlay" component={GamePlayNavigator} />
-        </Stack.Navigator>
-    );
-}
+// const GameNavigator = () => {
+//     return (
+//         <Stack.Navigator 
+//         initialRouteName="GameLoading"
+//             headerMode="none"
+//             screenOptions={{gestureEnabled: false}}>
+//             <Stack.Screen name="GameLoading" component={GameLoadingScreen} />
+//             <Stack.Screen name="Home" component={HomeScreen} />
+//             <Stack.Screen name="GamePlay" component={GamePlayNavigator} />
+//         </Stack.Navigator>
+//     );
+// }
 
 export default GameNavigator;

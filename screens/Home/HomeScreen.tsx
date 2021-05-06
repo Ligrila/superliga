@@ -33,8 +33,8 @@ const shopSrc = require('../../assets/images/home/shop.png');
 import styles from './HomeScreen.styles'
 import Logo from '../../components/Logo/Logo';
 // Recoil
-import { useRecoilValue } from 'recoil';
-import { nextTriviaSelector } from '../../recoil/selectors/NextTrivia.selector';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { nextTriviaSelector } from '../../recoil/NextTrivia.recoil';
 
 
 const HomeScreen = () => {
@@ -42,7 +42,7 @@ const HomeScreen = () => {
     const [screenBg, setScreenBg] = useState(bgSrc);
     const [didMount, setDidMount] = useState(false);
     // Recoil
-    const nextTrivia = useRecoilValue(nextTriviaSelector)
+    const nextTrivia = useRecoilValueLoadable(nextTriviaSelector)
     // Navigation
     const navigation = useNavigation();
     // constructor(props) {
@@ -81,9 +81,10 @@ const HomeScreen = () => {
         setScreenBg(bgSrc)
     }
     const renderNextTrivia = () => {
-        if (!nextTrivia.hasData) return <Spinner />;
-        return (<TriviaCarouselMinimal 
-                 onItem={carouselChange} />)
+        if (nextTrivia.state === 'hasValue') {
+            if (!nextTrivia.contents.hasData) return <Spinner />;
+            return (<TriviaCarouselMinimal onItem={carouselChange} />)
+        }
     }
     const _showTriviasScreen = () => {
         navigation.navigate('TriviasScreen');

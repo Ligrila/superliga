@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AuthUtility from '../../utilities/Auth/Auth.utility';
 import { useSetRecoilState } from 'recoil';
-import { authUserAtom, authUserLivesAtom } from '../../recoil/atoms/Auth.atom';
+import { authUserAtom, authUserLivesAtom } from '../../recoil/Auth.recoil';
 
 
 

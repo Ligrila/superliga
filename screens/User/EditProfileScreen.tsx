@@ -28,7 +28,7 @@ import BigTitle from '../../components/Title/BigTitle';
 import ErrorHelp from '../../components/Error/ErrorHelp';
 // Recoil
 import { useRecoilState } from 'recoil';
-import { authUserAtom } from '../../recoil/atoms/Auth.atom';
+import { authUserAtom } from '../../recoil/Auth.recoil';
 // Form
 import { Controller, useForm } from 'react-hook-form';
 // Utilities

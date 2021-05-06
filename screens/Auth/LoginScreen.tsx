@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
-  TouchableOpacity,
+  KeyboardAvoidingView,
   Platform,
   Alert
 } from 'react-native';
+
+
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // Facebook
@@ -37,8 +39,8 @@ import styles from './LoginScreen.styles';
 const bgSrc = require('../../assets/images/login/bg.png');
 // Recoil
 import { useSetRecoilState } from 'recoil';
-import { authUserAtom } from '../../recoil/atoms/Auth.atom';
-import { authUserLivesAtom } from '../../recoil/atoms/Auth.atom';
+import { authUserAtom } from '../../recoil/Auth.recoil';
+import { authUserLivesAtom } from '../../recoil/Auth.recoil';
 // Helpers
 import AuthHelper from '../../helpers/Auth/Auth.helper';
 import AuthUtility from '../../utilities/Auth/Auth.utility';
@@ -242,7 +244,6 @@ const LoginScreen = () => {
               Logueate con tu usuario {"\n"}
                   o crea una cuenta nueva:
             </Text>
-            {/* Form */}
             <Form style={styles.form}>
               <Item style={[styles.item, styles.itemMargin]} >
                 <Input style={styles.input} placeholder="usuario"
@@ -257,6 +258,7 @@ const LoginScreen = () => {
                 />
               </Item>
             </Form>
+            
             <Button rounded block large onPress={_onSubmit} style={styles.submitButton}>
               <Text style={styles.submitButtonText}>Ingresar</Text>
             </Button>

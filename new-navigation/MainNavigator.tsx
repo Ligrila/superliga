@@ -14,6 +14,8 @@ import HomeScreen from '../screens/Home/HomeScreen';
 import ProfileScreen from '../screens/User/ProfileScreen';
 import EditProfileScreen from '../screens/User/EditProfileScreen';
 import CalendarScreen from '../screens/Calendar/CalendarScreen';
+import StatisticsScreen from '../screens/Statistics/StatisticsScreen';
+import AwardsScreen from '../screens/Awards/AwardsScreen';
 
 // Drawer
 const Drawer = createDrawerNavigator();
@@ -34,6 +36,10 @@ const MainNavigator = () => {
             <Drawer.Screen name="EditProfile" component={EditProfileScreen} />
             {/* Fixture */}
             <Drawer.Screen name="Fixture" component={CalendarScreen} />
+            {/* Statistics */}
+            <Drawer.Screen name="Statistics" component={StatisticsScreen} />
+            {/* Awards */}
+            <Drawer.Screen name="Awards" component={AwardsScreen} />
         </Drawer.Navigator>
     );
 }

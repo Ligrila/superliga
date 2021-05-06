@@ -22,7 +22,7 @@ const bgSrc = require("../../assets/images/sidebar-bg.png");
 import styles from './Sidebar.styles';
 // Recoil
 import { useRecoilValue } from "recoil";
-import { authUserAtom } from "../../recoil/atoms/Auth.atom";
+import { authUserAtom } from "../../recoil/Auth.recoil";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 

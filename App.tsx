@@ -47,6 +47,9 @@ import { NavigatorActions } from "./store/NavigatorStore";
 
 import { YellowBox } from "react-native";
 
+
+
+
 // Notifications Configuration
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -313,10 +316,8 @@ const App: React.FC = () => {
   return (
     <Root>
       <StyleProvider style={AppTheme}>
-        <RecoilRoot>
-            <React.Suspense fallback={<Text>Loading...</Text>}>
+        <RecoilRoot>            
               <Navigation isLoggedIn={false} />
-            </React.Suspense>
         </RecoilRoot>
       </StyleProvider>
     </Root>

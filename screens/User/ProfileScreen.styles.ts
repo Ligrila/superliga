@@ -10,16 +10,21 @@ export default StyleSheet.create({
     },
     profileContent:{
         paddingTop: 20,
-        overflow: 'hidden'
+        // overflow: 'hidden'
     },
     profileContainer: {
         paddingTop: ThemeUtility.h(120),
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        flexDirection: 'column', 
     },
-    userTitle: {
+    userTitleContainer:{
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
         marginVertical: ThemeUtility.h(70),
+    },
+    userTitle: { 
         fontSize: ThemeUtility.s(48),
         fontFamily: 'OpenSansCondensed_light',
     },

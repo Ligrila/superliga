@@ -20,7 +20,7 @@ import AuthUtility from '../../utilities/Auth/Auth.utility';
 import AuthHelper from '../../helpers/Auth/Auth.helper';
 // Recpil
 import { useSetRecoilState } from 'recoil';
-import { authUserAtom, authUserLivesAtom } from '../../recoil/atoms/Auth.atom';
+import { authUserAtom, authUserLivesAtom } from '../../recoil/Auth.recoil';
 
 const AuthLoadingScreen = () => {
     // Recoil

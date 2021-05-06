@@ -6,8 +6,8 @@ import BigTitle from '../Title/BigTitle';
 import TriviaMinimal from './TriviaMinimal';
 import AnimatedProgressBar from '../AnimatedProgressBar';
 // Recoil
-import { useRecoilValue } from 'recoil';
-import { homeBannerSelector } from '../../recoil/selectors/HomeBanner.selector'
+import { useRecoilValueLoadable } from 'recoil';
+import { homeBannerSelector } from '../../recoil/HomeBanner.recoil'
 // Styles
 import styles from './TriviaCarouselMinimal.styles';
 import { useNavigation } from '@react-navigation/native';
@@ -42,45 +42,38 @@ function cacheImages(images) {
 
 const TriviaCarouselMinimal = ({ onItem }) => {
     // Recoil
-    const homeBanner = useRecoilValue(homeBannerSelector)
+    const homeBanner = useRecoilValueLoadable(homeBannerSelector)
     // States
     const [title, setTitle] = useState('')
     const [subtitle, setSubtitle] = useState('')
     const [activeSlide, setActiveSlide] = useState(0);
-    const [loading, setLoading] = useState(true);
     const [assetsLoaded, setAssetsLoaded] = useState(true);
     // Carousel
     const _carousel = useRef<Carousel>(null)
     // Navigation
     const navigation = useNavigation();
     // Load Assets
-    const loadAssets = async () => {
-        if (assetsLoaded) {
-            return;
-        }
-        setAssetsLoaded(true)
-        const serverImages = homeBanner.data.map(
-            (item) => {
-                if (item.type == 'banner') {
-                    //       console.log(Image.queryCache(item.banner).then((data)=>console.log(data))
-                    return item.banner
-                }
-                return false
+    const loadAssets = useCallback(async () => {
+        if (homeBanner.state === 'hasValue') {
+            if (assetsLoaded) {
+                return;
             }
-        )
-
-        cacheImages(serverImages)
-    }
-    // Loading Complete
-    const loadingComplete = useCallback(() => {
-        setLoading(false);
-        loadAssets();
-    }, [setLoading, loadAssets])
-    useEffect(() => {
-        if (homeBanner.hasData) {
-            loadingComplete();
+            setAssetsLoaded(true)
+            const serverImages = homeBanner.contents.data.map(
+                (item) => {
+                    if (item.type == 'banner') {
+                        return item.banner
+                    }
+                    return false
+                }
+            )
+            cacheImages(serverImages)
         }
-    }, [homeBanner, loadingComplete])
+    }, [homeBanner])
+
+    useEffect(() => {
+        loadAssets();
+    }, [homeBanner, loadAssets])
 
 
     // On Set Title
@@ -101,31 +94,29 @@ const TriviaCarouselMinimal = ({ onItem }) => {
     }
 
     const pagination = () => {
+        if (homeBanner.state === 'hasValue') {
 
-        if (loading) {
-            return;
+            if (!homeBanner.contents.data) {
+                return;
+            }
+            const maxSlide = homeBanner.contents.data.length;
+            if (maxSlide <= 0) {
+                return;
+            }
+            const value = ((activeSlide + 1) * 100) / maxSlide;
+
+            return (
+                <AnimatedProgressBar
+                    width={Layout.window.width * 0.5}
+                    height={5}
+                    backgroundColor='#fff'
+                    containerBackgroundColor='#50aedf'
+                    maxValue={100}
+                    value={value}
+                />
+            );
         }
-        if (!homeBanner.data) {
-            return;
-        }
-        const maxSlide = homeBanner.data.length;
-        if (maxSlide <= 0) {
-            return;
-        }
-        const value = ((activeSlide + 1) * 100) / maxSlide;
-        /*console.log('value',value);
-        console.log('value',maxSlide);
-        console.log('value',activeSlide);*/
-        return (
-            <AnimatedProgressBar
-                width={Layout.window.width * 0.5}
-                height={5}
-                backgroundColor='#fff'
-                containerBackgroundColor='#50aedf'
-                maxValue={100}
-                value={value}
-            />
-        );
+        return null;
     }
 
     const getNotice = (item) => {
@@ -148,9 +139,6 @@ const TriviaCarouselMinimal = ({ onItem }) => {
         }
     }
     const _renderItem = ({ item, index }) => {
-        if (!homeBanner.hasData) {
-            return;
-        }
         if (item.type == 'banner') {
             return <TouchableOpacity style={styles.banner} onPress={() => onBannerPress(item)} />;
         }
@@ -192,13 +180,11 @@ const TriviaCarouselMinimal = ({ onItem }) => {
 
 
 
-    const renderCarousel = () => {
-
-
+    const renderCarousel = (data) => {
         return (
             <Carousel
                 ref={_carousel}
-                data={homeBanner.data}
+                data={data}
                 renderItem={_renderItem}
                 sliderWidth={sliderWidth}
                 itemWidth={itemWidth}
@@ -212,24 +198,26 @@ const TriviaCarouselMinimal = ({ onItem }) => {
 
 
 
-    if (!homeBanner.hasData) {
+    if (homeBanner.state === 'loading') {
         return <Spinner />;
     }
+    if (homeBanner.state === 'hasValue') {
+        if (homeBanner.contents.data.length == 0) {
+            return (
+                <BigTitle
+                    text='Próximas'
+                    red='trivias'
+                    subtitle={'No hay próximas trivias. Prueba de nuevo más tarde'} />
+            )
+        }
 
-    if (homeBanner.data.length == 0) {
         return (
-            <BigTitle
-                text='Próximas'
-                red='trivias'
-                subtitle={'No hay próximas trivias. Prueba de nuevo más tarde'} />
-        )
+            <View style={styles.container}>
+                {renderCarousel(homeBanner.contents.data)}
+            </View>
+        );
     }
-
-    return (
-        <View style={styles.container}>
-            {renderCarousel()}
-        </View>
-    );
+    return null
 }
 
 export default TriviaCarouselMinimal;

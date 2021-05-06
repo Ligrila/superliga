@@ -1,6 +1,6 @@
 import { selector } from "recoil";
-import Api from '../../api/Api';
-import DateTimeHelper from "../../helpers/DateTimeHelper";
+import Api from '../api/Api';
+import DateTimeHelper from "../helpers/DateTimeHelper";
 
 export const homeBannerSelector = selector({
     key: 'HommeBanner',

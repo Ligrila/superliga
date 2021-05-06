@@ -1,9 +1,9 @@
-import { selector } from "recoil";
-import Api from '../../api/Api';
-import DateTimeHelper from "../../helpers/DateTimeHelper";
+import { atom, selector } from "recoil";
+import Api from '../api/Api';
+import DateTimeHelper from "../helpers/DateTimeHelper";
 
 export const calendarSelector = selector({
-    key: 'Calendar',
+    key: 'CalendarSelector',
     get: async (
         // If need another atom
         // { get }
@@ -17,7 +17,6 @@ export const calendarSelector = selector({
         const api = new Api();
         let response = await api.calendar();
         let data = [] as any;
-        console.log('response', response);
         if (response.success) {
             for (var i = 0; i < response.data.length; i++) {
                 let hasTrivia = false;
@@ -32,8 +31,14 @@ export const calendarSelector = selector({
             }
         }
         calendar.data = data;
-        calendar.hasData= true;
+        calendar.hasData = true;
 
         return calendar;
     }
 });
+
+export const calendarAtom = atom<any>({
+    key: 'CalendarAtom',
+    default: null
+});
+

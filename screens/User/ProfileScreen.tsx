@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 // Native
 import { View, TouchableOpacity, Share } from 'react-native'
 // React Native
@@ -11,7 +11,7 @@ import {
     ActionSheet
 } from 'native-base';
 // Permissions
-import * as Permissions from 'expo-permissions';
+import * as MediaLibrary from 'expo-media-library';
 // Components
 import * as ImagePicker from 'expo-image-picker';
 import Wallpaper from '../../components/Wallpaper/Wallpaper';
@@ -24,20 +24,29 @@ import Api from '../../api/Api';
 // Navigation
 import { useNavigation } from '@react-navigation/native';
 // Recoil
-import { useRecoilValue } from 'recoil';
-import { authUserAtom } from '../../recoil/atoms/Auth.atom';
+import { useRecoilState } from 'recoil';
+import { authUserAtom } from '../../recoil/Auth.recoil';
 // Styles
 import styles from './ProfileScreen.styles'
+import AuthHelper from '../../helpers/Auth/Auth.helper';
 const bgBlueSrc = require('../../assets/images/bg-blue.png');
 const bgSrc = require('../../assets/images/home_bg.png');
 
 const ProfileScreen = (props) => {
+    // State
+    const [image, setImage] = useState<any>(null);
+    const [lives, setLives] = useState('0');
+    const [points, setPoints] = useState('0');
+    const [playedGames, setPlayedGames] = useState('0');
     // Api
     const api = new Api;
+    // Helper
+    const authHelper = new AuthHelper();
     // Nav
     const navigation = useNavigation();
     // Recoil
-    const authUser = useRecoilValue(authUserAtom);
+    const [authUser, setAuthUser] = useRecoilState(authUserAtom);
+    
 
     const closeSession = () => {
         navigation.navigate('Auth', {
@@ -76,25 +85,28 @@ const ProfileScreen = (props) => {
         )
     }
 
-    const _checkPermissions = async () => {
+    const _checkPermissionsCamera = async () => {
+        const  response = await ImagePicker.requestCameraPermissionsAsync();
+        let accept = false;
+        if(response.status.includes('granted')){
+            accept = true;
+        }        
+        return true;
+    }
 
-        return await Promise.all([
-            Permissions.askAsync(Permissions.CAMERA),
-            Permissions.askAsync(Permissions.CAMERA_ROLL),
-        ])
-            .then(r => r.filter(o => o.status === 'granted'))
-            .then(permissions => {
-                if (permissions.length !== 2) {
-                    return false;
-                }
-                return true;
-            });
+    const _checkPermissionLibrary =  async () =>{
+        const  response = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        let accept = false;
+        if(response.status.includes('granted')){
+            accept = true;
+        }        
+        return true;
     }
 
     const _takePhoto = async () => {
 
-        const c = await _checkPermissions();
-        if (!c) {
+        const accept = await _checkPermissionsCamera();
+        if (!accept) {
             return;
         }
         let result = await ImagePicker.launchCameraAsync({
@@ -105,23 +117,30 @@ const ProfileScreen = (props) => {
 
         if (!result.cancelled) {
             // this.setState({ image: result.uri });
-            // const response = await this.api.changeAvatar(result.uri);
-            // if (response.success) {
-            //     let user = authUser;
-            //     user.avatar = result.uri;
-            //     this.setState(user);
-            //     UsersActions.update()
-            // } else {
-            //     Toast.show({
-            //         text: 'No se pudo cambiar tu imagen de perfil. Por favor, intenta nuevamente',
-            //         buttonText: 'Aceptar'
-            //     });
-            // }
+            setImage(result.uri)
+            const response = await api.changeAvatar(result.uri);
+            if (response.success) {
+                const response = await api.getUserInformation();
+                // Fetch User Info
+                const userInfoResp = authHelper.formatAuthUser(response);
+                setAuthUser(userInfoResp);
+
+                Toast.show({
+                    text: 'Se actualizo correctamente tu imagen de perfil',
+                    type: 'success',
+                    buttonText: 'Aceptar'
+                });
+            } else {
+                Toast.show({
+                    text: 'No se pudo cambiar tu imagen de perfil. Por favor, intenta nuevamente',
+                    buttonText: 'Aceptar'
+                });
+            }
         }
     }
     const _pickImage = async () => {
-        const c = await _checkPermissions();
-        if (!c) {
+        const accept = await _checkPermissionLibrary();
+        if (!accept) {
             return;
         }
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -131,40 +150,56 @@ const ProfileScreen = (props) => {
 
 
         if (!result.cancelled) {
-            // this.setState({ image: result.uri });
-            // const response = await this.api.changeAvatar(result.uri);
-            // if (response.success) {
-            //     let user = authUser;
-            //     user.avatar = result.uri;
-            //     this.setState(user);
-            //     UsersActions.update()
-            // } else {
-            //     Toast.show({
-            //         text: 'No se pudo cambiar tu imagen de perfil. Por favor, intenta nuevamente',
-            //         buttonText: 'Aceptar'
-            //     });
-            // }
+            setImage(result.uri)
+            const response = await api.changeAvatar(result.uri);
+            console.log('response', response)
+            if (response.success) {
+                const response = await api.getUserInformation();
+                // Fetch User Info
+                const userInfoResp = authHelper.formatAuthUser(response);
+                setAuthUser(userInfoResp);
+
+                Toast.show({
+                    text: 'Se actualizo correctamente tu imagen de perfil',
+                    type: 'success',
+                    buttonText: 'Aceptar'
+                });
+            } else {
+                Toast.show({
+                    text: 'No se pudo cambiar tu imagen de perfil. Por favor, intenta nuevamente',
+                    buttonText: 'Aceptar'
+                });
+            }
         }
     }
     if (!authUser) {
         return <View />;
     }
 
-    let lives = '0';
-    let points = 0;
-    let playedGames = 0;
-    if (authUser.life) {
-        lives = authUser.life.lives;
-    }
-    if (authUser.infinite_lives && authUser.infinite_lives[0]) {
-        lives = '∞';
-    }
-    if (authUser.point) {
-        points = authUser.point.points;
-    }
-    if (authUser.played_game) {
-        playedGames = authUser.played_game.count;
-    }
+    const fetchData = useCallback(() => {
+        setImage(authUser.avatar)
+
+        if (authUser.life) {
+            setLives(`${authUser.life.lives}`);
+        }
+        if (authUser.infinite_lives && authUser.infinite_lives[0]) {
+            setLives('∞');
+        }
+        if (authUser.point) {
+            setPoints(`${authUser.point.points}`);
+        }
+        if (authUser.played_game) {
+            setPlayedGames(`${authUser.played_game.count}`);
+        }
+
+    }, [authUser]);
+
+    useEffect(() => {
+        if (authUser) {
+            fetchData();
+        }
+    }, [authUser, fetchData])
+
 
     return (
         <Container >
@@ -175,52 +210,53 @@ const ProfileScreen = (props) => {
                         <BigTitle text="MI PERFIL"></BigTitle>
                     </View>
                     <Wallpaper source={bgBlueSrc} styles={styles.profileWallpaper}>
-                        <Content style={styles.profileContent} >
-                            <View style={styles.profileContainer}>
-                                <UserAvatar avatar={authUser.avatar} borderColor="#fff" />
-                                <Text style={styles.userTitle}>
-                                    {(authUser.first_name + " " + authUser.last_name).toUpperCase()}
-                                    <Text style={styles.text}>{"\n"}{authUser.email}</Text>
-                                </Text>
-                                {/* User Information */}
-                                <View style={styles.textInformation}>
-                                    <View style={styles.textInformationLine}>
-                                        <Text style={styles.bold}>Puntos: </Text>
-                                        <Text style={styles.text}>{points} puntos</Text>
+                        {authUser &&
+                            <Content style={styles.profileContent} >
+                                <View style={styles.profileContainer}>
+                                    {image && <UserAvatar avatar={image} borderColor="#fff" />}
+                                    <View style={styles.userTitleContainer}>
+                                        <Text style={styles.userTitle}>{(authUser.first_name + " " + authUser.last_name).toUpperCase()}</Text>
+                                        <Text style={styles.text}>{authUser.email}</Text>
                                     </View>
-                                    <View style={styles.textInformationLine}>
-                                        <Text style={styles.bold}>Vidas disponibles: </Text>
-                                        <Text style={styles.text}>{lives}</Text>
+                                    {/* User Information */}
+                                    <View style={styles.textInformation}>
+                                        <View style={styles.textInformationLine}>
+                                            <Text style={styles.bold}>Puntos: </Text>
+                                            <Text style={styles.text}>{points} puntos</Text>
+                                        </View>
+                                        <View style={styles.textInformationLine}>
+                                            <Text style={styles.bold}>Vidas disponibles: </Text>
+                                            <Text style={styles.text}>{lives}</Text>
+                                        </View>
+                                        <View style={styles.textInformationLine}>
+                                            <Text style={styles.bold}>Partidos jugados: </Text>
+                                            <Text style={styles.text}>{playedGames}</Text>
+                                        </View>
                                     </View>
-                                    <View style={styles.textInformationLine}>
-                                        <Text style={styles.bold}>Partidos jugados: </Text>
-                                        <Text style={styles.text}>{playedGames}</Text>
-                                    </View>
-                                </View>
-                                {/* Change Profile Image */}
-                                <TouchableOpacity onPress={_actionSheet} style={styles.changeAvatarButton}>
-                                    <Text style={styles.changeAvatarButtonText}> editar imagen de perfil</Text>
-                                </TouchableOpacity>
+                                    {/* Change Profile Image */}
+                                    <TouchableOpacity onPress={_actionSheet} style={styles.changeAvatarButton}>
+                                        <Text style={styles.changeAvatarButtonText}> editar imagen de perfil</Text>
+                                    </TouchableOpacity>
 
-                                <View style={styles.buttonsContainer}>
-                                    <Button transparent onPress={share}>
-                                        <Text style={styles.changeAvatarButtonText}>Invitar</Text>
-                                        <AntDesign name="sharealt" size={24} color="white" />
-                                    </Button>
-                                    <Button transparent onPress={edit}>
-                                        <Text style={styles.changeAvatarButtonText}>Editar</Text>
-                                        <AntDesign name="edit" size={24} color="white" />
-                                    </Button>
-                                    <Button transparent onPress={closeSession}>
-                                        <Text style={styles.changeAvatarButtonText}>Salir</Text>
-                                        <SimpleLineIcons name="logout" size={24} color="white" />
-                                    </Button>
+                                    <View style={styles.buttonsContainer}>
+                                        <Button transparent onPress={share}>
+                                            <Text style={styles.changeAvatarButtonText}>Invitar</Text>
+                                            <AntDesign name="sharealt" size={24} color="white" />
+                                        </Button>
+                                        <Button transparent onPress={edit}>
+                                            <Text style={styles.changeAvatarButtonText}>Editar</Text>
+                                            <AntDesign name="edit" size={24} color="white" />
+                                        </Button>
+                                        <Button transparent onPress={closeSession}>
+                                            <Text style={styles.changeAvatarButtonText}>Salir</Text>
+                                            <SimpleLineIcons name="logout" size={24} color="white" />
+                                        </Button>
+                                    </View>
                                 </View>
-                            </View>
-                        </Content>
+                            </Content>}
                     </Wallpaper>
                 </View>
-            
+
             </Wallpaper>
         </Container>
     );

@@ -6,7 +6,7 @@ import ThemeUtility from '../../utilities/Theme/Theme.utility';
 export default StyleSheet.create({
 
     login: {
-        flex: 1,
+        // flex: 1,
         minHeight: '100%',
         alignItems: 'center', // horizontal
         justifyContent: 'center',

@@ -12,6 +12,7 @@ export default StyleSheet.create({
     mainContainer: {
         flex: 1,
         width: '100%',
+        paddingTop : Layout.isAndroid ? 50 : 0
     },
     text: {
         color: "#fff",

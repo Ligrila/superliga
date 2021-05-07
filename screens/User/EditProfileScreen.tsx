@@ -55,7 +55,7 @@ const EditProfileScreen = () => {
         console.log('authUser.document', authUser.document)
         setValue('first_name', authUser.first_name)
         setValue('last_name', authUser.last_name)
-        setValue('document', `${authUser.document}`, { shouldValidate: true})
+        setValue('document', `${authUser.document}`, { shouldValidate: true })
         setValue('mobile_number', authUser.mobile_number)
     }, [authUser])
     useEffect(() => {
@@ -133,13 +133,15 @@ const EditProfileScreen = () => {
             <Wallpaper source={bgSrc}>
                 <AppHeader />
                 <View style={{ flex: 1 }}>
-                    <View style={styles.bigTitle}>
-                        <BigTitle text={'Editar Perfil'}></BigTitle>
-                    </View>
+
                     <Wallpaper source={bgBlueSrc} styles={styles.profileWallpaper}>
                         <Content contentContainerStyle={styles.content}>
-                            <KeyboardAvoidingView style={styles.container}
-                                behavior={Layout.isAndroid ? undefined : 'padding'}>
+                            <View style={styles.bigTitle}>
+                                <BigTitle 
+                                hiddeSeparator={true}
+                                text={'Editar Perfil'}></BigTitle>
+                            </View>
+                            <KeyboardAvoidingView style={styles.container} >
                                 <Form style={styles.form}>
                                     {/* first_name */}
                                     <View style={styles.itemContainer}>
@@ -187,8 +189,8 @@ const EditProfileScreen = () => {
                                         <Item style={styles.item}>
                                             <Controller
                                                 control={control}
-                                                render={({ field: { onChange , value} }) => (
-                                                    <Input style={styles.input} 
+                                                render={({ field: { onChange, value } }) => (
+                                                    <Input style={styles.input}
                                                         placeholder="Documento de identidad"
                                                         onChangeText={onChange}
                                                         placeholderTextColor='#fff'
@@ -218,7 +220,7 @@ const EditProfileScreen = () => {
                                         <Item style={styles.item}>
                                             <Controller
                                                 control={control}
-                                                render={({ field: { onChange,value } }) => (
+                                                render={({ field: { onChange, value } }) => (
                                                     <Input style={styles.input} placeholder="Teléfono"
                                                         placeholderTextColor='#fff'
                                                         keyboardType='phone-pad'

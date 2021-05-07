@@ -14,7 +14,7 @@ export default StyleSheet.create({
     },
     profileContainer: {
         paddingTop: ThemeUtility.h(120),
-        flex: 1,
+        // flex: 1,
         alignItems: 'center',
         flexDirection: 'column', 
     },
@@ -33,13 +33,6 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
 
-    },
-
-    profile: {
-        flex: 1,
-        marginTop: ThemeUtility.h(10),
-        backgroundColor: 'red',
-        paddingVertical: 0
     },
     profileWallpaper: {
         flex: 1,

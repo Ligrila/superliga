@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState,  } from "react";
-import { BackHandler } from "react-native";
+import { BackHandler, StatusBar } from "react-native";
 // React Native
 import { AppState, Image } from "react-native";
 // Async Storage
@@ -316,7 +316,8 @@ const App: React.FC = () => {
   return (
     <Root>
       <StyleProvider style={AppTheme}>
-        <RecoilRoot>            
+        <RecoilRoot>   
+            <StatusBar hidden={true} />         
               <Navigation isLoggedIn={false} />
         </RecoilRoot>
       </StyleProvider>

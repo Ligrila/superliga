@@ -37,6 +37,7 @@ export default StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
         marginLeft: 15,
+        marginRight: 15,
     },
     item: {
         width: '100%',
@@ -44,7 +45,8 @@ export default StyleSheet.create({
         marginLeft: 0
     },    
     itemMargin: {
-        marginBottom: 15
+        marginBottom: 15,
+        
     },
     input: {
         fontSize: ThemeUtility.s(40),

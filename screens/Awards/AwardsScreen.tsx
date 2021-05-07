@@ -14,8 +14,7 @@ const AwardsScreen = ()  => {
     return (
       <Container>
         <Wallpaper source={bgSrc}>
-        <AppHeader  />
-        <BigTitle text={'CANJE DE  \n PREMIOS'} />
+        <AppHeader  /> 
         
           <Awards />
         

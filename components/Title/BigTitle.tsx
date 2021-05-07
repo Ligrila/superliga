@@ -7,7 +7,8 @@ import { Text } from 'native-base'
 interface BigTitleProps {
   text: string,
   subtitle?: string,
-  red?: string
+  red?: string,
+  hiddeSeparator?: boolean
 }
 
 const BigTitle = (props: BigTitleProps) => {
@@ -16,7 +17,7 @@ const BigTitle = (props: BigTitleProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.separator}></View>
+      {props.hiddeSeparator ? null : <View style={styles.separator}></View>}
       <Text style={styles.title}> {text} { red && <Text style={styles.red}>{red}</Text>}</Text>
       {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
     </View>

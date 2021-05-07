@@ -53,8 +53,8 @@ const menuItems = [
     image: require('../../assets/images/menu/menu_awards.png')
   },
   {
-    text: 'METAS',
-    route: 'Goals',
+    text: 'RANKING',
+    route: 'Ranking',
     image: require('../../assets/images/menu/menu_goals.png')
   },
   {

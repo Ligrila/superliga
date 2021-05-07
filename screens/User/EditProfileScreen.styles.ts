@@ -10,27 +10,24 @@ export default StyleSheet.create({
 
     bigTitle: {
         position: 'relative',
-        zIndex: 100,
-        marginBottom: ThemeUtility.h(-120)
+        marginTop:40
     },
     
     profileWallpaper: {
-        flex: 1,
         position: 'relative',
     },
     content:{
-        flex:1,
+    
         alignItems:'center',
         justifyContent: 'flex-start'
     },
     container:{
-        flex:1,
         alignItems:'center',
         justifyContent: 'center',
         width: '80%'
     },
     form:{
-        width:'100%',                    
+        marginBottom: 40            
     },
     
     itemContainer: {
@@ -38,6 +35,7 @@ export default StyleSheet.create({
         marginTop: Layout.h(20),    
         marginBottom: 5,
         marginLeft: 15,
+        marginRight: 15
     },
     item:{
         width: '100%',

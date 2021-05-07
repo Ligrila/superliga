@@ -122,7 +122,7 @@ export default {
 
   //Date Picker
   datePickerTextColor: "#000",
-  datePickerBg: "transparent",
+  datePickerBg: "#fff",
 
   // Font
   DefaultFontSize: 16,

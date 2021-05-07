@@ -4,10 +4,12 @@ import Wallpaper from '../../components/Wallpaper';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import Calendar from '../../components/Calendar/Calendar';
 import BigTitle from '../../components/Title/BigTitle';
-import RefreshControl from '../../components/Refresh/RefreshControl';
+
 // Recoil
 import { useRecoilCallback, useRecoilState } from 'recoil';
 import { calendarSelector, calendarAtom } from '../../recoil/Calendar.recoil';
+import { RefreshControl } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 // Bg
 const bgSrc = require('../../assets/images/home_bg.png');
@@ -30,21 +32,33 @@ const CalendarScreen = () => {
         updateCalendar();
     }
     // Update Ever
-    useEffect(() =>{
+    useEffect(() => {
         updateCalendar()
-    },[]) 
+    }, [])
     return (
         <Container>
             <Wallpaper source={bgSrc}>
                 <AppHeader />
-                <BigTitle text={`FIXTURE\nSUPERLIGA`} />
-                <Content padder
+                <Content
+                    contentContainerStyle={{ paddingTop: 0, flex: 1 }}
+                    padder
                     refreshControl={
-                        <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
+                        <RefreshControl
+                            style={{ backgroundColor: '#transparent' }}
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            tintColor="#fff" // Ios
+                            colors={['#282828', '#fff']} //android
+                            title={''}
+                            progressBackgroundColor="#fff"
+                        />
                     }
                 >
-                    {calendar &&
-                        <Calendar calendar={calendar.data} />}
+                    <BigTitle text={`FIXTURE\nSUPERLIGA`} />
+                    <ScrollView>
+                        {calendar &&
+                            <Calendar calendar={calendar.data} />}
+                    </ScrollView>
                 </Content>
             </Wallpaper>
         </Container>

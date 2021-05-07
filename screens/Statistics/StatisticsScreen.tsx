@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { RefreshControl, View } from 'react-native';
 import { Container, Content, Spinner } from 'native-base'
 import Wallpaper from '../../components/Wallpaper';
 import StatisticItem from '../../components/StatisticItem/StatisticItem';
@@ -10,8 +10,9 @@ import BigTitle from '../../components/Title/BigTitle';
 import styles from './SatisticsScreen.styles'
 import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 import { statisticsAtom, statisticsSelector } from '../../recoil/Statistics.recoil';
-import { useFocusEffect } from '@react-navigation/native';
-import RefreshControl from '../../components/Refresh/RefreshControl';
+
+
+
 
 // Bg
 const bgSrc = require('../../assets/images/home_bg.png');
@@ -39,17 +40,24 @@ const StatisticsScreen = () => {
     //         return () => { };
     //     }, []))
     return (
-        <Container>
+        <Container >
             <Wallpaper source={bgSrc}>
                 <AppHeader />
-                <BigTitle text={"ESTADISTICAS\nDE JUEGO"}></BigTitle>
                 <Content
-                    refreshing={refreshing}
                     refreshControl={
-                        <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
+                        <RefreshControl
+                            style={{ backgroundColor: '#transparent' }}
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            tintColor="#fff" // Ios
+                            colors={['#282828', '#fff']} //android
+                            title={''}
+                            progressBackgroundColor="#fff"
+                        />
                     }
                     padder
                     contentContainerStyle={styles.statistics}>
+                    <BigTitle text={"ESTADISTICAS\nDE JUEGO"}></BigTitle>
                     {statistics &&
                         <View style={styles.container}>
                             <View style={styles.rowContainer}>

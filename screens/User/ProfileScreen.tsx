@@ -46,7 +46,7 @@ const ProfileScreen = (props) => {
     const navigation = useNavigation();
     // Recoil
     const [authUser, setAuthUser] = useRecoilState(authUserAtom);
-    
+
 
     const closeSession = () => {
         navigation.navigate('Auth', {
@@ -86,20 +86,20 @@ const ProfileScreen = (props) => {
     }
 
     const _checkPermissionsCamera = async () => {
-        const  response = await ImagePicker.requestCameraPermissionsAsync();
+        const response = await ImagePicker.requestCameraPermissionsAsync();
         let accept = false;
-        if(response.status.includes('granted')){
+        if (response.status.includes('granted')) {
             accept = true;
-        }        
+        }
         return true;
     }
 
-    const _checkPermissionLibrary =  async () =>{
-        const  response = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const _checkPermissionLibrary = async () => {
+        const response = await ImagePicker.requestMediaLibraryPermissionsAsync();
         let accept = false;
-        if(response.status.includes('granted')){
+        if (response.status.includes('granted')) {
             accept = true;
-        }        
+        }
         return true;
     }
 
@@ -205,60 +205,60 @@ const ProfileScreen = (props) => {
         <Container >
             <Wallpaper source={bgSrc} >
                 <AppHeader />
-                <View style={{ flex: 1 }}>
-                    <View style={styles.bigTitle}>
-                        <BigTitle text="MI PERFIL"></BigTitle>
-                    </View>
-                    <Wallpaper source={bgBlueSrc} styles={styles.profileWallpaper}>
-                        {authUser &&
-                            <Content style={styles.profileContent} >
-                                <View style={styles.profileContainer}>
-                                    {image && <UserAvatar avatar={image} borderColor="#fff" />}
-                                    <View style={styles.userTitleContainer}>
-                                        <Text style={styles.userTitle}>{(authUser.first_name + " " + authUser.last_name).toUpperCase()}</Text>
-                                        <Text style={styles.text}>{authUser.email}</Text>
-                                    </View>
-                                    {/* User Information */}
-                                    <View style={styles.textInformation}>
-                                        <View style={styles.textInformationLine}>
-                                            <Text style={styles.bold}>Puntos: </Text>
-                                            <Text style={styles.text}>{points} puntos</Text>
-                                        </View>
-                                        <View style={styles.textInformationLine}>
-                                            <Text style={styles.bold}>Vidas disponibles: </Text>
-                                            <Text style={styles.text}>{lives}</Text>
-                                        </View>
-                                        <View style={styles.textInformationLine}>
-                                            <Text style={styles.bold}>Partidos jugados: </Text>
-                                            <Text style={styles.text}>{playedGames}</Text>
-                                        </View>
-                                    </View>
-                                    {/* Change Profile Image */}
-                                    <TouchableOpacity onPress={_actionSheet} style={styles.changeAvatarButton}>
-                                        <Text style={styles.changeAvatarButtonText}> editar imagen de perfil</Text>
-                                    </TouchableOpacity>
 
-                                    <View style={styles.buttonsContainer}>
-                                        <Button transparent onPress={share}>
-                                            <Text style={styles.changeAvatarButtonText}>Invitar</Text>
-                                            <AntDesign name="sharealt" size={24} color="white" />
-                                        </Button>
-                                        <Button transparent onPress={edit}>
-                                            <Text style={styles.changeAvatarButtonText}>Editar</Text>
-                                            <AntDesign name="edit" size={24} color="white" />
-                                        </Button>
-                                        <Button transparent onPress={closeSession}>
-                                            <Text style={styles.changeAvatarButtonText}>Salir</Text>
-                                            <SimpleLineIcons name="logout" size={24} color="white" />
-                                        </Button>
+                <View style={styles.bigTitle}>
+                    <BigTitle text="MI PERFIL"></BigTitle>
+                </View>
+                <Wallpaper source={bgBlueSrc} styles={styles.profileWallpaper}>
+                    {authUser &&
+                        <Content style={styles.profileContent} >
+                            <View style={styles.profileContainer}>
+                                {image && 
+                                <UserAvatar avatar={image} borderColor="#fff" />}
+                                <View style={styles.userTitleContainer}>
+                                    <Text style={styles.userTitle}>{(authUser.first_name + " " + authUser.last_name).toUpperCase()}</Text>
+                                    <Text style={styles.text}>{authUser.email}</Text>
+                                </View>
+                                {/* User Information */}
+                                <View style={styles.textInformation}>
+                                    <View style={styles.textInformationLine}>
+                                        <Text style={styles.bold}>Puntos: </Text>
+                                        <Text style={styles.text}>{points} puntos</Text>
+                                    </View>
+                                    <View style={styles.textInformationLine}>
+                                        <Text style={styles.bold}>Vidas disponibles: </Text>
+                                        <Text style={styles.text}>{lives}</Text>
+                                    </View>
+                                    <View style={styles.textInformationLine}>
+                                        <Text style={styles.bold}>Partidos jugados: </Text>
+                                        <Text style={styles.text}>{playedGames}</Text>
                                     </View>
                                 </View>
-                            </Content>}
-                    </Wallpaper>
-                </View>
+                                {/* Change Profile Image */}
+                                <TouchableOpacity onPress={_actionSheet} style={styles.changeAvatarButton}>
+                                    <Text style={styles.changeAvatarButtonText}> editar imagen de perfil</Text>
+                                </TouchableOpacity>
+
+                                <View style={styles.buttonsContainer}>
+                                    <Button transparent onPress={share}>
+                                        <Text style={styles.changeAvatarButtonText}>Invitar</Text>
+                                        <AntDesign name="sharealt" size={24} color="white" />
+                                    </Button>
+                                    <Button transparent onPress={edit}>
+                                        <Text style={styles.changeAvatarButtonText}>Editar</Text>
+                                        <AntDesign name="edit" size={24} color="white" />
+                                    </Button>
+                                    <Button transparent onPress={closeSession}>
+                                        <Text style={styles.changeAvatarButtonText}>Salir</Text>
+                                        <SimpleLineIcons name="logout" size={24} color="white" />
+                                    </Button>
+                                </View>
+                            </View>
+                        </Content>}
+                </Wallpaper>
 
             </Wallpaper>
-        </Container>
+        </Container >
     );
 }
 

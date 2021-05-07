@@ -136,11 +136,12 @@ const HomeScreen = () => {
             {/* <CheckDocument navigation={this.props.navigation} /> */}
             <Wallpaper source={homeBg}>
                 {/* Header */}
-                <AppHeader />
+                <AppHeader />                
+                {/* Logo */}
+                <Logo />
                 {/* Main Content */}
                 <Content>
-                    {/* Logo */}
-                    <Logo />
+
                     <View style={styles.nextTriviaIconsContainer}>
                         {renderNextTrivia()}
                     </View>

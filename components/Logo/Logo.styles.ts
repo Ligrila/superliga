@@ -3,7 +3,6 @@ import ThemeUtility  from '../../utilities/Theme/Theme.utility'
 import Layout  from '../../constants/Layout'
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
         justifyContent: 'center',
         flexDirection: 'row'
     },
@@ -16,6 +15,7 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         resizeMode: 'contain'
+        
     },
     
   });

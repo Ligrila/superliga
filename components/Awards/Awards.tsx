@@ -1,17 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Image, Alert } from 'react-native';
+import { View, Image, Alert, RefreshControl } from 'react-native';
 import { Text, Button, Toast, Spinner, Content } from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Layout from '../../constants/Layout';
 import Api from '../../api/Api';
-import { useRecoilCallback, useRecoilState, useRecoilValueLoadable } from 'recoil';
+// Recoil
+import { useRecoilCallback, useRecoilState } from 'recoil';
 import { authUserAtom } from '../../recoil/Auth.recoil';
 import { awardsAtom, awardsSelector } from '../../recoil/Awards.recoil'
+// Helpers
+import AuthHelper from '../../helpers/Auth/Auth.helper';
 // Style
 import styles from './Awards.styles'
-    ;
-import AuthHelper from '../../helpers/Auth/Auth.helper';
-import RefreshControl from '../Refresh/RefreshControl';
+import BigTitle from '../Title/BigTitle';
+
+
 
 function wp(percentage) {
     const value = (percentage * Layout.window.width) / 100;
@@ -155,9 +158,18 @@ const Awards = () => {
     return (
         <Content
             refreshControl={
-                <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
+                <RefreshControl
+                    style={{ backgroundColor: '#transparent' }}
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                    tintColor="#fff" // Ios
+                    colors={['#282828', '#fff']} //android
+                    title={''}
+                    progressBackgroundColor="#fff"
+                />
             }
         >
+            <BigTitle text={'CANJE DE  \n PREMIOS'} />
             <View style={styles.container}>
                 {awards &&
                     <>

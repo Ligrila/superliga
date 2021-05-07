@@ -4,13 +4,13 @@ import ThemeUtility from '../../utilities/Theme/Theme.utility';
 export default StyleSheet.create({
 
     statistics: {
-        flex: 1,
+        paddingVertical: 0
     },
     container: {
-        flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingVertical: 40
     },
     rowContainer: {
         flexDirection: 'row',

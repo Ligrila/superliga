@@ -16,6 +16,7 @@ import EditProfileScreen from '../screens/User/EditProfileScreen';
 import CalendarScreen from '../screens/Calendar/CalendarScreen';
 import StatisticsScreen from '../screens/Statistics/StatisticsScreen';
 import AwardsScreen from '../screens/Awards/AwardsScreen';
+import RankingScreen from '../screens/Ranking/RankingScreen';
 
 // Drawer
 const Drawer = createDrawerNavigator();
@@ -40,6 +41,8 @@ const MainNavigator = () => {
             <Drawer.Screen name="Statistics" component={StatisticsScreen} />
             {/* Awards */}
             <Drawer.Screen name="Awards" component={AwardsScreen} />
+            {/* Ranking */}
+            <Drawer.Screen name="Ranking" component={RankingScreen} />
         </Drawer.Navigator>
     );
 }

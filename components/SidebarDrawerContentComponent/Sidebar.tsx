@@ -59,7 +59,7 @@ const menuItems = [
   },
   {
     text: 'COMPRAR',
-    route: 'Buy',
+    route: 'Purchase',
     image: require('../../assets/images/menu/menu_buys.png')
   },
   {

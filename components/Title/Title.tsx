@@ -4,12 +4,16 @@ import { View } from 'react-native'
 import { Text } from 'native-base'
 
 import styles from './Title.styles';
+interface TitleProps {
+    text: string,
+    hiddeSeparator?: boolean
+}
 
-const Title = ({ text }) => {
+const Title = ({ text, hiddeSeparator }: TitleProps) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.separator}></View>
+            {hiddeSeparator ? null : <View style={styles.separator}></View>}
             <Text style={styles.title}> {text}</Text>
         </View>
     )

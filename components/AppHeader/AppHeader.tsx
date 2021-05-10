@@ -1,7 +1,7 @@
 import React from "react";
 import {
     View,
-    Image,    
+    Image,
 } from "react-native";
 // Native Base
 import {
@@ -31,18 +31,19 @@ const menuImg = require('../../assets/images/menu.png');
 interface AppHeaderProps {
     hideChat?: boolean;
     game?: boolean;
+    return?: React.ReactNode;
 }
 
 const AppHeader = (props: AppHeaderProps) => {
     const navigation = useNavigation();
     const renderLeft = () => {
-        // if(this.props.game){
-        //     return (<UserInfo />);    
-        // }
-        // if(this.props.return){
-        //     return this.props.return;
-        // }
-        //return (<Image source={superligaImg} style={styles.superligaImg} resizeMode="contain" />);
+        if (props.game) {
+            return (<UserInfo />);
+        }
+        if (props.return) {
+            return props.return;
+        }
+        // return (<Image source={superligaImg} style={styles.superligaImg} resizeMode="contain" />);
         return null;
     }
     const openMainDrawer = () => {
@@ -83,7 +84,7 @@ const AppHeader = (props: AppHeaderProps) => {
                 {renderLeft()}
             </Left>
             <Body style={styles.body}>
-                
+
             </Body>
             <Right style={styles.right}>
                 {/* {renderChatButton()} */}

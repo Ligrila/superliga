@@ -83,6 +83,9 @@ export default StyleSheet.create({
     pagination:{
         marginTop:ThemeUtility.h(80),
         alignItems: 'center',
+    },
+    noTriviaContent:{
+        paddingHorizontal: 20
     }
     
 

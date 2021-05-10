@@ -53,6 +53,11 @@ const menuItems = [
     image: require('../../assets/images/menu/menu_awards.png')
   },
   {
+    text: 'TORNEO AMIGOS',
+    route: 'ChampionshipStack',
+    image: require('../../assets/images/menu/menu_awards.png')
+  },
+  {
     text: 'RANKING',
     route: 'Ranking',
     image: require('../../assets/images/menu/menu_goals.png')

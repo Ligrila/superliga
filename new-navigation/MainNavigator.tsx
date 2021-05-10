@@ -18,6 +18,7 @@ import StatisticsScreen from '../screens/Statistics/StatisticsScreen';
 import AwardsScreen from '../screens/Awards/AwardsScreen';
 import RankingScreen from '../screens/Ranking/RankingScreen';
 import PurchaseScreen from '../screens/Purchase/PurchaseScreen';
+import ChampionshipNavigator from './ChampionshipNavigator';
 
 // Drawer
 const Drawer = createDrawerNavigator();
@@ -28,8 +29,7 @@ const MainNavigator = () => {
             drawerPosition={'left'}
             drawerContent={(props) => <Sidebar {...props} />}
             initialRouteName="GameLoading"
-            drawerStyle={{ width: Layout.window.width - 70 }} 
-        >
+            drawerStyle={{ width: Layout.window.width - 70 }} >
             <Drawer.Screen name="GameLoading" component={GameLoadingScreen} />
             <Drawer.Screen name="GamePlay" component={GameNavigator} />
             <Drawer.Screen name="Home" component={HomeScreen} />
@@ -46,6 +46,8 @@ const MainNavigator = () => {
             <Drawer.Screen name="Ranking" component={RankingScreen} />
             {/* Purchase */}
             <Drawer.Screen name="Purchase" component={PurchaseScreen} />
+            {/* Championship */}
+            <Drawer.Screen name="ChampionshipStack" component={ChampionshipNavigator} />
             
         </Drawer.Navigator>
     );

@@ -204,10 +204,14 @@ const TriviaCarouselMinimal = ({ onItem }) => {
     if (homeBanner.state === 'hasValue') {
         if (homeBanner.contents.data.length == 0) {
             return (
-                <BigTitle
-                    text='Próximas'
-                    red='trivias'
-                    subtitle={'No hay próximas trivias. Prueba de nuevo más tarde'} />
+                <View style={styles.noTriviaContent}>
+                    <BigTitle
+                        hiddeSeparator={true}
+                        titleBold={true}
+                        text='Próximas'
+                        red='trivias'
+                        subtitle={'No hay próximas trivias.\nPrueba de nuevo más tarde'} />
+                </View>
             )
         }
 

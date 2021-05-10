@@ -17,6 +17,10 @@ export default StyleSheet.create({
         fontSize: ThemeUtility.s(80),
         marginBottom:0,
     },
+    bigTitleBold:{
+        fontFamily: 'OpenSansCondensed_bold',
+        fontSize: ThemeUtility.s(80),
+    },
     red:{
         color: '#fe6c61',
         textAlign: 'center',
@@ -27,7 +31,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'OpenSansCondensed_bold',
         fontSize: ThemeUtility.s(40),
-        marginTop:-8,
+        marginTop:8,
     },
     separator: {
         backgroundColor: 'white',

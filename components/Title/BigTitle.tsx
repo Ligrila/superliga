@@ -8,17 +8,18 @@ interface BigTitleProps {
   text: string,
   subtitle?: string,
   red?: string,
-  hiddeSeparator?: boolean
+  hiddeSeparator?: boolean,
+  titleBold?: boolean
 }
 
 const BigTitle = (props: BigTitleProps) => {
 
-  const { text, subtitle, red } = props;
+  const { text, subtitle, red, titleBold} = props;
 
   return (
     <View style={styles.container}>
       {props.hiddeSeparator ? null : <View style={styles.separator}></View>}
-      <Text style={styles.title}> {text} { red && <Text style={styles.red}>{red}</Text>}</Text>
+      <Text style={[styles.title, titleBold ? styles.bigTitleBold : null ]}> {text} { red && <Text style={styles.red}>{red}</Text>}</Text>
       {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
     </View>
   )

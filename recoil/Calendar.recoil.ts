@@ -6,8 +6,9 @@ export const calendarSelector = selector({
     key: 'CalendarSelector',
     get: async (
         // If need another atom
-        // { get }
+         { get }
     ) => {
+        get(calendarAtom)
         // Response
         const calendar = {
             hasData: true,

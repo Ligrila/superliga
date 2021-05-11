@@ -22,7 +22,7 @@ const CalendarItem = ({ item }) => {
             {trivia.local_team.name}{`\nvs. `}{trivia.visit_team.name}
           </Text>
           <Moment style={styles.dateText} element={Text} format="D [de] MMMM" date={trivia.start_datetime_local} />
-          <Moment style={styles.dateText} element={Text} format="HH:SS [hs]" date={trivia.start_datetime_local} />
+          <Moment style={styles.dateText} element={Text} format="HH:mm [hs]" date={trivia.start_datetime_local} />
         </View>
       </View>
     );

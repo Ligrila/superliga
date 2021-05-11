@@ -6,7 +6,7 @@ import Variables from '../../styles/Variables';
 export default StyleSheet.create({
 
     pickerHeader: {
-        backgroundColor: Variables.brandPrimary
+        backgroundColor: Variables.brandPrimary,
     },
     pickerHeaderTitle: {
         color: '#fff'
@@ -28,12 +28,17 @@ export default StyleSheet.create({
     picker: {
         borderRadius: 4,
         flex: 1,
-        // width: ThemeUtility.s(547),
-        width: ThemeUtility.s(547),
+         width: ThemeUtility.s(547),
         paddingHorizontal: 20,
-        height: 40,
-        color: '#353535',
-        fontFamily: 'OpenSansCondensed_bold',
+         height: 40,
+         color: '#353535',
+         fontFamily: 'OpenSansCondensed_bold',
+        
+    },
+    pickerPlaceholder: {
+        fontSize: ThemeUtility.s(31),
+         color: '#8A8787',
+         fontFamily: 'OpenSansCondensed_bold',
         
     },
     pickerIcon: {
@@ -54,7 +59,6 @@ export default StyleSheet.create({
         fontSize: ThemeUtility.s(31),
         marginLeft: 0,
         paddingLeft: 0,
-        opacity: 1,
     },
     pickerItemText: {
         color: '#353535',

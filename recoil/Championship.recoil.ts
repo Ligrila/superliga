@@ -2,13 +2,15 @@ import { atom, selector, selectorFamily } from "recoil";
 import Api from '../api/Api';
 
 const defaultValue = {
-    hasData: 0,
+    hasData: false,
     data: undefined
 }
 
 export const championshipSelector = selector({
     key: 'ChampionshipSelector',
-    get: async () => {
+    get: async ({get}) => {
+        // Force Update
+        get(championshipAtom)
         const api = new Api()
         const dates = { ...defaultValue }
         let response = await api.championshipList();

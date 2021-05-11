@@ -5,8 +5,10 @@ export const awardsSelector = selector({
     key: 'AwardsSelector',
     get: async (
         // If need another atom
-        // { get }
+         { get }
     ) => {
+        // Force Update
+        get(awardsAtom)
         const api = new Api();
         let response = await api.getAwards();
         let awards = [] as any

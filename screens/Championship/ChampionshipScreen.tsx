@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { RefreshControl } from 'react-native'
-import { Container, Content } from 'native-base'
+import { Container, Content, View } from 'native-base'
 import Wallpaper from '../../components/Wallpaper/Wallpaper';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import Championship from '../../components/Championship/Championship';
@@ -9,6 +9,7 @@ import { useRecoilCallback, useRecoilState } from 'recoil';
 import { championshipAtom, championshipSelector } from '../../recoil/Championship.recoil'
 // Styles
 import styles from './ChampionshipScreen.styles';
+import { ScrollView } from 'react-native-gesture-handler';
 const bgSrc = require('../../assets/images/championship/bg_champion.png');
 
 const ChampionshipScreen = () => {
@@ -32,9 +33,10 @@ const ChampionshipScreen = () => {
     }
     return (
         <Container>
-            <Wallpaper source={bgSrc}>
+            <Wallpaper source={bgSrc} >
                 <AppHeader />
-                <Content contentContainerStyle={styles.content} padder
+                <Content
+                    contentContainerStyle={styles.content}
                     refreshControl={
                         <RefreshControl
                             style={{ backgroundColor: '#transparent' }}
@@ -48,6 +50,7 @@ const ChampionshipScreen = () => {
                     }
                 >
                     <Championship championships={championships} />
+
                 </Content>
             </Wallpaper>
         </Container>

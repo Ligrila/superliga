@@ -1,9 +1,15 @@
-import { selector } from "recoil";
+import { atom, selector } from "recoil";
 import Api from '../api/Api';
 import DateTimeHelper from "../helpers/DateTimeHelper";
 
+const defaultValue = {
+    hasData: false,
+    data: undefined
+}
+
+
 export const nextTriviaSelector = selector({
-    key: 'NextTrivia',
+    key: 'NextTriviaSelector',
     get: async (
         // If need another atom
         // { get }
@@ -28,6 +34,13 @@ export const nextTriviaSelector = selector({
         return nextTrivia;
     },
 });
+
+
+export const championshipAtom = atom<any>({
+    key: 'NextTriviaAtom',
+    default: defaultValue
+});
+
 
 
 

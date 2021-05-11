@@ -97,6 +97,7 @@ const Ranking = () => {
         })
       }
     }
+    console.log(newItems)
     setItems([...newItems])
   }, [setItems, dates])
   useEffect(() => {

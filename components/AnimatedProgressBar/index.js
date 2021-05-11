@@ -61,6 +61,7 @@ class ProgressBar extends React.Component {
       easing: Easing[this.props.barEasing],
       toValue: toValue > 0 ? toValue : 0,
       duration: this.props.barAnimationDuration,
+      useNativeDriver: false
     }).start();
   }
 

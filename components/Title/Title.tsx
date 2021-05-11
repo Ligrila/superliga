@@ -6,14 +6,14 @@ import { Text } from 'native-base'
 import styles from './Title.styles';
 interface TitleProps {
     text: string,
-    hiddeSeparator?: boolean
+    hideSeparator?: boolean
 }
 
-const Title = ({ text, hiddeSeparator }: TitleProps) => {
+const Title = ({ text, hideSeparator }: TitleProps) => {
 
     return (
         <View style={styles.container}>
-            {hiddeSeparator ? null : <View style={styles.separator}></View>}
+            {hideSeparator ? null : <View style={styles.separator}></View>}
             <Text style={styles.title}> {text}</Text>
         </View>
     )

@@ -8,7 +8,7 @@ const defaultData = {
 
 export const rankingSelector = selectorFamily({
     key: 'RankingSelector',
-    get: dateID => async () => {
+    get: dateID => async ({get}) => {
 
         let endpoint = `/trivia-points/for-date/${dateID?.toString()}`;
 

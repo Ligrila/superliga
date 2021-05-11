@@ -220,7 +220,7 @@ const ChampionshipView = ({ championship, created }) => {
       <Logo />
       <View style={styles.title}>
         <BigTitle
-          hiddeSeparator={true}
+          hideSeparator={true}
           text={championship.name} />
       </View>
       {renderButtons()}

@@ -2,17 +2,17 @@ import { atom, selector } from "recoil";
 import Api from '../api/Api';
 
 const defaultValue = {
-    hasData: 0,
+    hasData: false,
     data: undefined
 }
 
 export const datesSelector = selector({
     key: 'DatesSelector',
-    get: async () => {
+    get: async ({ get }) => {
+         get(datesAtom);
         const api = new Api()
         const dates = {...defaultValue}
         let response = await api.GET('/dates/index?recent');
-        console.log('response', response)
         dates.hasData = response.success;
         dates.data = response.data;
         return dates;
@@ -22,7 +22,7 @@ export const datesSelector = selector({
 
 export const datesAtom = atom<any>({
     key: 'DatesAtom',
-    default: null
+    default: defaultValue
 });
 
 

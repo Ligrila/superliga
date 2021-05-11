@@ -114,7 +114,6 @@ const App: React.FC = () => {
       }),
       Asset.loadAsync([
         require("./assets/images/blackBg.orig.png"),
-        require("./assets/images/carousel-prev.orig.png"),
         require("./assets/images/home/shop.png"),
         require("./assets/images/home/share.orig.png"),
         require("./assets/images/home/help.orig.png"),
@@ -136,17 +135,13 @@ const App: React.FC = () => {
         require("./assets/images/form/logo.orig.png"),
         require("./assets/images/form/password.png"),
         require("./assets/images/form/logo.png"),
-        require("./assets/images/form/eye_black.png"),
-        require("./assets/images/trivia-carousel-minimal-prev.png"),
+        require("./assets/images/form/eye_black.png"),    
         require("./assets/images/ball.png"),
         require("./assets/images/result/wrong_bg.png"),
         require("./assets/images/robot-prod.orig.png"),
-        require("./assets/images/trivia-carousel-minimal-next.png"),
         require("./assets/images/purchase-modal.png"),
         require("./assets/images/whistle.png"),
         require("./assets/images/ball_old.png"),
-        require("./assets/images/trivia-carousel-minimal-prev.orig.png"),
-        require("./assets/images/trivia-carousel-minimal-next.orig.png"),
         require("./assets/images/bgOld.png"),
         require("./assets/images/purchase-modal.orig.png"),
         require("./assets/images/blackBg.png"),
@@ -154,7 +149,6 @@ const App: React.FC = () => {
         require("./assets/images/chat-bg.png"),
         require("./assets/images/robot-prod.png"),
         require("./assets/images/contactBg.png"),
-        require("./assets/images/carousel-next.orig.png"),
         require("./assets/images/icon_ios.png"),
         require("./assets/images/game/bgOld.png"),
         require("./assets/images/game/genericQuestionBg.png"),
@@ -171,10 +165,8 @@ const App: React.FC = () => {
         require("./assets/images/extraPlayBg.png"),
         require("./assets/images/menu.png"),
         require("./assets/images/whistle2.png"),
-        require("./assets/images/carousel-next.png"),
         require("./assets/images/home_bg.png"),
         require("./assets/images/logo.png"),
-        require("./assets/images/carousel-prev.png"),
         require("./assets/images/tutorial2.orig.png"),
         require("./assets/images/tutorial3.orig.png"),
         require("./assets/images/rain_back.orig.png"),
@@ -234,6 +226,9 @@ const App: React.FC = () => {
         require("./assets/images/championship/trophy-avatar.png"),
         require("./assets/images/championship/challenge_accept_bg.orig.png"),
         require("./assets/images/championship/bg_champion.png"),
+        // Carousel
+        require("./assets/images/carousel_navigation_bg.png"),
+        require("./assets/images/carousel_navigation_invested_bg.png"),
       ]),
       ...serverAssets,
     ]);
@@ -318,7 +313,7 @@ const App: React.FC = () => {
     <Root>
       <StyleProvider style={AppTheme}>
         <RecoilRoot>   
-            <StatusBar hidden={true} />         
+              <StatusBar hidden={true} />         
               <Navigation isLoggedIn={false} />
         </RecoilRoot>
       </StyleProvider>

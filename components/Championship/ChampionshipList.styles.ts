@@ -5,6 +5,9 @@ export default StyleSheet.create({
     container:{
         flex: 1,
     },
+    scrollContainer:{
+        flex: 1,
+    },
     list:{
         
     },

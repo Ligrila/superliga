@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Content } from 'native-base'
-import Wallpaper from '../../components/Wallpaper';
+import Wallpaper from '../../components/Wallpaper/Wallpaper';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import Calendar from '../../components/Calendar/Calendar';
 import BigTitle from '../../components/Title/BigTitle';
@@ -31,17 +31,16 @@ const CalendarScreen = () => {
     const onRefresh = () => {
         updateCalendar();
     }
-    // Update Ever
+    // First
     useEffect(() => {
         updateCalendar()
     }, [])
     return (
-        <Container>
+        <Container style={{ paddingVertical: 0, marginVertical: 0, paddingBottom: 0, marginBottom: 0 }}>
             <Wallpaper source={bgSrc}>
                 <AppHeader />
                 <Content
-                    contentContainerStyle={{ paddingTop: 0, flex: 1 }}
-                    padder
+                    contentContainerStyle={{ flex: 1}}
                     refreshControl={
                         <RefreshControl
                             style={{ backgroundColor: '#transparent' }}

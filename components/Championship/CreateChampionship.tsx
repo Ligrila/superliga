@@ -112,7 +112,7 @@ const CreateChampionship = ({ id }: CreateChampionshipProps) => {
   const title = id ? 'EDITAR \n TORNEO' : 'CREA TU TORNEO \n LIGA PROFESIONAL'
   return (
     <View style={styles.container} >
-      <Title text={title} hiddeSeparator={true}></Title>
+      <Title text={title} hideSeparator={true}></Title>
       <Loader loading={loading} />
       <Form style={styles.form}>
         {/* <Avatar avatar={avatar}></Avatar>

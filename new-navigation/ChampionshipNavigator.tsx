@@ -14,6 +14,7 @@ const ChampionshipNavigator = () => {
         <Stack.Navigator 
             initialRouteName="ChampionshipHome"
             headerMode="none"
+        
         >
    {/* 
    

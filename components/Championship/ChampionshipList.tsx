@@ -26,6 +26,7 @@ import { useRecoilValue } from 'recoil';
 import { authUserAtom } from '../../recoil/Auth.recoil';
 // Styles
 import styles from './ChampionshipList.styles'
+import { ScrollView } from 'react-native-gesture-handler';
 const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.png')
 
 
@@ -97,7 +98,7 @@ const ChampionshipList = ({ championships }) => {
     }
 
 
-    championships.data.map((championshipUsers, index) => {
+    const items = championships.data.map((championshipUsers, index) => {
       const championship = championshipUsers.championship
       const button = () => {
         return (
@@ -135,15 +136,21 @@ const ChampionshipList = ({ championships }) => {
         </ListItem>
       )
     })
+    return items;
   }
 
   return (
-    <Content style={styles.container}>
-      <Title text={'TORNEOS \n SUPERLIGA'}></Title>
-      <List style={styles.list}>
-        {renderItems()}
-      </List>
-    </Content>
+    <View style={styles.container}>
+      <Title text={'TORNEOS \n SUPERLIGA'} hideSeparator={true} />
+      <ScrollView style={styles.scrollContainer}>
+        <List style={styles.list}>
+          {renderItems()}
+          {renderItems()}
+          {renderItems()}
+          {renderItems()}
+        </List>
+      </ScrollView>
+    </View>
   );
 
 }

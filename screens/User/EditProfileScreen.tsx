@@ -138,7 +138,7 @@ const EditProfileScreen = () => {
                         <Content contentContainerStyle={styles.content}>
                             <View style={styles.bigTitle}>
                                 <BigTitle 
-                                hiddeSeparator={true}
+                                hideSeparator={true}
                                 text={'Editar Perfil'}></BigTitle>
                             </View>
                             <KeyboardAvoidingView style={styles.container} >

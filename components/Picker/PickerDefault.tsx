@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Body, Button, Header, Icon, Item, Left, Picker, Right, Title } from 'native-base';
+import { Body, Button, Header, Icon, Item, Left, Picker, Right, Text, Title } from 'native-base';
 
 import styles from './PickerDefault.styles'
+import { Platform } from 'react-native';
 
 export interface PickerDefaultItemProps {
     id: string,
@@ -39,13 +40,16 @@ const PickerDefault = ({
         if (!items || items.length === 0) {
             return null;
         }
-        return items.map((item, key) => (
-            <Picker.Item
-                color={ item.id === currentValue ? '#353535': '#8A8787'}
-                key={item.id}
-                label={item.label}
-                value={item.value} />
-        ))
+        return items.map((item) => {
+            const activeColor = item.id === currentValue ? '#353535' : '#8A8787'
+            return (
+                <Picker.Item
+                    color={activeColor}
+                    key={item.id}
+                    value={item.value}
+                    label={Platform.OS === 'ios' ? <Text style={{ color: activeColor }}>{item.label}</Text> : item.label}
+                />)
+        })
     }
 
     useEffect(() => {
@@ -54,9 +58,10 @@ const PickerDefault = ({
         }
     }, [value, fetchValue])
     return (
-        <Item picker style={styles.pickerItem}>
-            <Picker
-                note
+        <Item  style={styles.pickerItem}>
+               {items && items.length > 0 && 
+                <Picker
+                // note
                 renderHeader={backAction =>
                     <Header style={styles.pickerHeader}>
                         <Left>
@@ -72,7 +77,7 @@ const PickerDefault = ({
                         <Right />
                     </Header>}
                 style={styles.picker}
-                placeholderStyle={{color: 'red'}}
+                placeholderStyle={styles.pickerPlaceholder}
                 mode="dropdown"
                 placeholder={placeholder}
                 iosIcon={<Icon type="AntDesign" style={styles.pickerIcon} name="caretdown" />}
@@ -82,7 +87,7 @@ const PickerDefault = ({
                 placeholderIconColor="#000"
                 onValueChange={onValueChange}>
                 {renderItems()}
-            </Picker>
+            </Picker>}
         </Item>
     )
 

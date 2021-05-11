@@ -9,7 +9,8 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 25,
-        marginTop: 25
+        marginTop: 25,
+        
     },
     titleContainer: {
         flexDirection: 'row',

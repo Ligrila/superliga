@@ -1,13 +1,20 @@
-import { selector } from "recoil";
+import { atom, selector } from "recoil";
 import Api from '../api/Api';
 import DateTimeHelper from "../helpers/DateTimeHelper";
 
+
+const defaultValue = {
+    hasData: false,
+    data: undefined
+}
+
 export const homeBannerSelector = selector({
-    key: 'HommeBanner',
+    key: 'HommeBannerSelector',
     get: async (
         // If need another atom
-        // { get }
+        { get }
     ) => {
+        get(homeBannerAtom)
         const api = new Api()
         const homeBannersResponse = await api.homeBanners();
         const homeBanners = {
@@ -28,4 +35,9 @@ export const homeBannerSelector = selector({
         }
         return homeBanners;
     },
+});
+
+export const homeBannerAtom = atom<any>({
+    key: 'HommeBannerAtom',
+    default: defaultValue
 });

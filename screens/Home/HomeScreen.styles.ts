@@ -11,8 +11,8 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     nextTriviaIconsContainer: {
-        position: 'relative',
-        height: (Layout.window.height / 2) - (Layout.isIphoneX ? ThemeUtility.h(85) : Layout.isIphoneXR ? ThemeUtility.h(75) : ThemeUtility.h(60)),
+        // height: (Layout.window.height / 2) - (Layout.isIphoneX ? ThemeUtility.h(85) : Layout.isIphoneXR ? ThemeUtility.h(75) : ThemeUtility.h(60)),
+        flex: 1
     },
     nextMatchText: {
         textAlign: 'center',

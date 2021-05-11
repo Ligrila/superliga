@@ -221,9 +221,9 @@ const TriviaCarouselMinimal = ({ onItem }) => {
 
 
 
-    if (!homeBanner.data) {
-        return <Spinner />;
-    }
+    // if (!homeBanner.data) {
+    //     return <Spinner />;
+    // }
     if (homeBanner.data) {
         if (homeBanner.data.length == 0) {
             return (

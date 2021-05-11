@@ -1,85 +1,101 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
     View,
-    RefreshControl
+    RefreshControl,
 } from 'react-native';
 // Native Base
-import { Container, Content, Spinner } from 'native-base';
+import { Button, Container, Content, Text } from 'native-base';
 // Components
 import Wallpaper from '../../components/Wallpaper/Wallpaper';
 import AppHeader from '../../components/AppHeader/AppHeader';
-import TriviaCarouselMinimal from '../../components/Trivia/TriviaCarouselMinimal';
 import CheckDocument from '../../components/CheckDocument';
-import NextTrivia2 from '../../components/NextTrivia2';
-// Cache
-import { CacheManager } from "react-native-expo-image-cache";
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import NextTrivia from '../../components/NextTrivia/NextTrivia';
+import { AntDesign } from '@expo/vector-icons';
 // Navigation
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+
+// Recoil
+import { useRecoilCallback, useRecoilState } from 'recoil';
+import { nextTriviaAtom, nextTriviaSelector } from '../../recoil/NextTrivia.recoil';
+
 // Assets
 const bgSrc = require('../../assets/images/home_bg.png');
-const triviaBgSrc = require('../../assets/images/home_trivia_bg.png');
-const helpSrc = require('../../assets/images/home/help.png');
-const shareSrc = require('../../assets/images/home/share.png');
-const shopSrc = require('../../assets/images/home/shop.png');
+// const triviaBgSrc = require('../../assets/images/home_trivia_bg.png');
+// const helpSrc = require('../../assets/images/home/help.png');
+// const shareSrc = require('../../assets/images/home/share.png');
+// const shopSrc = require('../../assets/images/home/shop.png');
 
 // Styles
 import styles from './HomeScreen.styles'
 import Logo from '../../components/Logo/Logo';
-// Recoil
-import { useRecoilCallback, useRecoilState, useRecoilValueLoadable } from 'recoil';
-import { nextTriviaSelector } from '../../recoil/NextTrivia.recoil';
-import { homeBannerAtom, homeBannerSelector } from '../../recoil/HomeBanner.recoil';
+import Api from '../../api/Api';
+
+
 
 
 const HomeScreen = () => {
+    // Api
+    const api = new Api();
+    // Navigation
+    const navigation = useNavigation();
     // States 
     const [screenBg, setScreenBg] = useState(bgSrc);
     const [refreshing, setRefreshing] = useState(false);
     // Recoil
-    const nextTrivia = useRecoilValueLoadable(nextTriviaSelector)
-    const [, setHomeBanner] = useRecoilState(homeBannerAtom)
+    const [nextTrivia, setNextTrivia] = useRecoilState(nextTriviaAtom)
     // Update Calendar
     const updateHomeScreen = useRecoilCallback(({ snapshot }) => async () => {
         setRefreshing(true);
-        const responseBanner = await snapshot.getPromise(homeBannerSelector);
-        setHomeBanner({ ...responseBanner });
+        const responseNextTrivia = await snapshot.getPromise(nextTriviaSelector);
+        setNextTrivia({ ...responseNextTrivia });
         setRefreshing(false);
     });
     // onRefresh 
     const onRefresh = async () => {
         await updateHomeScreen();
     };
-    // Carousel Change
-    const carouselChange = async (item) => {
-        if (item.type == 'trivia') {
-            setScreenBg(triviaBgSrc)
-            return;
-        }
-        if (item.type == 'banner') {
-            const path = await CacheManager.get(item.banner, {}).getPath();
-            setScreenBg(path)
-            return;
-        }
-        setScreenBg(bgSrc)
+
+    // On Press Next Matchs
+    const handlerOnPressNextMatchs = () => {
+        navigation.navigate('HomeNextMatchs')
     }
 
-
-    const renderNextTrivia = () => {
-        if (nextTrivia.state === 'hasValue') {
-            if (!nextTrivia.contents.hasData) return <Spinner />;
-            return (<TriviaCarouselMinimal onItem={carouselChange} />)
-        }
-    }
-
-
-    useEffect(() => {
-        console.log(nextTrivia.contents)
-    }, [nextTrivia])
+    // useEffect(() => {
+    //     offset.value = withSequence(
+    //         withTiming(-10, { duration: 600 }),
+    //         withRepeat(withTiming(10, { duration: 600 }), -1, true),
+    //         withTiming(0, { duration: 100 })
+    //     );
+    //     console.log('nextTrvia', nextTrivia)
+    // }, [nextTrivia])
 
     // First
     useEffect(() => {
         updateHomeScreen()
     }, [])
+    // Remove Game Loading Page
+    const checkIfHasTrivia = useCallback(async () => {
+        try {
+            let ct = await api.getCurrentTrivia();
+            console.log('fetchTrivia', ct)
+            if (ct) {
+                const gameInProgress = ct.success;
+                if (gameInProgress) {
+                    navigation.navigate('GamePlay');
+                }
+            }
+            // navigation.navigate('Home');
+        } catch (e) {
+            console.log('fetchTrivia error', e);
+            // navigation.navigate('Home');
+        }
+    }, [])
+    useFocusEffect(
+        useCallback(() => {
+            checkIfHasTrivia();
+            return () => { };
+        }, []))
 
     return (
         <Container>
@@ -104,7 +120,13 @@ const HomeScreen = () => {
                     {/* Logo */}
                     <Logo />
                     <View style={styles.nextTriviaIconsContainer}>
-                        <TriviaCarouselMinimal onItem={carouselChange} />
+                        {nextTrivia.hasData && <NextTrivia trivia={nextTrivia.data} />}
+                        <View style={styles.nextMatchContainer}>
+                            <TouchableOpacity onPress={handlerOnPressNextMatchs} style={styles.nextMatchButton}>
+                                <Text style={styles.nextMatchText}>ver siguientes partidos</Text>
+                                <AntDesign name="arrowdown" size={24} color="#fff" />
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </Content>
             </Wallpaper>

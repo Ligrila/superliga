@@ -29,7 +29,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 const menuItems = [
   {
     text: 'INICIO',
-    route: 'GameLoading',
+    route: 'Home',
     image: require('../../assets/images/menu/menu_home.png')
   },
   {

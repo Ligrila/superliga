@@ -28,7 +28,10 @@ function RootNavigator(props) {
   return (
     <Stack.Navigator 
       initialRouteName={'AuthLoading'}
-      screenOptions={{ headerShown: false, gestureEnabled: false}}
+      screenOptions={{ 
+        headerShown: false, 
+        gestureEnabled: false,      
+      }}
       >
 
       <Stack.Screen name="AuthLoading" component={AuthLoadingScreen} />

@@ -12,8 +12,9 @@ export const nextTriviaSelector = selector({
     key: 'NextTriviaSelector',
     get: async (
         // If need another atom
-        // { get }
+        { get }
     ) => {
+        get(nextTriviaAtom)
         const api = new Api()
         const nextTriviaResponse = await api.getNextTrivia();
         let nextTrivia = {
@@ -36,7 +37,7 @@ export const nextTriviaSelector = selector({
 });
 
 
-export const championshipAtom = atom<any>({
+export const nextTriviaAtom = atom<any>({
     key: 'NextTriviaAtom',
     default: defaultValue
 });

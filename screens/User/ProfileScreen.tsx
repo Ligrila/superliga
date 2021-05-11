@@ -49,6 +49,7 @@ const ProfileScreen = (props) => {
 
 
     const closeSession = () => {
+        // navigation.navigate('Logout')
         navigation.navigate('Auth', {
             screen: 'Logout'
         });
@@ -213,8 +214,8 @@ const ProfileScreen = (props) => {
                     {authUser &&
                         <Content style={styles.profileContent} >
                             <View style={styles.profileContainer}>
-                                {image && 
-                                <UserAvatar avatar={image} borderColor="#fff" />}
+                                {image &&
+                                    <UserAvatar avatar={image} borderColor="#fff" />}
                                 <View style={styles.userTitleContainer}>
                                     <Text style={styles.userTitle}>{(authUser.first_name + " " + authUser.last_name).toUpperCase()}</Text>
                                     <Text style={styles.text}>{authUser.email}</Text>

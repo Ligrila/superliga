@@ -7,6 +7,7 @@ import { authUserAtom, authUserLivesAtom } from '../../recoil/Auth.recoil';
 
 
 
+
 const LogoutScreen = () => {
   // Recoil
   const setAuthUser = useSetRecoilState(authUserAtom);
@@ -17,11 +18,13 @@ const LogoutScreen = () => {
     await AuthUtility.removeToken();
     setAuthUser({});
     setAuthUserLives(0);
-    navigation.navigate('Login');
+    navigation.navigate('Auth', {
+      screen: 'Login'
+    });
   }, [])
   useEffect(() => {
     resetData();
-  }, [resetData])
+  }, [])
 
   return null;
 

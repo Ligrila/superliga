@@ -23,8 +23,6 @@ import HomeNextMatchsScreen from '../screens/Home/HomeNextMatchsScreen';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 
 
-import { TransitionSpecs, HeaderStyleInterpolators } from '@react-navigation/stack';
-
 
 const Stack = createStackNavigator();
 
@@ -57,7 +55,7 @@ const Screens = ({ navigation }) => {
             {/* Purchase */}
             <Stack.Screen name="Purchase" component={PurchaseScreen} />
             {/* Championship */}
-            <Stack.Screen name="ChampionshipStack" component={ChampionshipNavigator} />
+            <Stack.Screen name="ChampionshipStack" component={ChampionshipNavigator} />            
         </Stack.Navigator>
     );
 };

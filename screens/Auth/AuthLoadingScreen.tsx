@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect } from 'react';
 import {
     ActivityIndicator,
+    Alert,
     StatusBar,
     StyleSheet,
     View,
@@ -52,7 +53,6 @@ const AuthLoadingScreen = () => {
         } catch (e) {
             console.log(e);
         }
-        console.log('isLogin', isLogin)
         if (isLogin) {
             navigation.reset({
                 index: 0,

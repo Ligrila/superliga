@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect,  useState } from 'react';
 import {
     View,
     RefreshControl,
 } from 'react-native';
 // Native Base
-import { Button, Container, Content, Text } from 'native-base';
+import { Container, Content, Text } from 'native-base';
 // Components
 import Wallpaper from '../../components/Wallpaper/Wallpaper';
 import AppHeader from '../../components/AppHeader/AppHeader';
-import CheckDocument from '../../components/CheckDocument';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import NextTrivia from '../../components/NextTrivia/NextTrivia';
 import { AntDesign } from '@expo/vector-icons';
+import CheckDocument from '../../components/CheckDocument/CheckDocument';
 // Navigation
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
@@ -25,18 +25,17 @@ const bgSrc = require('../../assets/images/home_bg.png');
 // const helpSrc = require('../../assets/images/home/help.png');
 // const shareSrc = require('../../assets/images/home/share.png');
 // const shopSrc = require('../../assets/images/home/shop.png');
-
+// Api
+import Api from '../../api/Api';
 // Styles
 import styles from './HomeScreen.styles'
 import Logo from '../../components/Logo/Logo';
-import Api from '../../api/Api';
-
-
 
 
 const HomeScreen = () => {
     // Api
     const api = new Api();
+    // Check Document
     // Navigation
     const navigation = useNavigation();
     // States 
@@ -53,6 +52,7 @@ const HomeScreen = () => {
     });
     // onRefresh 
     const onRefresh = async () => {
+        checkIfHasTrivia()
         await updateHomeScreen();
     };
 
@@ -99,7 +99,7 @@ const HomeScreen = () => {
 
     return (
         <Container>
-            {/* <CheckDocument navigation={this.props.navigation} /> */}
+            <CheckDocument />
             <Wallpaper source={screenBg}>
                 {/* Header */}
                 <AppHeader />

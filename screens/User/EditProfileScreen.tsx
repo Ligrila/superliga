@@ -52,7 +52,6 @@ const EditProfileScreen = () => {
     const authHelper = new AuthHelper();
     // Fetch Data
     const fetchData = useCallback(() => {
-        console.log('authUser.document', authUser.document)
         setValue('first_name', authUser.first_name)
         setValue('last_name', authUser.last_name)
         setValue('document', `${authUser.document}`, { shouldValidate: true })

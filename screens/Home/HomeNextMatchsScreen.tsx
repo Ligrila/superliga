@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     RefreshControl
 } from 'react-native';
 // Native Base
-import { Button, Container, Content, Icon, Spinner, Text } from 'native-base';
+import { Button, Container, Content, Icon } from 'native-base';
 // Components
 import Wallpaper from '../../components/Wallpaper/Wallpaper';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import TriviaCarouselMinimal from '../../components/Trivia/TriviaCarouselMinimal';
-import CheckDocument from '../../components/CheckDocument';
+import CheckDocument from '../../components/CheckDocument/CheckDocument';
 
 // Cache
 import { CacheManager } from "react-native-expo-image-cache";
@@ -18,9 +18,9 @@ import { useNavigation } from '@react-navigation/native';
 // Assets
 const bgSrc = require('../../assets/images/home_bg.png');
 const triviaBgSrc = require('../../assets/images/home_trivia_bg.png');
-const helpSrc = require('../../assets/images/home/help.png');
-const shareSrc = require('../../assets/images/home/share.png');
-const shopSrc = require('../../assets/images/home/shop.png');
+// const helpSrc = require('../../assets/images/home/help.png');
+// const shareSrc = require('../../assets/images/home/share.png');
+// const shopSrc = require('../../assets/images/home/shop.png');
 
 // Styles
 import styles from './HomeNextMatchsScreen.styles'
@@ -28,6 +28,8 @@ import Logo from '../../components/Logo/Logo';
 // Recoil
 import { useRecoilCallback, useRecoilState } from 'recoil';
 import { homeBannerAtom, homeBannerSelector } from '../../recoil/HomeBanner.recoil';
+
+
 
 
 
@@ -62,9 +64,9 @@ const HomeNextMatchsScreen = () => {
         }
         setScreenBg(bgSrc)
     }
-    const returnButton = (<Button transparent onPress={()=>{
+    const returnButton = (<Button transparent onPress={() => {
         navigation.navigate("Home")
-      }}><Icon name='ios-arrow-back' /></Button>)
+    }}><Icon name='ios-arrow-back' /></Button>)
     // First
     useEffect(() => {
         updateHomeScreen()
@@ -72,10 +74,10 @@ const HomeNextMatchsScreen = () => {
 
     return (
         <Container>
-            {/* <CheckDocument navigation={this.props.navigation} /> */}
+            <CheckDocument /> 
             <Wallpaper source={screenBg}>
                 {/* Header */}
-                <AppHeader return={returnButton}/>
+                <AppHeader return={returnButton} />
                 {/* Main Content */}
                 <Content
                     refreshControl={

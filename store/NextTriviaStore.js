@@ -176,6 +176,7 @@ export class NextTriviaStore extends Reflux.Store
 
     async onGet(){
         const nextTrivia = await this.api.getNextTrivia();
+        console.log({nextTrivia});
         if(nextTrivia.success){
             let data = nextTrivia.data;
             if(data){

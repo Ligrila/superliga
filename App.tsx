@@ -95,8 +95,11 @@ const App: React.FC = () => {
       }
     }
     const serverAssets = cacheImages(teamImages);
+    
     const deviceTimezone = await Localization.getLocalizationAsync();
+    
     await AsyncStorage.setItem("deviceTimezone", `${deviceTimezone.timezone}`);
+
     return Promise.all([
       Font.loadAsync({
         // This is the font that we are using for our tab bar

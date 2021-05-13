@@ -55,6 +55,7 @@
     "react-native-webview": "^11.4.3",
     "react-navigation": "^3.11.0",
     "recoil": "^0.2.0",
+    "recoil-nexus": "^0.2.2",
     "reflux": "^6.4.1",
     "socket.io": "^2.2.0"
   },

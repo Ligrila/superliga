@@ -17,7 +17,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { DrawerActions } from '@react-navigation/native';
 
-import UserInfo from '../UserInfo';
+import UserInfo from '../UserInfo/UserInfo';
 import OfflineNotice from '../OfflineNotice';
 import NotificationBullet from "../Notification/NotificationBullet";
 // Styles

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect,  useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     View,
     RefreshControl,
@@ -96,7 +96,9 @@ const HomeScreen = () => {
             checkIfHasTrivia();
             return () => { };
         }, []))
-
+    const onFinishCountDown = () => {
+        checkIfHasTrivia();
+    }
     return (
         <Container>
             <CheckDocument />
@@ -120,7 +122,10 @@ const HomeScreen = () => {
                     {/* Logo */}
                     <Logo />
                     <View style={styles.nextTriviaIconsContainer}>
-                        {nextTrivia.hasData && <NextTrivia trivia={nextTrivia.data} />}
+                        {nextTrivia.hasData && <NextTrivia
+                            trivia={nextTrivia.data}
+                            onFinishCountDown={onFinishCountDown}
+                        />}
                         <View style={styles.nextMatchContainer}>
                             <TouchableOpacity onPress={handlerOnPressNextMatchs} style={styles.nextMatchButton}>
                                 <Text style={styles.nextMatchText}>ver siguientes partidos</Text>

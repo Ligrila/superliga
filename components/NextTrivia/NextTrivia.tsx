@@ -9,7 +9,7 @@ import styles from './NextTrivia.styles'
 
 
 
-const NextTrivia = ({ trivia }) => {
+const NextTrivia = ({ trivia , onFinishCountDown}) => {
 
 
     const getNotice = () => {
@@ -50,7 +50,7 @@ const NextTrivia = ({ trivia }) => {
                 titleBold={true}
                 subtitle={trivia.local_team.name + ' VS ' + trivia.visit_team.name} />
             {/* Count Down */}
-            <CountDown until={until} />
+            <CountDown until={until}  onFinish={onFinishCountDown}/>
             {/* Trivia */}
             <View style={styles.triviaContainer}>
                 <Trivia trivia={trivia} avatarWidth={250} avatarHeight={260} />

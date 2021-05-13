@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState,  } from "react";
+import React, { useCallback, useEffect, useState, } from "react";
 import { BackHandler, StatusBar } from "react-native";
 // React Native
 import { AppState, Image } from "react-native";
@@ -33,11 +33,6 @@ import { Asset } from "expo-asset";
 import { Ionicons } from "@expo/vector-icons";
 // Helper
 import "./helpers/RegisterPushNotification";
-// Recoil
-import {
-  RecoilRoot,
-  
-} from 'recoil';
 // Store
 import { UsersActions } from "./store/UserStore";
 import { ConnectionStatusActions } from "./store/ConnectionStatusStore";
@@ -46,6 +41,13 @@ import { TriviaQuestionActions } from "./store/TriviaQuestion";
 import { NavigatorActions } from "./store/NavigatorStore";
 
 import { YellowBox } from "react-native";
+// Recoil
+import {
+  RecoilRoot, useRecoilValue,
+
+} from 'recoil';
+import RecoilNexus from "recoil-nexus";
+
 
 
 
@@ -67,8 +69,7 @@ const App: React.FC = () => {
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [isLoadingError, setIsLoadingError] = useState(false);
-  const [appState, setAppState] = useState(AppState.currentState);
-
+  const [appState, setAppState] = useState(AppState.currentState);  
   // Handle On Reload
   const handleOnReload = () => {
     BackHandler.exitApp();
@@ -135,7 +136,7 @@ const App: React.FC = () => {
         require("./assets/images/form/logo.orig.png"),
         require("./assets/images/form/password.png"),
         require("./assets/images/form/logo.png"),
-        require("./assets/images/form/eye_black.png"),    
+        require("./assets/images/form/eye_black.png"),
         require("./assets/images/ball.png"),
         require("./assets/images/result/wrong_bg.png"),
         require("./assets/images/robot-prod.orig.png"),
@@ -293,9 +294,11 @@ const App: React.FC = () => {
       <Root>
         <StyleProvider style={AppTheme}>
           <Container>
-            <Header />
-            <Content>
-              <Text>
+            <Header style={{backgroundColor: 'red'}}/>
+            <Content 
+              padder
+              contentContainerStyle={{   flexDirection:'column',alignItems: 'center',justifyContent: 'center'}}>
+              <Text style={{ color: '#000', }}>
                 Se produjo un error iniciando la red. Por favor, salga de la
                 aplicación e intente nuevamente cuando estes conectado a
                 internet
@@ -312,9 +315,11 @@ const App: React.FC = () => {
   return (
     <Root>
       <StyleProvider style={AppTheme}>
-        <RecoilRoot>   
-              <StatusBar hidden={true} />         
-              <Navigation isLoggedIn={false} />
+        <RecoilRoot>
+          {/* To access recoil outside of component */}
+          <RecoilNexus />
+          <StatusBar hidden={true} />
+          <Navigation isLoggedIn={false} />
         </RecoilRoot>
       </StyleProvider>
     </Root>

@@ -1,10 +1,4 @@
-import
-  React
- from 'react';
-import {
-  AsyncStorage
-} from 'react-native';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class RestClient {
     constructor (baseUrl = '', { headers = {}, devMode = false, simulatedDelay = 0 } = {}) {
@@ -80,12 +74,11 @@ export default class RestClient {
         } else{
           Object.assign(opts, { body: body });
           opts.headers['Content-Type'] = 'multipart/form-data';
-          //console.log('opts',opts);
-
         }
       }
-      let fetchPromise = null
 
+      console.log('opts',opts);
+      let fetchPromise = null
       if(options.retries > 1){
         fetchPromise = () => this._fetch_retry(fullRoute, opts,options.retries);
       } else{
@@ -99,7 +92,7 @@ export default class RestClient {
         if (response.status >= 200 && response.status < 300) {
             return response.text().then(
               text => {
-                //console.log(text);
+                console.log(text);
                 return text? JSON.parse(text) : undefined
               }
             )

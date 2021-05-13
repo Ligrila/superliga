@@ -2,9 +2,8 @@ import RestClient from './RestClient';
 
 import Enviroment from '../constants/Enviroment';
 
-import {
-  AsyncStorage
-} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default class Api extends RestClient {
   constructor () {

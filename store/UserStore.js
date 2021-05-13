@@ -1,7 +1,8 @@
 import Reflux from 'reflux';
 import Api from '../api/Api';
 import CacheStore from './CacheStore'
-import {AsyncStorage} from 'react-native'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 export const UsersActions = Reflux.createActions(['me','update','noLife','isLoggedIn','reset']);
 

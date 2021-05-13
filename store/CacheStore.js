@@ -6,7 +6,8 @@
 
 import Reflux from 'reflux';
 
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+;
 
 export default class CacheStore extends Reflux.Store{
     cacheKey = null;

@@ -41,7 +41,6 @@ const GamePlay = ({ onNoLife, setModalVisibleProp }) => {
   }
   const _renderBall = () => {
     if (triviaQuestion.hasResult) {
-      console.log('triviaQuestion.hasResult', triviaQuestion)
       const win = triviaQuestion.win;
       const serverSuccess = triviaQuestion.serverSuccess;
       const lives = authUser.lives;
@@ -57,7 +56,7 @@ const GamePlay = ({ onNoLife, setModalVisibleProp }) => {
         ></GameAnswerResult>
       );
     }
-    const duration = triviaQuestion.currentTimeout;
+    // const duration = triviaQuestion.currentTimeout;
     return (
       <View style={styles.ballContainer}>
         <GameBall onTimeout={onQuestionTimeout} />
@@ -65,14 +64,6 @@ const GamePlay = ({ onNoLife, setModalVisibleProp }) => {
     );
   }
 
-  const componentWillUnmount = () => {
-    if (resetTimeOut.current) {
-      clearTimeout(resetTimeOut.current);
-    }
-  }
-  const componentDidUpdate = () => {
-
-  }
   const _renderCurrentQuestion = () => {
     if (triviaQuestion.hasQuestion || triviaQuestion.hasResult) {
       return (
@@ -83,7 +74,7 @@ const GamePlay = ({ onNoLife, setModalVisibleProp }) => {
       );
     } else {
       return (
-        <View>
+        <View style={styles.containerWait}>
           <GameWait text={"ESPERANDO \n JUGADA"} />
           <BottomBanner></BottomBanner>
         </View>
@@ -115,7 +106,9 @@ const GamePlay = ({ onNoLife, setModalVisibleProp }) => {
   }, [triviaQuestion, onUpdateTriviaQuestion])
   return (
     <View style={styles.container}>
+      {/* Ball */}
       {_renderBall()}
+      {/* Question Or Waiting */}
       {_renderCurrentQuestion()}
     </View>
   );

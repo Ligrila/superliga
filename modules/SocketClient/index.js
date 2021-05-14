@@ -22,7 +22,7 @@ export default class SocketClient{
             user.first_name = 'Usuario'
         }
         //console.log("current storage user", user)
-        this.dispatcher = new ActionDispatcherRecoil
+        this.dispatcher = new ActionDispatcherRecoil()
         this.firstConnect = true;
         this.isReconnected = false;
         console.log("Socket.io start");

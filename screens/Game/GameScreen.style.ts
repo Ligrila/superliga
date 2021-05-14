@@ -4,7 +4,7 @@ import Variables from '../../styles/Variables';
 
 export default StyleSheet.create({
     game: {
-        flex: 0.8,
+        flex: 1,
     },
     footer: {
         borderTopWidth: 0,

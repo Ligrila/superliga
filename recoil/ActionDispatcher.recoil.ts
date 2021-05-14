@@ -84,11 +84,13 @@ export default class ActionDispatcherRecoil {
             clearTimeout(this.timeoutTriviaQuestion);
         }
         this.timeoutTriviaQuestion = setTimeout(async () => {
-            
             const current = await getTriviaQuestion();
-             // console.log('timeoutTriviaQuestion', current)
-            current.timeout = true;
-            setTriviaQuestion(current);
+            const newTriviaQuestion = {
+                ...current,
+                timedOut: true
+            }
+
+            setTriviaQuestion(newTriviaQuestion);
         }, newQuestion.currentTimeout);
         // Set New Question
         setTriviaQuestion(newQuestion);
@@ -114,18 +116,14 @@ export default class ActionDispatcherRecoil {
         setCurrentTrivia({
             hasData: false,
             data: undefined
-        })
-        // NextTriviaActions.finish(message.payload);
-        // NextTriviaActions.get();
+        });
     }
     onStartTrivia(message) {
         console.log('onStartTrivia', message.payload)
         setCurrentTrivia({
             hasData: true,
             data: message.payload
-        })
-        // NextTriviaActions.current(message.payload);
-        // CurrentTriviaStatisticsActions.reset();
+        });
     }
 
     async onFinishedQuestion(message) {
@@ -133,13 +131,16 @@ export default class ActionDispatcherRecoil {
         if(answeredFinished){
             await setTriviaQuestion(answeredFinished);
         }
-        const authUpdated = await UserUtility.getUpdateUserInformation();
-        console.log('onUpdateUserData')
+        // Update User Data (cannot call this.function)
+         
+         const authUpdated = await UserUtility.getUpdateUserInformation();
+         setAuthUser({...authUpdated});
+        this.onUpdateUserData(null);
+        
+        // Same to connected users
+        const number = NumberUtility.formatNumberConnected(message.payload);
         // ConnectedUsersActions.updateConnectedUsers(message.payload)
-        setAuthUser({...authUpdated});
-        // TriviaQuestionActions.finishedQuestion(message.payload);
-        // UsersActions.update();
-
+        setConnectedUser(number);
         // When end i need send one event?
     }
 

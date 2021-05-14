@@ -45,17 +45,7 @@ const GameQuestion = (props: GameQuestionInterface) => {
     const [triviaQuestion, setTriviaQuestion] = useRecoilState(triviaQuestionAtom);
     // Current Trivia
     const currentTrivia = useRecoilValue(currentTriviaAtom);
-    // state = {
-    //     button1Pressed: false,
-    //     button2Pressed: false,
-    //     button3Pressed: false,
-    //     disabled: false,
-    // }
-    // constructor(props){
-    //     super(props);
-    //     this._optionButton1 = this._optionButton2 = this._optionButton3= null;
-    //     this.stores = [TriviaQuestion, UsersStore, NextTriviaStore];
-    // }
+    
     const _sendAnswer = async (option) => {
 
         let response = api.sendAnswer(props.question.id, option).catch((e) => {
@@ -69,30 +59,13 @@ const GameQuestion = (props: GameQuestionInterface) => {
             setDisabled(false);
             setTriviaQuestion({ ...TriviaQuestionUtility.getResetOnNetworkFail() })
         });
-        // console.log('_sendAnser', response)
-        // TriviaQuestionActions.answerQuestion(props.question.id, option, response);
-        //   this.setState({button1Pressed:false,disabled:false});
-        //   this.setState({button2Pressed:false});
-        //   this.setState({button3Pressed:false});          
-        //necesitamos saber si response llego a destino antes de dar veredicto.
-        /*response.then((data)=>{
-            console.log(data);
-        })*/
-        if (triviaQuestion.currentQuestion.id == props.question.id) {
-            // this.setState({
-            //     answered: true,
-            //     answeredOption: 'option_' + option,
-            //     answeredServerResponse: response
-            // });
+        
+        if (triviaQuestion.currentQuestion.id == props.question.id) { 
             const answerTriviaQuestion = TriviaQuestionUtility.answerQuestion(triviaQuestion, option, response);
             setTriviaQuestion({ ...answerTriviaQuestion });
         } else {
             console.warn("Intentando responder a una pregunta que no es la actual");
         }
-
-        //if(response.success){
-
-        //1}
 
     }
     const onButtonPress = (button) => {
@@ -101,12 +74,6 @@ const GameQuestion = (props: GameQuestionInterface) => {
         _sendAnswer(button)
     }
 
-    // componentDidMount(){
-    //     this.questionListener = TriviaQuestionActions.onNewQuestion.listen(
-    //         (q) => {
-    //             Vibration.vibrate();
-    //         }
-    //     )
     const resetValues = useCallback(()=>{
         setButtonsState({...intialState});
         setDisabled(false);

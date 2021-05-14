@@ -3,7 +3,7 @@ import ThemeUtility from '../../utilities/Theme/Theme.utility'
 
 export default StyleSheet.create({
     container: {
-      
+      marginTop: 15.
     },
     text: {
         fontFamily: 'OpenSansCondensed_bold',
@@ -11,7 +11,7 @@ export default StyleSheet.create({
         textAlign: 'center'
     },
     subtitleContainer:{
-        marginVertical: 15,
+        marginVertical: 8,
     },
     subtitle: {
         fontFamily: 'OpenSansCondensed_bold',
@@ -19,7 +19,7 @@ export default StyleSheet.create({
         textAlign: 'center'
     },
     button: {
-        marginTop: ThemeUtility.h(25),
+        marginTop: ThemeUtility.h(30),
         height: ThemeUtility.h(105),
         alignItems: 'center',
         justifyContent: 'center',

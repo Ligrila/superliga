@@ -6,17 +6,18 @@ export default StyleSheet.create({
         flex:1,
         marginTop: 15
     },
-    avatarContainer:{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+
     mainContainer:{
-        flex:1,
+        marginTop: 25,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
         width: "100%",
+    },
+    avatarContainer:{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     vsText:{
         marginLeft: 8,

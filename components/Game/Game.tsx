@@ -37,10 +37,17 @@ const Game = ({
     const onQuestionTimeout = () => {
         //console.log("Question timed out");
     }
-
     const renderTeams = () => {
-         if (triviaQuestion && ( triviaQuestion.hasQuestion || triviaQuestion.hasResult)) {
-             return null
+        return (
+            <View style={styles.avatarContainer}>
+                <TeamAvatar source={currentTrivia.local_team.avatar} width={86} height={98} />
+                <Text style={styles.vsText}>vs</Text>
+                <TeamAvatar source={currentTrivia.visit_team.avatar} width={86} height={98} />
+            </View>);
+    }
+    const renderTrivia = () => {
+        if (triviaQuestion && (triviaQuestion.hasQuestion || triviaQuestion.hasResult)) {
+            return null
         }
         if (currentTrivia.type == 'trivia') {
             const title1 = currentTrivia.title1 ? currentTrivia.title1.toUpperCase() : 'TRIVIA';
@@ -52,12 +59,9 @@ const Game = ({
                 </View>
             )
         }
-        return (
-        <View style={styles.avatarContainer}>
-            <TeamAvatar source={currentTrivia.local_team.avatar} width={86} height={98} />
-            <Text style={styles.vsText}>vs</Text>
-            <TeamAvatar source={currentTrivia.visit_team.avatar} width={86} height={98} />
-        </View>);
+
+        return null;
+
     }
 
 
@@ -68,6 +72,7 @@ const Game = ({
     return (
         <View style={styles.container}>
             {renderTeams()}
+            {renderTrivia()}
             <View style={styles.mainContainer}>
                 {renderGamePlay()}
             </View>

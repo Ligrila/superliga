@@ -1,0 +1,1 @@
+export const TRIVIA_TIMEOUT = 15000;

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+// Native
 import {
   KeyboardAvoidingView,
   TouchableOpacity,
@@ -6,6 +7,7 @@ import {
   View,
   Keyboard,
 } from "react-native";
+// native Base
 import {
   Container,
   Content,
@@ -13,20 +15,15 @@ import {
   Text,
   Spinner,
 } from "native-base";
+
 import { StackActions, NavigationActions } from "react-navigation";
-
-import Wallpaper from "../../components/Wallpaper";
+// Components
+import Wallpaper from "../../components/Wallpaper/Wallpaper";
 import AppHeader from "../../components/AppHeader/AppHeader";
-
-
-
 // usado para entre tiempo
 // y final
-
-
 import Api from "../../api/Api";
-
-import Game from "../../components/Game";
+import Game from "../../components/Game/Game";
 import GameConnectedUsers from "../../components/Game/GameConnectedUsers";
 
 import Reflux from "reflux";
@@ -39,14 +36,23 @@ import MakeItRain from "../../components/MakeItRain";
 import Chat from '../../components/Chat'
 // Expo
 import Constants from 'expo-constants';
-import { AdMobInterstitial } from 'expo-ads-admob';
+// Advertising
+import { AdMobInterstitial, setTestDeviceIDAsync } from 'expo-ads-admob';
 // Styles
 import styles from './GameScreen.style'
 import Layout from "../../constants/Layout";
+import { useFocusEffect } from "@react-navigation/native";
+// Recoil
+import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
+import { authUserAtom, authUserSelector } from "../../recoil/Auth.recoil";
+import { currentTriviaAtom, currentTriviaSelector } from "../../recoil/CurrentTrivia.recoil";
+import { triviaQuestionAtom } from "../../recoil/TriviaQuestion.recoil";
+
 // Bg
 const gameBgSrc = require("../../assets/images/game/bg.png");
+const gamePlayBgSrc = require("../../assets/images/game/game_bg.png");
 const gameDisabledBgSrc = require("../../assets/images/result/wrong_bg.png");
-const bgProgrammedTriviaSrc = require("../assets/images/programmed-trivia-bg.png");
+const bgProgrammedTriviaSrc = require("../../assets/images/programmed-trivia-bg.png");
 const genericQuestionBg = require("../../assets/images/game/genericQuestionBg.png");
 
 const getAdMobInterstitialID = () => {
@@ -62,189 +68,203 @@ const getAdMobInterstitialID = () => {
     : "ca-app-pub-4248217184030056/1391751063";
 };
 
-class GameScreen extends Reflux.Component {
-  api = new Api();
-  static modalVisible = false;
-  listenActions = [];
-  state = {
-    modalVisible: false,
-    genericQuestion: false,
-    keyboardVisible: false,
-  };
-  constructor(props) {
-    super(props);
-    /*this.state = {
-      isLoadingComplete: false
-    }*/
-    this.stores = [
-      TriviaQuestion,
-      NextTriviaStore,
-      UsersStore,
-      PurchaseModalStore,
-    ]; // TODO: use Trivia Store
-    this._bootstrap();
-  }
+const GameScreen = () => {
+  const api = new Api();
+  // Auth User
+  const [authUser, setAuthUser] = useRecoilState(authUserAtom);
+  // Modal
+  const [modalVisible, setModalVisible] = useState(false);
+  // Keyboard
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  // Current Trivia
+  const [currentTrivia, setCurrentTrivia] = useRecoilState(currentTriviaAtom);
+  // Trivia Questions
+  const triviaQuestion = useRecoilValue(triviaQuestionAtom)
 
-  _bootstrap() {
-    this.props.navigation.setParams({ drawerLockMode: "locked-closed" });
-  }
+  // state = {
+  //   modalVisible: false,
+  //   genericQuestion: false,
+  //   keyboardVisible: false,
+  // };
+  // constructor(props) {
+  //   super(props);
+  //   /*this.state = {
+  //     isLoadingComplete: false
+  //   }*/
+  //   this.stores = [
+  //     TriviaQuestion,
+  //     NextTriviaStore,
+  //     UsersStore,
+  //     PurchaseModalStore,
+  //   ]; // TODO: use Trivia Store
 
-  async renderInterstitial() {
+  // }
+
+
+
+  const renderInterstitial = async () => {
     AdMobInterstitial.setAdUnitID(getAdMobInterstitialID());
-    AdMobInterstitial.setTestDeviceID("EMULATOR");
+    setTestDeviceIDAsync("EMULATOR");
     await AdMobInterstitial.requestAdAsync();
     await AdMobInterstitial.showAdAsync();
   }
 
-  componentWillUnmount() {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
-    this.listenActions.forEach((listenable) => {
-      if (typeof listenable == "function") {
-        listenable();
-      }
-    });
 
-    this.listenActions = [];
-    super.componentWillUnmount();
+  //#region Keyboard
+  const _keyboardDidShow = () => {
+    setKeyboardVisible(true);
+  };
+
+  const _keyboardDidHide = () => {
+    setKeyboardVisible(false);
+  };
+
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+    // cleanup function
+    return () => {
+      Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
+      Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+    };
+  }, []);
+  // Update Current User
+  const updateCurrentUser = useRecoilCallback(({ snapshot }) => async () => {
+    const authUserResponse = await snapshot.getPromise(authUserSelector);
+    setAuthUser({ ...authUserResponse });
+  });
+  // Update Current Trivia
+  const updateCurrentTrivia = useRecoilCallback(({ snapshot }) => async () => {
+    const currentTriviaResponse = await snapshot.getPromise(currentTriviaSelector);
+    const currentTriviaObj = currentTriviaResponse ? { ...currentTriviaResponse } : currentTriviaResponse;
+    setCurrentTrivia(currentTriviaObj);
+  });
+  //#endregion Keyboard
+  const updateNeccesaryData = useCallback(async () => {
+    // Get Latest info of user
+    updateCurrentUser();
+    // Update Current Triva
+    updateCurrentTrivia();
+  }, [updateCurrentTrivia])
+  // Update Always focus
+  useFocusEffect(
+    useCallback(() => {
+      updateNeccesaryData();
+      return () => { };
+    }, []))
+
+
+  const componentDidMount = () => {
+    // if (!this.state.hasData) {
+    //   NextTriviaActions.current();
+    // }
+    // if (!this.state.hasInformation) {
+    //   UsersActions.update();
+    // }
+
+
+    // this.listenActions.push(
+    //   NextTriviaActions.finish.listen((trivia) => {
+    //     const currentTriviaId = trivia.id;
+    //     const resetAction = StackActions.reset({
+    //       index: 0,
+    //       actions: [
+    //         NavigationActions.navigate({
+    //           routeName: "GameEnd",
+    //           params: { currentTriviaId, trivia },
+    //         }),
+    //       ],
+    //     });
+    //     this.props.navigation.dispatch(resetAction);
+    //   })
+    // );
+
+    // this.listenActions.push(
+    //   NextTriviaActions.halfTime.listen((b) => {
+    //     this.props.navigation.navigate("HalfTime");
+    //   })
+    // );
+
+    // this.listenActions.push(
+    //   NextTriviaActions.halfTimeStarted.listen((b) => {
+    //     this.props.navigation.navigate("HalfTimeStart");
+    //   })
+    // );
+
+    // this.listenActions.push(
+    //   NextTriviaActions.halfTimePlay.listen(() => {
+    //     this.props.navigation.navigate("GameHalfTimePlay");
+    //   })
+    // );
+
+    // this.listenActions.push(
+    //   NextTriviaActions.showBannerStarted.listen((payload) => {
+    //     if (payload.bannerType == "admob") {
+    //       this.renderInterstitial();
+    //     } else {
+    //       this.props.navigation.navigate("Banner", { payload });
+    //     }
+    //   })
+    // );
+
+    // this.listenActions.push(
+    //   NextTriviaActions.extraPlay.listen(() => {
+    //     this.props.navigation.navigate("GameExtraPlay");
+    //   })
+    // );
+
+    // this.listenActions.push(
+    //   NextTriviaActions.halfTimeStarted.listen((b) => {
+    //     this.props.navigation.navigate("HalfTimeStart");
+    //   })
+    // );
+
+    // this.listenActions.push(
+    //   UsersActions.me.listen(() => {
+    //     if (this.state.user.lives <= 0) {
+    //     }
+    //   })
+    // );
+    // if (this.state.PurchaseModal.visible) {
+    //   this.setModalVisible(true);
+    // }
   }
+  const handlerSetModalVisibleProp = () => {
 
-  _keyboardDidShow = () => {
-    const keyboardVisible = true;
-    this.setState({ keyboardVisible });
-  };
-
-  _keyboardDidHide = () => {
-    const keyboardVisible = false;
-    this.setState({ keyboardVisible });
-  };
-
-  async componentDidMount() {
-    if (!this.state.hasData) {
-      NextTriviaActions.current();
-    }
-    if (!this.state.hasInformation) {
-      UsersActions.update();
-    }
-    this.keyboardDidShowListener = Keyboard.addListener(
-      "keyboardWillShow",
-      this._keyboardDidShow
-    );
-    this.keyboardDidHideListener = Keyboard.addListener(
-      "keyboardWillHide",
-      this._keyboardDidHide
-    );
-    /*TriviaQuestionActions.onNewQuestion.listen((q)=>{
-      if(q.model=='GenericQuestions'){
-        this.setState({genericQuestion:true});
-      } else{
-        this.setState({genericQuestion:false});
-      }
-    })
-    TriviaQuestionActions.onFinishQuestion((q)=>{
-      this.setState({genericQuestion:false});
-    });*/
-
-    this.listenActions.push(
-      NextTriviaActions.finish.listen((trivia) => {
-        const currentTriviaId = trivia.id;
-        const resetAction = StackActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({
-              routeName: "GameEnd",
-              params: { currentTriviaId, trivia },
-            }),
-          ],
-        });
-        this.props.navigation.dispatch(resetAction);
-      })
-    );
-
-    this.listenActions.push(
-      NextTriviaActions.halfTime.listen((b) => {
-        this.props.navigation.navigate("HalfTime");
-      })
-    );
-
-    this.listenActions.push(
-      NextTriviaActions.halfTimeStarted.listen((b) => {
-        this.props.navigation.navigate("HalfTimeStart");
-      })
-    );
-
-    this.listenActions.push(
-      NextTriviaActions.halfTimePlay.listen(() => {
-        this.props.navigation.navigate("GameHalfTimePlay");
-      })
-    );
-
-    this.listenActions.push(
-      NextTriviaActions.showBannerStarted.listen((payload) => {
-        if (payload.bannerType == "admob") {
-          this.renderInterstitial();
-        } else {
-          this.props.navigation.navigate("Banner", { payload });
-        }
-      })
-    );
-
-    this.listenActions.push(
-      NextTriviaActions.extraPlay.listen(() => {
-        this.props.navigation.navigate("GameExtraPlay");
-      })
-    );
-
-    this.listenActions.push(
-      NextTriviaActions.halfTimeStarted.listen((b) => {
-        this.props.navigation.navigate("HalfTimeStart");
-      })
-    );
-
-    this.listenActions.push(
-      UsersActions.me.listen(() => {
-        if (this.state.user.lives <= 0) {
-        }
-      })
-    );
-    if (this.state.PurchaseModal.visible) {
-      this.setModalVisible(true);
-    }
   }
-
-  setModalVisible = (visible) => {
-    this.setState({ modalVisible: visible });
+  const onSetModalVisible = (visible) => {
+    setModalVisible(visible)
   };
-  renderModal() {
+  const renderModal = () => {
     return (
       <Modal
         animationType="slide"
         transparent={true}
-        visible={this.state.modalVisible}
+        visible={modalVisible}
         onRequestClose={() => {
-          this.setModalVisible(false);
+          setModalVisible(false);
         }}
       >
         <Purchase
-          navigation={this.props.navigation}
-          onHidePress={() => this.setModalVisible(false)}
+          onHidePress={() => setModalVisible(false)}
         />
       </Modal>
     );
   }
-  renderFooter() {
-    if (this.state.keyboardVisible) {
+  const renderFooter = () => {
+    if (keyboardVisible) {
       return null;
     }
-    if (this.state.hasInformation) {
-      const hasLives = this.state.user.lives >= 1;
+    if (authUser) {
+      const hasLives = authUser.lives >= 1;
       if (hasLives) {
         return <GameConnectedUsers />;
       } else {
         return (
           <TouchableOpacity
             onPress={() => {
-              this.setModalVisible(true);
+              setModalVisible(true);
             }}
           >
             <Text style={styles.noLifeText}>
@@ -256,71 +276,77 @@ class GameScreen extends Reflux.Component {
     }
     return <GameConnectedUsers />;
   }
-  renderGame() {
-    if (this.state.CurrentTrivia.hasData) {
-      //const currentTriviaId = this.state.CurrentTrivia.Trivia.id;
-      //this.props.navigation.navigate({ routeName: 'GameEnd' , params: {currentTriviaId}})
+  const renderGame = () => {
+    if (currentTrivia && currentTrivia.hasData) {
       return (
         <Game
-          currentTrivia={this.state.CurrentTrivia.Trivia}
-          navigation={this.props.navigation}
-          onNoLife={() => this.setModalVisible(true)}
-          setModalVisibleProp={this.setModalVisibleProp}
+          currentTrivia={currentTrivia.data}
+          onNoLife={() => setModalVisible(true)}
+          setModalVisibleProp={handlerSetModalVisibleProp}
         ></Game>
       );
     } else {
       return <Spinner />;
     }
   }
-  makeItRain = () => {
-    if (this.state.hasResult && this.state.win) {
-      return <MakeItRain />;
+  // Make it Rain :)
+  const makeItRain = () => {
+    if (triviaQuestion) {
+      if (triviaQuestion.hasResult && triviaQuestion.win) {
+        return <MakeItRain />;
+      }
     }
   };
-  render() {
-    let bgSrc = gameBgSrc;
-    if (this.state.hasInformation) {
-      bgSrc = this.state.user.lives <= 0 ? gameDisabledBgSrc : gameBgSrc;
-    }
+
+  let bgSrc = gameBgSrc;
+
+
+  // Current Trivia
+  if (currentTrivia && currentTrivia.data) {
     if (
-      this.state.CurrentTrivia.Trivia.half_time_finished &&
-      !this.state.CurrentTrivia.Trivia.half_time_started
+      currentTrivia.data.half_time_finished &&
+      currentTrivia.data.half_time_started
     ) {
       bgSrc = genericQuestionBg;
     }
-    if (this.state.CurrentTrivia.Trivia.type == "trivia") {
+    if (currentTrivia.data.type == "trivia") {
       bgSrc = bgProgrammedTriviaSrc;
     }
-    if (this.state.CurrentTrivia.Trivia.game_finished) {
+    if (currentTrivia.data.game_finished) {
       bgSrc = genericQuestionBg;
     }
-
-    return (
-      <Container>
-        <Wallpaper source={bgSrc}>
-          {this.makeItRain()}
-          <AppHeader
-            hideChat={true}
-            navigation={this.props.navigation}
-            drawerOpen={() => {
-              this.props.navigation.openDrawer();
-            }}
-            game={true}
-          />
-          <Content padder contentContainerStyle={styles.game}>
-            {this.renderModal()}
-            {this.renderGame()}
-          </Content>
-          <KeyboardAvoidingView behavior="position" enabled>
-            <Footer style={styles.footer}>
-              <Chat />
-              <View style={styles.connectedUsers}>{this.renderFooter()}</View>
-            </Footer>
-          </KeyboardAvoidingView>
-        </Wallpaper>
-      </Container>
-    );
   }
+  if (authUser) {
+    bgSrc = authUser.lives <= 0 ? gameDisabledBgSrc : gameBgSrc;
+  }
+  // Trivia Question
+  if (triviaQuestion && triviaQuestion.hasQuestion) {
+    bgSrc = gamePlayBgSrc;
+  }
+
+
+  return (
+    <Container>
+      <Wallpaper source={bgSrc}>
+        {makeItRain()}
+        <AppHeader game={true} logo={true} logoDisablePress={true} />
+        {/* Content */}
+        <Content
+          padder contentContainerStyle={styles.game}>
+          {renderModal()}
+          {renderGame()}
+          <View style={styles.footer}>
+            {/* <Chat /> */}
+            <View style={styles.connectedUsers}>{renderFooter()}</View>
+          </View>
+        </Content>
+        {/* <KeyboardAvoidingView behavior="position" enabled>
+
+        </KeyboardAvoidingView> */}
+      </Wallpaper>
+    </Container>
+  );
+
 }
 
 //export default connectStyle('SuperLiga.GameScreen')(GameScreen);

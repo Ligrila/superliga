@@ -217,7 +217,6 @@ const ChampionshipView = ({ championship, created }) => {
   return (
     <Content style={styles.container}>
       {renderShare()}
-      <Logo />
       <View style={styles.title}>
         <BigTitle
           hideSeparator={true}

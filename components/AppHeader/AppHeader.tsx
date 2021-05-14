@@ -23,6 +23,7 @@ import NotificationBullet from "../Notification/NotificationBullet";
 // Styles
 import styles from './AppHeader.styles';
 import Layout from '../../constants/Layout';
+import Logo from "../Logo/Logo";
 // Assets
 const superligaAppImg = require('../../assets/images/app_logo.png');
 const menuImg = require('../../assets/images/menu.png');
@@ -32,6 +33,8 @@ interface AppHeaderProps {
     hideChat?: boolean;
     game?: boolean;
     return?: React.ReactNode;
+    logo?: boolean,
+    logoDisablePress?: boolean
 }
 
 const AppHeader = (props: AppHeaderProps) => {
@@ -76,24 +79,23 @@ const AppHeader = (props: AppHeaderProps) => {
     }
 
 
-    const heightRatio = Layout.window.heightRatio;
-    const marginBottom = props.game ? -50 * heightRatio : 5;
+    
     return (
-        <Header transparent style={{ marginBottom: marginBottom, ...styles.header }}>
+        <Header transparent style={[styles.header]}>
             <Left style={styles.left}>
                 {renderLeft()}
             </Left>
             <Body style={styles.body}>
-
+                {props.logo && <Logo disablePress={props.logoDisablePress} />}
             </Body>
             <Right style={styles.right}>
                 {/* {renderChatButton()} */}
                 <Button transparent onPress={() => { openMainDrawer() }}>
                     <Image source={menuImg} style={styles.menuImg} resizeMode="contain" />
                 </Button>
-                <View style={styles.notificationBullet}>
-                    {/* <NotificationBullet /> */}
-                </View>
+                {/* <View style={styles.notificationBullet}>
+                     <NotificationBullet /> 
+                </View> */}
             </Right>
         </Header>
     );

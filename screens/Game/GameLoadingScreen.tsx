@@ -52,11 +52,9 @@ const GameLoadingScreen = () => {
             {/* <CheckDocument navigation={this.props.navigation} /> */}
             <Wallpaper source={homeBg}>
                 {/* Header */}
-                <AppHeader />
+                <AppHeader logo={true}/>
                 {/* Main Content */}
                 <Content>
-                    {/* Logo */}
-                    <Logo />
                 </Content>
             </Wallpaper>
         </Container>

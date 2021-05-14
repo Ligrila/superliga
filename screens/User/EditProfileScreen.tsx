@@ -52,9 +52,10 @@ const EditProfileScreen = () => {
     const authHelper = new AuthHelper();
     // Fetch Data
     const fetchData = useCallback(() => {
+        const document =  authUser.document ? `${authUser.document}` : ''
         setValue('first_name', authUser.first_name)
         setValue('last_name', authUser.last_name)
-        setValue('document', `${authUser.document}`, { shouldValidate: true })
+        setValue('document', document, { shouldValidate: true })
         setValue('mobile_number', authUser.mobile_number)
     }, [authUser])
     useEffect(() => {

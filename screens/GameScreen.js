@@ -17,7 +17,7 @@ import genericQuestionBg from '../assets/images/game/genericQuestionBg.png';
 
 import Api from '../api/Api';
 
-import Game from '../components/Game';
+import Game from '../components/Game/Game';
 import GameConnectedUsers from '../components/Game/GameConnectedUsers';
 
 import Reflux from 'reflux';

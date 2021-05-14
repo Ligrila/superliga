@@ -42,11 +42,13 @@ import { NavigatorActions } from "./store/NavigatorStore";
 
 import { YellowBox } from "react-native";
 // Recoil
+import { RecoilExternalStatePortal } from "./components/Recoil/RecoilExternalStatePortal";
 import {
-  RecoilRoot, useRecoilValue,
-
+  RecoilRoot
 } from 'recoil';
-import RecoilNexus from "recoil-nexus";
+import NavigationListen from "./components/NavigationListen/NavigationListen";
+import DebugObserver from "./components/Debug/DebugObserver";
+
 
 
 
@@ -140,12 +142,11 @@ const App: React.FC = () => {
         require("./assets/images/form/password.png"),
         require("./assets/images/form/logo.png"),
         require("./assets/images/form/eye_black.png"),
-        require("./assets/images/ball.png"),
         require("./assets/images/result/wrong_bg.png"),
         require("./assets/images/robot-prod.orig.png"),
         require("./assets/images/purchase-modal.png"),
         require("./assets/images/whistle.png"),
-        require("./assets/images/ball_old.png"),
+        
         require("./assets/images/bgOld.png"),
         require("./assets/images/purchase-modal.orig.png"),
         require("./assets/images/blackBg.png"),
@@ -153,12 +154,7 @@ const App: React.FC = () => {
         require("./assets/images/chat-bg.png"),
         require("./assets/images/robot-prod.png"),
         require("./assets/images/contactBg.png"),
-        require("./assets/images/icon_ios.png"),
-        require("./assets/images/game/bgOld.png"),
-        require("./assets/images/game/genericQuestionBg.png"),
-        require("./assets/images/game/bgOld.orig.png"),
-        require("./assets/images/game/bg2.png"),
-        require("./assets/images/game/bg.png"),
+        require("./assets/images/icon_ios.png"),        
         require("./assets/images/flag.orig.png"),
         require("./assets/images/asplash.png"),
         require("./assets/images/logo.orig.png"),
@@ -178,8 +174,7 @@ const App: React.FC = () => {
         require("./assets/images/teams/colon.orig.png"),
         require("./assets/images/teams/colon.png"),
         require("./assets/images/teams/patronato.png"),
-        require("./assets/images/teams/patronato.orig.png"),
-        require("./assets/images/ball_old.orig.png"),
+        require("./assets/images/teams/patronato.orig.png"),,
         require("./assets/images/programmed-trivia-bg.png"),
         require("./assets/images/robot-dev.orig.png"),
         require("./assets/images/awards/bg2.png"),
@@ -197,7 +192,6 @@ const App: React.FC = () => {
         require("./assets/images/whistle2.orig.png"),
         require("./assets/images/rain.orig.png"),
         require("./assets/images/login/bg.png"),
-        require("./assets/images/ball.orig.png"),
         require("./assets/images/noticeBg.png"),
         require("./assets/images/tutorial2.png"),
         require("./assets/images/menu.orig.png"),
@@ -233,6 +227,13 @@ const App: React.FC = () => {
         // Carousel
         require("./assets/images/carousel_navigation_bg.png"),
         require("./assets/images/carousel_navigation_invested_bg.png"),
+        // Game
+        require("./assets/images/game/genericQuestionBg.png"),
+        require("./assets/images/game/bg.png"),
+        require("./assets/images/game/game_bg.png"),
+        // Ball
+        require("./assets/images/ball.png"),
+        require("./assets/images/ball_min.png"),
       ]),
       ...serverAssets,
     ]);
@@ -319,8 +320,11 @@ const App: React.FC = () => {
     <Root>
       <StyleProvider style={AppTheme}>
         <RecoilRoot>
+          <DebugObserver/>
+          {/* Navigation Listen */}
+          <NavigationListen />
           {/* To access recoil outside of component */}
-          <RecoilNexus />
+          <RecoilExternalStatePortal />
           <StatusBar hidden={true} />
           <Navigation isLoggedIn={false} />
         </RecoilRoot>

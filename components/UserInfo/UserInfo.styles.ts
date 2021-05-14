@@ -2,13 +2,16 @@ import { StyleSheet } from "react-native";
 import ThemeUtility from '../../utilities/Theme/Theme.utility'
 export default StyleSheet.create({
     container: {
-        alignItems: 'center',
+        alignItems: 'flex-start',
+        paddingLeft: 10
     },
     liveContainer: {
         borderBottomColor: '#b0b0af',
         borderBottomWidth: 1,
         alignItems: 'center',
         flexDirection: 'row',
+        paddingBottom: 5,
+        marginVertical: 5
     },
     ballImg: {
         marginRight: ThemeUtility.s(10),

@@ -12,7 +12,7 @@ const RankingScreen = () => {
     return (
         <Container >
             <Wallpaper source={bgSrc}>
-                <AppHeader />
+                <AppHeader logo={true}/>
                 <Ranking />
             </Wallpaper>
         </Container>

@@ -9,11 +9,19 @@
 // import { StatisticsStore } from './StatisticsStore';
 // import { CurrentTriviaStatisticsStore, CurrentTriviaStatisticsActions } from './CurrentTriviaStatisticsStore';
 // import { ChatActions, ChatStore } from './ChatStore';
-import { useNavigationState } from '@react-navigation/native';
+// import { useNavigationState } from '@react-navigation/native';
 import Api from '../api/Api';
 // To access to recoil outside components
-import { getRecoil, setRecoil } from "recoil-nexus";
-import { navigationAtom } from './Navigation.recoil';
+import { navigationAtom, navigationAtomState, setNavigation } from './Navigation.recoil';
+import NavigationUtility from '../utilities/Navigation/Navigation.utility';
+import OfflineNotice from '../components/OfflineNotice';
+import NumberUtility from '../utilities/Number/Number.utility';
+import { connectedUserAtom, setConnectedUser } from './ConnectedUsers.recoil';
+import UserUtility from '../utilities/User/User.utility';
+import { authUserAtom, setAuthUser } from './Auth.recoil';
+import { triviaQuestionAtom, getTriviaQuestion, setTriviaQuestion } from './TriviaQuestion.recoil';
+import { currentTriviaAtom, setCurrentTrivia } from './CurrentTrivia.recoil';
+import TriviaQuestionUtility from '../utilities/Trivia/TriviaQuestion.utility';
 
 // First
 // If Trivia active redirect to GamePlay
@@ -21,6 +29,7 @@ import { navigationAtom } from './Navigation.recoil';
 
 export default class ActionDispatcherRecoil {
     private api = new Api();
+    private timeoutTriviaQuestion: any = null
     // private navigation = useNavigation();
     constructor() {
         // Reflux.initStore(ConnectedUsersStore); // la necesitamos iniciada
@@ -32,41 +41,57 @@ export default class ActionDispatcherRecoil {
         // Reflux.initStore(NavigatorStore);
         // this.api = new Api;
     }
-    getActiveRouteState() {
-        const routes = useNavigationState(state => state.routes);
-        const currentRoute = routes[routes.length - 1].name;
-        return currentRoute;
-    }
+
+
+    // On Connect Action to Socket.io
     async onConnect(isReconnected = false) {
         try {
+            // If socket is reconnected get route and check if have current trivia
             if (isReconnected) {
-                console.log('is reconected');
-                const routeName = this.getActiveRouteState()
-                // call trivia actions
-                const canHandle = (routeName == 'GamePlay' || routeName == 'Home')
-                if (!canHandle) return
-                // Get Current trivia
-                let ct = await this.api.getCurrentTrivia();
-                if (!ct) {
-                    ct = { success: false };
-                }
-                let gameInProgress = ct.success;
-                if (gameInProgress) {
-                    // this.navigation.navigate('GamePlay')
-                    setRecoil(navigationAtom, 'GamePlay');
+                const routeObject = await NavigationUtility.getActiveRoute();
+                if (routeObject) {
+                    const routeName = routeObject.name
+                    // console.log('routeName', routeName)
+                    // call trivia actions
+                    const canHandle = (routeName == 'GamePlay' || routeName == 'Home' || null)
+                    if (!canHandle) return
+                    // Get Current trivia
+                    let ct = await this.api.getCurrentTrivia();
+                    if (!ct) {
+                        ct = { success: false };
+                    }
+                    let gameInProgress = ct.success;
+                    if (gameInProgress) {
+                        // promiseSetRecoil(navigationAtom, 'GamePlay');
+                        setNavigation('GamePlay')
+                    }
                 }
             }
-            console.log('Action dispatcher connected');
         } catch (e) {
             console.log("error onConnect", e)
         }
 
     }
-    onUpdateConnectedUsers(message) {
+    async onUpdateConnectedUsers(message) {
+        const number = NumberUtility.formatNumberConnected(message.payload);
         // ConnectedUsersActions.updateConnectedUsers(message.payload)
+        setConnectedUser(number);
     }
-    onNewQuestion(message) {
-        // TriviaQuestionActions.add(message.payload);
+    async onNewQuestion(message) {
+        const newQuestion = TriviaQuestionUtility.onAddNew(message.payload);
+        // Timeout
+        if (this.timeoutTriviaQuestion) {
+            clearTimeout(this.timeoutTriviaQuestion);
+        }
+        this.timeoutTriviaQuestion = setTimeout(async () => {
+            
+            const current = await getTriviaQuestion();
+             // console.log('timeoutTriviaQuestion', current)
+            current.timeout = true;
+            setTriviaQuestion(current);
+        }, newQuestion.currentTimeout);
+        // Set New Question
+        setTriviaQuestion(newQuestion);
     }
 
     onFinishHalfTime(message) {
@@ -86,21 +111,41 @@ export default class ActionDispatcherRecoil {
     }
 
     onFinishTrivia(message) {
+        setCurrentTrivia({
+            hasData: false,
+            data: undefined
+        })
         // NextTriviaActions.finish(message.payload);
         // NextTriviaActions.get();
     }
     onStartTrivia(message) {
+        console.log('onStartTrivia', message.payload)
+        setCurrentTrivia({
+            hasData: true,
+            data: message.payload
+        })
         // NextTriviaActions.current(message.payload);
         // CurrentTriviaStatisticsActions.reset();
     }
 
-    onFinishedQuestion(message) {
+    async onFinishedQuestion(message) {
+        const answeredFinished = await TriviaQuestionUtility.onFinishedQuestion(message.payload);
+        console.log('answeredFinished',answeredFinished)
+        if(answeredFinished){
+            await setTriviaQuestion(answeredFinished);
+        }
+        this.onUpdateUserData(null)
         // TriviaQuestionActions.finishedQuestion(message.payload);
         // UsersActions.update();
+
+        // When end i need send one event?
     }
 
     onUpdateUserData(message) {
         // UsersActions.update();
+        const authUpdated = UserUtility.getUpdateUserInformation();
+        // ConnectedUsersActions.updateConnectedUsers(message.payload)
+        setAuthUser(authUpdated);
     }
 
     onShowBanner(message) {

@@ -4,7 +4,8 @@ import Layout  from '../../constants/Layout'
 const styles = StyleSheet.create({
     container:{
         justifyContent: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        position: 'relative',
     },
     logoContainer:{
         width: 100,

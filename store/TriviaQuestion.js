@@ -1,6 +1,15 @@
 import Reflux from 'reflux';
 
-export const TriviaQuestionActions = Reflux.createActions(['add','onNewQuestion','onFinishQuestion','timeout','answerQuestion','finishedQuestion','reset','resetOnNetworkFail']);
+export const TriviaQuestionActions = Reflux
+.createActions(['add',
+'onNewQuestion',
+'onFinishQuestion',
+'timeout',
+'answerQuestion',
+'finishedQuestion',
+'reset',
+'resetOnNetworkFail'
+]);
 
 export class TriviaQuestion extends Reflux.Store
 {

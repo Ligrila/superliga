@@ -29,7 +29,7 @@ const bgSrc = require('../../assets/images/home_bg.png');
 import Api from '../../api/Api';
 // Styles
 import styles from './HomeScreen.styles'
-import Logo from '../../components/Logo/Logo';
+
 
 
 const HomeScreen = () => {
@@ -104,7 +104,7 @@ const HomeScreen = () => {
             <CheckDocument />
             <Wallpaper source={screenBg}>
                 {/* Header */}
-                <AppHeader />
+                <AppHeader logo={true} />
                 {/* Main Content */}
                 <Content
                     refreshControl={
@@ -119,8 +119,6 @@ const HomeScreen = () => {
                         />
                     }
                     contentContainerStyle={{ flex: 1 }}>
-                    {/* Logo */}
-                    <Logo />
                     <View style={styles.nextTriviaIconsContainer}>
                         {nextTrivia.hasData && <NextTrivia
                             trivia={nextTrivia.data}

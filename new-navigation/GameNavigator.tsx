@@ -4,8 +4,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TransitionPresets } from '@react-navigation/stack';
 // Screens
-import HomeScreen from '../screens/Home/HomeScreen';
-import GameScreen from '../screens/GameScreen';
+import GameScreen from '../screens/Game/GameScreen';
 import GameResultScreen from '../screens/GameScreen';
 import GameEndScreen from '../screens/GameEndScreen';
 import GameStartScreen from '../screens/GameStartScreen';

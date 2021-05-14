@@ -3,17 +3,23 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from './types';
 import MainNavigator from './MainNavigator';
-// import LinkingConfiguration from './LinkingConfiguration';
 import AuthNavigator from './AuthNavigator';
 import AuthLoadingScreen from '../screens/Auth/AuthLoadingScreen';
-// import BottomTabNavigator from './BottomTabNavigator';
+import { navigationRef } from './RootNavigation';
+import { useRecoilState } from 'recoil';
+import { navigationAtomState } from '../recoil/Navigation.recoil';
+
+// import { promiseSetRecoil, promiseGetRecoil } from "recoil-outside"
 
 
-
-// Navigation
 export default function Navigation(props) {
+  const [, setNavigationState] = useRecoilState(navigationAtomState)
+  const onStateChange = async (state) => {
+    // console.log('onStateChange', state)
+    setNavigationState(state);
+  }
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef} onStateChange={onStateChange}>
       <RootNavigator isLoggedIn={props.isLoggedIn} />
     </NavigationContainer>
   );
@@ -26,14 +32,13 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator(props) {
   // const initialRouteName = props.isLoggedIn ? 'Main' : 'Auth'
   return (
-    <Stack.Navigator 
+    <Stack.Navigator
       initialRouteName={'AuthLoading'}
-      screenOptions={{ 
-        headerShown: false, 
-        gestureEnabled: false,      
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: false,
       }}
-      >
-
+    >
       <Stack.Screen name="AuthLoading" component={AuthLoadingScreen} />
       <Stack.Screen name="Auth" component={AuthNavigator} />
       <Stack.Screen name="Main" component={MainNavigator} />

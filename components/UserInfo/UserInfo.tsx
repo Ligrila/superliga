@@ -11,7 +11,7 @@ import { authUserAtom } from "../../recoil/Auth.recoil";
 // Styles
 import styles from './UserInfo.styles';
 
-const ballImg = require('../../assets/images/ball.png');
+const ballImg = require('../../assets/images/ball_min.png');
 
 const UserInfo = () => {
  
@@ -32,7 +32,7 @@ const UserInfo = () => {
         }
 
     }, [authUser]);
-
+    
     useEffect(() => {
         if (authUser) {
             fetchData();
@@ -40,7 +40,7 @@ const UserInfo = () => {
     }, [authUser, fetchData])
     return (
         <View style={styles.container}>
-            <View style={styles.liveContainer}>
+            <View style={[styles.liveContainer,parseInt(lives) === 0 ? { opacity: 0.5}: null]}>
                 <Image source={ballImg} style={styles.ballImg} />
                 <Text style={styles.livesText}>{lives}</Text>
             </View>

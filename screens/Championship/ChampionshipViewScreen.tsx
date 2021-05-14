@@ -27,7 +27,7 @@ const ChampionshipViewScreen = ({ route }) => {
     return (
         <Container>
             <Wallpaper source={bgSrc}>
-                <AppHeader return={returnButton} />
+                <AppHeader return={returnButton}  logo={true}/>
                 <Content contentContainerStyle={styles.content} >
                     <ChampionshipView championship={championship} created={created} />
                 </Content>

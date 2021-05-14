@@ -126,9 +126,7 @@ const Ranking = () => {
           title={''}
           progressBackgroundColor="#fff"
         />
-      }>
-      {/* Logo */}
-      <Logo />
+      }>      
       {dates &&
         <Form style={styles.pickerContainer}>
           <PickerDefault

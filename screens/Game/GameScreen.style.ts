@@ -1,15 +1,14 @@
 import { StyleSheet } from 'react-native';
 import Layout from '../../constants/Layout';
-
+import Variables from '../../styles/Variables';
 
 export default StyleSheet.create({
     game: {
         flex: .7,
-
     },
     footer: {
         borderTopWidth: 0,
-        elevation: 0
+        // elevation: 0,
     },
     connectedUsers: {
         flexDirection: 'row',
@@ -20,7 +19,7 @@ export default StyleSheet.create({
     },
     noLifeText: {
         fontFamily: 'OpenSansCondensed_bold',
-        color: '#2cd6f5',
+        color: Variables.brandPrimaryText,
         fontSize: Layout.s(35),
     }
 

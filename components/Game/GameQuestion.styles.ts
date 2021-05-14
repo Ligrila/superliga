@@ -3,12 +3,15 @@ import ThemeUtility from '../../utilities/Theme/Theme.utility'
 
 export default StyleSheet.create({
     container: {
-
+      
     },
     text: {
         fontFamily: 'OpenSansCondensed_bold',
         fontSize: ThemeUtility.h(45),
         textAlign: 'center'
+    },
+    subtitleContainer:{
+        marginVertical: 15,
     },
     subtitle: {
         fontFamily: 'OpenSansCondensed_bold',

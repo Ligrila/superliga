@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useCallback, useEffect, useState } from "react";
 import {
     View,
     TouchableWithoutFeedback,
@@ -107,11 +107,21 @@ const GameQuestion = (props: GameQuestionInterface) => {
     //             Vibration.vibrate();
     //         }
     //     )
-
-    // Virate on Add New Question
+    const resetValues = useCallback(()=>{
+        setButtonsState({...intialState});
+        setDisabled(false);
+    },[])
+    // Vibrate on Add New Question
     useEffect(() => {
-        console.log('Vibrate');
-        Vibration.vibrate();
+        if(triviaQuestion){
+            // Reset Values When response
+            if(!triviaQuestion.answered){
+                    resetValues()
+            }
+            console.log('Vibrate');
+            // resetValues();
+            Vibration.vibrate();
+        }
     }, [triviaQuestion])
     const showPurchaseModal = (lives) => {
         if (lives <= 0) {
@@ -198,10 +208,10 @@ const GameQuestion = (props: GameQuestionInterface) => {
         subtitle = subtitle + "\n" + currentCuestionPosition + " de " + genericQuestionsCount
     }
 
-    const numberOfLines = getNumberOfLines(title, styles.text.fontSize, 2.15, (Layout.window.width - 40))
+    const numberOfLines = getNumberOfLines(title, styles.text.fontSize, 2.15, (Layout.window.width - 50))
     let titleStyles = {};
 
-
+    
     if (numberOfLines > 2) {
         const newFontSize = ((styles.text.fontSize * 2) / numberOfLines)
         titleStyles = { fontSize: newFontSize }
@@ -212,7 +222,7 @@ const GameQuestion = (props: GameQuestionInterface) => {
         </View>
     );
     let bottomTags: any = (
-        <View>
+        <View style={styles.subtitleContainer}>
             <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
     )
@@ -221,7 +231,11 @@ const GameQuestion = (props: GameQuestionInterface) => {
     }
     return (
         <View style={styles.container}>
+            {/* Title */}
             {titleTags}
+            {/* Subtitle */}
+            {bottomTags}
+            {/* Options */}
             <TouchableWithoutFeedback
                 onPress={() => { showPurchaseModal(lives) }}
             >
@@ -280,7 +294,7 @@ const GameQuestion = (props: GameQuestionInterface) => {
                     </Button>
                 </View>
             </TouchableWithoutFeedback>
-            {bottomTags}
+            
         </View>
     )
 

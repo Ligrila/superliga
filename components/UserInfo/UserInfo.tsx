@@ -35,9 +35,10 @@ const UserInfo = () => {
     
     useEffect(() => {
         if (authUser) {
+            console.log('authUser', authUser);
             fetchData();
         }
-    }, [authUser, fetchData])
+    }, [authUser])
     return (
         <View style={styles.container}>
             <View style={[styles.liveContainer,parseInt(lives) === 0 ? { opacity: 0.5}: null]}>

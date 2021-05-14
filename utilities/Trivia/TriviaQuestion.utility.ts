@@ -50,7 +50,7 @@ export default class TriviaQuestionUtility {
     static async onFinishedQuestion(questionFinished) {
         return new Promise(async(resolve) => {
             const currentTriviaQuestion = await getTriviaQuestion();
-            console.log('currentTriviaQuestion', currentTriviaQuestion)
+            // console.log('currentTriviaQuestion', currentTriviaQuestion)
             if (!currentTriviaQuestion.hasQuestion) {
                 resolve(null);
             }

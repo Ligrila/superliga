@@ -4,11 +4,12 @@ import Variables from '../../styles/Variables';
 
 export default StyleSheet.create({
     game: {
-        flex: .7,
+        flex: 0.8,
     },
     footer: {
         borderTopWidth: 0,
         // elevation: 0,
+        paddingVertical: 10
     },
     connectedUsers: {
         flexDirection: 'row',

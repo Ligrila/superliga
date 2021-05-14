@@ -130,22 +130,24 @@ export default class ActionDispatcherRecoil {
 
     async onFinishedQuestion(message) {
         const answeredFinished = await TriviaQuestionUtility.onFinishedQuestion(message.payload);
-        console.log('answeredFinished',answeredFinished)
         if(answeredFinished){
             await setTriviaQuestion(answeredFinished);
         }
-        this.onUpdateUserData(null)
+        const authUpdated = await UserUtility.getUpdateUserInformation();
+        console.log('onUpdateUserData')
+        // ConnectedUsersActions.updateConnectedUsers(message.payload)
+        setAuthUser({...authUpdated});
         // TriviaQuestionActions.finishedQuestion(message.payload);
         // UsersActions.update();
 
         // When end i need send one event?
     }
 
-    onUpdateUserData(message) {
+    async onUpdateUserData(message) {
         // UsersActions.update();
-        const authUpdated = UserUtility.getUpdateUserInformation();
+        const authUpdated = await UserUtility.getUpdateUserInformation();
         // ConnectedUsersActions.updateConnectedUsers(message.payload)
-        setAuthUser(authUpdated);
+        setAuthUser({...authUpdated});
     }
 
     onShowBanner(message) {

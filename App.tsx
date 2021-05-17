@@ -49,6 +49,9 @@ import {
 import NavigationListen from "./components/NavigationListen/NavigationListen";
 import DebugObserver from "./components/Debug/DebugObserver";
 
+// Ads
+import { setTestDeviceIDAsync } from "expo-ads-admob";
+
 
 
 
@@ -88,6 +91,10 @@ const App: React.FC = () => {
   };
   // Load assets
   const loadResourcesAsync = useCallback(async () => {
+    // Adds
+    await setTestDeviceIDAsync('EMULATOR');
+
+
     const teams = await api.getTeams();
     const teamImages: any = [];
     if (teams) {
@@ -320,7 +327,7 @@ const App: React.FC = () => {
     <Root>
       <StyleProvider style={AppTheme}>
         <RecoilRoot>
-          <DebugObserver/>
+          <DebugObserver/> 
           {/* Navigation Listen */}
           <NavigationListen />
           {/* To access recoil outside of component */}

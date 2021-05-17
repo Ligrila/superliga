@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Variables } from '../../styles';
 import ThemeUtility from '../../utilities/Theme/Theme.utility'
 
 export default StyleSheet.create({
@@ -31,7 +32,7 @@ export default StyleSheet.create({
         textAlign: 'center',
     },
     correctQuestionIcon: {
-        color: '#00a651',
+        color: Variables.white,
         fontSize: ThemeUtility.h(35),
         position: 'absolute',
         top: ThemeUtility.h(37),

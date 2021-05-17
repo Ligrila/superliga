@@ -1,17 +1,10 @@
-import React, { Component } from "react";
-import Reflux from "reflux";
+import React from "react";
 import {
     View
 } from "react-native";
 
-import { Button, Text } from 'native-base'
+import { Text } from 'native-base'
 
-
-
-
-import Layout from '../../constants/Layout';
-import { TriviaQuestionActions } from "../../store/TriviaQuestion";
-import { PurchaseModalStore, PurchaseModalActions } from "../../store/PurchaseModalStore";
 
 import styles from './GameAnswerResult.styles'
 
@@ -24,19 +17,7 @@ interface GameAnswerResult {
 }
 
 const GameAnswerResult = (props: GameAnswerResult) => {
-    // constructor(props){
-    //     super(props);
-    //     this.store = PurchaseModalStore;
-    // }
 
-    // const backToGamePlayAndBuyLives = () => {
-    //     if (!props.win) {
-    //         // mostrar pantalla de vidas si no las tiene
-    //     }
-    //     PurchaseModalActions.setVisible(true);
-    //     props.navigation.goBack();
-
-    // }
 
     const points = props.points;
     const lives = props.lives;
@@ -46,7 +27,7 @@ const GameAnswerResult = (props: GameAnswerResult) => {
     if (canceled) {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>Uhhh, pregunta cancelada!</Text>
+                <Text style={styles.text}>{`Uhhh,\npregunta\ncancelada!`}</Text>
             </View>
         )
     }
@@ -54,7 +35,10 @@ const GameAnswerResult = (props: GameAnswerResult) => {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>Sos un <Text style={styles.bigText}>crack!</Text></Text>
-                <Text style={styles.subtext}>SUMAS {points} PUNTOS</Text>
+                <Text style={styles.subtext}>
+                    {`SUMAS `}
+                    <Text style={styles.subtextBold}>{`${points} PUNTOS`}</Text>
+                </Text>
             </View>
         )
     }
@@ -62,15 +46,21 @@ const GameAnswerResult = (props: GameAnswerResult) => {
         if (lives > 1 /** a 1 porque todavia no se desconto la vida, se descuenta asincronicamente luego de mostrar está pantalla para darle fluidez al juego */) {
             return (
                 <View style={styles.container}>
-                    <Text style={styles.text}>Uhh, la pifiaste</Text>
-                    <Text style={styles.subtext}>TE DESCUENTA 1 VIDA.</Text>
+                    <Text style={styles.text}>{`Uhhh,\nla pifiaste`}</Text>
+                    <Text style={styles.subtext}>
+                        {`TE DESCUENTA `}
+                        <Text style={styles.subtextBold}>{`1 VIDA.`}</Text>
+                    </Text>
                 </View>
             )
         } else {
             return (
                 <View style={styles.container}>
                     <Text style={styles.text}>Sono el Silbato!</Text>
-                    <Text style={styles.subtext}>PERDISTE{"\n"} {points} PUNTOS</Text>
+                    <Text style={styles.subtext}>
+                        {`PERDISTE `}
+                        <Text style={styles.subtextBold}>{`${points} PUNTOS.`}</Text>
+                    </Text>
                 </View>
             );
         }

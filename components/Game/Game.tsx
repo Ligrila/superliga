@@ -38,6 +38,13 @@ const Game = ({
         //console.log("Question timed out");
     }
     const renderTeams = () => {
+        if (currentTrivia.type == 'trivia') {
+            return (
+                <View style={styles.avatarContainer}>
+                    <TeamAvatar source={currentTrivia.visit_team.avatar} width={86} height={98} />
+                </View>
+                );     
+        }
         return (
             <View style={styles.avatarContainer}>
                 <TeamAvatar source={currentTrivia.local_team.avatar} width={86} height={98} />

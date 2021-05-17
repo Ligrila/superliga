@@ -22,6 +22,7 @@ import { authUserAtom, setAuthUser } from './Auth.recoil';
 import { triviaQuestionAtom, getTriviaQuestion, setTriviaQuestion } from './TriviaQuestion.recoil';
 import { currentTriviaAtom, setCurrentTrivia } from './CurrentTrivia.recoil';
 import TriviaQuestionUtility from '../utilities/Trivia/TriviaQuestion.utility';
+import TriviaUtility from '../utilities/Trivia/Trivia.utility';
 
 // First
 // If Trivia active redirect to GamePlay
@@ -95,48 +96,49 @@ export default class ActionDispatcherRecoil {
         // Set New Question
         setTriviaQuestion(newQuestion);
     }
+    onStartTrivia(message) {
+        TriviaUtility.onStartTrivia(message.payload)
+    }
+    async onShowBanner(message) {
+        await TriviaUtility.onShowBanner(message.payload)
 
-    onFinishHalfTime(message) {
-        // NextTriviaActions.finishHalfTime(message.payload);
-    }
-    onStartHalfTimePlay(message) {
-        // NextTriviaActions.startHalfTimePlay(message.payload);
-    }
-    onStartExtraPlay(message) {
-        // NextTriviaActions.startExtraPlay(message.payload);   
     }
     onStartHalfTime(message) {
         // NextTriviaActions.startHalfTime(message.payload);
+        TriviaUtility.onStartHalfTime(message.payload)
+    }
+    onStartHalfTimePlay(message) {
+        // NextTriviaActions.startHalfTimePlay(message.payload);
+        TriviaUtility.onStartHalfTimePlay(message.payload)
+    }
+    onFinishHalfTime(message) {
+        // NextTriviaActions.finishHalfTime(message.payload);
+        TriviaUtility.onFinishHalfTime(message.payload)
+    }
+    onStartExtraPlay(message) {
+        // NextTriviaActions.startExtraPlay(message.payload);   
+        TriviaUtility.onStartExtraPlay(message.payload)
     }
     onFinishGame(message) {
         // NextTriviaActions.finishGame(message.payload);
+        TriviaUtility.onFinishGame(message.payload)
     }
 
-    onFinishTrivia(message) {
-        setCurrentTrivia({
-            hasData: false,
-            data: undefined
-        });
-    }
-    onStartTrivia(message) {
-        console.log('onStartTrivia', message.payload)
-        setCurrentTrivia({
-            hasData: true,
-            data: message.payload
-        });
+    async onFinishTrivia(message) {
+        TriviaUtility.onFinishTrivia(message.payload)
     }
 
     async onFinishedQuestion(message) {
         const answeredFinished = await TriviaQuestionUtility.onFinishedQuestion(message.payload);
-        if(answeredFinished){
+        if (answeredFinished) {
             await setTriviaQuestion(answeredFinished);
         }
         // Update User Data (cannot call this.function)
-         
-         const authUpdated = await UserUtility.getUpdateUserInformation();
-         setAuthUser({...authUpdated});
+
+        const authUpdated = await UserUtility.getUpdateUserInformation();
+        setAuthUser({ ...authUpdated });
         this.onUpdateUserData(null);
-        
+
         // Same to connected users
         const number = NumberUtility.formatNumberConnected(message.payload);
         // ConnectedUsersActions.updateConnectedUsers(message.payload)
@@ -148,12 +150,10 @@ export default class ActionDispatcherRecoil {
         // UsersActions.update();
         const authUpdated = await UserUtility.getUpdateUserInformation();
         // ConnectedUsersActions.updateConnectedUsers(message.payload)
-        setAuthUser({...authUpdated});
+        setAuthUser({ ...authUpdated });
     }
 
-    onShowBanner(message) {
-        // NextTriviaActions.showBanner(message.payload);
-    }
+    
     // chat
     onChatBroadcast(message) {
         // ChatActions.appendMessage(message)

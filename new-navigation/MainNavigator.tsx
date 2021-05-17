@@ -33,11 +33,15 @@ const Screens = ({ navigation }) => {
             initialRouteName="Home"
             screenOptions={{
                 ...TransitionPresets.SlideFromRightIOS,
-            }}
-            >
+                gestureEnabled: false
+            }}>
 
             {/* <Stack.Screen name="GameLoading" component={GameLoadingScreen} /> */}
-            <Stack.Screen name="GamePlay" component={GameNavigator} />
+            <Stack.Screen name="GamePlayStack" 
+                options={{
+                    gestureEnabled: false
+                }}
+                component={GameNavigator} />
             {/* Home */}
             <Stack.Screen name="Home" component={HomeScreen}  />
             <Stack.Screen name="HomeNextMatchs" component={HomeNextMatchsScreen} />

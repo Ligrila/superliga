@@ -1,5 +1,5 @@
 import { TRIVIA_TIMEOUT } from "../../constants/Trivia.constants";
-import { defaultValue, getTriviaQuestion, triviaQuestionAtom } from "../../recoil/TriviaQuestion.recoil";
+import { defaultValue, getTriviaQuestion } from "../../recoil/TriviaQuestion.recoil";
 
 
 export default class TriviaQuestionUtility {
@@ -97,6 +97,6 @@ export default class TriviaQuestionUtility {
         })
 
 
-    }
+    } 
 
 }

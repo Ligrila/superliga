@@ -1,6 +1,5 @@
 import React from "react";
 import {
-    View,
     Image,
 } from "react-native";
 // Native Base
@@ -10,19 +9,17 @@ import {
     Left,
     Icon,
     Right,
-    Button,
-    Text
+    Button, 
 } from 'native-base'
 // Drawer
 import { useNavigation } from '@react-navigation/native';
 import { DrawerActions } from '@react-navigation/native';
 
 import UserInfo from '../UserInfo/UserInfo';
-import OfflineNotice from '../OfflineNotice';
-import NotificationBullet from "../Notification/NotificationBullet";
+// import OfflineNotice from '../OfflineNotice';
+// import NotificationBullet from "../Notification/NotificationBullet";
 // Styles
 import styles from './AppHeader.styles';
-import Layout from '../../constants/Layout';
 import Logo from "../Logo/Logo";
 // Assets
 const superligaAppImg = require('../../assets/images/app_logo.png');
@@ -86,7 +83,10 @@ const AppHeader = (props: AppHeaderProps) => {
                 {renderLeft()}
             </Left>
             <Body style={styles.body}>
-                {props.logo && <Logo disablePress={props.logoDisablePress} />}
+                {props.logo && <Logo 
+                    disablePress={props.logoDisablePress} 
+                    game={props.game}
+                    />}
             </Body>
             <Right style={styles.right}>
                 {/* {renderChatButton()} */}

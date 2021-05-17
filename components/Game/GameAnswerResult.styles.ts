@@ -1,10 +1,11 @@
 
 import { StyleSheet } from 'react-native';
 import ThemeUtility from '../../utilities/Theme/Theme.utility';
+import Variables from '../../styles/Variables';
+
 
 export default StyleSheet.create({
     container:{
-
     },
     bigText: {
         fontFamily: 'edosz',
@@ -31,13 +32,14 @@ export default StyleSheet.create({
         lineHeight: ThemeUtility.s(120),
     },
     subtext: {
-        fontSize: ThemeUtility.s(30),
-        fontFamily: 'OpenSansCondensed_bold',
+        marginTop: 15,
+        fontSize: ThemeUtility.s(60),
+        fontFamily: Variables.openSansCondensedLight,
         textAlign: 'center'
     },
     subtextBold: {
-        fontSize: ThemeUtility.s(35),
-        fontFamily: 'OpenSansCondensed_bold',
+        fontSize: ThemeUtility.s(60),
+        fontFamily: Variables.openSansCondensedBold,
         textAlign: 'center'
     }
 });

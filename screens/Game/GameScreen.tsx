@@ -37,15 +37,15 @@ import Chat from '../../components/Chat'
 // Expo
 import Constants from 'expo-constants';
 // Advertising
-import { AdMobInterstitial, setTestDeviceIDAsync } from 'expo-ads-admob';
+import { AdMobInterstitial } from 'expo-ads-admob';
 // Styles
 import styles from './GameScreen.style'
 import Layout from "../../constants/Layout";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 // Recoil
 import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
 import { authUserAtom, authUserSelector } from "../../recoil/Auth.recoil";
-import { currentTriviaAtom, currentTriviaSelector } from "../../recoil/CurrentTrivia.recoil";
+import { currentTriviaAtom, currentTriviaFinishedAtom, currentTriviaSelector, GamePlayStatus } from "../../recoil/CurrentTrivia.recoil";
 import { triviaQuestionAtom } from "../../recoil/TriviaQuestion.recoil";
 
 // Bg
@@ -78,33 +78,15 @@ const GameScreen = () => {
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   // Current Trivia
   const [currentTrivia, setCurrentTrivia] = useRecoilState(currentTriviaAtom);
+  const currentTriviaFinished = useRecoilValue(currentTriviaFinishedAtom);
   // Trivia Questions
   const triviaQuestion = useRecoilValue(triviaQuestionAtom)
+  // Navigation
+  const navigation = useNavigation();
 
-  // state = {
-  //   modalVisible: false,
-  //   genericQuestion: false,
-  //   keyboardVisible: false,
-  // };
-  // constructor(props) {
-  //   super(props);
-  //   /*this.state = {
-  //     isLoadingComplete: false
-  //   }*/
-  //   this.stores = [
-  //     TriviaQuestion,
-  //     NextTriviaStore,
-  //     UsersStore,
-  //     PurchaseModalStore,
-  //   ]; // TODO: use Trivia Store
-
-  // }
-
-
-
+  // ADS
   const renderInterstitial = async () => {
-    AdMobInterstitial.setAdUnitID(getAdMobInterstitialID());
-    setTestDeviceIDAsync("EMULATOR");
+    await AdMobInterstitial.setAdUnitID(getAdMobInterstitialID());
     await AdMobInterstitial.requestAdAsync();
     await AdMobInterstitial.showAdAsync();
   }
@@ -146,90 +128,98 @@ const GameScreen = () => {
     updateCurrentUser();
     // Update Current Triva
     updateCurrentTrivia();
-  }, [updateCurrentTrivia])
+  }, [])
   // Update Always focus
   useFocusEffect(
     useCallback(() => {
       updateNeccesaryData();
       return () => { };
     }, []))
+  //#region Changes Current Trivia
+  const processChangesCurrentTriva = useCallback(() => {
+    if (currentTrivia && currentTrivia.hasData) {
+      const currentTriviaData = currentTrivia.data;
+      if (currentTriviaData) {
+        const gamePlayStatus = currentTriviaData.gamePlayStatus ? currentTriviaData.gamePlayStatus : null;
+        console.log('gamePlayStatus', gamePlayStatus);
+        switch (gamePlayStatus) {
+          case GamePlayStatus.FINISH_HALF_TIME: {
+            navigation.navigate("HalfTime");
+            break;
+          }
+          case GamePlayStatus.START_HALF_TIME: {
+            navigation.navigate("HalfTimeStart");
+            break;
+          }
+          case GamePlayStatus.START_HALF_TIME_PLAY: {
+            navigation.navigate("GameHalfTimePlay");
+            break;
+          }
+          case GamePlayStatus.SHOW_BANNER_GAME: {
+            const payload = currentTriviaData.bannerData;
+            if (payload.bannerType == "admob") {
+              renderInterstitial();
+            } else {
+              navigation.navigate("Banner", { payload });
+            }
+            break;
+          }
+          case GamePlayStatus.START_EXTRA_PLAY: {
+            navigation.navigate("GameExtraPlay");
+            break;
+          }
+          case GamePlayStatus.FINISH_GAME: {
+            // navigation.navigate("GameExtraPlay");
+            break;
+          }
+          // case GamePlayStatus.FINISH_TRIVIA: {
+            
+          // }
+        }
+        // HalfTime
+        // HalfTimeStart
+        // GameHalfTimePlay
+        // Show Banner
+        // GameExtraPlay
+        // GameEnd
+      }
+
+    }
+
+  }, [currentTrivia])
 
 
-  const componentDidMount = () => {
-    // if (!this.state.hasData) {
-    //   NextTriviaActions.current();
-    // }
-    // if (!this.state.hasInformation) {
-    //   UsersActions.update();
-    // }
+  useEffect(() => {
+    processChangesCurrentTriva()
+  }, [currentTrivia])
+  //#endregion Changes Current Trivia
+
+  //#region Changes Finished Trivia
+  const processChangesFinishTriva = useCallback(()=>{
+    const currentTriviaId = currentTriviaFinished.data.id;
+
+    const trivia = {
+      type: currentTriviaFinished.data.type
+    }
+    // console.log(JSON.stringify(currentTriviaData));
+    // console.log(JSON.stringify(trivia));
+    // console.log('id', currentTriviaId);
+    const resetAction = {
+      index: 0,
+      routes: [{ name: 'GameEnd', params: { currentTriviaId, trivia } }]
+    }
+    navigation.reset(resetAction);
+
+  },[currentTriviaFinished]);
+  useEffect(() => {
+    if(currentTriviaFinished && currentTriviaFinished.hasData){
+      processChangesFinishTriva()
+    }
+    
+  }, [currentTriviaFinished])
+  //#endregion Changes Finished Trivia
 
 
-    // this.listenActions.push(
-    //   NextTriviaActions.finish.listen((trivia) => {
-    //     const currentTriviaId = trivia.id;
-    //     const resetAction = StackActions.reset({
-    //       index: 0,
-    //       actions: [
-    //         NavigationActions.navigate({
-    //           routeName: "GameEnd",
-    //           params: { currentTriviaId, trivia },
-    //         }),
-    //       ],
-    //     });
-    //     this.props.navigation.dispatch(resetAction);
-    //   })
-    // );
-
-    // this.listenActions.push(
-    //   NextTriviaActions.halfTime.listen((b) => {
-    //     this.props.navigation.navigate("HalfTime");
-    //   })
-    // );
-
-    // this.listenActions.push(
-    //   NextTriviaActions.halfTimeStarted.listen((b) => {
-    //     this.props.navigation.navigate("HalfTimeStart");
-    //   })
-    // );
-
-    // this.listenActions.push(
-    //   NextTriviaActions.halfTimePlay.listen(() => {
-    //     this.props.navigation.navigate("GameHalfTimePlay");
-    //   })
-    // );
-
-    // this.listenActions.push(
-    //   NextTriviaActions.showBannerStarted.listen((payload) => {
-    //     if (payload.bannerType == "admob") {
-    //       this.renderInterstitial();
-    //     } else {
-    //       this.props.navigation.navigate("Banner", { payload });
-    //     }
-    //   })
-    // );
-
-    // this.listenActions.push(
-    //   NextTriviaActions.extraPlay.listen(() => {
-    //     this.props.navigation.navigate("GameExtraPlay");
-    //   })
-    // );
-
-    // this.listenActions.push(
-    //   NextTriviaActions.halfTimeStarted.listen((b) => {
-    //     this.props.navigation.navigate("HalfTimeStart");
-    //   })
-    // );
-
-    // this.listenActions.push(
-    //   UsersActions.me.listen(() => {
-    //     if (this.state.user.lives <= 0) {
-    //     }
-    //   })
-    // );
-    // if (this.state.PurchaseModal.visible) {
-    //   this.setModalVisible(true);
-    // }
-  }
   const handlerSetModalVisibleProp = () => {
 
   }
@@ -277,6 +267,7 @@ const GameScreen = () => {
     return <GameConnectedUsers />;
   }
   const renderGame = () => {
+    // console.log('currentTrivia', JSON.stringify(currentTrivia));
     if (currentTrivia && currentTrivia.hasData) {
       return (
         <Game
@@ -340,9 +331,6 @@ const GameScreen = () => {
             <View style={styles.connectedUsers}>{renderFooter()}</View>
           </View>
         </Content>
-        {/* <KeyboardAvoidingView behavior="position" enabled>
-
-        </KeyboardAvoidingView> */}
       </Wallpaper>
     </Container>
   );

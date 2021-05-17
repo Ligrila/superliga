@@ -29,13 +29,13 @@ const bgSrc = require('../../assets/images/home_bg.png');
 import Api from '../../api/Api';
 // Styles
 import styles from './HomeScreen.styles'
+import { currentTriviaAtom, currentTriviaSelector } from '../../recoil/CurrentTrivia.recoil';
 
 
 
 const HomeScreen = () => {
     // Api
     const api = new Api();
-    // Check Document
     // Navigation
     const navigation = useNavigation();
     // States 
@@ -43,6 +43,14 @@ const HomeScreen = () => {
     const [refreshing, setRefreshing] = useState(false);
     // Recoil
     const [nextTrivia, setNextTrivia] = useRecoilState(nextTriviaAtom)
+    const [currentTrivia, setCurrentTrivia] = useRecoilState(currentTriviaAtom);
+
+    // Current Trivia
+    const updateCurrentTrivia = useRecoilCallback(({ snapshot }) => async () => {
+        const currentTriviaResponse = await snapshot.getPromise(currentTriviaSelector);
+        const currentTriviaObj = currentTriviaResponse ? { ...currentTriviaResponse } : currentTriviaResponse;
+        setCurrentTrivia(currentTriviaObj);
+    });
     // Update Calendar
     const updateHomeScreen = useRecoilCallback(({ snapshot }) => async () => {
         setRefreshing(true);
@@ -52,7 +60,7 @@ const HomeScreen = () => {
     });
     // onRefresh 
     const onRefresh = async () => {
-        checkIfHasTrivia()
+        await updateCurrentTrivia();
         await updateHomeScreen();
     };
 
@@ -69,35 +77,32 @@ const HomeScreen = () => {
     //     );
     //     console.log('nextTrvia', nextTrivia)
     // }, [nextTrivia])
-
+    // Call When is Focus
+    useFocusEffect(
+        useCallback(() => {
+            if (currentTrivia && currentTrivia.hasData) {
+                const trivia = {
+                    type : currentTrivia.data.type
+                }
+                navigation.navigate('GamePlayStack', {
+                    screen: 'StartFirstTime',
+                    params: { trivia }
+                });
+            }
+        }, [currentTrivia])
+    );
     // First
     useEffect(() => {
         updateHomeScreen()
     }, [])
-    // Remove Game Loading Page
-    const checkIfHasTrivia = useCallback(async () => {
-        try {
-            let ct = await api.getCurrentTrivia();
-            console.log('fetchTrivia', ct)
-            if (ct) {
-                const gameInProgress = ct.success;
-                if (gameInProgress) {
-                    navigation.navigate('GamePlay');
-                }
-            }
-            // navigation.navigate('Home');
-        } catch (e) {
-            console.log('fetchTrivia error', e);
-            // navigation.navigate('Home');
-        }
-    }, [])
+
     useFocusEffect(
         useCallback(() => {
-            checkIfHasTrivia();
+            updateCurrentTrivia();
             return () => { };
         }, []))
     const onFinishCountDown = () => {
-        checkIfHasTrivia();
+        updateCurrentTrivia();
     }
     return (
         <Container>

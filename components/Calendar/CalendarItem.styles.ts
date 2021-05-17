@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderTopWidth: 1,
         paddingVertical: ThemeUtility.h(35),
+        borderBottomColor: 'transparent'
     },
     avatarContainer: {
         flex: 1,

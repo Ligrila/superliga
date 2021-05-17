@@ -9,20 +9,20 @@ import styles from './NextTrivia.styles'
 
 
 
-const NextTrivia = ({ trivia , onFinishCountDown}) => {
+const NextTrivia = ({ trivia, onFinishCountDown }) => {
 
 
-    const getNotice = () => {
-        if (trivia.points_multiplier > 1) {
-            if (trivia.points_multiplier == 2) {
-                return <Notice text={'x cada acierto \n tus puntos se duplican!'} />
-            } else {
-                return <Notice text={'x cada acierto \n tus puntos valen ' + trivia.points_multiplier + ' veces más!'} />
-            }
-        }
+    // const getNotice = () => {
+    //     if (trivia.points_multiplier > 1) {
+    //         if (trivia.points_multiplier == 2) {
+    //             return <Notice text={'x cada acierto \n tus puntos se duplican!'} />
+    //         } else {
+    //             return <Notice text={'x cada acierto \n tus puntos valen ' + trivia.points_multiplier + ' veces más!'} />
+    //         }
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
 
     if (!trivia) {
@@ -41,6 +41,10 @@ const NextTrivia = ({ trivia , onFinishCountDown}) => {
 
     let sdate = trivia.start_datetime_local.toDate();
     let until = (sdate.getTime() - new Date().getTime()) / 1000;
+    let subtitle:any = undefined;
+    if(trivia.type === 'normal'){
+        subtitle = trivia.local_team.name + ' VS ' + trivia.visit_team.name;
+    }
     return (
         <View style={styles.content}>
             <BigTitle
@@ -48,9 +52,9 @@ const NextTrivia = ({ trivia , onFinishCountDown}) => {
                 text='Trivia en'
                 red='Vivo'
                 titleBold={true}
-                subtitle={trivia.local_team.name + ' VS ' + trivia.visit_team.name} />
+                subtitle={subtitle} />
             {/* Count Down */}
-            <CountDown until={until}  onFinish={onFinishCountDown}/>
+            <CountDown until={until} onFinish={onFinishCountDown} />
             {/* Trivia */}
             <View style={styles.triviaContainer}>
                 <Trivia trivia={trivia} avatarWidth={250} avatarHeight={260} />

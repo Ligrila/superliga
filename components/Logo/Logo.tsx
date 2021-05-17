@@ -7,14 +7,23 @@ import styles from './Logo.styles';
 import { useNavigation } from '@react-navigation/native';
 
 interface LogoProps {
-    disablePress?: boolean
+    disablePress?: boolean,
+    game?: boolean
 }
 
-const Logo = ({ disablePress }: LogoProps) => {
+const Logo = ({ disablePress, game }: LogoProps) => {
     // Navigation
     const navigation = useNavigation();
     const navigateTo = () => {
-        navigation.navigate('GameLoading')
+        if(game){
+            navigation.navigate('Main', {
+            screen: 'Home'
+          });
+        }else{
+             navigation.navigate('Home')
+        }
+        
+        
     }
     return (
         <View style={styles.container}>

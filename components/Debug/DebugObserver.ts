@@ -6,7 +6,9 @@ const DebugObserver = () => {
     useEffect(() => {
         // console.debug('The following atoms were modified:');
         for (const node of snapshot.getNodes_UNSTABLE({ isModified: true })) {
-            // console.debug(node.key);
+            // console.debug('/-------------------------------------');
+            // console.debug(node.key, JSON.stringify(snapshot.getLoadable(node).contents));
+            // console.debug('-------------------------------------/');
         }
     }, [snapshot]);
 

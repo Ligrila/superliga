@@ -8,6 +8,17 @@ const defaultValue = {
     data: undefined
 }
 
+// Trivia Game Play Status
+export enum GamePlayStatus{
+    START_GAME = 'START_GAME',
+    START_HALF_TIME = 'START_HALF_TIME',
+    START_HALF_TIME_PLAY = 'START_HALF_TIME_PLAY',
+    FINISH_HALF_TIME = 'FINISH_HALF_TIME',
+    START_EXTRA_PLAY = 'START_EXTRA_PLAY',
+    FINISH_GAME = 'FINISH_GAME',
+    FINISH_TRIVIA = 'FINISH_TRIVIA',
+    SHOW_BANNER_GAME = 'SHOW_BANNER_GAME'
+}
 
 export const currentTriviaSelector = selector({
     key: 'CurrentTriviaSelector',
@@ -44,9 +55,10 @@ export const currentTriviaAtom = atom<any>({
     default: defaultValue
 });
 
-
-
-
+export const currentTriviaFinishedAtom = atom<any>({
+    key: 'CurrentTriviaFinishedAtom',
+    default: defaultValue
+});
 
 export const setCurrentTrivia = async (value) => {
     await setRecoilExternalState(currentTriviaAtom, value)
@@ -54,6 +66,16 @@ export const setCurrentTrivia = async (value) => {
 }
 
 export const getCurrentTrivia = async () => {
-    const value = await getRecoilExternalLoadable(currentTriviaAtom)
+    const value = await getRecoilExternalLoadable(currentTriviaAtom).contents
+    return value
+}
+
+export const setCurrentTriviaFinished = async (value) => {
+    await setRecoilExternalState(currentTriviaFinishedAtom, value)
+
+}
+
+export const getCurrentTriviaFinished = async () => {
+    const value = await getRecoilExternalLoadable(currentTriviaFinishedAtom).contents
     return value
 }

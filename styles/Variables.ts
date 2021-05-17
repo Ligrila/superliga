@@ -35,4 +35,5 @@ export default {
     darkBlue: '#013675',
     blue:'#235a9b',
     green:'#90a94e',
+    check:'#00a651'
 }

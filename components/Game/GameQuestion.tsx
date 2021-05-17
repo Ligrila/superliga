@@ -85,7 +85,6 @@ const GameQuestion = (props: GameQuestionInterface) => {
             if(!triviaQuestion.answered){
                     resetValues()
             }
-            console.log('Vibrate');
             // resetValues();
             Vibration.vibrate();
         }
@@ -102,7 +101,11 @@ const GameQuestion = (props: GameQuestionInterface) => {
         if (!triviaQuestion.hasResult || triviaQuestion.correctOption != `option_${option}`) {
             return null;
         }
-        return (<Icon type='FontAwesome' name='check' style={styles.correctQuestionIcon}></Icon>)
+        const optionNumber = triviaQuestion.correctOption.replace(`option_`,'');
+        const pressed =  buttonsState[`button${optionNumber}Pressed`];
+        return (<Icon type='FontAwesome' 
+            name='check' 
+            style={[styles.correctQuestionIcon,pressed ? {color: '#fff'} : {color: '#00a651'}]}></Icon>)
     }
 
     const primaryButtonColor = () => {

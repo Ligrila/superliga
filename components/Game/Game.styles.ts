@@ -4,7 +4,7 @@ import ThemeUtility from '../../utilities/Theme/Theme.utility';
 export default StyleSheet.create({
     container:{
         flex:1,
-        marginTop: 15
+        marginTop: 0
     },
 
     mainContainer:{

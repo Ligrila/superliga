@@ -14,7 +14,7 @@ const WatchCurrentTrivia = () => {
     // Ignore Routes  (Game Stack)
     const ignoreRoutes = GAME_ROUTES_STRING;
     const processNavigation = useCallback(async () => {
-        if (currentTrivia && currentTrivia.hasData) {
+        if (currentTrivia && currentTrivia.hasData && navigationState) {
             const route: string = await NavigationUtility.getActiveRouteState(navigationState).name;
             let included = false;
             for (const string of ignoreRoutes) {
@@ -37,10 +37,10 @@ const WatchCurrentTrivia = () => {
                     });
             }
         }
-    }, [navigationState, currentTrivia])
+    }, [currentTrivia])
     useEffect(() => {
         processNavigation();
-    }, [navigationState, currentTrivia])
+    }, [ currentTrivia])
 
     return null;
 

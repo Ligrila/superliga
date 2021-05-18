@@ -29,7 +29,7 @@ const Purchase = ({ onHidePress }) => {
     const _callPurchase = async (item) => {
         setLoading(true)
         const response = await api.purchase(item);
-        //console.log("purchase",response);
+        console.log("purchase",response);
         if (!response || !response.success) {
             setLoading(false);
             return;

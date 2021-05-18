@@ -59,8 +59,8 @@ const GameAnswerResult = (props: GameAnswerResult) => {
                 <View style={styles.container}>
                     <Text style={styles.text}>{`Uhhh,\nla pifiaste`}</Text>
                     <Text style={styles.subtext}>
-                        {`TE DESCUENTA `}
-                        <Text style={styles.subtextBold}>{`1 VIDA.`}</Text>
+                        {`PERDISTE `}
+                        <Text style={styles.subtextBold}>{`${points} PUNTOS.`}</Text>
                     </Text>
                 </View>
             )

@@ -19,8 +19,6 @@ import { activateKeepAwake } from "expo-keep-awake";
 // App Navigator
 import Navigation from "./new-navigation";
 // import { NavigationActions } from "react-navigation";
-// Socket
-import SocketClient from "./modules/SocketClient";
 // Api
 import Api from "./api/Api";
 // Theme
@@ -52,6 +50,9 @@ import DebugObserver from "./components/Debug/DebugObserver";
 // Ads
 import { setTestDeviceIDAsync } from "expo-ads-admob";
 import WatchCurrentTrivia from "./components/WatchCurrenTrivia/WatchCurrentTrivia";
+import InitSocket from "./components/Socket/InitScoket";
+import RegisterPushNotifications from "./components/PushNotifications/RegisterPushNotifications";
+import AppStateWatch from "./components/AppState/AppStateWatch";
 
 
 
@@ -90,12 +91,10 @@ const App: React.FC = () => {
       }
     });
   };
-  // Load assets
+  // Load Resousrce Async
   const loadResourcesAsync = useCallback(async () => {
     // Adds
     await setTestDeviceIDAsync('EMULATOR');
-
-
     const teams = await api.getTeams();
     const teamImages: any = [];
     if (teams) {
@@ -246,57 +245,30 @@ const App: React.FC = () => {
       ...serverAssets,
     ]);
 
-  }, [Font]);
-
-  const closeSocket = useCallback(() => {
-    console.log("App::closeSocket")
-    if (!socket || !socket.client) {
-      return;
-    }
-
-    if (typeof (socket.client.close) == 'function') {
-      console.log("Closing socket...")
-      socket.client.close();
-    }
-
-    socket = null;
-  }, []);
-  const initSocket = useCallback(async () => {
-    const token = await AsyncStorage.getItem('token');
-    if (socket) {
-      closeSocket();
-    }
-    if (!token) {
-      console.log("No token")
-      return;
-    }
-    const userLocalStorage = await AsyncStorage.getItem('user') || '';
-    const user = JSON.parse(userLocalStorage);
-
-    socket = new SocketClient(token, user);
-  }, [closeSocket])
+  }, [Font]);  
 
   // Bootstrap Async
   const bootstrapAsync = useCallback(async () => {
     try {
       await loadResourcesAsync();
-      await initSocket();
+      // await initSocket();
     } catch (e) {
-      console.log(`bootstrapAsync`, e);
+      // console.log(`bootstrapAsync`, e);
       setIsLoadingError(true);
     } finally {
       setIsLoadingComplete(true);
     }
-  }, [loadResourcesAsync, initSocket]);
+  }, [loadResourcesAsync]);
+  // Change Auth User Init Socket
+  
   // Mount
   useEffect(() => {
     // Init All Async
     bootstrapAsync();
     return () => {
-      // Close Socket When Unmount
-      closeSocket()
+      
     };
-  }, [bootstrapAsync, closeSocket]);
+  }, [bootstrapAsync]);
 
   if (!isLoadingComplete) {
     return <AppLoading />;
@@ -328,11 +300,18 @@ const App: React.FC = () => {
     <Root>
       <StyleProvider style={AppTheme}>
         <RecoilRoot>
+          {/* App State */}
+          <AppStateWatch />
+          {/* Register Push Notifications */}
+          <RegisterPushNotifications />
+          {/*
+            @TODO ask lean  
+            Init Socket only when haver user in recoil store */}
+          <InitSocket />
+          {/* Recoil Debug Observer */}
           <DebugObserver/> 
           {/* Current Trivia Listen */}
            <WatchCurrentTrivia /> 
-          {/* Navigation Listen */}
-          {/* <NavigationListen /> */}
           {/* To access recoil outside of component */}
           <RecoilExternalStatePortal />
           <StatusBar hidden={true} />

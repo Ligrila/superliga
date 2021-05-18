@@ -21,9 +21,14 @@ export const triviaQuestionAtom = atom<any>({
     default: defaultValue
 });
 
+export const triviaQuestionNotificationAtom = atom<any>({
+    key: 'triviaQuestionNotificationAtom',
+    default: null
+});
 
 
 
+// Trivia Question
 export const setTriviaQuestion = async (value) => {
     await setRecoilExternalState(triviaQuestionAtom, value)
 
@@ -31,6 +36,15 @@ export const setTriviaQuestion = async (value) => {
 
 export const getTriviaQuestion = async () => {
     const value = await getRecoilExternalLoadable(triviaQuestionAtom).contents
+    return value
+}
+// Notification
+export const setTriviaQuestionNotfification = async (value) => {
+    await setRecoilExternalState(triviaQuestionNotificationAtom, value)
+
+}
+export const getTriviaQuestionNotification = async () => {
+    const value = await getRecoilExternalLoadable(triviaQuestionNotificationAtom).contents
     return value
 }
 

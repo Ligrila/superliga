@@ -19,7 +19,7 @@ import NumberUtility from '../utilities/Number/Number.utility';
 import { setConnectedUser } from './ConnectedUsers.recoil';
 import UserUtility from '../utilities/User/User.utility';
 import { setAuthUser, setAuthUserWithoutLives } from './Auth.recoil';
-import { getTriviaQuestion, setTriviaQuestion } from './TriviaQuestion.recoil';
+import { getTriviaQuestion, setTriviaQuestion, setTriviaQuestionNotfification } from './TriviaQuestion.recoil';
 import TriviaQuestionUtility from '../utilities/Trivia/TriviaQuestion.utility';
 import TriviaUtility from '../utilities/Trivia/Trivia.utility';
 import { GAME_ROUTES_STRING } from '../new-navigation/GameNavigator';
@@ -105,10 +105,11 @@ export default class ActionDispatcherRecoil {
                 timedOut: true
             }
 
-            setTriviaQuestion(newTriviaQuestion);
+            await setTriviaQuestion(newTriviaQuestion);
         }, newQuestion.currentTimeout);
         // Set New Question
-        setTriviaQuestion(newQuestion);
+        await setTriviaQuestion(newQuestion);
+        await setTriviaQuestionNotfification(newQuestion);
     }
     async onStartTrivia(message) {
         await TriviaUtility.onStartTrivia(message.payload)

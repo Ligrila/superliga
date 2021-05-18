@@ -12,15 +12,14 @@
 // import { useNavigationState } from '@react-navigation/native';
 import Api from '../api/Api';
 // To access to recoil outside components
-import { navigationAtom, navigationAtomState, setNavigation } from './Navigation.recoil';
+import { setNavigation } from './Navigation.recoil';
 import NavigationUtility from '../utilities/Navigation/Navigation.utility';
-import OfflineNotice from '../components/OfflineNotice';
+// import OfflineNotice from '../components/OfflineNotice';
 import NumberUtility from '../utilities/Number/Number.utility';
-import { connectedUserAtom, setConnectedUser } from './ConnectedUsers.recoil';
+import { setConnectedUser } from './ConnectedUsers.recoil';
 import UserUtility from '../utilities/User/User.utility';
-import { authUserAtom, setAuthUser, setAuthUserWithoutLives } from './Auth.recoil';
-import { triviaQuestionAtom, getTriviaQuestion, setTriviaQuestion } from './TriviaQuestion.recoil';
-import { currentTriviaAtom, setCurrentTrivia } from './CurrentTrivia.recoil';
+import { setAuthUser, setAuthUserWithoutLives } from './Auth.recoil';
+import { getTriviaQuestion, setTriviaQuestion } from './TriviaQuestion.recoil';
 import TriviaQuestionUtility from '../utilities/Trivia/TriviaQuestion.utility';
 import TriviaUtility from '../utilities/Trivia/Trivia.utility';
 

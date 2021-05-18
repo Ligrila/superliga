@@ -45,7 +45,7 @@ const HomeScreen = () => {
     const [nextTrivia, setNextTrivia] = useRecoilState(nextTriviaAtom)
     const [currentTrivia, setCurrentTrivia] = useRecoilState(currentTriviaAtom);
     // Mount
-    const [mount, setMount] = useState(false);
+    const [mount, setMount] = useState(true);
     // Current Trivia
     const updateCurrentTrivia = useRecoilCallback(({ snapshot }) => async () => {
         const currentTriviaResponse = await snapshot.getPromise(currentTriviaSelector);
@@ -117,25 +117,25 @@ const HomeScreen = () => {
         }, [])
     )
 
-    useFocusEffect(
-        useCallback(() => {
-            let isActive = true;
-            const fetchCurrentTrivia = async () => {
-                try {
-                    const currenTrivia = await updateCurrentTrivia();
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         let isActive = true;
+    //         const fetchCurrentTrivia = async () => {
+    //             try {
+    //                 const currenTrivia = await updateCurrentTrivia();
 
-                    if (isActive) {
-                        setCurrentTrivia(currenTrivia);
-                    }
-                } catch (e) {
-                    // Handle error
-                }
-            };
-            fetchCurrentTrivia();
-            return () => {
-                isActive = false;
-            };
-        }, []))
+    //                 if (isActive) {
+    //                     setCurrentTrivia(currenTrivia);
+    //                 }
+    //             } catch (e) {
+    //                 // Handle error
+    //             }
+    //         };
+    //         fetchCurrentTrivia();
+    //         return () => {
+    //             isActive = false;
+    //         };
+    //     }, []))
 
     const onFinishCountDown = () => {
         fnupdateCurrentTrivia();

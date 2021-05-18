@@ -51,6 +51,7 @@ import DebugObserver from "./components/Debug/DebugObserver";
 
 // Ads
 import { setTestDeviceIDAsync } from "expo-ads-admob";
+import WatchCurrentTrivia from "./components/WatchCurrenTrivia/WatchCurrentTrivia";
 
 
 
@@ -328,8 +329,10 @@ const App: React.FC = () => {
       <StyleProvider style={AppTheme}>
         <RecoilRoot>
           <DebugObserver/> 
+          {/* Current Trivia Listen */}
+          {/* <WatchCurrentTrivia /> */}
           {/* Navigation Listen */}
-          <NavigationListen />
+          {/* <NavigationListen /> */}
           {/* To access recoil outside of component */}
           <RecoilExternalStatePortal />
           <StatusBar hidden={true} />

@@ -63,7 +63,7 @@ const getAdMobInterstitialID = () => {
 const GameScreen = () => {
   const api = new Api();
   // Mount
-  const [mount, setMount] = useState(false);
+  const [mount, setMount] = useState(true);
   // Auth User
   const [authUser, setAuthUser] = useRecoilState(authUserAtom);
   

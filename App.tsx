@@ -53,6 +53,7 @@ import WatchCurrentTrivia from "./components/WatchCurrenTrivia/WatchCurrentTrivi
 import InitSocket from "./components/Socket/InitScoket";
 import RegisterPushNotifications from "./components/PushNotifications/RegisterPushNotifications";
 import AppStateWatch from "./components/AppState/AppStateWatch";
+import LinkingWatch from "./components/Linking/LinkingWatch";
 
 
 
@@ -300,6 +301,8 @@ const App: React.FC = () => {
     <Root>
       <StyleProvider style={AppTheme}>
         <RecoilRoot>
+          {/* Linking Watch */}
+          <LinkingWatch />
           {/* App State */}
           <AppStateWatch />
           {/* Register Push Notifications */}

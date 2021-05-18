@@ -62,11 +62,11 @@ const menuItems = [
     route: 'Ranking',
     image: require('../../assets/images/menu/menu_goals.png')
   },
-  {
-    text: 'COMPRAR',
-    route: 'Purchase',
-    image: require('../../assets/images/menu/menu_buys.png')
-  },
+  // {
+  //   text: 'COMPRAR',
+  //   route: 'Purchase',
+  //   image: require('../../assets/images/menu/menu_buys.png')
+  // },
   {
     text: 'AJUSTES',
     route: 'Settings',

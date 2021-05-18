@@ -20,7 +20,7 @@ import Wallpaper from '../../components/Wallpaper/Wallpaper';
 
 import Api from '../../api/Api';
 import AppHeader from '../../components/AppHeader/AppHeader';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 // Styles
 import styles from './EditProfileScreen.styles'
 import Layout from '../../constants/Layout';
@@ -52,17 +52,19 @@ const EditProfileScreen = () => {
     const authHelper = new AuthHelper();
     // Fetch Data
     const fetchData = useCallback(() => {
-        const document =  authUser.document ? `${authUser.document}` : ''
+        const document = authUser.document ? `${authUser.document}` : ''
         setValue('first_name', authUser.first_name)
         setValue('last_name', authUser.last_name)
         setValue('document', document, { shouldValidate: true })
         setValue('mobile_number', authUser.mobile_number)
     }, [authUser])
-    useEffect(() => {
-        if (authUser) {
-            fetchData();
-        }
-    }, [authUser, fetchData])
+    useFocusEffect(
+        useCallback(() => {
+            if (authUser) {
+                fetchData();
+            }
+        }, [authUser, fetchData])
+    )
     // Go Back Thony
     const navigateBack = () => {
         navigation.goBack()
@@ -137,9 +139,9 @@ const EditProfileScreen = () => {
                     <Wallpaper source={bgBlueSrc} styles={styles.profileWallpaper}>
                         <Content contentContainerStyle={styles.content}>
                             <View style={styles.bigTitle}>
-                                <BigTitle 
-                                hideSeparator={true}
-                                text={'Editar Perfil'}></BigTitle>
+                                <BigTitle
+                                    hideSeparator={true}
+                                    text={'Editar Perfil'}></BigTitle>
                             </View>
                             <KeyboardAvoidingView style={styles.container} >
                                 <Form style={styles.form}>

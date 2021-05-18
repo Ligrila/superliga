@@ -29,9 +29,7 @@ const Game = ({
     // Render Game Play
     const renderGamePlay = () => {
         return (
-            <GamePlay
-                onNoLife={onNoLife}
-                setModalVisibleProp={setModalVisibleProp} />);
+            <GamePlay onNoLife={onNoLife} setModalVisibleProp={setModalVisibleProp} />);
     }
 
     const onQuestionTimeout = () => {

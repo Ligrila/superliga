@@ -35,7 +35,7 @@ class CountDown extends React.Component {
     wentBackgroundAt: null,
   };
 
-  componentDidMount() {
+  UNSAFE_componentDidMount() {
     if (this.props.onFinish) {
       this.onFinish = _.once(this.props.onFinish);
     }
@@ -43,12 +43,12 @@ class CountDown extends React.Component {
     AppState.addEventListener('change', this._handleAppStateChange);
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     clearInterval(this.timer);
     AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       until: nextProps.until,
     });

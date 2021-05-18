@@ -22,7 +22,7 @@ import { AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 // Api
 import Api from '../../api/Api';
 // Navigation
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 // Recoil
 import { useRecoilState } from 'recoil';
 import { authUserAtom } from '../../recoil/Auth.recoil';
@@ -194,12 +194,13 @@ const ProfileScreen = (props) => {
         }
 
     }, [authUser]);
-
-    useEffect(() => {
-        if (authUser) {
-            fetchData();
-        }
-    }, [authUser, fetchData])
+    useFocusEffect(
+        useCallback(() => {
+            if (authUser) {
+                fetchData();
+            }
+        }, [authUser, fetchData])
+    )
 
 
     return (

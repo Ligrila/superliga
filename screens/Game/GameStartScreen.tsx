@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 
 import Wallpaper from '../../components/Wallpaper/Wallpaper';
@@ -18,6 +18,7 @@ import styles from './GameStartScreen.styles'
 
 const GameStartScreen = ({ route }) => {
   const [currentBg, setCurrentBg] = useState(bgSrc)
+  const timeout = useRef<any>()
   const { trivia } = route.params;
   const navigation = useNavigation();
 
@@ -28,23 +29,26 @@ const GameStartScreen = ({ route }) => {
       setCurrentBg(bgSrc);
     }
   }, [trivia])
-  useEffect(() => {
-    if (trivia) {
-      fetchBg()
-    }
-  }, [trivia])
   useFocusEffect(
     useCallback(() => {
-      const timer = setTimeout(() => {
+      if (trivia) {
+        // fetchBg()
+      }
+    }, [trivia]))
+  useFocusEffect(
+    useCallback(() => {
+      if (timeout.current) {
+        clearTimeout(timeout.current);
+      }
+      timeout.current = setTimeout(() => {
         navigation.navigate("GamePlay")
-      },
-        6000
-      );
+      }, 6000);
+      
       return () => {
-        clearTimeout(timer);
+        clearTimeout(timeout.current);
       };
     }, []))
-  
+
 
   const renderMessage = () => {
     if (trivia && trivia.type == 'trivia') {

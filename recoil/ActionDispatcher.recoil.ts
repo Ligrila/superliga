@@ -18,7 +18,7 @@ import OfflineNotice from '../components/OfflineNotice';
 import NumberUtility from '../utilities/Number/Number.utility';
 import { connectedUserAtom, setConnectedUser } from './ConnectedUsers.recoil';
 import UserUtility from '../utilities/User/User.utility';
-import { authUserAtom, setAuthUser } from './Auth.recoil';
+import { authUserAtom, setAuthUser, setAuthUserWithoutLives } from './Auth.recoil';
 import { triviaQuestionAtom, getTriviaQuestion, setTriviaQuestion } from './TriviaQuestion.recoil';
 import { currentTriviaAtom, setCurrentTrivia } from './CurrentTrivia.recoil';
 import TriviaQuestionUtility from '../utilities/Trivia/TriviaQuestion.utility';
@@ -74,9 +74,10 @@ export default class ActionDispatcherRecoil {
 
     }
     async onUpdateConnectedUsers(message) {
+        // console.log('onUpdateConnectedUsers', JSON.stringify(message.payload))
         const number = NumberUtility.formatNumberConnected(message.payload);
         // ConnectedUsersActions.updateConnectedUsers(message.payload)
-        setConnectedUser(number);
+        await setConnectedUser(number);
     }
     async onNewQuestion(message) {
         const newQuestion = TriviaQuestionUtility.onAddNew(message.payload);
@@ -96,61 +97,59 @@ export default class ActionDispatcherRecoil {
         // Set New Question
         setTriviaQuestion(newQuestion);
     }
-    onStartTrivia(message) {
-        TriviaUtility.onStartTrivia(message.payload)
+    async onStartTrivia(message) {
+        await TriviaUtility.onStartTrivia(message.payload)
     }
     async onShowBanner(message) {
         await TriviaUtility.onShowBanner(message.payload)
 
     }
-    onStartHalfTime(message) {
+    async onStartHalfTime(message) {
         // NextTriviaActions.startHalfTime(message.payload);
-        TriviaUtility.onStartHalfTime(message.payload)
+        await  TriviaUtility.onStartHalfTime(message.payload)
     }
-    onStartHalfTimePlay(message) {
+    async onStartHalfTimePlay(message) {
         // NextTriviaActions.startHalfTimePlay(message.payload);
-        TriviaUtility.onStartHalfTimePlay(message.payload)
+       await TriviaUtility.onStartHalfTimePlay(message.payload)
     }
-    onFinishHalfTime(message) {
+    async onFinishHalfTime(message) {
         // NextTriviaActions.finishHalfTime(message.payload);
-        TriviaUtility.onFinishHalfTime(message.payload)
+        await TriviaUtility.onFinishHalfTime(message.payload)
     }
-    onStartExtraPlay(message) {
+    async onStartExtraPlay(message) {
         // NextTriviaActions.startExtraPlay(message.payload);   
-        TriviaUtility.onStartExtraPlay(message.payload)
+        await TriviaUtility.onStartExtraPlay(message.payload)
     }
-    onFinishGame(message) {
+    async onFinishGame(message) {
         // NextTriviaActions.finishGame(message.payload);
-        TriviaUtility.onFinishGame(message.payload)
+        await  TriviaUtility.onFinishGame(message.payload)
     }
 
     async onFinishTrivia(message) {
-        TriviaUtility.onFinishTrivia(message.payload)
+        await  TriviaUtility.onFinishTrivia(message.payload)
     }
 
     async onFinishedQuestion(message) {
         const answeredFinished = await TriviaQuestionUtility.onFinishedQuestion(message.payload);
+        
+        // Update User Data (cannot call this.function)
+        const authUpdated = await UserUtility.getUpdateUserInformation();
+        await setAuthUser({ ...authUpdated });
+        // Secont for lives
         if (answeredFinished) {
             await setTriviaQuestion(answeredFinished);
         }
-        // Update User Data (cannot call this.function)
-
-        const authUpdated = await UserUtility.getUpdateUserInformation();
-        setAuthUser({ ...authUpdated });
-        this.onUpdateUserData(null);
-
-        // Same to connected users
-        const number = NumberUtility.formatNumberConnected(message.payload);
-        // ConnectedUsersActions.updateConnectedUsers(message.payload)
-        setConnectedUser(number);
-        // When end i need send one event?
+        // Check if User not have lives and update recoil 
+        if(authUpdated.lives > 0){
+            await setAuthUserWithoutLives(authUpdated);
+        }
     }
 
     async onUpdateUserData(message) {
         // UsersActions.update();
         const authUpdated = await UserUtility.getUpdateUserInformation();
         // ConnectedUsersActions.updateConnectedUsers(message.payload)
-        setAuthUser({ ...authUpdated });
+        await setAuthUser({ ...authUpdated });
     }
 
     

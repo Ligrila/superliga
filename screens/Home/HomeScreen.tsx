@@ -44,31 +44,102 @@ const HomeScreen = () => {
     // Recoil
     const [nextTrivia, setNextTrivia] = useRecoilState(nextTriviaAtom)
     const [currentTrivia, setCurrentTrivia] = useRecoilState(currentTriviaAtom);
-
+    // Mount
+    const [mount, setMount] = useState(false);
     // Current Trivia
     const updateCurrentTrivia = useRecoilCallback(({ snapshot }) => async () => {
         const currentTriviaResponse = await snapshot.getPromise(currentTriviaSelector);
         const currentTriviaObj = currentTriviaResponse ? { ...currentTriviaResponse } : currentTriviaResponse;
-        setCurrentTrivia(currentTriviaObj);
+        return currentTriviaObj;
+        // setCurrentTrivia(currentTriviaObj);
     });
     // Update Calendar
-    const updateHomeScreen = useRecoilCallback(({ snapshot }) => async () => {
-        setRefreshing(true);
+    const updatNextTrivia = useRecoilCallback(({ snapshot }) => async () => {
+        // setRefreshing(true);
         const responseNextTrivia = await snapshot.getPromise(nextTriviaSelector);
-        setNextTrivia({ ...responseNextTrivia });
-        setRefreshing(false);
+        // setNextTrivia({ ...responseNextTrivia });
+        return responseNextTrivia;
+        // setRefreshing(false);
     });
     // onRefresh 
     const onRefresh = async () => {
-        await updateCurrentTrivia();
-        await updateHomeScreen();
+        updateHomeScreenFn();
     };
 
     // On Press Next Matchs
     const handlerOnPressNextMatchs = () => {
         navigation.navigate('HomeNextMatchs')
     }
+    // Focus to listen only changes when is in the scren
+    useFocusEffect(
+        useCallback(() => {
+            // console.log('currentTrivia home')
+            if (currentTrivia && currentTrivia.hasData) {
+                const trivia = {
+                    type: currentTrivia.data.type,
+                    award: currentTrivia.award ? currentTrivia.award : null
+                }
+                navigation.navigate('GamePlayStack', {
+                    screen: 'StartFirstTime',
+                    params: { trivia }
+                });
+            }
+            return () => {
+            };
+        }, [currentTrivia])
+    );
+    const fnupdateCurrentTrivia = useCallback(async () => {
+        const currentTrivia = await updateCurrentTrivia();
+        setCurrentTrivia({...currentTrivia})
+    }, [])
+    const fnupdateMextTrivia = useCallback(async () => {
+        const nextTrivia = await updatNextTrivia();
+        setNextTrivia({...nextTrivia});
+    }, [])
+    const updateHomeScreenFn = useCallback(async () => {
+        if (mount) {
+            setRefreshing(true);
+            await fnupdateCurrentTrivia();
+            await fnupdateMextTrivia();
+            setRefreshing(false);
+        }
+    }, [fnupdateCurrentTrivia, fnupdateMextTrivia, mount])
+    // Focus to listen only changes when is in the scren
+    useFocusEffect(
+        useCallback(() => {
+            // Mount Screen
+            setMount(true);
+            updateHomeScreenFn()
+            return () => {
+                // Unmount screen
+                setMount(false);
+            }
+        }, [])
+    )
 
+    useFocusEffect(
+        useCallback(() => {
+            let isActive = true;
+            const fetchCurrentTrivia = async () => {
+                try {
+                    const currenTrivia = await updateCurrentTrivia();
+
+                    if (isActive) {
+                        setCurrentTrivia(currenTrivia);
+                    }
+                } catch (e) {
+                    // Handle error
+                }
+            };
+            fetchCurrentTrivia();
+            return () => {
+                isActive = false;
+            };
+        }, []))
+
+    const onFinishCountDown = () => {
+        fnupdateCurrentTrivia();
+    }
     // useEffect(() => {
     //     offset.value = withSequence(
     //         withTiming(-10, { duration: 600 }),
@@ -78,32 +149,6 @@ const HomeScreen = () => {
     //     console.log('nextTrvia', nextTrivia)
     // }, [nextTrivia])
     // Call When is Focus
-    useFocusEffect(
-        useCallback(() => {
-            if (currentTrivia && currentTrivia.hasData) {
-                const trivia = {
-                    type : currentTrivia.data.type
-                }
-                navigation.navigate('GamePlayStack', {
-                    screen: 'StartFirstTime',
-                    params: { trivia }
-                });
-            }
-        }, [currentTrivia])
-    );
-    // First
-    useEffect(() => {
-        updateHomeScreen()
-    }, [])
-
-    useFocusEffect(
-        useCallback(() => {
-            updateCurrentTrivia();
-            return () => { };
-        }, []))
-    const onFinishCountDown = () => {
-        updateCurrentTrivia();
-    }
     return (
         <Container>
             <CheckDocument />

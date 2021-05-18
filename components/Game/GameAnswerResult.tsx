@@ -26,8 +26,8 @@ const GameAnswerResult = (props: GameAnswerResult) => {
     //<Button block info rounded onPress={this.backToGamePlay} style={styles.button}><Text style={styles.buttonText}>Quiero seguir jugando</Text></Button>
     if (canceled) {
         return (
-            <View style={styles.container}>
-                <Text style={styles.text}>{`Uhhh,\npregunta\ncancelada!`}</Text>
+            <View style={[styles.container]}>
+                <Text style={styles.text}>{`Uhhh,\npregunta\nanulada!`}</Text>
             </View>
         )
     }
@@ -43,7 +43,18 @@ const GameAnswerResult = (props: GameAnswerResult) => {
         )
     }
     if (props.serverSuccess) {
-        if (lives > 1 /** a 1 porque todavia no se desconto la vida, se descuenta asincronicamente luego de mostrar está pantalla para darle fluidez al juego */) {
+        if (lives ===  0 ) {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.text}>{`Estas,\nFuera!`}</Text>
+                    <Text style={styles.subtext}>
+                        {`TE DESCUENTA `}
+                        <Text style={styles.subtextBold}>{`1 VIDA.`}</Text>
+                    </Text>
+                </View>
+            )
+        }
+        if (lives > 1 ) {
             return (
                 <View style={styles.container}>
                     <Text style={styles.text}>{`Uhhh,\nla pifiaste`}</Text>

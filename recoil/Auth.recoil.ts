@@ -26,6 +26,11 @@ export const authUserLivesAtom = atom<number>({
     default: 0
 });
 
+export const authUserWithoutLivesAtom = atom<any | null>({
+    key: 'Auth.WithouLives',
+    default: null
+});
+
 
 export const setAuthUser = async (value) => {
     await setRecoilExternalState(authUserAtom, value)
@@ -36,4 +41,15 @@ export const getAuthUser = async () => {
     const value = await getRecoilExternalLoadable(authUserAtom).contents
     return value
 }
+// Without Lives
+export const setAuthUserWithoutLives = async (value) => {
+    await setRecoilExternalState(authUserWithoutLivesAtom, value)
+
+}
+
+export const getAuthUserWithoutLives = async () => {
+    const value = await getRecoilExternalLoadable(authUserWithoutLivesAtom).contents
+    return value
+}
+
 

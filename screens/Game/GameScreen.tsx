@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 // Native
 import {
-  KeyboardAvoidingView,
   TouchableOpacity,
   Modal,
   View,
@@ -11,12 +10,10 @@ import {
 import {
   Container,
   Content,
-  Footer,
   Text,
   Spinner,
 } from "native-base";
 
-import { StackActions, NavigationActions } from "react-navigation";
 // Components
 import Wallpaper from "../../components/Wallpaper/Wallpaper";
 import AppHeader from "../../components/AppHeader/AppHeader";
@@ -26,14 +23,9 @@ import Api from "../../api/Api";
 import Game from "../../components/Game/Game";
 import GameConnectedUsers from "../../components/Game/GameConnectedUsers";
 
-import Reflux from "reflux";
-import { NextTriviaStore, NextTriviaActions } from "../../store/NextTriviaStore";
-import { UsersStore, UsersActions } from "../../store/UserStore";
+
 import Purchase from "../../components/Purchase";
-import { PurchaseModalStore } from "../../store/PurchaseModalStore";
-import { TriviaQuestion } from "../../store/TriviaQuestion";
 import MakeItRain from "../../components/MakeItRain";
-import Chat from '../../components/Chat'
 // Expo
 import Constants from 'expo-constants';
 // Advertising
@@ -70,8 +62,11 @@ const getAdMobInterstitialID = () => {
 
 const GameScreen = () => {
   const api = new Api();
+  // Mount
+  const [mount, setMount] = useState(false);
   // Auth User
   const [authUser, setAuthUser] = useRecoilState(authUserAtom);
+  
   // Modal
   const [modalVisible, setModalVisible] = useState(false);
   // Keyboard
@@ -100,40 +95,56 @@ const GameScreen = () => {
   const _keyboardDidHide = () => {
     setKeyboardVisible(false);
   };
+  useFocusEffect(
+    useCallback(() => {
+      Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+      Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
 
-  useEffect(() => {
-    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
-    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
-
-    // cleanup function
-    return () => {
-      Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
-      Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
-    };
-  }, []);
+      // cleanup function
+      return () => {
+        Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
+        Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+      };
+    }, [])
+  )
   // Update Current User
   const updateCurrentUser = useRecoilCallback(({ snapshot }) => async () => {
     const authUserResponse = await snapshot.getPromise(authUserSelector);
-    setAuthUser({ ...authUserResponse });
+    return authUserResponse;
+    // setAuthUser({ ...authUserResponse });
   });
   // Update Current Trivia
   const updateCurrentTrivia = useRecoilCallback(({ snapshot }) => async () => {
     const currentTriviaResponse = await snapshot.getPromise(currentTriviaSelector);
-    const currentTriviaObj = currentTriviaResponse ? { ...currentTriviaResponse } : currentTriviaResponse;
-    setCurrentTrivia(currentTriviaObj);
+    // const currentTriviaObj = currentTriviaResponse ? { ...currentTriviaResponse } : currentTriviaResponse;
+    return currentTriviaResponse;
+    // setCurrentTrivia(currentTriviaObj);
   });
+
   //#endregion Keyboard
   const updateNeccesaryData = useCallback(async () => {
-    // Get Latest info of user
-    updateCurrentUser();
-    // Update Current Triva
-    updateCurrentTrivia();
-  }, [])
+    if (mount) {
+      // Get Latest info of user
+      const authUser = await updateCurrentUser();
+      setAuthUser(authUser);
+      // Update Current Triva
+      const currentTrivia = await updateCurrentTrivia();
+      setCurrentTrivia(currentTrivia)
+    }
+  }, [mount])
   // Update Always focus
   useFocusEffect(
     useCallback(() => {
-      updateNeccesaryData();
-      return () => { };
+      // Mount Screen
+      setMount(true);
+      const fnUpdateNeccesaryData = async () => {
+        await updateNeccesaryData();
+      }
+      fnUpdateNeccesaryData()
+      return () => {
+        // Unmount Screen
+        setMount(false);
+      }
     }, []))
   //#region Changes Current Trivia
   const processChangesCurrentTriva = useCallback(() => {
@@ -173,29 +184,23 @@ const GameScreen = () => {
             break;
           }
           // case GamePlayStatus.FINISH_TRIVIA: {
-            
+
           // }
         }
-        // HalfTime
-        // HalfTimeStart
-        // GameHalfTimePlay
-        // Show Banner
-        // GameExtraPlay
-        // GameEnd
       }
 
     }
 
   }, [currentTrivia])
 
-
-  useEffect(() => {
-    processChangesCurrentTriva()
-  }, [currentTrivia])
+  useFocusEffect(
+    useCallback(() => {
+      processChangesCurrentTriva()
+    }, [currentTrivia]))
   //#endregion Changes Current Trivia
 
   //#region Changes Finished Trivia
-  const processChangesFinishTriva = useCallback(()=>{
+  const processChangesFinishTriva = useCallback(() => {
     const currentTriviaId = currentTriviaFinished.data.id;
 
     const trivia = {
@@ -210,16 +215,16 @@ const GameScreen = () => {
     }
     navigation.reset(resetAction);
 
-  },[currentTriviaFinished]);
-  useEffect(() => {
-    if(currentTriviaFinished && currentTriviaFinished.hasData){
-      processChangesFinishTriva()
-    }
-    
-  }, [currentTriviaFinished])
+  }, [currentTriviaFinished]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (currentTriviaFinished && currentTriviaFinished.hasData) {
+        processChangesFinishTriva()
+      }
+    }, [currentTriviaFinished])
+  )
   //#endregion Changes Finished Trivia
-
-
   const handlerSetModalVisibleProp = () => {
 
   }
@@ -266,8 +271,8 @@ const GameScreen = () => {
     }
     return <GameConnectedUsers />;
   }
+  // Render Game
   const renderGame = () => {
-    // console.log('currentTrivia', JSON.stringify(currentTrivia));
     if (currentTrivia && currentTrivia.hasData) {
       return (
         <Game
@@ -279,6 +284,11 @@ const GameScreen = () => {
     } else {
       return <Spinner />;
     }
+  }
+  const renderMessageNoLives = () => {
+
+    
+
   }
   // Make it Rain :)
   const makeItRain = () => {
@@ -309,11 +319,12 @@ const GameScreen = () => {
   }
   if (authUser) {
     bgSrc = authUser.lives <= 0 ? gameDisabledBgSrc : gameBgSrc;
+    // Trivia Question
+    if (triviaQuestion && triviaQuestion.hasQuestion && authUser.lives > 0) {
+      bgSrc = gamePlayBgSrc;
+    }
   }
-  // Trivia Question
-  if (triviaQuestion && triviaQuestion.hasQuestion) {
-    bgSrc = gamePlayBgSrc;
-  }
+
 
 
   return (

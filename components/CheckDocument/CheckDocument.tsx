@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { Toast } from 'native-base'
 import React, { Component, useCallback, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -19,11 +19,12 @@ const CheckDocument = () => {
         }
 
     }, [authUser])
-    useEffect(() => {
+    useFocusEffect(
+    useCallback(() => {
         if (authUser && authUser.id) {
             fnCheckDocument()
         }
-    }, [authUser])
+    }, [authUser]))
 
     return null
 

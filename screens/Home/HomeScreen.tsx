@@ -43,7 +43,7 @@ const HomeScreen = () => {
     const [refreshing, setRefreshing] = useState(false);
     // Recoil
     const [nextTrivia, setNextTrivia] = useRecoilState(nextTriviaAtom)
-    const [currentTrivia, setCurrentTrivia] = useRecoilState(currentTriviaAtom);
+    const [, setCurrentTrivia] = useRecoilState(currentTriviaAtom);
     // Mount
     const [mount, setMount] = useState(true);
     // Current Trivia
@@ -53,7 +53,7 @@ const HomeScreen = () => {
         return currentTriviaObj;
         // setCurrentTrivia(currentTriviaObj);
     });
-    // Update Calendar
+    // Update Next Trivis
     const updatNextTrivia = useRecoilCallback(({ snapshot }) => async () => {
         // setRefreshing(true);
         const responseNextTrivia = await snapshot.getPromise(nextTriviaSelector);
@@ -71,23 +71,23 @@ const HomeScreen = () => {
         navigation.navigate('HomeNextMatchs')
     }
     // Focus to listen only changes when is in the scren
-    useFocusEffect(
-        useCallback(() => {
-            // console.log('currentTrivia home')
-            if (currentTrivia && currentTrivia.hasData) {
-                const trivia = {
-                    type: currentTrivia.data.type,
-                    award: currentTrivia.award ? currentTrivia.award : null
-                }
-                navigation.navigate('GamePlayStack', {
-                    screen: 'StartFirstTime',
-                    params: { trivia }
-                });
-            }
-            return () => {
-            };
-        }, [currentTrivia])
-    );
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         // console.log('currentTrivia home')
+    //         if (currentTrivia && currentTrivia.hasData) {
+    //             const trivia = {
+    //                 type: currentTrivia.data.type,
+    //                 award: currentTrivia.award ? currentTrivia.award : null
+    //             }
+    //             navigation.navigate('GamePlayStack', {
+    //                 screen: 'StartFirstTime',
+    //                 params: { trivia }
+    //             });
+    //         }
+    //         return () => {
+    //         };
+    //     }, [currentTrivia])
+    // );
     const fnupdateCurrentTrivia = useCallback(async () => {
         const currentTrivia = await updateCurrentTrivia();
         setCurrentTrivia({...currentTrivia})
@@ -116,27 +116,6 @@ const HomeScreen = () => {
             }
         }, [])
     )
-
-    // useFocusEffect(
-    //     useCallback(() => {
-    //         let isActive = true;
-    //         const fetchCurrentTrivia = async () => {
-    //             try {
-    //                 const currenTrivia = await updateCurrentTrivia();
-
-    //                 if (isActive) {
-    //                     setCurrentTrivia(currenTrivia);
-    //                 }
-    //             } catch (e) {
-    //                 // Handle error
-    //             }
-    //         };
-    //         fetchCurrentTrivia();
-    //         return () => {
-    //             isActive = false;
-    //         };
-    //     }, []))
-
     const onFinishCountDown = () => {
         fnupdateCurrentTrivia();
     }

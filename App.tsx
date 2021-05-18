@@ -330,7 +330,7 @@ const App: React.FC = () => {
         <RecoilRoot>
           <DebugObserver/> 
           {/* Current Trivia Listen */}
-          {/* <WatchCurrentTrivia /> */}
+           <WatchCurrentTrivia /> 
           {/* Navigation Listen */}
           {/* <NavigationListen /> */}
           {/* To access recoil outside of component */}

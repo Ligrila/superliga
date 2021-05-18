@@ -22,6 +22,8 @@ import { setAuthUser, setAuthUserWithoutLives } from './Auth.recoil';
 import { getTriviaQuestion, setTriviaQuestion } from './TriviaQuestion.recoil';
 import TriviaQuestionUtility from '../utilities/Trivia/TriviaQuestion.utility';
 import TriviaUtility from '../utilities/Trivia/Trivia.utility';
+import { GAME_ROUTES_STRING } from '../new-navigation/GameNavigator';
+import { setCurrentTrivia } from './CurrentTrivia.recoil';
 
 // First
 // If Trivia active redirect to GamePlay
@@ -51,20 +53,32 @@ export default class ActionDispatcherRecoil {
                 const routeObject = await NavigationUtility.getActiveRoute();
                 if (routeObject) {
                     const routeName = routeObject.name
+                    const gameRoutes = GAME_ROUTES_STRING;
+                    let included = false;
+                    for (const string of gameRoutes) {
+                        included = routeName.includes(string);
+                        if (included) {
+                            break;
+                        }
+                    }
                     // console.log('routeName', routeName)
                     // call trivia actions
-                    const canHandle = (routeName == 'GamePlay' || routeName == 'Home' || null)
-                    if (!canHandle) return
+                    if (included) return
                     // Get Current trivia
                     let ct = await this.api.getCurrentTrivia();
-                    if (!ct) {
-                        ct = { success: false };
+                    if (ct && ct.success) {
+                        const newTrivia = {
+                            hasData: true,
+                            data: ct.data
+                        }
+                        await setCurrentTrivia({ ...newTrivia });
+                        
                     }
-                    let gameInProgress = ct.success;
-                    if (gameInProgress) {
-                        // promiseSetRecoil(navigationAtom, 'GamePlay');
-                        setNavigation('GamePlay')
-                    }
+                    // let gameInProgress = ct.success;
+                    // if (gameInProgress) {
+                    //     // promiseSetRecoil(navigationAtom, 'GamePlay');
+                    //     setNavigation('GamePlay')
+                    // }
                 }
             }
         } catch (e) {

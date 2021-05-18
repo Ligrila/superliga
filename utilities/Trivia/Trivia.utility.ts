@@ -2,6 +2,17 @@ import { GamePlayStatus, getCurrentTrivia, setCurrentTrivia, setCurrentTriviaFin
 
 export default class TriviaUtility {
 
+    static getGameStatusFromData(data) {
+        let gamePlayStatus = GamePlayStatus.START_GAME;
+        if(data.half_time_finished){
+            gamePlayStatus = GamePlayStatus.FINISH_HALF_TIME;
+        }
+        if(data.half_time_started){
+            gamePlayStatus = GamePlayStatus.START_HALF_TIME;
+        }
+        return gamePlayStatus;
+    }
+
     static async onStartTrivia(payload) {
         const newTrivia = {
             hasData: true,
@@ -69,10 +80,10 @@ export default class TriviaUtility {
             await setCurrentTriviaFinished({ ...newTrivia });
             // Set Current Trivia Empty :)
             await setCurrentTrivia({
-                    hasData: false,
-                    data: undefined
+                hasData: false,
+                data: undefined
             });
-            
+
         }
     }
     static async onFinishHalfTime(payload) {

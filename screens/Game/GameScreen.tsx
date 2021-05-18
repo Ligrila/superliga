@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 // Native
 import {
   TouchableOpacity,
@@ -110,41 +110,27 @@ const GameScreen = () => {
   // Update Current User
   const updateCurrentUser = useRecoilCallback(({ snapshot }) => async () => {
     const authUserResponse = await snapshot.getPromise(authUserSelector);
-    return authUserResponse;
-    // setAuthUser({ ...authUserResponse });
+    setAuthUser({ ...authUserResponse });
   });
   // Update Current Trivia
   const updateCurrentTrivia = useRecoilCallback(({ snapshot }) => async () => {
     const currentTriviaResponse = await snapshot.getPromise(currentTriviaSelector);
-    // const currentTriviaObj = currentTriviaResponse ? { ...currentTriviaResponse } : currentTriviaResponse;
-    return currentTriviaResponse;
-    // setCurrentTrivia(currentTriviaObj);
+     const currentTriviaObj = currentTriviaResponse ? { ...currentTriviaResponse } : currentTriviaResponse;
+     currentTriviaObj;
+     setCurrentTrivia(currentTriviaObj);
   });
 
   //#endregion Keyboard
   const updateNeccesaryData = useCallback(async () => {
-    if (mount) {
       // Get Latest info of user
-      const authUser = await updateCurrentUser();
-      setAuthUser(authUser);
-      // Update Current Triva
-      const currentTrivia = await updateCurrentTrivia();
-      setCurrentTrivia(currentTrivia)
-    }
-  }, [mount])
+       updateCurrentUser();
+       updateCurrentTrivia();
+  }, [])
   // Update Always focus
   useFocusEffect(
     useCallback(() => {
-      // Mount Screen
-      setMount(true);
-      const fnUpdateNeccesaryData = async () => {
-        await updateNeccesaryData();
-      }
-      fnUpdateNeccesaryData()
-      return () => {
-        // Unmount Screen
-        setMount(false);
-      }
+      updateNeccesaryData()
+      return () => { };
     }, []))
   //#region Changes Current Trivia
   const processChangesCurrentTriva = useCallback(() => {
@@ -193,10 +179,9 @@ const GameScreen = () => {
 
   }, [currentTrivia])
 
-  useFocusEffect(
-    useCallback(() => {
+  useEffect(() =>{
       processChangesCurrentTriva()
-    }, [currentTrivia]))
+    }, [currentTrivia])
   //#endregion Changes Current Trivia
 
   //#region Changes Finished Trivia

@@ -19,6 +19,17 @@ import BannerScreen from '../screens/Game/BannerScreen';
 import GameEndScreen from '../screens/Game/GameEndScreen';
 
 
+export const GAME_ROUTES_STRING = [
+    'StartFirstTime',
+    'GamePlay',
+    'HalfTime',
+    'GameHalfTimePlay',
+    'HalfTimeStart',
+    'GameExtraPlay',
+    'GameEnd',
+    'Banner',
+    'GameLoading'
+];
 
 // Game 
 import GameLoadingScreen from '../screens/Game/GameLoadingScreen';
@@ -63,7 +74,7 @@ const GameNavigator = () => {
             <Stack.Screen name="GameEnd" component={GameEndScreen} />
             {/* Banner */}
             <Stack.Screen name="Banner" component={BannerScreen} />
-            
+
             {/* Loading */}
             <Stack.Screen name="GameLoading" component={GameLoadingScreen} />
         </Stack.Navigator>

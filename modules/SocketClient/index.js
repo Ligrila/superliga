@@ -2,8 +2,9 @@ import io from 'socket.io-client'
 
 
 
-import ActionDispatcher from '../../store/ActionDispatcher';
+// import ActionDispatcher from '../../store/ActionDispatcher';
 import Enviroment from '../../constants/Enviroment';
+import ActionDispatcherRecoil from '../../recoil/ActionDispatcher.recoil';
 
 
 
@@ -21,7 +22,7 @@ export default class SocketClient{
             user.first_name = 'Usuario'
         }
         //console.log("current storage user", user)
-        this.dispatcher = new ActionDispatcher
+        this.dispatcher = new ActionDispatcherRecoil()
         this.firstConnect = true;
         this.isReconnected = false;
         console.log("Socket.io start");

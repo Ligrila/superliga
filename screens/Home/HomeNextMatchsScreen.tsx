@@ -24,7 +24,6 @@ const triviaBgSrc = require('../../assets/images/home_trivia_bg.png');
 
 // Styles
 import styles from './HomeNextMatchsScreen.styles'
-import Logo from '../../components/Logo/Logo';
 // Recoil
 import { useRecoilCallback, useRecoilState } from 'recoil';
 import { homeBannerAtom, homeBannerSelector } from '../../recoil/HomeBanner.recoil';
@@ -77,7 +76,7 @@ const HomeNextMatchsScreen = () => {
             <CheckDocument /> 
             <Wallpaper source={screenBg}>
                 {/* Header */}
-                <AppHeader return={returnButton} />
+                <AppHeader return={returnButton} logo={true}/>
                 {/* Main Content */}
                 <Content
                     refreshControl={
@@ -92,8 +91,7 @@ const HomeNextMatchsScreen = () => {
                         />
                     }
                     contentContainerStyle={{ flex: 1 }}>
-                    {/* Logo */}
-                    <Logo />
+                    
                     <View style={styles.nextTriviaIconsContainer}>
                         <TriviaCarouselMinimal onItem={carouselChange} />
                     </View>

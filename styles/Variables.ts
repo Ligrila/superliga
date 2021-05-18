@@ -21,15 +21,19 @@ export default {
     abadiMTCondensedExtraBold: 'AbadiMTCondensedExtraBold',    
     // Schema colors
     brandPrimary: '#ae966f',
+    brandPrimaryText: '#ad9670',
     brandSecondary: '#DEC328',
+    brandTrivia: '#cc366b',
     brandDanger: '#d9534f',
     brandWarning: '#DEC328',
     brandSuccess: '#5cb85c',
     brandInfo: '#81edf9',
     white: '#fff',
+    light: '#ededed',
     dark: '#282828',
     black: '#000',
     darkBlue: '#013675',
     blue:'#235a9b',
     green:'#90a94e',
+    check:'#00a651'
 }

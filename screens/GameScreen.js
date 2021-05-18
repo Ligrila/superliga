@@ -17,7 +17,7 @@ import genericQuestionBg from '../assets/images/game/genericQuestionBg.png';
 
 import Api from '../api/Api';
 
-import Game from '../components/Game';
+import Game from '../components/Game/Game';
 import GameConnectedUsers from '../components/Game/GameConnectedUsers';
 
 import Reflux from 'reflux';
@@ -93,7 +93,12 @@ class GameScreen extends Reflux.Component {
     /*this.state = {
       isLoadingComplete: false
     }*/
-    this.stores = [TriviaQuestion,NextTriviaStore,UsersStore,PurchaseModalStore]; // TODO: use Trivia Store
+    this.stores = [
+      TriviaQuestion,
+      NextTriviaStore,
+      UsersStore,
+      PurchaseModalStore
+    ]; // TODO: use Trivia Store
     this._bootstrap();
 
   }
@@ -143,7 +148,6 @@ class GameScreen extends Reflux.Component {
     if(!this.state.hasInformation){
       UsersActions.update();
     }
-
     this.keyboardDidShowListener = Keyboard.addListener(
       'keyboardWillShow',
       this._keyboardDidShow,
@@ -303,7 +307,6 @@ class GameScreen extends Reflux.Component {
             <View style={styles.connectedUsers}>
             {this.renderFooter()}
             </View>
-
           </Footer>
         </KeyboardAvoidingView>
         </Wallpaper>

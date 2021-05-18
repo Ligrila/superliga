@@ -26,7 +26,7 @@ import Enviroment from '../constants/Enviroment';
 import { UsersActions, UsersStore } from '../store/UserStore';
 import Reflux from 'reflux';
 import { LoginScreenActions } from '../store/LoginScreenStore';
-import AdBanner from '../components/AdBanner';
+import AdBanner from '../components/AdBanner/AddBanner';
 
 
 

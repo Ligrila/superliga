@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState,  } from "react";
+import React, { useCallback, useEffect, useState, } from "react";
 import { BackHandler, StatusBar } from "react-native";
 // React Native
 import { AppState, Image } from "react-native";
@@ -33,11 +33,6 @@ import { Asset } from "expo-asset";
 import { Ionicons } from "@expo/vector-icons";
 // Helper
 import "./helpers/RegisterPushNotification";
-// Recoil
-import {
-  RecoilRoot,
-  
-} from 'recoil';
 // Store
 import { UsersActions } from "./store/UserStore";
 import { ConnectionStatusActions } from "./store/ConnectionStatusStore";
@@ -46,6 +41,18 @@ import { TriviaQuestionActions } from "./store/TriviaQuestion";
 import { NavigatorActions } from "./store/NavigatorStore";
 
 import { YellowBox } from "react-native";
+// Recoil
+import { RecoilExternalStatePortal } from "./components/Recoil/RecoilExternalStatePortal";
+import {
+  RecoilRoot
+} from 'recoil';
+import NavigationListen from "./components/NavigationListen/NavigationListen";
+import DebugObserver from "./components/Debug/DebugObserver";
+
+// Ads
+import { setTestDeviceIDAsync } from "expo-ads-admob";
+
+
 
 
 
@@ -67,8 +74,7 @@ const App: React.FC = () => {
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [isLoadingError, setIsLoadingError] = useState(false);
-  const [appState, setAppState] = useState(AppState.currentState);
-
+  const [appState, setAppState] = useState(AppState.currentState);  
   // Handle On Reload
   const handleOnReload = () => {
     BackHandler.exitApp();
@@ -85,6 +91,10 @@ const App: React.FC = () => {
   };
   // Load assets
   const loadResourcesAsync = useCallback(async () => {
+    // Adds
+    await setTestDeviceIDAsync('EMULATOR');
+
+
     const teams = await api.getTeams();
     const teamImages: any = [];
     if (teams) {
@@ -138,13 +148,12 @@ const App: React.FC = () => {
         require("./assets/images/form/logo.orig.png"),
         require("./assets/images/form/password.png"),
         require("./assets/images/form/logo.png"),
-        require("./assets/images/form/eye_black.png"),    
-        require("./assets/images/ball.png"),
+        require("./assets/images/form/eye_black.png"),
         require("./assets/images/result/wrong_bg.png"),
         require("./assets/images/robot-prod.orig.png"),
         require("./assets/images/purchase-modal.png"),
         require("./assets/images/whistle.png"),
-        require("./assets/images/ball_old.png"),
+        
         require("./assets/images/bgOld.png"),
         require("./assets/images/purchase-modal.orig.png"),
         require("./assets/images/blackBg.png"),
@@ -152,12 +161,7 @@ const App: React.FC = () => {
         require("./assets/images/chat-bg.png"),
         require("./assets/images/robot-prod.png"),
         require("./assets/images/contactBg.png"),
-        require("./assets/images/icon_ios.png"),
-        require("./assets/images/game/bgOld.png"),
-        require("./assets/images/game/genericQuestionBg.png"),
-        require("./assets/images/game/bgOld.orig.png"),
-        require("./assets/images/game/bg2.png"),
-        require("./assets/images/game/bg.png"),
+        require("./assets/images/icon_ios.png"),        
         require("./assets/images/flag.orig.png"),
         require("./assets/images/asplash.png"),
         require("./assets/images/logo.orig.png"),
@@ -177,8 +181,7 @@ const App: React.FC = () => {
         require("./assets/images/teams/colon.orig.png"),
         require("./assets/images/teams/colon.png"),
         require("./assets/images/teams/patronato.png"),
-        require("./assets/images/teams/patronato.orig.png"),
-        require("./assets/images/ball_old.orig.png"),
+        require("./assets/images/teams/patronato.orig.png"),,
         require("./assets/images/programmed-trivia-bg.png"),
         require("./assets/images/robot-dev.orig.png"),
         require("./assets/images/awards/bg2.png"),
@@ -196,7 +199,6 @@ const App: React.FC = () => {
         require("./assets/images/whistle2.orig.png"),
         require("./assets/images/rain.orig.png"),
         require("./assets/images/login/bg.png"),
-        require("./assets/images/ball.orig.png"),
         require("./assets/images/noticeBg.png"),
         require("./assets/images/tutorial2.png"),
         require("./assets/images/menu.orig.png"),
@@ -232,6 +234,13 @@ const App: React.FC = () => {
         // Carousel
         require("./assets/images/carousel_navigation_bg.png"),
         require("./assets/images/carousel_navigation_invested_bg.png"),
+        // Game
+        require("./assets/images/game/genericQuestionBg.png"),
+        require("./assets/images/game/bg.png"),
+        require("./assets/images/game/game_bg.png"),
+        // Ball
+        require("./assets/images/ball.png"),
+        require("./assets/images/ball_min.png"),
       ]),
       ...serverAssets,
     ]);
@@ -296,9 +305,11 @@ const App: React.FC = () => {
       <Root>
         <StyleProvider style={AppTheme}>
           <Container>
-            <Header />
-            <Content>
-              <Text>
+            <Header style={{backgroundColor: 'red'}}/>
+            <Content 
+              padder
+              contentContainerStyle={{   flexDirection:'column',alignItems: 'center',justifyContent: 'center'}}>
+              <Text style={{ color: '#000', }}>
                 Se produjo un error iniciando la red. Por favor, salga de la
                 aplicación e intente nuevamente cuando estes conectado a
                 internet
@@ -315,9 +326,14 @@ const App: React.FC = () => {
   return (
     <Root>
       <StyleProvider style={AppTheme}>
-        <RecoilRoot>   
-              <StatusBar hidden={true} />         
-              <Navigation isLoggedIn={false} />
+        <RecoilRoot>
+          <DebugObserver/> 
+          {/* Navigation Listen */}
+          <NavigationListen />
+          {/* To access recoil outside of component */}
+          <RecoilExternalStatePortal />
+          <StatusBar hidden={true} />
+          <Navigation isLoggedIn={false} />
         </RecoilRoot>
       </StyleProvider>
     </Root>

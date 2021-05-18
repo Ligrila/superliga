@@ -208,6 +208,7 @@ const LoginScreen = () => {
       const user = await api.login(email, password).catch(e => {
         console.log('Exeption', e);
       });
+      console.log('user',user)
       if (user && user.success) {
         await _beforeSubmitLogin(user);
       } else {
@@ -219,6 +220,7 @@ const LoginScreen = () => {
         });
       }
     } catch (e) {
+
       Toast.show({
         text: 'Oops..Ha ocurrido un error intentalo mas tarde.',
         position: "top",

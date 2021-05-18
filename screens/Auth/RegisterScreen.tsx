@@ -50,7 +50,7 @@ const RegisterScreen = () => {
                 setLoading(true);
                 let { first_name, last_name, email, password, referral_username, mobile_number } = getValues();
                 var user = await api.register(first_name, last_name, email, password, referral_username, null, mobile_number).catch(e => {
-                    console.log(e);
+                    console.log('error',e);
                 });
                 console.log(user);
                 if (user && user.success) {

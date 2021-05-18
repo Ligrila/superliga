@@ -6,7 +6,7 @@ import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 import GameMessage from '../components/Game/GameMessage';
 import MakeItRain from '../components/MakeItRain';
-import AdBanner from '../components/AdBanner';
+import AdBanner from '../components/AdBanner/AddBanner';
 
 
 

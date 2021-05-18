@@ -6,6 +6,8 @@ import Api from '../../api/Api';
 import { useRecoilValue } from 'recoil';
 import { triviaQuestionNotificationAtom } from '../../recoil/TriviaQuestion.recoil';
 import { appStateAtom } from '../../recoil/AppState.recoil';
+import { Toast } from "native-base";
+import * as RootNavigation from '../../new-navigation/RootNavigation'
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -16,7 +18,7 @@ Notifications.setNotificationHandler({
 });
 const RegisterPushNotifications = () => {
     const [, setExpoPushToken] = useState('');
-    const [, setNotification] = useState<NotificationInterface | null>(null);
+    const [notification, setNotification] = useState<NotificationInterface | null>(null);
     const notificationListener = useRef<any>();
     const responseListener = useRef<any>();
     // App State
@@ -62,10 +64,38 @@ const RegisterPushNotifications = () => {
     }, [triviaQuestion])
     //#endregion  Trivia Questions
 
+    // Handle Notification
 
+    const processNotification = useCallback(() => {
+        const isSelected = notification?.request.identifier == 'selected'
+        let notificationData: any = {};
+        if (notification?.request.content.data) {
+            notificationData = notification?.request.content.data;
+        }
+        const hasRedirectData = notificationData.navigate || false
+        if (isSelected) {
+            if (hasRedirectData) {
+                const params = notificationData.params || null
+                RootNavigation.navigate(notificationData.navigate, params)
+            }
+        } else {
+            if (!notification?.request.content.title) {
+                return;
+            }
+            Toast.show({
+                text: notification?.request.content.title,
+                duration: 4000,
+            })
+        }
+    }, [notification]);
     useEffect(() => {
-        
-         registerCategories();
+        if (notification) {
+            processNotification();
+        }
+    }, [notification])
+    useEffect(() => {
+
+        registerCategories();
 
         registerForPushNotificationsAsync().then(async (token) => {
             console.log('token', token)

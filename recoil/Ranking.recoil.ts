@@ -8,9 +8,10 @@ const defaultData = {
 
 export const rankingSelector = selectorFamily({
     key: 'RankingSelector',
-    get: dateID => async ({get}) => {
-
-        let endpoint = `/trivia-points/for-date/${dateID?.toString()}`;
+    get: dateID => async ({ get }) => {
+        
+        const dateString = dateID?.toString();
+        let endpoint = `/trivia-points/for-date/${dateString}`;
 
         switch (dateID) {
             case "week":
@@ -20,16 +21,17 @@ export const rankingSelector = selectorFamily({
                 endpoint = `/trivia-points/general/`;
                 break;
             default:
-                endpoint = `/trivia-points/for-date/${dateID?.toString}`;
+                endpoint = `/trivia-points/for-date/${dateString}`;
                 break;
         }
-        console.log('endpoint', endpoint);
         const api = new Api();
         const ranking = { ...defaultData }
         const response = await api.GET(endpoint);
-        
-        response.hasData = response.success;
-        ranking.data = response.data;
+        if (response) {
+            console.log('response', response)
+            response.hasData = response.success;
+            ranking.data = response.data;
+        }
 
         return ranking;
 

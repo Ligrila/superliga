@@ -1,67 +1,62 @@
-import React, { Component } from 'react';
-import Reflux from 'reflux';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { connectStyle, List, ListItem, Text, Left, Body, Right, Switch } from 'native-base'
-
-
-
-
-
+import { List, ListItem, Text, Left, Body, Right, Switch, Toast } from 'native-base'
 import Title from '../Title';
-import { EditChampionshipUsersStore, EditChampionshipUsersActions } from '../../store/EditChampionshipUsersStore';
-import Loader from '../Loader';
 import Avatar from '../Avatar';
-
-
-import { ChampionshipUsersStore, ChampionshipUsersActions } from '../../store/ChampionshipUsersStore';
-
-const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.png')
-
+// Styles
 import styles from './EditChampionshipUsers.styles'
+import Variables from '../../styles/Variables'
+import Api from '../../api/Api';
 
 const EditChampionshipUsers = ({ championship }) => {
-
-  // constructor(props) {
-  //   super(props);
-
-  //   this.stores = [ChampionshipUsersStore,EditChampionshipUsersStore];
-  //   this.championship = this.props.championship
-
-  // }
-
-  // componentDidMount(){
-  //   ChampionshipUsersActions.list(this.championship.id)
-  // }
+  const api = new Api();
+  const [users, setUsers] = useState<any>([])
+  const fetchUsers = useCallback(() => {
+    const users = Object.assign([], championship.championship_users);
+    setUsers(users)
+  }, [championship])
+  useEffect(() => {
+    if (championship && championship.championship_users) {
+      console.log('call')
+      fetchUsers()
+    }
+  }, [championship])
 
   const toggleUser = async (item, v, index) => {
-    this.state.ChampionshipUsers.data.championship_users[index].enabled = v
-    await EditChampionshipUsersActions.toggle(item.user.id, this.championship.id, v)
-    if (!this.EditChampionshipUsersStore.data.success) {
-      this.state.ChampionshipUsers.data.championship_users[index].enabled = !v
+    const response = await api.toggleChampionshipUser(item.user.id, championship.id, v);
+    if (response && response.success) {
+      users[index].enabled = v
+      setUsers([...users]);
+    } else {
+      Toast.show({
+        text: 'Oops..Ha ocurrido un error intentalo mas tarde.',
+        position: "top",
+        type: 'danger',
+        buttonText: 'Aceptar'
+      });
     }
-
-
   }
-  const removeButton = (item) => {
-    if (this.state.ChampionshipUsers.data.user_id == item.user.id) {
+  const removeButton = (item, index) => {
+    if (championship.user_id == item.user.id) {
       return null;
     }
-
-    return <Switch value={item.enabled} onValueChange={(v) => { toggleUser(item, v, index) }}></Switch>
+    
+    return <Switch
+            ios_backgroundColor={'#eee'}
+            value={item.enabled}
+            onValueChange={(v) => { toggleUser(item, v, index) }}
+    />
 
   }
   const renderItems = () => {
-    if (!this.state.ChampionshipUsers.hasData) {
+    if (!users) {
       return;
     }
-    const styles = this.props.style
-
-    return this.state.ChampionshipUsers.data.championship_users.map(
+    return users.map(
       (item, index) => {
-        
+
         return (
           <ListItem icon key={item.user.id}>
-
             <Left>
               <Avatar mini avatar={{ uri: item.user.avatar }}></Avatar>
             </Left>
@@ -69,13 +64,15 @@ const EditChampionshipUsers = ({ championship }) => {
               <Text>{item.user.first_name} {item.user.last_name}</Text>
             </Body>
             <Right>
-
-              {removeButton(item)}
+              {removeButton(item, index)}
             </Right>
           </ListItem>
         )
       }
     )
+  }
+  if (!championship) {
+    return null;
   }
 
   const title = `EDITAR PARTICIPANTES\n ${championship.name}`
@@ -83,7 +80,6 @@ const EditChampionshipUsers = ({ championship }) => {
   return (
     <View style={styles.container} >
       <Title text={title}></Title>
-      {/* <Loader loading={this.state.EditChampionshipUsers.loading || this.state.ChampionshipUsers.loading} /> */}
       <List>
         {renderItems()}
       </List>

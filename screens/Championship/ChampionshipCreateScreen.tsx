@@ -22,9 +22,7 @@ const ChampionshipCreateScreen = () => {
       <Container>
         <Wallpaper source={bgSrc}>
         <AppHeader return={returnButton}/>
-        <Content 
-            contentContainerStyle={styles.content} 
-            padder>
+        <Content  contentContainerStyle={styles.content} padder>
           <CreateChampionship  />
         </Content>
         </Wallpaper>

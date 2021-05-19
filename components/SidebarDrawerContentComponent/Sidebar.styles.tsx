@@ -43,7 +43,7 @@ export default StyleSheet.create({
     },
     scrollContainer: {
         flex: 1,
-        width: '65%',
+        width: '70%',
         marginLeft: 'auto',
         marginRight: 'auto',
     },

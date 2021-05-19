@@ -1,21 +1,14 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { View } from "react-native";
 
-import Reflux from "reflux";
-
 
 import GameWait from "./GameWait";
 import GameBall from "./GameBall";
 import GameQuestion from "./GameQuestion";
 import GameAnswerResult from "./GameAnswerResult";
 
-// store
-import {
-  TriviaQuestion,
-  TriviaQuestionActions,
-} from "../../store/TriviaQuestion";
-import { UsersStore } from "../../store/UserStore";
-import BottomBanner from "../Adds/BottomBanner";
+
+// import BottomBanner from "../Adds/BottomBanner";
 // The friend recoil :)
 import { useRecoilState, useRecoilValue } from "recoil";
 import { triviaQuestionAtom } from "../../recoil/TriviaQuestion.recoil";
@@ -76,7 +69,7 @@ const GamePlay = ({ onNoLife, setModalVisibleProp }) => {
       return (
         <View style={styles.containerWait}>
           <GameWait text={"ESPERANDO \n JUGADA"} />
-          <BottomBanner></BottomBanner>
+          {/* <BottomBanner></BottomBanner> */}
         </View>
       );
     }

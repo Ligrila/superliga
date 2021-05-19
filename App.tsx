@@ -312,7 +312,7 @@ const App: React.FC = () => {
             Init Socket only when haver user in recoil store */}
           <InitSocket />
           {/* Recoil Debug Observer */}
-          <DebugObserver/> 
+          {/* <DebugObserver/>  */}
           {/* Current Trivia Listen */}
            <WatchCurrentTrivia /> 
           {/* To access recoil outside of component */}

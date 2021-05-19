@@ -5,18 +5,24 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ChampionshipScreen from '../screens/Championship/ChampionshipScreen';
 import ChampionshipCreateScreen from '../screens/Championship/ChampionshipCreateScreen';
 import ChampionshipViewScreen from '../screens/Championship/ChampionshipViewScreen';
+import ChampionshipEditScreen from '../screens/Championship/ChampionshipEditScreen';
+import ChampionshipEditUsersScreen from '../screens/Championship/ChampionshipEditUsersScreen';
+import ChampionshipSubscribeScreen from '../screens/Championship/ChampionshipSubscribeScreen';
 // Create
 const Stack = createStackNavigator();
 
 
 const ChampionshipNavigator = () => {
     return (
-        <Stack.Navigator 
+        <Stack.Navigator
             initialRouteName="ChampionshipHome"
             headerMode="none"
-        
+            screenOptions={{
+                
+            }}
+
         >
-   {/* 
+            {/* 
    
    ChampionshipHome: ChampionshipScreen,
       ChampionshipView: ChampionshipViewScreen,
@@ -28,11 +34,9 @@ const ChampionshipNavigator = () => {
             <Stack.Screen name="ChampionshipHome" component={ChampionshipScreen} />
             <Stack.Screen name="ChampionshipCreate" component={ChampionshipCreateScreen} />
             <Stack.Screen name="ChampionshipView" component={ChampionshipViewScreen} />
-            {/* <Stack.Screen name="ChampionshipView" component={GameResultScreen} />
-            <Stack.Screen name="ChampionshipCreate" component={GameEndScreen} />
-            <Stack.Screen name="ChampionshipEdit" component={GameStartScreen} />
-            <Stack.Screen name="ChampionshipEditUsers" component={GameHalfTimeEndScreen} />
-            <Stack.Screen name="ChampionshipSubscribe" component={GameHalfTimeStartScreen} /> */}
+            <Stack.Screen name="ChampionshipEdit" component={ChampionshipEditScreen} />
+            <Stack.Screen name="ChampionshipEditUsers" component={ChampionshipEditUsersScreen} />
+            <Stack.Screen name="ChampionshipSubscribe" component={ChampionshipSubscribeScreen} />
         </Stack.Navigator>
     );
 }

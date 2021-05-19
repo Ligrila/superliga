@@ -47,11 +47,11 @@ const menuItems = [
     route: 'Statistics',
     image: require('../../assets/images/menu/menu_statistics.png')
   },
-  {
-    text: 'PREMIOS',
-    route: 'Awards',
-    image: require('../../assets/images/menu/menu_awards.png')
-  },
+  // {
+  //   text: 'PREMIOS',
+  //   route: 'Awards',
+  //   image: require('../../assets/images/menu/menu_awards.png')
+  // },
   {
     text: 'TORNEO AMIGOS',
     route: 'ChampionshipStack',

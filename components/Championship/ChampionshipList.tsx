@@ -11,7 +11,6 @@ import {
   Right,
   Button,
   Icon,
-  Content,
   ActionSheet
 } from 'native-base'
 // Comonents
@@ -27,6 +26,7 @@ import { authUserAtom } from '../../recoil/Auth.recoil';
 // Styles
 import styles from './ChampionshipList.styles'
 import { ScrollView } from 'react-native-gesture-handler';
+// Avatar
 const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.png')
 
 
@@ -127,7 +127,6 @@ const ChampionshipList = ({ championships }) => {
             <Text style={styles.text}>Organizado por {championship.user.first_name} {championship.user.last_name}{'\n'}
               {championship.users_count} particpantes{'\n'}
               {ranking} en el ranking general
-
             </Text>
           </Body>
           <Right>
@@ -144,9 +143,6 @@ const ChampionshipList = ({ championships }) => {
       <Title text={'TORNEOS \n SUPERLIGA'} hideSeparator={true} />
       <ScrollView style={styles.scrollContainer}>
         <List style={styles.list}>
-          {renderItems()}
-          {renderItems()}
-          {renderItems()}
           {renderItems()}
         </List>
       </ScrollView>

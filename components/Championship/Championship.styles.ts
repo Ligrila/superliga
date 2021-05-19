@@ -18,7 +18,7 @@ export default StyleSheet.create({
         shadowRadius: 2,
         position: "absolute",
         bottom: ThemeUtility.h(30),
-        right: 0,
+        right: 15,
     },
     createButtonIcon:{
         color: '#fff',

@@ -10,7 +10,8 @@ import {
   Text,
   Right,
   Button,
-  Content
+  Content,
+  RnViewStyleProp
 } from 'native-base'
 import Title from '../Title/Title';
 import { ChampionshipViewStore, ChampionshipViewActions } from '../../store/ChampionshipViewStore';
@@ -21,6 +22,9 @@ import styles from './ChampionshipView.styles';
 import { useNavigation } from '@react-navigation/native';
 import Logo from '../Logo/Logo';
 import BigTitle from '../Title/BigTitle';
+import Api from '../../api/Api';
+import { ScrollView } from 'react-native-gesture-handler';
+import Loader from '../Loader/Loader';
 const trophyImage = require('../../assets/images/championship/trophy.png')
 const medalImage = require('../../assets/images/championship/medal.png')
 const trophyCreatedImage = require('../../assets/images/championship/trophy-created.png')
@@ -33,40 +37,34 @@ const ChampionshipView = ({ championship, created }) => {
   // States
   const [shareVisible, setShareVisible] = useState(false);
   const [rankingFilter, setRankingFilter] = useState('trivia');
+  const [loading, setLoading] = useState(false);
   // Current Championship
-  const [currentChampionship, setCurrentChampionship] = useState<any>(null);
-  // championship = {
-  //   id: null,
-  //   name: null,
-  //   start_date: null,
-  //   end_date: null,
-  //   user: {
-  //     first_name: null,
-  //     last_name: null
-  //   }
-  // }
-  // state = {
-  //   type: 'trivia',
-  //   shareVisible: false
-  // }
-  // constructor(props) {
-  //   super(props);
-  //   this.championship = this.props.championship
-  //   this.created = this.props.created || false
-  //   this.state.shareVisible = this.created
-  //   this.store = ChampionshipViewStore
-  // }
+  const [rankingData, setRankingData] = useState<any>(null);
+  // Api
+  const api = new Api();
+
+  // Fetch Ranking
+  const fetchRanking = useCallback(async () => {
+    setLoading(true);
+    const response = await api.championshipRanking(championship.id, rankingFilter);
+    const data = [...response.data]
+    setRankingData(prev => [...data])
+    setLoading(false);
+  }, [championship, rankingFilter])
   // Fetch Data
   const fetchData = useCallback(async () => {
     if (created) {
       setShareVisible(true)
     }
+    await fetchRanking()
   }, [championship, created, setShareVisible])
   useEffect(() => {
     if (championship.id) {
       fetchData()
+      fetchRanking();
     }
-  }, [championship, fetchData])
+  }, [championship, rankingFilter, fetchData])
+
   const onShare = () => {
     const c = championship
     let shareUrl = Linking.makeUrl('championships/' + c.id)
@@ -87,22 +85,12 @@ const ChampionshipView = ({ championship, created }) => {
   //   ChampionshipViewActions.ranking(this.championship.id, this.state.type)
   // }
 
-  const formatDate = (s) => {
-    const pad = function (num) { return ('00' + num).slice(-2) };
-    const d = new Date(s.split(" ")[0]);
-    const day = pad(d.getDate());
-    const month = pad(d.getMonth() + 1);
-    const year = d.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-  const viewItem = (championship) => {
-    navigation.navigate("ChampionshipView", { championship })
-  }
+
 
   const renderShare = () => {
 
     let title = "FELICITACIONES!"
-    let text = "Invitá a los amigos que quieras que participen en tu torneo:"
+    let text = "Invitá a los amigos que quieras que participen en tu torneo!"
 
     return (
       <Modal
@@ -122,11 +110,11 @@ const ChampionshipView = ({ championship, created }) => {
               onPress={() => {
                 setShareVisible(!shareVisible);
               }}>
-              <Icon style={styles.modalCloseButtonIcon} type="FontAwesome" name="times"></Icon>
+              <Icon style={styles.modalCloseButtonIcon} type="AntDesign" name="close"></Icon>
             </Button>
             <Image source={trophyCreatedImage} style={styles.trophyCreatedImage} />
             <Text style={styles.modalTitle}>{title}</Text>
-            <Text style={styles.modalText}>CREASTE TU TORNEO.</Text>
+            <Text style={[styles.modalText, styles.modalSubtitle]}>CREASTE TU TORNEO.</Text>
             <Text style={styles.modalText}>{text}</Text>
             <View style={styles.modalButtons}>
               <Button primary
@@ -135,7 +123,7 @@ const ChampionshipView = ({ championship, created }) => {
                 }}
                 style={styles.modalShareButton}
               >
-                <Icon style={styles.modalShareButtonIcon} type="FontAwesome" name="user-plus"></Icon>
+                <Icon style={styles.modalShareButtonIcon} type="AntDesign" name="adduser"></Icon>
               </Button>
 
             </View>
@@ -144,46 +132,54 @@ const ChampionshipView = ({ championship, created }) => {
       </Modal>)
   }
   const renderItems = () => {
-
-
-    if (!currentChampionship) {
+    if (!rankingData) {
       return null;
     }
-    return currentChampionship.data.map((ranking, index) => {
+    return rankingData.map((ranking, index) => {
       let image: any = null;
       ranking.position = index + 1
-      let positionMargin: any = null;
+
       if (ranking.position == 1) {
         image = <Image source={trophyImage} style={styles.trophyImage} />
-        positionMargin = <View style={styles.positionMargin} />
       }
       if (ranking.position == 2 || ranking.position == 3) {
         image = <Image source={medalImage} style={styles.medalImage} />
-        positionMargin = <View style={styles.positionMargin} />
       }
+      let variantBg: RnViewStyleProp | null = null; 
+      if(ranking.position === 1 ){
+        variantBg = { backgroundColor:'#1e5698'}
+      }
+      if(ranking.position === 2 ){
+        variantBg = { backgroundColor:'#3567a8'}
+      }
+      if(ranking.position === 3 ){
+        variantBg = { backgroundColor:'#ae966f'}
+      }
+      const styleLeft = styles[`listItemPositionLeft${ranking.position}`] ? styles[`listItemPositionLeft${ranking.position}`] : null;
+      const itemBody = styles[`listItemBody${ranking.position}`] ? styles[`listItemBody${ranking.position}`] : null;
       return (
 
-        <ListItem avatar style={{ ...styles.listItem, ...styles.listItemPosition[ranking.position] }} key={ranking.user_id}>
-          <Left style={[
-            styles.listItemLeft,
-            // ...styles.listItemPositionLeft[ranking.position] 
-          ]}>
-            <Text style={styles.positionText}>{ranking.position}º</Text>{positionMargin}
+        <ListItem avatar style={[styles.listItem]} key={index}>
+          <Left style={[styles.listItemLeft, styleLeft]}>
+            <Text style={styles.positionText}>{ranking.position < 9 ? `0${ranking.position}` : ranking.position}º</Text>
             {image}
           </Left>
           <Body style={[
             styles.listItemBody,
-            // ...styles.listItemPositionBody[ranking.position] 
+            itemBody,
+            ranking.position % 2 === 0  ? null : styles.listItemBodyVariant,
+            variantBg
           ]}>
             <Text style={styles.userNameText}>{ranking.user.first_name} {ranking.user.last_name}</Text>
           </Body>
           <Right style={[
             styles.listItemRight,
-            // ...styles.listItemPositionRight[ranking.position] 
+            ranking.position % 2 === 0 ? null : styles.listItemBodyVariant,
+            variantBg            
           ]}>
             <Text style={styles.pointsText}>{ranking.points}p</Text>
           </Right>
-        </ListItem>
+        </ListItem >
       )
     })
   }
@@ -195,19 +191,25 @@ const ChampionshipView = ({ championship, created }) => {
   const renderButtons = () => {
     const selectedColor = '#89c9ec'
     const selected = { color: selectedColor };
-
-
     return (
       <View style={styles.buttons}>
-        <Button transparent onPress={() => handlerRankingFilter('all')}>
+        <Button
+          style={[styles.button]}
+          transparent onPress={() => handlerRankingFilter('all')}>
           <Text style={[styles.buttonText, rankingFilter === 'all' ? selected : null]}>Ranking Total</Text>
         </Button>
-        <View style={styles.separator}></View>
-        <Button transparent onPress={() => handlerRankingFilter('trivia')}>
+
+        <Button
+          style={[styles.button]}
+          transparent onPress={() => handlerRankingFilter('trivia')}>
+          <View style={styles.separator}></View>
           <Text style={[styles.buttonText, rankingFilter === 'trivia' ? selected : null]}>Ultima trivia</Text>
+          <View style={styles.separator}></View>
         </Button>
-        <View style={styles.separator}></View>
-        <Button transparent onPress={() => handlerRankingFilter('week')}>
+
+        <Button
+          style={[styles.button]}
+          transparent onPress={() => handlerRankingFilter('week')}>
           <Text style={[styles.buttonText, rankingFilter === 'week' ? selected : null]}>Ranking Semanal</Text>
         </Button>
       </View>
@@ -215,27 +217,28 @@ const ChampionshipView = ({ championship, created }) => {
   }
 
   return (
-    <Content style={styles.container}>
+    <>
       {renderShare()}
-      <View style={styles.title}>
-        <BigTitle
-          hideSeparator={true}
-          text={championship.name} />
-      </View>
-      {renderButtons()}
-      { currentChampionship &&
-        <>
-
-
-          <List style={styles.list}>
-            {renderItems()}
-          </List>
-          <Button style={styles.shareButton} onPress={onShare}>
-            <Icon name="user-plus" type="FontAwesome" style={styles.shareButtonIcon} />
-          </Button>
-        </>
-      }
-    </Content>
+      <Content style={styles.container}>
+        <View style={styles.title}>
+          <BigTitle
+            hideSeparator={true}
+            text={championship.name} />
+        </View>
+        {renderButtons()}
+        {rankingData &&
+          <ScrollView style={{ flex: 1 }}>
+            <Loader loading={loading}/>
+            <List style={styles.list}>
+              {renderItems()}
+            </List>
+          </ScrollView>
+        }
+      </Content>
+      <Button style={styles.shareButton} onPress={onShare}>
+        <Icon type="AntDesign" name="adduser" style={styles.shareButtonIcon} />
+      </Button>
+    </>
   );
 
 }

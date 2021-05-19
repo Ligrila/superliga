@@ -25,3 +25,13 @@ export const championshipAtom = atom<any>({
     key: 'ChampionshipAtom',
     default: null
 });
+
+export const championshipUsersAtom = atom<any>({
+    key: 'championshipUsersAtom',
+    default: null
+});
+
+export const championshipViewAtom = atom<any>({
+    key: 'ChampionshipViewAtom',
+    default: null
+});

@@ -23,7 +23,7 @@ export const statisticsSelector = selector({
             ...statisticDefault
         }
         let response = await api.getStatistics();
-        if (response.success) {
+        if (response && response.success) {
             statistic.points = response.data.points;
             statistic.mediaHits = response.data.mediaHits;
             statistic.correctAnswers = response.data.correctAnswers;

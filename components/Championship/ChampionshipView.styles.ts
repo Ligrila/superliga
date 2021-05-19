@@ -1,13 +1,14 @@
 import { StyleSheet } from 'react-native';
 import ThemeUtility from '../../utilities/Theme/Theme.utility'
 import Layout from '../../constants/Layout'
+import Variables from '../../styles/Variables'
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        
+        position: 'relative'
     },
-    title:{
+    title: {
         marginVertical: 15,
         paddingHorizontal: 30
     },
@@ -32,19 +33,21 @@ export default StyleSheet.create({
     buttons: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: Layout.window.width,
+         width: Layout.window.width,
+        
+    },
+    button: {
+        flex: 1,
     },
     titleContainer: {
         flexDirection: 'row',
-
         alignItems: 'center',
         justifyContent: 'center',
     },
     list: {
+
     },
     modal: {
-
-
     },
     modalContent: {
         flex: 1,
@@ -69,9 +72,13 @@ export default StyleSheet.create({
     modalTitle: {
         fontFamily: 'OpenSansCondensed_bold',
         fontSize: ThemeUtility.s(70),
-        marginBottom: ThemeUtility.h(-20),
-        color: '#7b4294',
+        marginVertical: ThemeUtility.h(20),
+        color: Variables.brandPrimary,
         textAlign: 'center'
+    },
+    modalSubtitle: {
+        fontSize: ThemeUtility.s(40),
+        marginBottom: ThemeUtility.h(20),
     },
     modalText: {
         fontFamily: 'OpenSansCondensed_bold',
@@ -104,16 +111,14 @@ export default StyleSheet.create({
         color: '#282828',
     },
     listItem: {
+        marginLeft: 0,
         backgroundColor: '#fff',
         height: ThemeUtility.h(94),
         paddingHorizontal: 0,
         marginHorizontal: 0,
         width: "100%",
         borderWidth: 0,
-        marginTop: 2
-    },
-    positionMargin: {
-        width: ThemeUtility.s(18)
+        marginTop: 1,
     },
     positionText: {
         fontSize: ThemeUtility.s(37),
@@ -132,45 +137,61 @@ export default StyleSheet.create({
     trophyImage: {
         width: ThemeUtility.s(54),
         height: ThemeUtility.s(42),
+        marginLeft: ThemeUtility.s(15)
     },
 
     medalImage: {
-        position: 'absolute',
-        top: 0,
-        left: ThemeUtility.s(107),
         width: ThemeUtility.s(37),
-        height: ThemeUtility.s(53),
+        height: ThemeUtility.s(54),
+        marginLeft: ThemeUtility.s(25),
+        marginTop: ((ThemeUtility.h(94) - ThemeUtility.s(54))) * -1
     },
 
     listItemPosition: {
 
     },
     listItemLeft: {
-        position: 'relative',
+        margin: 0,
         backgroundColor: '#fff',
-        width: ThemeUtility.s(135),
+        position: 'relative',
+         width: ThemeUtility.s(120),
         height: '100%',
-        textAlign: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        
     },
-    // listItemPositionLeft: {
-    //     "1": {
-    //         width: ThemeUtility.s(187)
-    //     },
-    //     "2": {
-    //         width: ThemeUtility.s(172)
-    //     },
-    //     "3": {
-    //         width: ThemeUtility.s(163)
-    //     }
-    // },
+    listItemPositionLeft1: {
+        width: ThemeUtility.s(170),
+        
+    },
+    listItemPositionLeft2: {
+        width: ThemeUtility.s(160),
+        
+    },
+    listItemPositionLeft3: {
+        width: ThemeUtility.s(150),
+    },
     listItemBody: {
-        backgroundColor: '#245591',
+        backgroundColor: '#1e5698',
         textAlign: 'center',
         height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center'
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        marginLeft: 0,
+        borderBottomWidth: 0,
+        paddingLeft: 55
+    },
+    listItemBody1: {
+        paddingLeft: 30
+    },
+    listItemBody2: {
+        paddingLeft: 35
+    },
+    listItemBody3: {
+        paddingLeft: 40
+    },
+    listItemBodyVariant: {
+        backgroundColor: '#3567a8',
     },
     // listItemPositionBody: {
     //     1: {
@@ -187,7 +208,9 @@ export default StyleSheet.create({
         backgroundColor: '#245591',
         textAlign: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderBottomWidth: 0,
+        paddingRight: 30
 
     },
     // listItemPositionRight: {
@@ -203,11 +226,11 @@ export default StyleSheet.create({
     // },
     buttonText: {
         color: '#fff',
-        fontSize: ThemeUtility.s(30),
+        fontSize: ThemeUtility.s(27),
         fontFamily: 'OpenSansCondensed_bold',
         alignItems: 'center'
     },
-    separator:{
+    separator: {
         backgroundColor: 'white',
         height: ThemeUtility.h(30),
         width: 1,

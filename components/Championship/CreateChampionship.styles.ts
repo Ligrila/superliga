@@ -14,19 +14,19 @@ export default StyleSheet.create({
     item:{
          
     },
-    'placeholder':{
+    placeholder:{
         fontSize: ThemeUtility.s(35),
         fontFamily: 'OpenSansCondensed_bold',
         color: 'rgba(255,255,255,0.6)',
     },
-    'label':{
+    label:{
         fontSize: ThemeUtility.s(35),
         fontFamily: 'OpenSansCondensed_bold',
         color: '#fff',
         width: '100%',
         textAlign: 'center',
     },
-    'input':{
+    input:{
         borderRadius: ThemeUtility.s(10),
         textAlign: 'center',
         fontSize: ThemeUtility.s(35),
@@ -37,7 +37,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    'calendarContainer':{
+    calendarContainer:{
         marginTop: ThemeUtility.h(30),
         borderRadius: ThemeUtility.s(10),
         textAlign: 'center',
@@ -50,17 +50,17 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    'calendarIcon':{
+    calendarIcon:{
         color: '#7b4294',
         fontSize: ThemeUtility.s(45),
     },
-    'calendar':{
+    calendar:{
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
     },
 
-    'buttonContainer':{
+    buttonContainer:{
         marginTop: ThemeUtility.h(30),
         width: '100%',
         textAlign: 'center',
@@ -68,7 +68,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
     },
-    'button':{
+    button:{
         width: ThemeUtility.s(126),
         height: ThemeUtility.s(126),
         borderRadius: ThemeUtility.s(126),
@@ -76,7 +76,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
 
     },
-    'buttonIcon':{
+    buttonIcon:{
         color: '#fff', 
 
     },

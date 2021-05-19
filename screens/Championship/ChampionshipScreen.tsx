@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { RefreshControl } from 'react-native'
 import { Container, Content, View } from 'native-base'
 import Wallpaper from '../../components/Wallpaper/Wallpaper';
@@ -9,27 +9,29 @@ import { useRecoilCallback, useRecoilState } from 'recoil';
 import { championshipAtom, championshipSelector } from '../../recoil/Championship.recoil'
 // Styles
 import styles from './ChampionshipScreen.styles';
-import { ScrollView } from 'react-native-gesture-handler';
+import { useFocusEffect } from '@react-navigation/native';
 const bgSrc = require('../../assets/images/championship/bg_champion.png');
 
 const ChampionshipScreen = () => {
     const [refreshing, setRefreshing] = useState(false);
     // Championship 
     const [championships, setChampionships] = useRecoilState(championshipAtom);
-    // Update Awards
-    const updateAwards = useRecoilCallback(({ snapshot }) => async () => {
-        setRefreshing(true);
+    // Update Championships
+    const updateChampionship = useRecoilCallback(({ snapshot }) => async () => {
         const response = await snapshot.getPromise(championshipSelector);
-        setChampionships(response);
-        setRefreshing(false);
+        setChampionships({...response});
     }, [setChampionships, setRefreshing]);
     // Find When Mount
-    useEffect(() => {
-        updateAwards()
-    }, [])
+    useFocusEffect(
+        useCallback(() => {
+            updateChampionship()
+        }, [])
+    )
 
     const onRefresh = async () => {
-        updateAwards()
+        setRefreshing(true);
+        await updateChampionship()
+        setRefreshing(false);
     }
     return (
         <Container>
@@ -47,10 +49,8 @@ const ChampionshipScreen = () => {
                             title={''}
                             progressBackgroundColor="#fff"
                         />
-                    }
-                >
+                    }>
                     <Championship championships={championships} />
-
                 </Content>
             </Wallpaper>
         </Container>

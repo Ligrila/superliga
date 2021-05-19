@@ -26,13 +26,13 @@ export default StyleSheet.create({
         
     },
     picker: {
-        borderRadius: 4,
+        // borderRadius: 4,
         flex: 1,
          width: ThemeUtility.s(547),
         paddingHorizontal: 20,
          height: 40,
          color: '#353535',
-         fontFamily: 'OpenSansCondensed_bold',
+         // fontFamily: 'OpenSansCondensed_bold',
         
     },
     pickerPlaceholder: {

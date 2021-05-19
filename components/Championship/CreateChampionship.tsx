@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import {
   Form,
@@ -25,73 +25,55 @@ import { useNavigation } from '@react-navigation/native';
 const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.png')
 
 interface CreateChampionshipProps {
-  id?: string
+  championship?: any | null
 }
 
-const CreateChampionship = ({ id }: CreateChampionshipProps) => {
+const CreateChampionship = ({ championship }: CreateChampionshipProps) => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
   const api = new Api();
   const navigation = useNavigation();
-  // const [picture, setPicture] = useState('');
-  // state = {
-  //   id: null,
-  //   name: null,
-  //   picture: null,
-  //   pictureChanged: false,
-  // }
-  // editMode = false;
-  // constructor(props) {
-  //   super(props);
-  //   this.editMode = this.props.editMode || false
-  //   if (props.championship) {
-  //     this.state = props.championship;
-  //     this.state.picture = props.championship.avatar
-  //   }
-  //   this.store = CreateChampionshipStore;
 
-  // }
+  const fetchData = useCallback(() => {
+    setName(championship.name);
+  }, [championship])
 
-  // componentDidMount(){
-  //   if (this.editMode) {
-  //     CreateChampionshipActions.edited.listen(async (championship) => {
-  //       ChampionshipsActions.list();
-  //       this.props.navigation.navigate('ChampionshipHome')
-  //     })
-  //   } else {
-  //     CreateChampionshipActions.created.listen(async (championship) => {
-  //       this.props.navigation.navigate('ChampionshipView', { championship: championship, created: true })
-  //     })
-  //   }
-  // }
+  useEffect(() => {
+    if (championship) {
+      fetchData();
+    }
+  }, [championship])
   const handlerOnChangeName = (name) => {
     setName(name)
   }
-  // const handlerOnChangePicture = (picture) => {
-  //   // const pictureChanged = true
-  //   // setPicture(picture);
 
-  // }
   const createOrUpdate = async () => {
     try {
       setLoading(true);
-      if (id) {
-
+      if (championship) {
+        await api.editChampionship(championship.id, name);
+        navigation.navigate('ChampionshipHome')
+        Toast.show({
+          text: 'Torneo actualizado correctamente.',
+          position: "bottom",
+          type: 'success',
+          buttonText: 'Aceptar'
+        });
       } else {
         const response = await api.createChampionship(name);
         navigation.navigate('ChampionshipView', { championship: response.data, created: true })
       }
-    }catch(e){
+    } catch (e) {
       Toast.show({
         text: 'Ha ocurrido un error. Por favor intente mas tarde.',
         position: "bottom",
         type: 'danger',
         buttonText: 'Aceptar'
       });
-    }finally{
+    } finally {
       setLoading(false);
     }
-}
+  }
   const onNextClick = async () => {
     if (!name) {
       Toast.show({
@@ -104,12 +86,7 @@ const CreateChampionship = ({ id }: CreateChampionshipProps) => {
     }
     await createOrUpdate();
   }
-
-
-
-
-
-  const title = id ? 'EDITAR \n TORNEO' : 'CREA TU TORNEO \n LIGA PROFESIONAL'
+  const title = championship ? 'EDITAR \n TORNEO' : 'CREA TU TORNEO \n LIGA PROFESIONAL'
   return (
     <View style={styles.container} >
       <Title text={title} hideSeparator={true}></Title>
@@ -131,8 +108,7 @@ const CreateChampionship = ({ id }: CreateChampionshipProps) => {
           <Button
             style={styles.button}
             onPress={onNextClick}
-            disabled={loading}
-          >
+            disabled={loading}>
             <Icon name="md-arrow-forward" type="Ionicons" style={styles.buttonIcon} />
           </Button>
         </View>

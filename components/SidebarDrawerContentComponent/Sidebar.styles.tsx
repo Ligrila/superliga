@@ -3,6 +3,7 @@ import ThemeUtility from '../../utilities/Theme/Theme.utility';
 import Layout from '../../constants/Layout';
 import Variables from '../../styles/Variables';
 
+
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -68,12 +69,7 @@ export default StyleSheet.create({
         fontSize: ThemeUtility.s(35),
         fontFamily: 'OpenSansCondensed_light',
     },
-    sidebarItemIcon: {
-        marginLeft: ThemeUtility.s(80),
-        marginRight: ThemeUtility.s(40),
-        color: '#fff',
-        fontSize: ThemeUtility.s(45)
-    },
+  
     sidebarItemImageContainer: {
         width: 20,
         height: 20,
@@ -88,7 +84,13 @@ export default StyleSheet.create({
         height: 20,
         resizeMode: 'contain'
     
+    },
+    sidebarItemIcon: {
+        fontSize: 20,
+        color: Variables.white
+    
     }
+
 
 });
 

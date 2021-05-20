@@ -8,6 +8,7 @@ import {
   Header,
   Text,
   Body,
+  Icon,
 
 } from "native-base";
 // Navigation
@@ -65,9 +66,15 @@ const menuItems = [
   {
     text: 'ACERCA',
     route: 'About',
-    image: require('../../assets/images/menu/menu_goals.png')
+    // image: require('../../assets/images/menu/menu_goals.png'),
+    icon: "soccer-ball-o"
   },
-
+  {
+    text: 'REGLAS',
+    route: 'Rules',
+    // image: require('../../assets/images/menu/menu_goals.png'),
+    icon: "legal"
+  },
   // label={"Acerca"} icon="soccer-ball-o"
   // {
   //   text: 'COMPRAR',
@@ -91,9 +98,15 @@ const SidebarItem = ({ menu, navigateTo, last }) => {
       style={[styles.sidebarItem, last ? { borderBottomWidth: 0 } : null]}>
       <View style={styles.sidebarItemContainer}>
         <View style={styles.sidebarItemImageContainer}>
-          <Image source={menu.image}
+          
+          {menu.image && <Image source={menu.image}
             style={styles.sidebarItemImage}
-          />
+          />}
+          {menu.icon && <Icon
+            type={'FontAwesome'}
+            name={menu.icon}
+            style={styles.sidebarItemIcon}
+          />}
         </View>
         <Text style={styles.sidebarItemLabel}>{menu.text}</Text>
       </View>

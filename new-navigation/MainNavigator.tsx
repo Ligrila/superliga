@@ -22,6 +22,7 @@ import ChampionshipNavigator from './ChampionshipNavigator';
 import HomeNextMatchsScreen from '../screens/Home/HomeNextMatchsScreen';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import AboutScreen from '../screens/About/AboutScreen';
+import GameRulesScreen from '../screens/Game/GameRulesScreen';
 
 
 
@@ -61,6 +62,8 @@ const Screens = ({ navigation }) => {
             <Stack.Screen name="Purchase" component={PurchaseScreen} />
             {/* About Screen */}
             <Stack.Screen name="About" component={AboutScreen} />            
+            {/* Rules */}
+            <Stack.Screen name="Rules" component={GameRulesScreen}/>
             {/* Championship */}
             <Stack.Screen name="ChampionshipStack" component={ChampionshipNavigator} />            
         </Stack.Navigator>

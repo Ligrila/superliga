@@ -7,6 +7,7 @@ export default StyleSheet.create({
     },
     scrollContainer:{
         flex: 1,
+        marginBottom: 80
     },
     list:{
         
@@ -23,16 +24,17 @@ export default StyleSheet.create({
         width: ThemeUtility.s(63),
         height: ThemeUtility.s(63),
     },
-    listItemFirst:{
-        borderTopWidth: 1,
-    },
+
     listItem:{
         marginLeft: 0,
         marginTop: 2,
         paddingHorizontal: ThemeUtility.s(30),
         backgroundColor: 'transparent', 
-        borderBottomWidth: 1,
+        borderTopWidth:  1,
         borderColor: '#fff'
+    },
+    listItemBody:{
+        borderBottomWidth: 0
     },
     listItemRight:{
         justifyContent:'center',
@@ -42,7 +44,8 @@ export default StyleSheet.create({
         flexDirection: 'column',
         paddingHorizontal: 0,
         paddingRight: 0,
-        paddingLeft: 0
+        paddingLeft: 0,
+        borderBottomWidth: 0
         
     },
     text:{
@@ -55,7 +58,6 @@ export default StyleSheet.create({
         fontSize: ThemeUtility.s(48),
         fontFamily: 'OpenSansCondensed_bold',
     },
-
     icon:{
         color: '#fff',
     },

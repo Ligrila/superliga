@@ -109,9 +109,7 @@ const ChampionshipList = ({ championships }) => {
 
     const items = championships.data.map((championshipUsers, index) => {
       const championship = championshipUsers.championship
-      
       const buttonRender = championship.user_id == authUser.id;
-      const itemStyle = index === 0 ? { ...styles.listItemFirst, ...styles.listItem } : styles.listItem;
       let avatar = trophyAvatarSrc;
       const ranking = championship.championships_ranking ? championship.championships_ranking.position : 'Sin puntos '
       if (championship.avatar) {
@@ -122,8 +120,7 @@ const ChampionshipList = ({ championships }) => {
         <ListItem 
             avatar 
             button 
-            
-            style={itemStyle} 
+            style={[styles.listItem]} 
             key={championship.id} 
             onPress={() => viewItem(championship)}
             underlayColor={Variables.brandPrimary}
@@ -133,7 +130,7 @@ const ChampionshipList = ({ championships }) => {
               <Image source={avatar} style={styles.thumbnailImg} />
             </View>
           </Left>
-          <Body >
+          <Body style={styles.listItemBody}>
             <Text style={styles.championshipName}>{championship.name}</Text>
             <Text style={styles.text}>Organizado por {championship.user.first_name} {championship.user.last_name}{'\n'}
               {championship.users_count} particpantes{'\n'}

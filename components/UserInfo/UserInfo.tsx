@@ -10,11 +10,12 @@ import { useRecoilValue } from "recoil";
 import { authUserAtom } from "../../recoil/Auth.recoil";
 // Styles
 import styles from './UserInfo.styles';
+import { useFocusEffect } from "@react-navigation/native";
 
 const ballImg = require('../../assets/images/ball_min.png');
 
 const UserInfo = () => {
- 
+
     const authUser = useRecoilValue(authUserAtom);
 
     const [lives, setLives] = useState('0');
@@ -32,16 +33,21 @@ const UserInfo = () => {
         }
 
     }, [authUser]);
-    
-    useEffect(() => {
-        if (authUser) {
-            // console.log('authUser', authUser);
-            fetchData();
-        }
-    }, [authUser])
+    useFocusEffect(
+        useCallback(() => {
+            if (authUser) {
+                // console.log('authUser', authUser);
+                fetchData();
+            }
+            return () => {
+
+            };
+        }, [authUser])
+    )
+
     return (
         <View style={styles.container}>
-            <View style={[styles.liveContainer,parseInt(lives) === 0 ? { opacity: 0.5}: null]}>
+            <View style={[styles.liveContainer, parseInt(lives) === 0 ? { opacity: 0.5 } : null]}>
                 <Image source={ballImg} style={styles.ballImg} />
                 <Text style={styles.livesText}>{lives}</Text>
             </View>

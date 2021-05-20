@@ -21,6 +21,7 @@ const shareSrc = require('../../assets/images/share.png');
 const GameEndScreen = ({ route }) => {
 
   const { trivia, currentTriviaId } = route.params ;
+  console.log('trivia',trivia)
   const [messageRendered, setMessageRendered] = useState(false);
 
   // goToHomeTimeout = null;
@@ -77,7 +78,7 @@ const GameEndScreen = ({ route }) => {
       return (<GameStatistics trivia_id={currentTriviaId} trivia={trivia} />)
     }
 
-    if (trivia.type = 'trivia') {
+    if (trivia.type === 'trivia') {
       return (<GameMessage title="Termino la" bigText="trivia!" whistle2={true}></GameMessage>)
     }
 
@@ -108,7 +109,7 @@ const GameEndScreen = ({ route }) => {
 
   // Background
   let screenBg = bgSrc;
-  if (trivia.type == 'trivia') {
+  if (trivia.type === 'trivia') {
     screenBg = bgProgrammedTriviaSrc
   }
 

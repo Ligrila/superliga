@@ -170,7 +170,7 @@ const GameScreen = () => {
             break;
           }
           case GamePlayStatus.FINISH_GAME: {
-            // navigation.navigate("GameExtraPlay");
+            navigation.navigate("GameFinish", { trivi: { type: currentTriviaData.type } });
             break;
           }
           // case GamePlayStatus.FINISH_TRIVIA: {
@@ -191,7 +191,7 @@ const GameScreen = () => {
   //#region Changes Finished Trivia
   const processChangesFinishTriva = useCallback(() => {
     const currentTriviaId = currentTriviaFinished.data.id;
-
+    console.log('currentTriviaFinished', currentTriviaFinished.data)
     const trivia = {
       type: currentTriviaFinished.data.type
     }
@@ -311,7 +311,7 @@ const GameScreen = () => {
     ) {
       bgSrc = genericQuestionBg;
     }
-    if (currentTrivia.data.type == "trivia") {
+    if (currentTrivia.data.type === "trivia") {
       bgSrc = bgProgrammedTriviaSrc;
     }
     if (currentTrivia.data.game_finished) {
@@ -338,9 +338,9 @@ const GameScreen = () => {
           <Content
             padder
             contentContainerStyle={styles.game}>
-              {renderModal()}
-              {renderGame()}
-              {renderFooter()}
+            {renderModal()}
+            {renderGame()}
+            {renderFooter()}
           </Content>
         </Wallpaper>
       </Container>

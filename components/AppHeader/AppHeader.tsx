@@ -48,34 +48,8 @@ const AppHeader = (props: AppHeaderProps) => {
     }
     const openMainDrawer = () => {
         navigation.dispatch(DrawerActions.openDrawer);
-        // if(this.props.navigation){
-        //     this.props.navigation.openMainDrawer()
-        //     return
-        // }
-        // if(this.props.drawerOpen){
-        //     this.props.drawerOpen()
-        // }
     }
-    const openChatDrawer = () => {
-        // if(this.props.navigation && this.props.navigation.openChatDrawer){
-        //     this.props.navigation.openChatDrawer()
-        //     return
-        // }
-    }
-    const renderChatButton = () => {
-
-        if (props.hideChat) {
-            return null
-        }
-
-        return (
-            <Button transparent onPress={() => { openChatDrawer() }}>
-                <Icon type="Ionicons" name="ios-chatboxes" />
-            </Button>
-        )
-    }
-
-
+ 
     
     return (
         <Header transparent style={[styles.header]}>
@@ -93,9 +67,6 @@ const AppHeader = (props: AppHeaderProps) => {
                 <Button transparent onPress={() => { openMainDrawer() }}>
                     <Image source={menuImg} style={styles.menuImg} resizeMode="contain" />
                 </Button>
-                {/* <View style={styles.notificationBullet}>
-                     <NotificationBullet /> 
-                </View> */}
             </Right>
         </Header>
     );

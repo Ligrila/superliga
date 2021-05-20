@@ -19,12 +19,13 @@ import { ChampionshipViewStore, ChampionshipViewActions } from '../../store/Cham
 import * as Linking from "expo-linking";
 // Styles
 import styles from './ChampionshipView.styles';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Logo from '../Logo/Logo';
 import BigTitle from '../Title/BigTitle';
 import Api from '../../api/Api';
 import { ScrollView } from 'react-native-gesture-handler';
 import Loader from '../Loader/Loader';
+import Notice from '../Notice/Notice';
 const trophyImage = require('../../assets/images/championship/trophy.png')
 const medalImage = require('../../assets/images/championship/medal.png')
 const trophyCreatedImage = require('../../assets/images/championship/trophy-created.png')
@@ -35,11 +36,16 @@ const ChampionshipView = ({ championship, created }) => {
   // Navigation
   const navigation = useNavigation();
   // States
-  const [shareVisible, setShareVisible] = useState(false);
+  const [shareVisible, setShareVisible] = useState(true);
   const [rankingFilter, setRankingFilter] = useState('trivia');
   const [loading, setLoading] = useState(false);
-  // Current Championship
-  const [rankingData, setRankingData] = useState<any>(null);
+
+
+  const [ranking, setRanking] = useState<any>({
+    all: null,
+    trivia: null,
+    week: null
+  });
   // Api
   const api = new Api();
 
@@ -48,30 +54,40 @@ const ChampionshipView = ({ championship, created }) => {
     setLoading(true);
     const response = await api.championshipRanking(championship.id, rankingFilter);
     const data = [...response.data]
-    setRankingData(prev => [...data])
+    console.log('data', data)
+    setRanking(prevState => ({ ...prevState, [rankingFilter]: [...data] }));
     setLoading(false);
   }, [championship, rankingFilter])
   // Fetch Data
-  const fetchData = useCallback(async () => {
-    if (created) {
-      setShareVisible(true)
+  const fetchRankingData = useCallback(async () => {
+    // If not have data update
+    if (!ranking[rankingFilter]) {
+      fetchRanking()
     }
-    await fetchRanking()
+    // await fetchRanking()
   }, [championship, created])
 
   const fetchCreated = useCallback(async () => {
     if (created) {
       setShareVisible(true)
     }
-    await fetchRanking()
   }, [championship, created])
+
   // On Change Filter and Championship
-  useEffect(() => {
-    if (championship.id) {
-      fetchData()
-      fetchRanking();
-    }
-  }, [championship, rankingFilter, fetchData])
+  useFocusEffect(
+    useCallback(() => {
+      fetchCreated();
+    }, [created])
+  )
+
+  // On Change Filter and Championship
+  useFocusEffect(
+    useCallback(() => {
+      if (championship.id) {
+        fetchRankingData();
+      }
+    }, [championship, rankingFilter])
+  )
   // On Share
   const onShare = () => {
     const c = championship
@@ -133,10 +149,20 @@ const ChampionshipView = ({ championship, created }) => {
   }
   // Render Items
   const renderItems = () => {
-    if (!rankingData) {
+    if (loading) {
+      return null
+    }
+    if (!ranking[rankingFilter]) {
       return null;
     }
-    return rankingData.map((ranking, index) => {
+    if (ranking[rankingFilter].length === 0) {
+      return (
+        <Notice text="Sin datos." />
+      )
+    }
+
+
+    return ranking[rankingFilter].map((ranking, index) => {
       let image: any = null;
       ranking.position = index + 1
 
@@ -216,27 +242,28 @@ const ChampionshipView = ({ championship, created }) => {
       </View>
     )
   }
-
   return (
     <>
       {/* Share */}
       {renderShare()}
       {/* Main Content */}
-      <Content style={styles.container}>
+      <Content
+        style={styles.container}
+
+      >
         <View style={styles.title}>
           <BigTitle
             hideSeparator={true}
             text={championship.name} />
         </View>
         {renderButtons()}
-        {rankingData &&
-          <ScrollView style={{ flex: 1 }}>
-            <Loader loading={loading} />
-            <List style={styles.list}>
-              {renderItems()}
-            </List>
-          </ScrollView>
-        }
+
+        <ScrollView style={{ flex: 1 }}>
+          <Loader loading={loading} />
+          <List style={styles.list}>
+            {renderItems()}
+          </List>
+        </ScrollView>
       </Content>
       {/* Share Button */}
       <Button style={styles.shareButton} onPress={onShare}>

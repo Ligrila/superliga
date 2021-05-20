@@ -33,6 +33,7 @@ export const GAME_ROUTES_STRING = [
 
 // Game 
 import GameLoadingScreen from '../screens/Game/GameLoadingScreen';
+import GameFinishScreen from '../screens/Game/GameFinishScreen';
 // Create
 const Stack = createStackNavigator();
 const GameNavigator = () => {
@@ -67,7 +68,7 @@ const GameNavigator = () => {
             {/* Extra Play */}
             <Stack.Screen name="GameExtraPlay" component={GameExtraPlayScreen} />
             {/* Results ? */}
-            {/* <Stack.Screen name="GameResult" component={GameResultScreen} /> */}
+             <Stack.Screen name="GameFinish" component={GameFinishScreen} />
             {/* End */}
             <Stack.Screen name="GameEnd" component={GameEndScreen} />
             {/* Banner */}

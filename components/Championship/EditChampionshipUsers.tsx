@@ -48,11 +48,40 @@ const EditChampionshipUsers = ({ championship }) => {
     />
 
   }
+  const renderOwner = () => {
+    if (!users) {
+      return;
+    }
+    // Not Admin
+    return users
+      .filter(item => item.user.id === championship.user_id )
+      .map(
+      (item, index) => {
+
+        return (
+          <ListItem icon key={item.user.id}>
+            <Left>
+              <Avatar mini avatar={{ uri: item.user.avatar }}></Avatar>
+            </Left>
+            <Body>
+              <Text>{item.user.first_name} {item.user.last_name}</Text>
+            </Body>
+            <Right>
+              
+            </Right>
+          </ListItem>
+        )
+      }
+    )
+  }
   const renderItems = () => {
     if (!users) {
       return;
     }
-    return users.map(
+    // Not Admin
+    return users
+      .filter(item => item.user.id !== championship.user_id )
+      .map(
       (item, index) => {
 
         return (
@@ -81,6 +110,7 @@ const EditChampionshipUsers = ({ championship }) => {
     <View style={styles.container} >
       <Title text={title}></Title>
       <List>
+        {renderOwner()}
         {renderItems()}
       </List>
     </View>

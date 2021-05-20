@@ -16,7 +16,7 @@ const bgProgrammedTriviaSrc = require('../../assets/images/programmed-trivia-bg.
 import styles from './GameStartScreen.styles'
 
 
-const GameStartScreen = ({ route }) => {
+const GameFinishScreen = ({ route }) => {
   const [currentBg, setCurrentBg] = useState(bgSrc)
   const timeout = useRef<any>()
   const { trivia } = route.params;
@@ -50,13 +50,13 @@ const GameStartScreen = ({ route }) => {
     }, []))
 
   const renderMessage = () => {
-    if (trivia && trivia.type == 'trivia') {
+    if (trivia && trivia.type === 'trivia') {
       return (
-        <GameMessage title="Arranca la" bigText='trivia!' award={trivia.award} whistle2={true}></GameMessage>
+        <GameMessage title="Termino la hora de" bigText='jugar!' award={trivia.award} whistle2={true}></GameMessage>
       )
     }
     return (
-      <GameMessage title="Comienza el" bigText='partido!'></GameMessage>
+      <GameMessage title="Termino el segundo" bigText='tiempo!'></GameMessage>
     )
   }
 
@@ -79,4 +79,4 @@ const GameStartScreen = ({ route }) => {
 }
 
 //export default connectStyle('SuperLiga.StatisticsScreen')(GameStartScreen);
-export default GameStartScreen;
+export default GameFinishScreen;

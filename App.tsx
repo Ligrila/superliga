@@ -310,7 +310,6 @@ const App: React.FC = () => {
             <AppStateWatch />
             {/* Register Push Notifications */}
             <RegisterPushNotifications />
-            
             {/* Recoil Debug Observer */}
             {/* <DebugObserver/>  */}
             {/* Current Trivia Listen */}

@@ -21,6 +21,7 @@ import PurchaseScreen from '../screens/Purchase/PurchaseScreen';
 import ChampionshipNavigator from './ChampionshipNavigator';
 import HomeNextMatchsScreen from '../screens/Home/HomeNextMatchsScreen';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import AboutScreen from '../screens/About/AboutScreen';
 
 
 
@@ -58,6 +59,8 @@ const Screens = ({ navigation }) => {
             <Stack.Screen name="Ranking" component={RankingScreen} />
             {/* Purchase */}
             <Stack.Screen name="Purchase" component={PurchaseScreen} />
+            {/* About Screen */}
+            <Stack.Screen name="About" component={AboutScreen} />            
             {/* Championship */}
             <Stack.Screen name="ChampionshipStack" component={ChampionshipNavigator} />            
         </Stack.Navigator>

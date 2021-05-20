@@ -62,6 +62,13 @@ const menuItems = [
     route: 'Ranking',
     image: require('../../assets/images/menu/menu_goals.png')
   },
+  {
+    text: 'ACERCA',
+    route: 'About',
+    image: require('../../assets/images/menu/menu_goals.png')
+  },
+
+  // label={"Acerca"} icon="soccer-ball-o"
   // {
   //   text: 'COMPRAR',
   //   route: 'Purchase',

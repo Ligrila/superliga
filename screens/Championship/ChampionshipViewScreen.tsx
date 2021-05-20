@@ -22,7 +22,6 @@ const ChampionshipViewScreen = ({ route }) => {
 
 
 
-
     const returnButton = (<Button transparent onPress={() => {
         navigation.navigate("ChampionshipHome")
     }}><Icon name='ios-arrow-back' /></Button>)

@@ -1,6 +1,6 @@
 import React, { Component, useCallback, useEffect, useState } from 'react';
 import Reflux from 'reflux';
-import { View, Image, Modal, Share } from 'react-native';
+import { View, Image, Modal, Share, RefreshControl } from 'react-native';
 import {
   List,
   ListItem,
@@ -13,19 +13,16 @@ import {
   Content,
   RnViewStyleProp
 } from 'native-base'
-import Title from '../Title/Title';
-import { ChampionshipViewStore, ChampionshipViewActions } from '../../store/ChampionshipViewStore';
 // Linking
 import * as Linking from "expo-linking";
-// Styles
-import styles from './ChampionshipView.styles';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import Logo from '../Logo/Logo';
 import BigTitle from '../Title/BigTitle';
 import Api from '../../api/Api';
 import { ScrollView } from 'react-native-gesture-handler';
 import Loader from '../Loader/Loader';
 import Notice from '../Notice/Notice';
+// Styles
+import styles from './ChampionshipView.styles';
 const trophyImage = require('../../assets/images/championship/trophy.png')
 const medalImage = require('../../assets/images/championship/medal.png')
 const trophyCreatedImage = require('../../assets/images/championship/trophy-created.png')
@@ -33,13 +30,14 @@ const trophyCreatedImage = require('../../assets/images/championship/trophy-crea
 
 
 const ChampionshipView = ({ championship, created }) => {
-  // Navigation
-  const navigation = useNavigation();
-  // States
-  const [shareVisible, setShareVisible] = useState(true);
+  // Modal
+  const [shareVisible, setShareVisible] = useState(false);
+  // Filter
   const [rankingFilter, setRankingFilter] = useState('trivia');
-  const [loading, setLoading] = useState(false);
-
+  // Loading
+  const [loading, setLoading] = useState(true);
+  // Refreshing
+  const [refreshing, setRefreshing] = useState(false)
 
   const [ranking, setRanking] = useState<any>({
     all: null,
@@ -48,46 +46,51 @@ const ChampionshipView = ({ championship, created }) => {
   });
   // Api
   const api = new Api();
-
-  // Fetch Ranking
-  const fetchRanking = useCallback(async () => {
-    setLoading(true);
-    const response = await api.championshipRanking(championship.id, rankingFilter);
-    const data = [...response.data]
-    console.log('data', data)
-    setRanking(prevState => ({ ...prevState, [rankingFilter]: [...data] }));
-    setLoading(false);
-  }, [championship, rankingFilter])
-  // Fetch Data
-  const fetchRankingData = useCallback(async () => {
-    // If not have data update
-    if (!ranking[rankingFilter]) {
-      fetchRanking()
-    }
-    // await fetchRanking()
-  }, [championship, created])
-
+  // Created
   const fetchCreated = useCallback(async () => {
     if (created) {
       setShareVisible(true)
     }
   }, [championship, created])
-
-  // On Change Filter and Championship
   useFocusEffect(
     useCallback(() => {
       fetchCreated();
-    }, [created])
+    }, [created, championship])
   )
+
+  // Fetch Ranking
+  const fetchRanking = useCallback(async () => {
+    const response = await api.championshipRanking(championship.id, rankingFilter);
+    const data = [...response.data]
+    setRanking(prevState => ({ ...prevState, [rankingFilter]: data }));
+  }, [championship, rankingFilter])
+  // Fetch Data
+  const fetchRankingData = useCallback(async () => {
+    // If not have data update
+    if (!ranking[rankingFilter]) {
+      setLoading(true);
+      await fetchRanking()
+      setLoading(false);
+    }
+    // await fetchRanking()
+  }, [championship, rankingFilter])
 
   // On Change Filter and Championship
   useFocusEffect(
     useCallback(() => {
-      if (championship.id) {
+      if (championship && championship.id) {
         fetchRankingData();
       }
-    }, [championship, rankingFilter])
+    }, [rankingFilter])
   )
+
+  // On Refresh
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchRanking();
+    setRefreshing(false)
+
+  }
   // On Share
   const onShare = () => {
     const c = championship
@@ -249,7 +252,17 @@ const ChampionshipView = ({ championship, created }) => {
       {/* Main Content */}
       <Content
         style={styles.container}
-
+        refreshControl={
+          <RefreshControl
+            style={{ backgroundColor: '#transparent' }}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor="#fff" // Ios
+            colors={['#282828', '#fff']} //android
+            title={''}
+            progressBackgroundColor="#fff"
+          />
+        }
       >
         <View style={styles.title}>
           <BigTitle

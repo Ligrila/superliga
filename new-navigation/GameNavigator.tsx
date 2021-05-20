@@ -35,8 +35,6 @@ export const GAME_ROUTES_STRING = [
 import GameLoadingScreen from '../screens/Game/GameLoadingScreen';
 // Create
 const Stack = createStackNavigator();
-
-
 const GameNavigator = () => {
     return (
         <Stack.Navigator

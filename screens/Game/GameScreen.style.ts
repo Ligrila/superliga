@@ -7,15 +7,18 @@ export default StyleSheet.create({
         flex: 1,
     },
     footer: {
+        position: 'relative',
         borderTopWidth: 0,
-        // elevation: 0,
-        paddingVertical: 10
+        elevation: 0,
+         marginBottom: Layout.isAndroid ? 30 : 10,
+        marginHorizontal: 10,
+        width: Layout.window.width - 40
     },
     connectedUsers: {
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'center',
-        paddingBottom: Layout.s(20),
+        // paddingBottom: Layout.s(20),
 
     },
     noLifeText: {

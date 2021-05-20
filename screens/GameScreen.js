@@ -37,7 +37,7 @@ import {
 } from 'expo';
 
 import Layout from '../constants/Layout';
-import Chat from '../components/Chat';
+import Chat from '../components/Chat/Chat';
 
 
 

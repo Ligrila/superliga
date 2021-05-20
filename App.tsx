@@ -6,8 +6,6 @@ import { AppState, Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // Loading
 import AppLoading from "expo-app-loading";
-// Linking
-import * as Linking from "expo-linking";
 // Notifications
 import * as Notifications from "expo-notifications";
 // Updates
@@ -50,7 +48,7 @@ import DebugObserver from "./components/Debug/DebugObserver";
 // Ads
 import { setTestDeviceIDAsync } from "expo-ads-admob";
 import WatchCurrentTrivia from "./components/WatchCurrenTrivia/WatchCurrentTrivia";
-import InitSocket from "./components/Socket/InitScoket";
+import SocketContextProvider from "./components/Socket/SocketContextProvider";
 import RegisterPushNotifications from "./components/PushNotifications/RegisterPushNotifications";
 import AppStateWatch from "./components/AppState/AppStateWatch";
 import LinkingWatch from "./components/Linking/LinkingWatch";
@@ -75,9 +73,9 @@ const App: React.FC = () => {
   let socket: any = null;
   // States
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
+  // const [isConnected, setIsConnected] = useState(false);
   const [isLoadingError, setIsLoadingError] = useState(false);
-  const [appState, setAppState] = useState(AppState.currentState);  
+  // const [appState, setAppState] = useState(AppState.currentState);
   // Handle On Reload
   const handleOnReload = () => {
     BackHandler.exitApp();
@@ -106,9 +104,9 @@ const App: React.FC = () => {
       }
     }
     const serverAssets = cacheImages(teamImages);
-    
+
     const deviceTimezone = await Localization.getLocalizationAsync();
-    
+
     await AsyncStorage.setItem("deviceTimezone", `${deviceTimezone.timezone}`);
 
     return Promise.all([
@@ -154,7 +152,7 @@ const App: React.FC = () => {
         require("./assets/images/robot-prod.orig.png"),
         require("./assets/images/purchase-modal.png"),
         require("./assets/images/whistle.png"),
-        
+
         require("./assets/images/bgOld.png"),
         require("./assets/images/purchase-modal.orig.png"),
         require("./assets/images/blackBg.png"),
@@ -162,7 +160,7 @@ const App: React.FC = () => {
         require("./assets/images/chat-bg.png"),
         require("./assets/images/robot-prod.png"),
         require("./assets/images/contactBg.png"),
-        require("./assets/images/icon_ios.png"),        
+        require("./assets/images/icon_ios.png"),
         require("./assets/images/flag.orig.png"),
         require("./assets/images/asplash.png"),
         require("./assets/images/logo.orig.png"),
@@ -182,7 +180,7 @@ const App: React.FC = () => {
         require("./assets/images/teams/colon.orig.png"),
         require("./assets/images/teams/colon.png"),
         require("./assets/images/teams/patronato.png"),
-        require("./assets/images/teams/patronato.orig.png"),,
+        require("./assets/images/teams/patronato.orig.png"), ,
         require("./assets/images/programmed-trivia-bg.png"),
         require("./assets/images/robot-dev.orig.png"),
         require("./assets/images/awards/bg2.png"),
@@ -246,7 +244,7 @@ const App: React.FC = () => {
       ...serverAssets,
     ]);
 
-  }, [Font]);  
+  }, [Font]);
 
   // Bootstrap Async
   const bootstrapAsync = useCallback(async () => {
@@ -261,13 +259,13 @@ const App: React.FC = () => {
     }
   }, [loadResourcesAsync]);
   // Change Auth User Init Socket
-  
+
   // Mount
   useEffect(() => {
     // Init All Async
     bootstrapAsync();
     return () => {
-      
+
     };
   }, [bootstrapAsync]);
 
@@ -279,10 +277,10 @@ const App: React.FC = () => {
       <Root>
         <StyleProvider style={AppTheme}>
           <Container>
-            <Header style={{backgroundColor: 'red'}}/>
-            <Content 
+            <Header style={{ backgroundColor: 'red' }} />
+            <Content
               padder
-              contentContainerStyle={{   flexDirection:'column',alignItems: 'center',justifyContent: 'center'}}>
+              contentContainerStyle={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
               <Text style={{ color: '#000', }}>
                 Se produjo un error iniciando la red. Por favor, salga de la
                 aplicación e intente nuevamente cuando estes conectado a
@@ -299,26 +297,29 @@ const App: React.FC = () => {
   }
   return (
     <Root>
+      <StatusBar hidden={true} />
       <StyleProvider style={AppTheme}>
         <RecoilRoot>
-          {/* Linking Watch */}
-          <LinkingWatch />
-          {/* App State */}
-          <AppStateWatch />
-          {/* Register Push Notifications */}
-          <RegisterPushNotifications />
           {/*
             @TODO ask lean  
-            Init Socket only when haver user in recoil store */}
-          <InitSocket />
-          {/* Recoil Debug Observer */}
-          {/* <DebugObserver/>  */}
-          {/* Current Trivia Listen */}
-           <WatchCurrentTrivia /> 
-          {/* To access recoil outside of component */}
-          <RecoilExternalStatePortal />
-          <StatusBar hidden={true} />
-          <Navigation isLoggedIn={false} />
+            Init Socket and provide only when haver user in recoil store */}
+          <SocketContextProvider>
+            {/* Linking Watch */}
+            <LinkingWatch />
+            {/* App State */}
+            <AppStateWatch />
+            {/* Register Push Notifications */}
+            <RegisterPushNotifications />
+            
+            {/* Recoil Debug Observer */}
+            {/* <DebugObserver/>  */}
+            {/* Current Trivia Listen */}
+            <WatchCurrentTrivia />
+            {/* To access recoil outside of component */}
+            <RecoilExternalStatePortal />
+            
+            <Navigation isLoggedIn={false} />
+          </SocketContextProvider>
         </RecoilRoot>
       </StyleProvider>
     </Root>

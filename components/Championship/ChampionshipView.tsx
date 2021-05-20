@@ -57,14 +57,22 @@ const ChampionshipView = ({ championship, created }) => {
       setShareVisible(true)
     }
     await fetchRanking()
-  }, [championship, created, setShareVisible])
+  }, [championship, created])
+
+  const fetchCreated = useCallback(async () => {
+    if (created) {
+      setShareVisible(true)
+    }
+    await fetchRanking()
+  }, [championship, created])
+  // On Change Filter and Championship
   useEffect(() => {
     if (championship.id) {
       fetchData()
       fetchRanking();
     }
   }, [championship, rankingFilter, fetchData])
-
+  // On Share
   const onShare = () => {
     const c = championship
     let shareUrl = Linking.makeUrl('championships/' + c.id)
@@ -78,15 +86,7 @@ const ChampionshipView = ({ championship, created }) => {
       }
     );
   }
-
-
-  // componentDidMount() {
-  //   ChampionshipViewActions.changeChampionship(this.championship.id)
-  //   ChampionshipViewActions.ranking(this.championship.id, this.state.type)
-  // }
-
-
-
+  // Render Share
   const renderShare = () => {
 
     let title = "FELICITACIONES!"
@@ -131,6 +131,7 @@ const ChampionshipView = ({ championship, created }) => {
         </View>
       </Modal>)
   }
+  // Render Items
   const renderItems = () => {
     if (!rankingData) {
       return null;
@@ -145,15 +146,15 @@ const ChampionshipView = ({ championship, created }) => {
       if (ranking.position == 2 || ranking.position == 3) {
         image = <Image source={medalImage} style={styles.medalImage} />
       }
-      let variantBg: RnViewStyleProp | null = null; 
-      if(ranking.position === 1 ){
-        variantBg = { backgroundColor:'#1e5698'}
+      let variantBg: RnViewStyleProp | null = null;
+      if (ranking.position === 1) {
+        variantBg = { backgroundColor: '#1e5698' }
       }
-      if(ranking.position === 2 ){
-        variantBg = { backgroundColor:'#3567a8'}
+      if (ranking.position === 2) {
+        variantBg = { backgroundColor: '#3567a8' }
       }
-      if(ranking.position === 3 ){
-        variantBg = { backgroundColor:'#ae966f'}
+      if (ranking.position === 3) {
+        variantBg = { backgroundColor: '#ae966f' }
       }
       const styleLeft = styles[`listItemPositionLeft${ranking.position}`] ? styles[`listItemPositionLeft${ranking.position}`] : null;
       const itemBody = styles[`listItemBody${ranking.position}`] ? styles[`listItemBody${ranking.position}`] : null;
@@ -167,7 +168,7 @@ const ChampionshipView = ({ championship, created }) => {
           <Body style={[
             styles.listItemBody,
             itemBody,
-            ranking.position % 2 === 0  ? null : styles.listItemBodyVariant,
+            ranking.position % 2 === 0 ? null : styles.listItemBodyVariant,
             variantBg
           ]}>
             <Text style={styles.userNameText}>{ranking.user.first_name} {ranking.user.last_name}</Text>
@@ -175,7 +176,7 @@ const ChampionshipView = ({ championship, created }) => {
           <Right style={[
             styles.listItemRight,
             ranking.position % 2 === 0 ? null : styles.listItemBodyVariant,
-            variantBg            
+            variantBg
           ]}>
             <Text style={styles.pointsText}>{ranking.points}p</Text>
           </Right>
@@ -183,11 +184,11 @@ const ChampionshipView = ({ championship, created }) => {
       )
     })
   }
+  // Handle Ranking Filter
   const handlerRankingFilter = (type) => {
     setRankingFilter(type)
-    // ChampionshipViewActions.ranking(this.championship.id, type)
   }
-
+  // Render Buttons
   const renderButtons = () => {
     const selectedColor = '#89c9ec'
     const selected = { color: selectedColor };
@@ -218,7 +219,9 @@ const ChampionshipView = ({ championship, created }) => {
 
   return (
     <>
+      {/* Share */}
       {renderShare()}
+      {/* Main Content */}
       <Content style={styles.container}>
         <View style={styles.title}>
           <BigTitle
@@ -228,13 +231,14 @@ const ChampionshipView = ({ championship, created }) => {
         {renderButtons()}
         {rankingData &&
           <ScrollView style={{ flex: 1 }}>
-            <Loader loading={loading}/>
+            <Loader loading={loading} />
             <List style={styles.list}>
               {renderItems()}
             </List>
           </ScrollView>
         }
       </Content>
+      {/* Share Button */}
       <Button style={styles.shareButton} onPress={onShare}>
         <Icon type="AntDesign" name="adduser" style={styles.shareButtonIcon} />
       </Button>

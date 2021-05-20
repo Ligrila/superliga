@@ -31,7 +31,10 @@ const ChampionshipViewScreen = ({ route }) => {
             <Wallpaper source={bgSrc}>
                 <AppHeader return={returnButton} logo={true} />
                 <View style={{ flex: 1 }}>
-                    <ChampionshipView championship={championship} created={created} />
+                    <ChampionshipView 
+                            championship={championship} 
+                            created={created} 
+                        />
                 </View>
             </Wallpaper>
         </Container>

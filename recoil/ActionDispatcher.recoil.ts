@@ -25,6 +25,9 @@ import TriviaUtility from '../utilities/Trivia/Trivia.utility';
 import { GAME_ROUTES_STRING } from '../new-navigation/GameNavigator';
 import { setCurrentTrivia } from './CurrentTrivia.recoil';
 
+import { getChatMessages, setChatMessages } from './Chat.recoil';
+
+
 // First
 // If Trivia active redirect to GamePlay
 
@@ -32,19 +35,8 @@ import { setCurrentTrivia } from './CurrentTrivia.recoil';
 export default class ActionDispatcherRecoil {
     private api = new Api();
     private timeoutTriviaQuestion: any = null
-    // private navigation = useNavigation();
     constructor() {
-        // Reflux.initStore(ConnectedUsersStore); // la necesitamos iniciada
-        // Reflux.initStore(UsersStore);
-        // Reflux.initStore(ConnectionStatusStore);
-        // Reflux.initStore(StatisticsStore);
-        // Reflux.initStore(CurrentTriviaStatisticsStore);
-        // Reflux.initStore(ChatStore);
-        // Reflux.initStore(NavigatorStore);
-        // this.api = new Api;
     }
-
-
     // On Connect Action to Socket.io
     async onConnect(isReconnected = false) {
         try {
@@ -72,7 +64,7 @@ export default class ActionDispatcherRecoil {
                             data: ct.data
                         }
                         await setCurrentTrivia({ ...newTrivia });
-                        
+
                     }
                     // let gameInProgress = ct.success;
                     // if (gameInProgress) {
@@ -104,7 +96,6 @@ export default class ActionDispatcherRecoil {
                 ...current,
                 timedOut: true
             }
-
             await setTriviaQuestion(newTriviaQuestion);
         }, newQuestion.currentTimeout);
         // Set New Question
@@ -120,11 +111,11 @@ export default class ActionDispatcherRecoil {
     }
     async onStartHalfTime(message) {
         // NextTriviaActions.startHalfTime(message.payload);
-        await  TriviaUtility.onStartHalfTime(message.payload)
+        await TriviaUtility.onStartHalfTime(message.payload)
     }
     async onStartHalfTimePlay(message) {
         // NextTriviaActions.startHalfTimePlay(message.payload);
-       await TriviaUtility.onStartHalfTimePlay(message.payload)
+        await TriviaUtility.onStartHalfTimePlay(message.payload)
     }
     async onFinishHalfTime(message) {
         // NextTriviaActions.finishHalfTime(message.payload);
@@ -136,16 +127,16 @@ export default class ActionDispatcherRecoil {
     }
     async onFinishGame(message) {
         // NextTriviaActions.finishGame(message.payload);
-        await  TriviaUtility.onFinishGame(message.payload)
+        await TriviaUtility.onFinishGame(message.payload)
     }
 
     async onFinishTrivia(message) {
-        await  TriviaUtility.onFinishTrivia(message.payload)
+        await TriviaUtility.onFinishTrivia(message.payload)
     }
 
     async onFinishedQuestion(message) {
         const answeredFinished = await TriviaQuestionUtility.onFinishedQuestion(message.payload);
-        
+
         // Update User Data (cannot call this.function)
         const authUpdated = await UserUtility.getUpdateUserInformation();
         await setAuthUser({ ...authUpdated });
@@ -154,7 +145,7 @@ export default class ActionDispatcherRecoil {
             await setTriviaQuestion(answeredFinished);
         }
         // Check if User not have lives and update recoil 
-        if(authUpdated.lives > 0){
+        if (authUpdated.lives > 0) {
             await setAuthUserWithoutLives(authUpdated);
         }
     }
@@ -166,22 +157,26 @@ export default class ActionDispatcherRecoil {
         await setAuthUser({ ...authUpdated });
     }
 
-    
+
     // chat
-    onChatBroadcast(message) {
-        // ChatActions.appendMessage(message)
+    async onChatBroadcast(message) {
+        const messages = await getChatMessages();
+        const copyMessages = [...messages];
+        // console.log('messages', messages, message)
+        copyMessages.push(message);
+        await setChatMessages([...copyMessages]);
     }
     onChatConnect(socket) {
-        // ChatActions.reset()
-        // ChatActions.setSocket(socket)
+        console.log('connected to action dispatcher socket');
+        // setSocketAtom(socket);
     }
     onChatDisconnect() {
         console.log("disconnected")
-        // ChatActions.reset()
+        setChatMessages([])
     }
+    
 
     dispatch(message) {
-        console.log('dispatch', message)
         switch (message.eventName) {
             case 'updateConnectedUsers':
                 // ConnectedUsersActions.updateConnectedUsers(message.payload)

@@ -26,6 +26,7 @@ import { authUserAtom } from '../../recoil/Auth.recoil';
 // Styles
 import styles from './ChampionshipList.styles'
 import { ScrollView } from 'react-native-gesture-handler';
+import { Variables } from '../../styles';
 // Avatar
 const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.png')
 
@@ -97,17 +98,19 @@ const ChampionshipList = ({ championships }) => {
       )
     }
 
+    const buttonConfiguration = (championship) => {
+      return (
+        <Button 
+          transparent onPress={() => actionSheets(championship)}>
+          <Icon name="gear" style={styles.icon} type="FontAwesome" />
+        </Button>
+      )
+    };
 
     const items = championships.data.map((championshipUsers, index) => {
       const championship = championshipUsers.championship
-      const button = () => {
-        return (
-          <Button transparent onPress={() => actionSheets(championship)}>
-            <Icon name="gear" style={styles.icon} type="FontAwesome" />
-          </Button>
-        )
-      };
-      const buttonRender = (championship.user_id == authUser.id) ? button() : null;
+      
+      const buttonRender = championship.user_id == authUser.id;
       const itemStyle = index === 0 ? { ...styles.listItemFirst, ...styles.listItem } : styles.listItem;
       let avatar = trophyAvatarSrc;
       const ranking = championship.championships_ranking ? championship.championships_ranking.position : 'Sin puntos '
@@ -116,21 +119,29 @@ const ChampionshipList = ({ championships }) => {
       }
       return (
 
-        <ListItem avatar button style={itemStyle} key={championship.id} onPress={() => viewItem(championship)}>
-          <Left>
+        <ListItem 
+            avatar 
+            button 
+            
+            style={itemStyle} 
+            key={championship.id} 
+            onPress={() => viewItem(championship)}
+            underlayColor={Variables.brandPrimary}
+            >
+          <Left> 
             <View style={styles.thumbnail} >
               <Image source={avatar} style={styles.thumbnailImg} />
             </View>
           </Left>
-          <Body>
+          <Body >
             <Text style={styles.championshipName}>{championship.name}</Text>
             <Text style={styles.text}>Organizado por {championship.user.first_name} {championship.user.last_name}{'\n'}
               {championship.users_count} particpantes{'\n'}
               {ranking} en el ranking general
             </Text>
           </Body>
-          <Right>
-            {buttonRender}
+          <Right style={styles.listItemRight}>
+            {buttonRender && buttonConfiguration(championship)}
           </Right>
         </ListItem>
       )

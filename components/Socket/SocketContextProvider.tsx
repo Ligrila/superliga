@@ -1,14 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { authUserAtom } from '../../recoil/Auth.recoil';
 import AuthUtility from '../../utilities/Auth/Auth.utility';
 import SocketClient from "../../modules/SocketClient";
 
-const InitSocket = () => {
+
+export const SocketContext = createContext(null)
+
+const SocketContextProvider = (props) => {
+    const [socket, setSocket] = useState<any>(null)
     const authUser = useRecoilValue(authUserAtom);
     const [authUserId, setAuthUserId] = useState<string | null>(null);
-    // Socket
-    let socket: any = null;
+    
     const closeSocket = useCallback(() => {
         console.log("App::closeSocket")
         if (!socket || !socket.client) {
@@ -18,8 +21,7 @@ const InitSocket = () => {
         if (typeof (socket.client.close) == 'function') {
             socket.client.close();
         }
-
-        socket = null;
+        setSocket(null)
     }, []);
     const initSocket = useCallback(async () => {
         const { token, user: userLocalStorage } = await AuthUtility.getToken();
@@ -33,13 +35,15 @@ const InitSocket = () => {
         }
         const user = JSON.parse(userLocalStorage || '');
 
-        socket = new SocketClient(token, user);
+        let _socket = new SocketClient(token, user);
+        setSocket(_socket);
     }, [closeSocket])
 
     const initNetwork = useCallback(() => {
         console.log('initNetwork: initScoket')
         initSocket();
     }, [initSocket]);
+
     useEffect(() => {
         if (authUserId) {
             initNetwork();
@@ -49,18 +53,20 @@ const InitSocket = () => {
     const fetchData = useCallback(() => {
         if (authUser && authUser.id) {
             setAuthUserId(authUser.id);
-        }else{
+        } else {
             setAuthUserId(null);
             closeSocket()
         }
     }, [authUser, closeSocket])
+    // When Auth User change
     useEffect(() => {
         fetchData();
-        // return () => closeSocket()
     }, [authUser])
-
-    return null;
+    return (
+        <SocketContext.Provider value={socket}>
+            {props.children}
+        </SocketContext.Provider>
+    )
 }
 
-
-export default InitSocket;
+export default SocketContextProvider

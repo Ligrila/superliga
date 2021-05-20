@@ -67,6 +67,14 @@ const Screens = ({ navigation }) => {
 
 // Drawer
 const Drawer = createDrawerNavigator();
+
+const ChatDrawer = () => {
+    return (
+      <Drawer.Navigator  initialRouteName="GamePlay"  drawerPosition="right">
+        
+      </Drawer.Navigator>
+    );
+  }
 // MainNavigator
 const MainNavigator = () => {
     return (

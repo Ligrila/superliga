@@ -25,14 +25,25 @@ export default StyleSheet.create({
     },
     listItemFirst:{
         borderTopWidth: 1,
-      
     },
     listItem:{
+        marginLeft: 0,
         marginTop: 2,
-        paddingHorizontal: ThemeUtility.s(10),
+        paddingHorizontal: ThemeUtility.s(30),
         backgroundColor: 'transparent', 
         borderBottomWidth: 1,
         borderColor: '#fff'
+    },
+    listItemRight:{
+        justifyContent:'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        alignContent: 'center',
+        flexDirection: 'column',
+        paddingHorizontal: 0,
+        paddingRight: 0,
+        paddingLeft: 0
+        
     },
     text:{
         color: '#fff',

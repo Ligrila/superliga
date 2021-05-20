@@ -4,7 +4,9 @@ import {
   TouchableOpacity,
   Modal,
   View,
+  KeyboardAvoidingView,
   Keyboard,
+  StatusBar,
 } from "react-native";
 // native Base
 import {
@@ -39,6 +41,9 @@ import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
 import { authUserAtom, authUserSelector } from "../../recoil/Auth.recoil";
 import { currentTriviaAtom, currentTriviaFinishedAtom, currentTriviaSelector, GamePlayStatus } from "../../recoil/CurrentTrivia.recoil";
 import { triviaQuestionAtom } from "../../recoil/TriviaQuestion.recoil";
+import ChatDrawer from "../../components/Chat/ChatDrawer";
+import Chat from '../../components/Chat/Chat';
+import { SafeAreaView } from "react-navigation";
 
 // Bg
 const gameBgSrc = require("../../assets/images/game/bg.png");
@@ -66,7 +71,7 @@ const GameScreen = () => {
   const [mount, setMount] = useState(true);
   // Auth User
   const [authUser, setAuthUser] = useRecoilState(authUserAtom);
-  
+
   // Modal
   const [modalVisible, setModalVisible] = useState(false);
   // Keyboard
@@ -89,11 +94,10 @@ const GameScreen = () => {
 
   //#region Keyboard
   const _keyboardDidShow = () => {
-    setKeyboardVisible(true);
-  };
 
+  }
   const _keyboardDidHide = () => {
-    setKeyboardVisible(false);
+    StatusBar.setHidden(true, 'slide');
   };
   useFocusEffect(
     useCallback(() => {
@@ -115,16 +119,16 @@ const GameScreen = () => {
   // Update Current Trivia
   const updateCurrentTrivia = useRecoilCallback(({ snapshot }) => async () => {
     const currentTriviaResponse = await snapshot.getPromise(currentTriviaSelector);
-     const currentTriviaObj = currentTriviaResponse ? { ...currentTriviaResponse } : currentTriviaResponse;
-     currentTriviaObj;
-     setCurrentTrivia(currentTriviaObj);
+    const currentTriviaObj = currentTriviaResponse ? { ...currentTriviaResponse } : currentTriviaResponse;
+    currentTriviaObj;
+    setCurrentTrivia(currentTriviaObj);
   });
 
   //#endregion Keyboard
   const updateNeccesaryData = useCallback(async () => {
-      // Get Latest info of user
-       updateCurrentUser();
-       updateCurrentTrivia();
+    // Get Latest info of user
+    updateCurrentUser();
+    updateCurrentTrivia();
   }, [])
   // Update Always focus
   useFocusEffect(
@@ -179,9 +183,9 @@ const GameScreen = () => {
 
   }, [currentTrivia])
 
-  useEffect(() =>{
-      processChangesCurrentTriva()
-    }, [currentTrivia])
+  useEffect(() => {
+    processChangesCurrentTriva()
+  }, [currentTrivia])
   //#endregion Changes Current Trivia
 
   //#region Changes Finished Trivia
@@ -233,9 +237,21 @@ const GameScreen = () => {
     );
   }
   const renderFooter = () => {
-    if (keyboardVisible) {
-      return null;
-    }
+
+    return (
+      <View style={[styles.footer]}>
+        {/* User Connected */}
+        {!keyboardVisible &&
+          <View style={[styles.connectedUsers]}>
+            {renderFooterInformation()}
+          </View>}
+        {/* Chat */}
+        <Chat onShowForm={(show => setKeyboardVisible(show))} />
+      </View>
+    )
+  }
+  const renderFooterInformation = () => {
+
     if (authUser) {
       const hasLives = authUser.lives >= 1;
       if (hasLives) {
@@ -272,7 +288,7 @@ const GameScreen = () => {
   }
   const renderMessageNoLives = () => {
 
-    
+
 
   }
   // Make it Rain :)
@@ -313,22 +329,22 @@ const GameScreen = () => {
 
 
   return (
-    <Container>
-      <Wallpaper source={bgSrc}>
-        {makeItRain()}
-        <AppHeader game={true} logo={true} logoDisablePress={true} />
-        {/* Content */}
-        <Content
-          padder contentContainerStyle={styles.game}>
-          {renderModal()}
-          {renderGame()}
-          <View style={styles.footer}>
-            {/* <Chat /> */}
-            <View style={styles.connectedUsers}>{renderFooter()}</View>
-          </View>
-        </Content>
-      </Wallpaper>
-    </Container>
+    <ChatDrawer>
+      <Container>
+        <Wallpaper source={bgSrc}>
+          {makeItRain()}
+          <AppHeader game={true} logo={true} logoDisablePress={true} />
+          {/* Content */}
+          <Content
+            padder
+            contentContainerStyle={styles.game}>
+              {renderModal()}
+              {renderGame()}
+              {renderFooter()}
+          </Content>
+        </Wallpaper>
+      </Container>
+    </ChatDrawer>
   );
 
 }

@@ -67,11 +67,11 @@ const menuItems = [
   //   route: 'Purchase',
   //   image: require('../../assets/images/menu/menu_buys.png')
   // },
-  {
-    text: 'AJUSTES',
-    route: 'Settings',
-    image: require('../../assets/images/menu/menu_settings.png')
-  },
+  // {
+  //   text: 'AJUSTES',
+  //   route: 'Settings',
+  //   image: require('../../assets/images/menu/menu_settings.png')
+  // },
 ]
 
 // Sidebar Item

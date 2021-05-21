@@ -115,9 +115,9 @@ const ChallengeRequestScreen = ({ route }) => {
           <Text style={styles.title}>DESAFÍO</Text>
           <Text style={styles.text}>
           <Text style={styles.textBold}>{challengeChampionship.name.trim().toUpperCase()}</Text>
-            {` QUIERE DESAFIAR A TU EQUIPO `}
+            {`\nQUIERE DESAFIAR A TU EQUIPO\n`}
             <Text style={styles.textBold}>{championship.name.trim().toUpperCase()}</Text>
-            {` POR UNA SEMANA`}
+            {`\nPOR UNA SEMANA`}
             </Text>
           {renderButtons()}
         </View>

@@ -1,78 +1,79 @@
 import { StyleSheet } from 'react-native';
 import Layout from '../../constants/Layout';
+import { Variables } from '../../styles';
 
 
 export default StyleSheet.create({
-    container:{
+    container: {
         flexDirection: 'row',
         width: Layout.window.width,
-        flex:1,
+        flex: 1,
         marginTop: Layout.s(2)
     },
-    position:{
+    position: {
         backgroundColor: '#fff',
         flex: .2,
         padding: Layout.s(10),
-        alignItems:'center',
-        justifyContent:'center',
+        alignItems: 'center',
+        justifyContent: 'center',
 
     },
-    nameContainer:{
-        backgroundColor: '#723e8e',
+    nameContainer: {
+        backgroundColor: Variables.championshipItemVariantBg,
         flexDirection: 'row',
         padding: Layout.s(10),
         paddingLeft: Layout.s(100),
         flex: .8,
-        alignItems:'center',
-        justifyContent:'flex-start',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
 
     },
-    nameContainerAltRow:{
-        backgroundColor: '#8953a6',
+    nameContainerAltRow: {
+        backgroundColor: Variables.championshipItemBg,
     },
 
-    positionText:{
+    positionText: {
         fontFamily: 'OpenSansCondensed_light',
         fontSize: Layout.s(30),
         color: '#282828',
     },
-    nameText:{
+    nameText: {
         fontFamily: 'OpenSansCondensed_bold',
         fontSize: Layout.s(37),
         lineHeight: Layout.s(37),
         color: '#fff',
     },
-    pointsText:{
+    pointsText: {
         fontFamily: 'OpenSansCondensed_light',
         fontSize: Layout.s(41),
         color: '#fff'
     },
 
-    name:{
+    name: {
         flex: .6,
     },
-    points:{
+    points: {
         flex: .2
     },
-    challenge:{
+    challenge: {
         flex: .2,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
     },
-    avatar:{
+    avatar: {
         position: 'absolute',
         left: Layout.s(110),
         top: Layout.s(20)
     },
-    flagButton:{
+    flagButton: {
         justifyContent: 'center',
         alignItems: 'center',
     },
-    flagIcon:{
+    flagIcon: {
         color: '#fff'
     },
-    flag:{
+    flag: {
         width: Layout.s(40),
         height: Layout.s(38)
     },

@@ -8,7 +8,7 @@ const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.
 const flagSrc = require('../../assets/images/flag.png')
 
 interface ChampionshipItemProps {
-  onChallenge?: () => {};
+  onChallenge?: () => void;
   altrow?: boolean;
   championship: any;
 
@@ -32,16 +32,18 @@ const ChampionshipItem = (props: ChampionshipItemProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.position}>
-        <Text style={styles.positionText}>{props.championship.position}º</Text>
+        <Text style={styles.positionText}>
+          {props.championship.position}º</Text>
       </View>
       <View style={nameContainerStyles}>
         <View style={styles.name}>
           <Text style={styles.nameText}>
             {props.championship.name} {"\n"}
-            {props.championship.users_count} jugadores
+            {props.championship.users_count} 
                     </Text>
 
         </View>
+        
         <View style={styles.points}>
           <Text style={styles.pointsText}>{props.championship.points}p</Text>
 

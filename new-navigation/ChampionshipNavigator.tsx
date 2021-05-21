@@ -11,6 +11,14 @@ import ChampionshipSubscribeScreen from '../screens/Championship/ChampionshipSub
 // Create
 const Stack = createStackNavigator();
 
+export const CHAMPIONSHIP_ROUTES_STRING = [
+    "ChampionshipHome",
+    "ChampionshipCreate" ,
+    "ChampionshipView" ,
+    "ChampionshipEdit" ,
+    "ChampionshipEditUsers",
+    "ChampionshipSubscribe"
+]
 
 const ChampionshipNavigator = () => {
     return (

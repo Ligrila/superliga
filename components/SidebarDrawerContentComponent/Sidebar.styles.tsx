@@ -60,10 +60,9 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-
+        position:'relative',
         width: '85%',
         paddingLeft: 50,
-        position: 'relative'
     },
     sidebarItemLabel: {
         fontSize: ThemeUtility.s(35),

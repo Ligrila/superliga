@@ -240,6 +240,7 @@ const App: React.FC = () => {
         // Ball
         require("./assets/images/ball.png"),
         require("./assets/images/ball_min.png"),
+        // Challenge
       ]),
       ...serverAssets,
     ]);

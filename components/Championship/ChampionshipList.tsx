@@ -62,7 +62,12 @@ const ChampionshipList = ({ championships }) => {
     navigation.navigate("ChampionshipView", { championship })
   }
   const onChallenge = (championship) => {
-    navigation.navigate("ChallengeCreate", { championship })
+
+    navigation.navigate('ChallengeStack', {
+      screen: 'ChallengeCreate',
+      params: { championship }
+    });
+    // navigation.navigate("ChallengeCreate", { championship })
   }
   const actionSheets = (championship) => {
     const BUTTONS = ["Editar", "Participantes", "Invitar", "Desafiar con este torneo", "Cancelar"];

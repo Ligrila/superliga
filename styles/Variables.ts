@@ -35,5 +35,8 @@ export default {
     darkBlue: '#013675',
     blue:'#235a9b',
     green:'#90a94e',
-    check:'#00a651'
+    check:'#00a651',
+    championshipItemBg:'#1e5698',
+    championshipItemVariantBg: '#3567a8'
+     
 }

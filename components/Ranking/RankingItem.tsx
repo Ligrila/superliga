@@ -17,7 +17,7 @@ const  RankingItem = ({
             {number > 9 ? number : `0${number}`}{`º`}
           </Text>
         </View>
-        <View style={[styles.name, number%2===0 ? {backgroundColor: '#3567a5'} : null]}>
+        <View style={[styles.name, number%2===0 ? styles.nameVariant : null]}>
             <View>
             <Text style={styles.nameText}> {user.first_name}{` `}{user.last_name}</Text>
             </View>

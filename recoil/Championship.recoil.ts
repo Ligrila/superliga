@@ -12,11 +12,14 @@ export const championshipSelector = selector({
         // Force Update
         get(championshipAtom)
         const api = new Api()
-        const dates = { ...defaultValue }
+        const championshipsResp = {
+            hasData : false,
+            data: undefined
+         }
         let response = await api.championshipList();
-        dates.hasData = response.success;
-        dates.data = response.data;
-        return dates;
+        championshipsResp.hasData = response.success;
+        championshipsResp.data = response.data;
+        return championshipsResp;
     },
 });
 

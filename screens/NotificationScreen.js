@@ -7,7 +7,7 @@ import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 
 import bgSrc from '../assets/images/championship/bg2.png';
-import Notification from '../components/Notification';
+import Notification from '../components/Notification/Notifications';
 import { NotificationsActions } from '../store/NotificationsStore';
 
 

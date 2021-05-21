@@ -9,7 +9,7 @@ const defaultData = {
 export const rankingSelector = selectorFamily({
     key: 'RankingSelector',
     get: dateID => async ({ get }) => {
-        
+
         const dateString = dateID?.toString();
         let endpoint = `/trivia-points/for-date/${dateString}`;
 
@@ -25,10 +25,10 @@ export const rankingSelector = selectorFamily({
                 break;
         }
         const api = new Api();
-        const ranking = { ...defaultData }
+        const ranking: any = { ...defaultData }
         const response = await api.GET(endpoint);
         if (response) {
-            console.log('response', response)
+            // console.log('response', response)
             response.hasData = response.success;
             ranking.data = response.data;
         }

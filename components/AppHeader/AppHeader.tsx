@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    Image,
+    Image, View,
 } from "react-native";
 // Native Base
 import {
@@ -21,6 +21,7 @@ import UserInfo from '../UserInfo/UserInfo';
 // Styles
 import styles from './AppHeader.styles';
 import Logo from "../Logo/Logo";
+import NotificationBullet from "../Notification/NotificationBullet";
 // Assets
 const superligaAppImg = require('../../assets/images/app_logo.png');
 const menuImg = require('../../assets/images/menu.png');
@@ -67,6 +68,9 @@ const AppHeader = (props: AppHeaderProps) => {
                 <Button transparent onPress={() => { openMainDrawer() }}>
                     <Image source={menuImg} style={styles.menuImg} resizeMode="contain" />
                 </Button>
+                <View style={styles.notificationBullet}>
+                        <NotificationBullet />
+                </View>
             </Right>
         </Header>
     );

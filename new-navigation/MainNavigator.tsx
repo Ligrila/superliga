@@ -23,6 +23,8 @@ import HomeNextMatchsScreen from '../screens/Home/HomeNextMatchsScreen';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import AboutScreen from '../screens/About/AboutScreen';
 import GameRulesScreen from '../screens/Game/GameRulesScreen';
+import ChallengeNavigator from './ChallengeNavigator';
+import NotificationScreen from '../screens/Notification/NotificationScreen';
 
 
 
@@ -64,8 +66,12 @@ const Screens = ({ navigation }) => {
             <Stack.Screen name="About" component={AboutScreen} />            
             {/* Rules */}
             <Stack.Screen name="Rules" component={GameRulesScreen}/>
+            {/* Notifications */}
+            <Stack.Screen name="Notifications" component={NotificationScreen}/>
             {/* Championship */}
             <Stack.Screen name="ChampionshipStack" component={ChampionshipNavigator} />            
+            {/* Challenge */}
+            <Stack.Screen name="ChallengeStack" component={ChallengeNavigator} />            
         </Stack.Navigator>
     );
 };
@@ -73,14 +79,6 @@ const Screens = ({ navigation }) => {
 
 // Drawer
 const Drawer = createDrawerNavigator();
-
-const ChatDrawer = () => {
-    return (
-      <Drawer.Navigator  initialRouteName="GamePlay"  drawerPosition="right">
-        
-      </Drawer.Navigator>
-    );
-  }
 // MainNavigator
 const MainNavigator = () => {
     return (

@@ -5,7 +5,7 @@ import Wallpaper from '../components/Wallpaper';
 import AppHeader from '../components/AppHeader/AppHeader';
 
 import bgSrc from '../assets/images/championship/bg2.png';
-import Challenge from '../components/Challenge';
+import Challenge from '../components/Challenge/Challenge';
 import { ChallengesActions } from '../store/ChallengesStore';
 
 

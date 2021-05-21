@@ -172,7 +172,7 @@ export default StyleSheet.create({
         width: ThemeUtility.s(150),
     },
     listItemBody: {
-        backgroundColor: '#1e5698',
+        backgroundColor: Variables.championshipItemBg,
         textAlign: 'center',
         height: '100%',
         alignItems: 'flex-start',
@@ -191,7 +191,7 @@ export default StyleSheet.create({
         paddingLeft: 40
     },
     listItemBodyVariant: {
-        backgroundColor: '#3567a8',
+        backgroundColor: Variables.championshipItemVariantBg,
     },
     // listItemPositionBody: {
     //     1: {
@@ -205,7 +205,7 @@ export default StyleSheet.create({
     //     }
     // },
     listItemRight: {
-        backgroundColor: '#245591',
+        backgroundColor: Variables.championshipItemBg,
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',

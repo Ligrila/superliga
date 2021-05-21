@@ -23,6 +23,7 @@ import Loader from '../Loader/Loader';
 import Notice from '../Notice/Notice';
 // Styles
 import styles from './ChampionshipView.styles';
+import { Variables } from '../../styles';
 const trophyImage = require('../../assets/images/championship/trophy.png')
 const medalImage = require('../../assets/images/championship/medal.png')
 const trophyCreatedImage = require('../../assets/images/championship/trophy-created.png')
@@ -177,10 +178,10 @@ const ChampionshipView = ({ championship, created }) => {
       }
       let variantBg: RnViewStyleProp | null = null;
       if (ranking.position === 1) {
-        variantBg = { backgroundColor: '#1e5698' }
+        variantBg = { backgroundColor: Variables.championshipItemBg}
       }
       if (ranking.position === 2) {
-        variantBg = { backgroundColor: '#3567a8' }
+        variantBg = { backgroundColor: Variables.championshipItemVariantBg }
       }
       if (ranking.position === 3) {
         variantBg = { backgroundColor: '#ae966f' }

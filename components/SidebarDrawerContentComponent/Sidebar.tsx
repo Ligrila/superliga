@@ -25,6 +25,7 @@ import styles from './Sidebar.styles';
 import { useRecoilValue } from "recoil";
 import { authUserAtom } from "../../recoil/Auth.recoil";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import NotificationBullet from "../Notification/NotificationBullet";
 
 
 const menuItems = [
@@ -64,6 +65,13 @@ const menuItems = [
     image: require('../../assets/images/menu/menu_goals.png')
   },
   {
+    text: 'NOTIFICATIONS',
+    route: 'Notifications',
+    // image: require('../../assets/images/menu/menu_goals.png'),
+    icon: "comment",
+    component: <NotificationBullet  style={{marginLeft: 10}}/>
+  },
+  {
     text: 'ACERCA',
     route: 'About',
     // image: require('../../assets/images/menu/menu_goals.png'),
@@ -98,7 +106,7 @@ const SidebarItem = ({ menu, navigateTo, last }) => {
       style={[styles.sidebarItem, last ? { borderBottomWidth: 0 } : null]}>
       <View style={styles.sidebarItemContainer}>
         <View style={styles.sidebarItemImageContainer}>
-          
+
           {menu.image && <Image source={menu.image}
             style={styles.sidebarItemImage}
           />}
@@ -109,6 +117,7 @@ const SidebarItem = ({ menu, navigateTo, last }) => {
           />}
         </View>
         <Text style={styles.sidebarItemLabel}>{menu.text}</Text>
+        { menu.component && menu.component}
       </View>
     </TouchableOpacity>
   )

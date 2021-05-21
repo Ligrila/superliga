@@ -58,7 +58,8 @@ const Ranking = () => {
         item => {
           number++
           return (
-            <RankingItem key={item.user_id}
+            <RankingItem 
+              key={item.user_id}
               user={item.user}
               totalPoints={item.total_points}
               number={number} />

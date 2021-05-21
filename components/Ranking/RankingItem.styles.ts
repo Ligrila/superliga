@@ -27,11 +27,14 @@ export default StyleSheet.create({
         display:'flex',
         flexDirection: 'row',
         flex:4,
-        backgroundColor: '#245591',
+        backgroundColor: Variables.championshipItemBg,
         height: 80,
         alignItems:'center',
         paddingHorizontal: ThemeUtility.s(60),
         justifyContent: 'space-between',
+    },
+    nameVariant:{
+        backgroundColor: Variables.championshipItemVariantBg
     },
     nameText:{
         fontFamily: 'OpenSansCondensed_bold',

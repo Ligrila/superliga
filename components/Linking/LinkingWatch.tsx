@@ -37,7 +37,12 @@ const LinkingWatch = () => {
             if (parts[0] == 'championships' && parts[1]) {
                 const championshipId = parts[1]
                 if (isLogin) {
-                    RootNavigation.navigate('ChampionshipSubscribe', { championship: { id: championshipId } })
+                    RootNavigation
+                    .navigate('ChampionshipStack', {
+                        screen: 'ChampionshipSubscribe',
+                        params: {championship: { id: championshipId } }
+                      });
+                    // .navigate('ChampionshipSubscribe', { championship: { id: championshipId } })
                 } else {
                     AsyncStorage.setItem('afterLoginChampionshipSubscribe', championshipId);
                     AsyncStorage.removeItem('afterLoginChampionshipSubscribeMessage');

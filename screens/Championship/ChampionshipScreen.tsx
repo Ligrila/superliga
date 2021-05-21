@@ -20,7 +20,7 @@ const ChampionshipScreen = () => {
     const updateChampionship = useRecoilCallback(({ snapshot }) => async () => {
         const response = await snapshot.getPromise(championshipSelector);
         setChampionships({...response});
-    }, [setChampionships, setRefreshing]);
+    }, []);
     // Find When Mount
     useFocusEffect(
         useCallback(() => {

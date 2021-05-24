@@ -16,16 +16,19 @@ const ChampionshipTabNavigator = () => {
             initialRouteName={'ChampionshipStack'}
             tabBarOptions={{
                 activeTintColor: 'white',
-                iconStyle:{
+                tabStyle: {
+                    paddingVertical: 0,
                 },
                 labelStyle: {
-                    fontFamily: 'OpenSans',
-                    fontSize: Layout.h(20),
+                    fontFamily: Variables.openSans,
+                    fontSize: 12
                 },
                 style: {
-                    backgroundColor: Variables.dark,
                     borderTopWidth: 0,
-                    paddingBottom: 20
+                    backgroundColor: Variables.dark,
+                    height: Layout.isAndroid ? 70 : 90,
+                    paddingTop: 10,
+                    paddingBottom: Layout.isAndroid ? 10 : 30
                 },
             }}
         >

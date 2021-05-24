@@ -29,24 +29,10 @@ const ChallengeNavigator = () => {
             }}
 
         >
-            {/* 
-   
- const ChallengesStack = createStackNavigator({
-    ChallengeHome: ChallengeScreen,
-    ChallengeCreate: ChallengeCreateScreen,
-    ChallengeRequest: ChallengeRequestScreen,
-    ChallengeView: ChallengeViewScreen
-
-},
-{
-  headerMode: 'none',
-});
-   */}
             <Stack.Screen name="ChallengeHome" component={ChallengeScreen} />
             <Stack.Screen name="ChallengeCreate" component={ChallengeCreateScreen} />
             <Stack.Screen name="ChallengeView" component={ChallengeViewScreen} />
             <Stack.Screen name="ChallengeRequest" component={ChallengeRequestScreen} />
-            {/* <Stack.Screen name="ChallengeView" component={ChampionshipEditUsersScreen} /> */}
         </Stack.Navigator>
     );
 }

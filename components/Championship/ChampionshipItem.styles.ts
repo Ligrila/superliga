@@ -69,9 +69,13 @@ export default StyleSheet.create({
     flagButton: {
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal: 0,
+        marginHorizontal: 0,
     },
     flagIcon: {
-        color: '#fff'
+        color: '#fff',
+        fontSize: 15,
+        marginLeft: 0
     },
     flag: {
         width: Layout.s(40),

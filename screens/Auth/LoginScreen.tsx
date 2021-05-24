@@ -96,11 +96,24 @@ const LoginScreen = () => {
     if (championshipId) {
       AsyncStorage.removeItem("afterLoginChampionshipSubscribe")
       AsyncStorage.removeItem("afterLoginChampionshipSubscribeMessage")
-      navigation.navigate('ChampionshipSubscribe', { championship: { id: championshipId } })
+      console.log('Call This')
+      navigation.navigate('Main', {
+        screen: 'ChampionshipTab', params: {
+          screen: 'ChampionshipStack',
+          params: {
+            screen: 'ChampionshipSubscribe',
+            params: { championship: { id: championshipId } }
+          }
+        }
+      });
       return;
     }
-
-    navigation.navigate('Main');
+    const resetAction = {
+      index: 0,
+      routes: [{ name: 'Main' }]
+    }
+    navigation.reset(resetAction);
+    // navigation.navigate('Main');
   }
   // Render Footer
   const renderFooter = () => {
@@ -208,7 +221,7 @@ const LoginScreen = () => {
       const user = await api.login(email, password).catch(e => {
         console.log('Exeption', e);
       });
-      console.log('user',user)
+      console.log('user', user)
       if (user && user.success) {
         await _beforeSubmitLogin(user);
       } else {
@@ -260,7 +273,7 @@ const LoginScreen = () => {
                 />
               </Item>
             </Form>
-            
+
             <Button rounded block large onPress={_onSubmit} style={styles.submitButton}>
               <Text style={styles.submitButtonText}>Ingresar</Text>
             </Button>

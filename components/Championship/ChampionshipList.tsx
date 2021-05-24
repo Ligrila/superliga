@@ -27,6 +27,7 @@ import { authUserAtom } from '../../recoil/Auth.recoil';
 import styles from './ChampionshipList.styles'
 import { ScrollView } from 'react-native-gesture-handler';
 import { Variables } from '../../styles';
+import Enviroment from '../../constants/Enviroment';
 // Avatar
 const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.png')
 
@@ -40,13 +41,15 @@ const ChampionshipList = ({ championships }) => {
   // Share
   const onShare = (c) => {
     let shareUrl = Linking.makeUrl('championships/' + c.id)
+
     if (shareUrl.startsWith("jugadasuperliga://")) {
       shareUrl = shareUrl.replace("jugadasuperliga://", 'https://www.jugadasuperliga.com/')
     }
     Share.share(
       {
         title: 'Jugada Super Liga',
-        message: "Hola te invito a mi torneo de amigos '" + c.name + "', para participar has click aquí " + shareUrl
+        // message: shareUrl
+       message: "Hola te invito a mi torneo de amigos '" + c.name + "', para participar has click aquí " + shareUrl
       }
     );
   }
@@ -105,7 +108,7 @@ const ChampionshipList = ({ championships }) => {
 
     const buttonConfiguration = (championship) => {
       return (
-        <Button 
+        <Button
           transparent onPress={() => actionSheets(championship)}>
           <Icon name="gear" style={styles.icon} type="FontAwesome" />
         </Button>
@@ -122,15 +125,15 @@ const ChampionshipList = ({ championships }) => {
       }
       return (
 
-        <ListItem 
-            avatar 
-            button 
-            style={[styles.listItem]} 
-            key={championship.id} 
-            onPress={() => viewItem(championship)}
-            underlayColor={Variables.brandPrimary}
-            >
-          <Left> 
+        <ListItem
+          avatar
+          button
+          style={[styles.listItem]}
+          key={championship.id}
+          onPress={() => viewItem(championship)}
+          underlayColor={Variables.brandPrimary}
+        >
+          <Left>
             <View style={styles.thumbnail} >
               <Image source={avatar} style={styles.thumbnailImg} />
             </View>

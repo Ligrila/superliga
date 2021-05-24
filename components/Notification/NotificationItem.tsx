@@ -8,13 +8,6 @@ import styles from './NotificationItem.styles';
 import { GAME_ROUTES_STRING } from "../../new-navigation/GameNavigator";
 import { CHAMPIONSHIP_ROUTES_STRING } from "../../new-navigation/ChampionshipNavigator";
 import { CHALLELNGES_ROUTES_STRING } from "../../new-navigation/ChallengeNavigator";
-const COLORS = [
-
-  'rgb(40,162,211)',
-  'rgb(184,129,194)',
-  'rgb(183,70,113)',
-
-];
 
 const NotificationItem = ({ notification, colorIndex }) => {
 
@@ -42,17 +35,24 @@ const NotificationItem = ({ notification, colorIndex }) => {
       }
       // Championship
       else if (CHAMPIONSHIP_ROUTES_STRING.includes(route)) {
-        navigation.navigate('ChampionshipStack', {
-          screen: route,
-          params
+        
+        navigation.navigate('ChampionshipTab', {
+          screen: 'ChampionshipStack',
+          params: {
+            screen: route,
+            params: params
+          }
         });
       }
       // Challenge
       else if (CHALLELNGES_ROUTES_STRING.includes(route)) {
-        // console.log('route', route)
-        navigation.navigate('ChallengeStack', {
-          screen: route,
-          params
+  
+        navigation.navigate('ChampionshipTab', {
+          screen: 'ChallengeStack',
+          params: {
+            screen: route,
+            params: params
+          }
         });
       }
       else {
@@ -66,10 +66,10 @@ const NotificationItem = ({ notification, colorIndex }) => {
   };
   const variant = colorIndex % 2 === 0;
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.8}
-      >
+    >
       <View
         style={[
           styles.container,

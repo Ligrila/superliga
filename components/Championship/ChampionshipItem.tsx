@@ -20,7 +20,8 @@ const ChampionshipItem = (props: ChampionshipItemProps) => {
     if (props.onChallenge) {
       return (
         <Button transparent onPress={props.onChallenge} style={styles.flagButton}>
-          <Icon name="handshake-o" type='FontAwesome' style={styles.flagIcon}></Icon>
+          <Icon name="handshake-o" type='FontAwesome' 
+            style={styles.flagIcon}></Icon>
         </Button>)
     }
   }
@@ -51,7 +52,6 @@ const ChampionshipItem = (props: ChampionshipItemProps) => {
         <View style={styles.challenge}>
           {renderChallege()}
         </View>
-
       </View>
       <View style={styles.avatar}>
         <Avatar mini avatar={avatar}></Avatar>

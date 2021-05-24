@@ -16,7 +16,6 @@ import styles from './Ranking.styles';
 import { useRecoilCallback, useRecoilState, useRecoilValueLoadable } from 'recoil';
 import { datesAtom, datesSelector } from '../../recoil/Dates.recoil';
 import { rankingSelector } from '../../recoil/Ranking.recoil';
-import Logo from '../Logo/Logo';
 import { ScrollView } from 'react-native-gesture-handler';
 
 

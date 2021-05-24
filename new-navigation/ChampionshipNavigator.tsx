@@ -13,9 +13,9 @@ const Stack = createStackNavigator();
 
 export const CHAMPIONSHIP_ROUTES_STRING = [
     "ChampionshipHome",
-    "ChampionshipCreate" ,
-    "ChampionshipView" ,
-    "ChampionshipEdit" ,
+    "ChampionshipCreate",
+    "ChampionshipView",
+    "ChampionshipEdit",
     "ChampionshipEditUsers",
     "ChampionshipSubscribe"
 ]
@@ -26,19 +26,18 @@ const ChampionshipNavigator = () => {
             initialRouteName="ChampionshipHome"
             headerMode="none"
             screenOptions={{
-                
+
             }}
 
         >
             {/* 
-   
-   ChampionshipHome: ChampionshipScreen,
-      ChampionshipView: ChampionshipViewScreen,
-      ChampionshipCreate: ChampionshipCreateScreen,
-      ChampionshipEdit:ChampionshipEditScreen,
-      ChampionshipEditUsers:ChampionshipEditUsersScreen,
-      ChampionshipSubscribe: ChampionshipSubscribeScreen
-   */}
+                ChampionshipHome: ChampionshipScreen,
+                ChampionshipView: ChampionshipViewScreen,
+                ChampionshipCreate: ChampionshipCreateScreen,
+                ChampionshipEdit:ChampionshipEditScreen,
+                ChampionshipEditUsers:ChampionshipEditUsersScreen,
+                ChampionshipSubscribe: ChampionshipSubscribeScreen
+            */}
             <Stack.Screen name="ChampionshipHome" component={ChampionshipScreen} />
             <Stack.Screen name="ChampionshipCreate" component={ChampionshipCreateScreen} />
             <Stack.Screen name="ChampionshipView" component={ChampionshipViewScreen} />

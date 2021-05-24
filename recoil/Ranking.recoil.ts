@@ -29,7 +29,7 @@ export const rankingSelector = selectorFamily({
         const response = await api.GET(endpoint);
         if (response) {
             // console.log('response', response)
-            response.hasData = response.success;
+            ranking.hasData = response.success;
             ranking.data = response.data;
         }
 

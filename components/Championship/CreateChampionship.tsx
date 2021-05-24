@@ -10,14 +10,8 @@ import {
   Label
 }
   from 'native-base'
-
 import Title from '../Title/Title';
-import { CreateChampionshipStore, CreateChampionshipActions } from '../../store/CreateChampionshipStore';
 import Loader from '../Loader';
-import Avatar from '../Avatar';
-import ChangeAvatar from '../Avatar/ChangeAvatar';
-import { ChampionshipsActions } from '../../store/ChampionshipsStore';
-
 // Styles
 import styles from './CreateChampionship.styles'
 import Api from '../../api/Api';
@@ -92,8 +86,7 @@ const CreateChampionship = ({ championship }: CreateChampionshipProps) => {
       <Title text={title} hideSeparator={true}></Title>
       <Loader loading={loading} />
       <Form style={styles.form}>
-        {/* <Avatar avatar={avatar}></Avatar>
-        <ChangeAvatar onChange={handlerOnChangePicture}></ChangeAvatar> */}
+        
         <Label style={styles.label}>Nombre del torneo:</Label>
         <Item style={styles.item}>
           <Input

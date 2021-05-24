@@ -22,7 +22,7 @@ const NotificationScreen = () => {
   const updateNotifictions = useRecoilCallback(({ snapshot }) => async () => {
     // Notifications
     const response = await snapshot.getPromise(notificationsSelector);
-    setNotifications({ ...response });
+    setNotifications(Object.assign({}, response));
     // Update User Data
     const authUserResponse = await snapshot.getPromise(authUserSelector)
     setAuhtUser({ ...authUserResponse })

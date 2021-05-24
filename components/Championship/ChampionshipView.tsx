@@ -62,7 +62,7 @@ const ChampionshipView = ({ championship, created }) => {
   // Fetch Ranking
   const fetchRanking = useCallback(async () => {
     const response = await api.championshipRanking(championship.id, rankingFilter);
-    const data = [...response.data]
+    const data = response && response.data ? [...response.data] : null
     setRanking(prevState => ({ ...prevState, [rankingFilter]: data }));
   }, [championship, rankingFilter])
   // Fetch Data
@@ -178,7 +178,7 @@ const ChampionshipView = ({ championship, created }) => {
       }
       let variantBg: RnViewStyleProp | null = null;
       if (ranking.position === 1) {
-        variantBg = { backgroundColor: Variables.championshipItemBg}
+        variantBg = { backgroundColor: Variables.championshipItemBg }
       }
       if (ranking.position === 2) {
         variantBg = { backgroundColor: Variables.championshipItemVariantBg }

@@ -27,7 +27,7 @@ export default function Navigation(props) {
 
 // A root stack navigator is often used for displaying modals on top of all other content
 // Read more here: https://reactnavigation.org/docs/modal
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator();
 
 function RootNavigator(props) {
   // const initialRouteName = props.isLoggedIn ? 'Main' : 'Auth'

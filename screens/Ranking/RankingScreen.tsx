@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Content, View } from 'native-base';
 import Wallpaper from '../../components/Wallpaper/Wallpaper';
 import AppHeader from '../../components/AppHeader/AppHeader';
-import Ranking from '../../components/Ranking/Raking';
+import Ranking from '../../components/Ranking/Ranking';
 import Logo from '../../components/Logo/Logo';
 
 const bgSrc = require('../../assets/images/home_bg.png');

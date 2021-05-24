@@ -2,6 +2,7 @@ import Layout from "../../constants/Layout";
 
 import { StyleSheet } from 'react-native';
 import ThemeUtility from '../../utilities/Theme/Theme.utility'
+import { Variables } from "../../styles";
 
 
 const styles = StyleSheet.create({
@@ -15,18 +16,18 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     text:{
-        fontFamily: 'OpenSansCondensed_Bold',
+        fontFamily: Variables.openSansCondensedBold,
         fontSize: Layout.s(25),
         textAlign: 'center',
     },
     vs:{
         width: Layout.s(100),
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     vsText:{
         textAlign: 'center',
-        fontFamily: 'OpenSansCondensed_Bold',
+        fontFamily: Variables.openSansCondensedBold,
         fontSize: Layout.s(34),
     },
     buttonContainer:{
@@ -51,15 +52,15 @@ const styles = StyleSheet.create({
         flex:1,
     },
     button:{
-        backgroundColor:'#539ecd'
+        backgroundColor: Variables.championshipItemBg
     },
     buttonText:{
         color: '#fff',
-        fontFamily: 'OpenSansCondensed_Bold',
+        fontFamily: Variables.openSansCondensedBold,
         fontSize: Layout.s(22),
     },
     team:{
-
+        flex: 1,
     },
     avatar:{
         

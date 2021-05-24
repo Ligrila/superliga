@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Button, Text } from 'native-base'
-import Avatar from '../Avatar';
+import Avatar from '../Avatar/Avatart';
 
 import styles from './ChallengeItem.styles'
 import { useNavigation } from '@react-navigation/native';
@@ -14,9 +14,6 @@ const ChallengeItem = ({ challenge }) => {
     const viewItem = (challenge) => {
         navigation.navigate("ChallengeView", { challenge })
     }
-
-
-
     return (
         <View style={styles.container} >
             <View style={styles.teamsContainer} >

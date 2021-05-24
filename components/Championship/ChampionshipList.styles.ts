@@ -7,10 +7,10 @@ export default StyleSheet.create({
     },
     scrollContainer:{
         flex: 1,
-        marginBottom: 80
+        
     },
     list:{
-        
+        paddingBottom: 80
     },
     thumbnail:{
         backgroundColor: '#fff',

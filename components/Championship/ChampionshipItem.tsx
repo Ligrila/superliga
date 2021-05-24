@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Text, Button, Icon } from 'native-base'
-import Avatar from '../Avatar';
+import Avatar from '../Avatar/Avatart';
 // Styles
 import styles from './ChampionshipItem.styles';
 const trophyAvatarSrc = require('../../assets/images/championship/trophy-avatar.png')

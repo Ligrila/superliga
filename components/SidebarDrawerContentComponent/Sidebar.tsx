@@ -12,7 +12,6 @@ import {
 
 } from "native-base";
 // Navigation
-import { DrawerItem } from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
 // Components
 import UserAvatar from "../UserAvatar/UserAvatar";
@@ -56,8 +55,8 @@ const menuItems = [
   // },
   {
     text: 'TORNEO AMIGOS',
-    route: 'ChampionshipStack',
-    image: require('../../assets/images/menu/menu_awards.png')
+    route: 'ChampionshipTab',
+    icon: "trophy"
   },
   {
     text: 'RANKING',

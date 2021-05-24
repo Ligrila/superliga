@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { List, ListItem, Text, Left, Body, Right, Switch, Toast } from 'native-base'
 import Title from '../Title';
-import Avatar from '../Avatar';
+import Avatar from '../Avatar/Avatart';
 // Styles
 import styles from './EditChampionshipUsers.styles'
 import Variables from '../../styles/Variables'

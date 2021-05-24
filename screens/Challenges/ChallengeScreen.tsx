@@ -33,7 +33,7 @@ const ChallengeScreen = () => {
   return (
     <Container>
       <Wallpaper source={bgSrc}>
-        <AppHeader logo={true} />
+        <AppHeader logo={false} />
         <Content contentContainerStyle={{ flex: 1 }} padder
           refreshControl={
             <RefreshControl

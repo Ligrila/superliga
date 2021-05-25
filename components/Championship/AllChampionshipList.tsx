@@ -74,21 +74,26 @@ const AllChampionshipList = () => {
 
     let position = 0;
 
-    return data.map((ranking, index) => {
-      
-      
-      const championship = {
-        ...ranking.championship,
+    return data.map((championship, index) => {
+
+      const championships_ranking = championship.championships_ranking
+      const championshipCreated = {
+        ...championship,
         position: ++position,
-        points: ranking.points,
-      };
+        points: championships_ranking.points
+      }
+      // const championshipCreate = {
+      //   ...ranking.championship,
+      //   position: ++position,
+      //   points: ranking.points,
+      // };
 
       const altrow = index % 2 === 0;
       return (
         <ChampionshipItem
-          key={championship.id}
+          key={championshipCreated.id}
           altrow={altrow}
-          championship={championship}
+          championship={championshipCreated}
         />
       );
     });

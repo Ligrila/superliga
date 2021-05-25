@@ -4,8 +4,8 @@ import { Toast, Text, Content } from 'native-base'
 
 import Title from '../Title';
 
-import Notice from '../Notice';
-import Loader from '../Loader';
+import Notice from '../Notice/Notice';
+import Loader from '../Loader/Loader';
 import ChampionshipItem from '../Championship/ChampionshipItem';
 
 
@@ -37,6 +37,7 @@ const CreateChallenge = ({ championship: championshipProps }) => {
   const [allChampionShip, setAllChampionship] = useState<any>(null);
   const fnFetchChampionships = useCallback(async () => {
     const response = await api.allChampionshipList(null, true);
+    console.log('response', response)
     if (response && response.success) {
       setAllChampionship(response.data);
     } else {
@@ -113,15 +114,20 @@ const CreateChallenge = ({ championship: championshipProps }) => {
       )
     }
 
-    return allChampionShip.map((ranking, index) => {
-      const championship = { ...ranking.championship, position: ranking.position, points: ranking.points }
+    return allChampionShip.map((championship, index) => {
+      const championships_ranking = championship.championships_ranking
+      const championshipCreated = {
+        ...championship,
+        position: championships_ranking.position,
+        points: championships_ranking.points
+      }
       const altrow = index % 2 === 0
       return (
         <ChampionshipItem
-          key={championship.id}
+          key={championshipCreated.id}
           altrow={altrow}
-          championship={championship}
-          onChallenge={() => onChallenge(championship)}
+          championship={championshipCreated}
+          onChallenge={() => onChallenge(championshipCreated)}
         />
       )
     })

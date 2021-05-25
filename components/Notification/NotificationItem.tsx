@@ -8,6 +8,7 @@ import styles from './NotificationItem.styles';
 import { GAME_ROUTES_STRING } from "../../new-navigation/GameNavigator";
 import { CHAMPIONSHIP_ROUTES_STRING } from "../../new-navigation/ChampionshipNavigator";
 import { CHALLELNGES_ROUTES_STRING } from "../../new-navigation/ChallengeNavigator";
+import NotificationUtility from "../../utilities/Notification/Notification.utility";
 
 const NotificationItem = ({ notification, colorIndex }) => {
 
@@ -26,42 +27,8 @@ const NotificationItem = ({ notification, colorIndex }) => {
     if (notification.data.navigate) {
       const route = notification.data.navigate
       const params = notification.data.params || null
-      // Game
-      if (GAME_ROUTES_STRING.includes(route)) {
-        navigation.navigate('GamePlayStack', {
-          screen: route,
-          params
-        });
-      }
-      // Championship
-      else if (CHAMPIONSHIP_ROUTES_STRING.includes(route)) {
-        
-        navigation.navigate('ChampionshipTab', {
-          screen: 'ChampionshipStack',
-          params: {
-            screen: route,
-            params: params
-          }
-        });
-      }
-      // Challenge
-      else if (CHALLELNGES_ROUTES_STRING.includes(route)) {
-  
-        navigation.navigate('ChampionshipTab', {
-          screen: 'ChallengeStack',
-          params: {
-            screen: route,
-            params: params
-          }
-        });
-      }
-      else {
-        navigation.navigate(
-          notification.data.navigate,
-          notification.data.params || null
-        );
-      }
-
+      // Navigate
+      NotificationUtility.navigateTo(route, params);
     }
   };
   const variant = colorIndex % 2 === 0;

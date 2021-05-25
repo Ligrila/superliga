@@ -158,10 +158,10 @@ export default class Api extends RestClient {
       startQ='&';
     }
 
-    return this.GET('/championships/all');
+//    return this.GET('/championships/all');
 
 
-//    return this.GET('/championships/all'+search+ignoreMy);
+   return this.GET('/championships/all'+search+ignoreMy);
   }
   allChampionshipListForDate(date_id){
 

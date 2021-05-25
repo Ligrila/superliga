@@ -8,6 +8,7 @@ import { triviaQuestionNotificationAtom } from '../../recoil/TriviaQuestion.reco
 import { appStateAtom } from '../../recoil/AppState.recoil';
 import { Toast } from "native-base";
 import * as RootNavigation from '../../new-navigation/RootNavigation'
+import NotificationUtility from '../../utilities/Notification/Notification.utility';
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -65,18 +66,17 @@ const RegisterPushNotifications = () => {
     //#endregion  Trivia Questions
 
     // Handle Notification
-
-    const processNotification = useCallback(() => {
-        const isSelected = notification?.request.identifier == 'selected'
-        let notificationData: any = {};
+    const whenTapNotification = (notification) => {
+        // const isSelected = notification?.request.identifier == 'selected'
+        let notificationData: any = null;
         if (notification?.request.content.data) {
             notificationData = notification?.request.content.data;
         }
         const hasRedirectData = notificationData.navigate || false
-        if (isSelected) {
+        if (notificationData) {
             if (hasRedirectData) {
                 const params = notificationData.params || null
-                RootNavigation.navigate(notificationData.navigate, params)
+                NotificationUtility.navigateTo(notificationData.navigate, params);
             }
         } else {
             if (!notification?.request.content.title) {
@@ -87,18 +87,19 @@ const RegisterPushNotifications = () => {
                 duration: 4000,
             })
         }
-    }, [notification]);
-    useEffect(() => {
-        if (notification) {
-            processNotification();
-        }
-    }, [notification])
+    };
+
+    // useEffect(() => {
+    //     if (notification) {
+    //         processNotification();
+    //     }
+    // }, [notification])
     useEffect(() => {
 
         registerCategories();
 
         registerForPushNotificationsAsync().then(async (token) => {
-            console.log('token', token)
+            // console.log('token', token)
             const api = new Api();
             const ret = await api.pushNotificationsRegister(token);
             setExpoPushToken(token)
@@ -109,7 +110,8 @@ const RegisterPushNotifications = () => {
         });
         // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
         responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-            console.log(response);
+            // console.log('response', response);
+            whenTapNotification(response.notification);
         });
 
         return () => {

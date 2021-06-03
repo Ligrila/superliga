@@ -191,7 +191,7 @@ const GameScreen = () => {
   //#region Changes Finished Trivia
   const processChangesFinishTriva = useCallback(() => {
     const currentTriviaId = currentTriviaFinished.data.id;
-    console.log('currentTriviaFinished', currentTriviaFinished.data)
+    // console.log('currentTriviaFinished', currentTriviaFinished.data)
     const trivia = {
       type: currentTriviaFinished.data.type
     }

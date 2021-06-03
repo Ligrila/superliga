@@ -13,6 +13,8 @@ import MakeItRain from '../../components/MakeItRain';
 
 import styles from './GameEndScreen.styles';
 import { useFocusEffect } from '@react-navigation/native';
+// import { useRecoilState } from 'recoil';
+// import { currentTriviaFinishedAtom } from '../../recoil/CurrentTrivia.recoil';
 const bgSrc = require('../../assets/images/bg.png');
 const bgProgrammedTriviaSrc = require('../../assets/images/programmed-trivia-bg.png');
 const shareSrc = require('../../assets/images/share.png');
@@ -20,32 +22,9 @@ const shareSrc = require('../../assets/images/share.png');
 
 const GameEndScreen = ({ route }) => {
 
-  const { trivia, currentTriviaId } = route.params ;
-  console.log('trivia',trivia)
+  const { trivia, currentTriviaId } = route.params;
   const [messageRendered, setMessageRendered] = useState(false);
-
-  // goToHomeTimeout = null;
-  // goToStatisticsTimeout = null;
-  // currentTriviaId = false;
-
-  // state = {
-  //   messageRendered: false
-  // }
-
-  // constructor(props) {
-  //   super(props)
-  //   this.currentTriviaId = this.props.navigation.getParam("currentTriviaId",false);
-  //   this.trivia = this.props.navigation.getParam("trivia",false);
-
-  // };
-
-  // componentDidMount(){
-  //   this.goToHomeTimeout = setTimeout( () => {
-  //     this.props.navigation.navigate('Home')
-  //   },  
-  //   15000
-  //   );
-  // }
+  // const [setFinishedTrivia] = useRecoilState(currentTriviaFinishedAtom)
 
   const share = () => {
     let message = "Hola he terminado una Trivia en Jugada SuperLiga. https://www.jugadasuperliga.com/get"
@@ -58,11 +37,14 @@ const GameEndScreen = ({ route }) => {
   }
 
 
-
-  // componentWillUnmount(){
-  //   clearTimeout(this.goToHomeTimeout);
-  //   clearTimeout(this.goToStatisticsTimeout);
-  // }
+  // const resetFinishedTrivia = useCallback(() => {
+  //   const finishedTrivia = {
+  //     hasData: false,
+  //     data: undefined
+  //   }
+  //   // Set Atom to finished
+  //   setFinishedTrivia(finishedTrivia);
+  // }, [])
   const renderShare = () => {
     if (!messageRendered) {
       return null;
@@ -97,6 +79,7 @@ const GameEndScreen = ({ route }) => {
   // Focus
   useFocusEffect(
     useCallback(() => {
+      // resetFinishedTrivia();
       const timerMessageRendered = setTimeout(() => {
         setMessageRendered(true);
       },
@@ -117,7 +100,7 @@ const GameEndScreen = ({ route }) => {
     <Container>
       <Wallpaper source={screenBg}>
         {renderRain()}
-        <AppHeader game={false} logo={true}  />
+        <AppHeader game={false} logo={true} />
         <Content padder contentContainerStyle={styles.contentContainer}>
           {renderMessage()}
           {renderShare()}

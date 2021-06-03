@@ -103,11 +103,12 @@ export default class ActionDispatcherRecoil {
         await setTriviaQuestionNotfification(newQuestion);
     }
     async onStartTrivia(message) {
+        // Reset Finish trivia object issue redirect
+        await TriviaUtility.resetFinishTrivia();
         await TriviaUtility.onStartTrivia(message.payload)
     }
     async onShowBanner(message) {
         await TriviaUtility.onShowBanner(message.payload)
-
     }
     async onStartHalfTime(message) {
         // NextTriviaActions.startHalfTime(message.payload);

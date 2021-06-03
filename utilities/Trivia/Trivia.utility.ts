@@ -4,10 +4,10 @@ export default class TriviaUtility {
 
     static getGameStatusFromData(data) {
         let gamePlayStatus = GamePlayStatus.START_GAME;
-        if(data.half_time_finished){
+        if (data.half_time_finished) {
             gamePlayStatus = GamePlayStatus.FINISH_HALF_TIME;
         }
-        if(data.half_time_started){
+        if (data.half_time_started) {
             gamePlayStatus = GamePlayStatus.START_HALF_TIME;
         }
         return gamePlayStatus;
@@ -85,6 +85,13 @@ export default class TriviaUtility {
             });
 
         }
+    }
+
+    static async resetFinishTrivia() {
+        await setCurrentTriviaFinished({
+            hasData: false,
+            data: undefined
+        });
     }
     static async onFinishHalfTime(payload) {
         const currentTrivia = await getCurrentTrivia();

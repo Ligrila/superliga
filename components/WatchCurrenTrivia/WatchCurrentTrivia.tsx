@@ -12,7 +12,7 @@ const WatchCurrentTrivia = () => {
     const navigationState = useRecoilValue(navigationAtomState)
     const currentTrivia = useRecoilValue(currentTriviaAtom)
     // Ignore Routes  (Game Stack)
-    const ignoreRoutes = GAME_ROUTES_STRING;
+    const ignoreRoutes = [...GAME_ROUTES_STRING].filter(route => route !== 'GameEnd');
     const processNavigation = useCallback(async () => {
         if (currentTrivia && currentTrivia.hasData && navigationState) {
             const route: string = await NavigationUtility.getActiveRouteState(navigationState).name;
@@ -25,7 +25,6 @@ const WatchCurrentTrivia = () => {
                 }
             }
             if (!included) {
-                console.log('Redirecciono!')
                 const trivia = {
                     type: currentTrivia.data.type,
                     award: currentTrivia.award ? currentTrivia.award : null
@@ -40,7 +39,7 @@ const WatchCurrentTrivia = () => {
     }, [currentTrivia])
     useEffect(() => {
         processNavigation();
-    }, [ currentTrivia])
+    }, [currentTrivia])
 
     return null;
 

@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "Jugada Superliga",
-    "description": "Trivia oficial de la Super Liga Argentina de futbol.",
-    "scheme": "jugadasuperliga",
-    "slug": "jugada-superliga",
+    "name": "Jugada AFA",
+    "description": "Trivia oficial de la Liga Argentina de futbol.",
+    "scheme": "jugadaafa",
+    "slug": "jugada-afa",
     "privacy": "unlisted",
     "platforms": [
       "ios",
@@ -27,7 +27,7 @@
       "backgroundColor": "#000"
     },
     "android": {
-      "package": "com.balltoball.jugadasuperliga",
+      "package": "com.balltoball.jugadaafa",
       "versionCode": 59,
       "permissions": [
         "VIBRATE"
@@ -39,7 +39,7 @@
           "data": [
             {
               "scheme": "https",
-              "host": "*.jugadasuperliga.com",
+              "host": "*.jugadaafa.com",
               "pathPrefix": "/championships"
             }
           ],
@@ -63,12 +63,12 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.balltoball.jugadasuperliga",
+      "bundleIdentifier": "com.balltoball.jugadaafa",
       "supportsTablet": true,
       "buildNumber": "2.8.7",
       "icon": "./assets/images/icon_ios.png",
       "associatedDomains": [
-        "applinks:www.jugadasuperliga.com"
+        "applinks:www.jugadaafa.com"
       ],
       "config": {
         "usesNonExemptEncryption": false,
@@ -78,6 +78,6 @@
       }
     },
     "facebookAppId": "882017118635234",
-    "facebookDisplayName": "Jugada SuperLiga"
+    "facebookDisplayName": "Jugada AFA"
   }
 }

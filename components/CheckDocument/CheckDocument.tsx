@@ -7,6 +7,7 @@ import { authUserAtom } from '../../recoil/Auth.recoil'
 
 
 const CheckDocument = () => {
+    /* disabled at the moment due to iOS privacy terms
     const authUser = useRecoilValue(authUserAtom);
     const navigation = useNavigation();
     const fnCheckDocument = useCallback(() => {
@@ -25,7 +26,7 @@ const CheckDocument = () => {
             fnCheckDocument()
         }
     }, [authUser]))
-
+        */
     return null
 
 }

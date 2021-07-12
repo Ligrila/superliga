@@ -45,7 +45,7 @@ class GameEndScreen extends React.Component {
   }
 
   share = () =>{
-    let message = "Hola he terminado una Trivia en Jugada SuperLiga. https://www.jugadasuperliga.com/get"
+    let message = "Hola he terminado una Trivia en Jugada AFA. https://www.jugadaafa.com/get"
     Share.share(
       {
         title: 'Jugada Super Liga',
